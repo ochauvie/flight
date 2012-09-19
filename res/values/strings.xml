@@ -1,0 +1,25 @@
+<resources>
+
+    <string name="app_name">Olivier</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_olivier">Olivier</string>
+    <string name="startChronometre1">Chronometre is started</string>
+    <string name="stopChronometre1">Stop</string>
+    <string name="reset">Reset</string>
+    <string name="StartService">Start service</string>
+    
+    <string name="title_activity_vol">Saisie d\'un vol</string>
+    <string name="aeronef">Aeronef</string>
+    <string name="selectAeronef">F</string>
+    <string name="minVol">Vol (min)</string>
+    <string name="moteur">Moteur</string>
+    <string name="minMot">min</string>
+    <string name="secMot">sec</string>
+	<string name="saveVol">Enregistrer</string>
+	<string name="deleteVol">Reset</string>
+	<string name="viewVol">Vols..</string>
+    
+	<string name="title_activity_aeronef">Aeronef</string>
+	
+	<string name="title_activity_vols">Vols</string>
+</resources>
