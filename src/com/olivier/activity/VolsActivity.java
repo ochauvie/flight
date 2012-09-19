@@ -11,10 +11,13 @@ import com.olivier.model.Vol;
 import com.olivier.sqllite.DbAeronef;
 
 import android.os.Bundle;
+import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.content.DialogInterface;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 public class VolsActivity extends ListActivity  {
@@ -60,17 +63,40 @@ public class VolsActivity extends ListActivity  {
     @SuppressWarnings("rawtypes")
 	@Override
     protected void onListItemClick (ListView l, View v, int position, long id) {
-    	Vol flight = vols.get(position);
-    	dbAeronef.open();
-        dbAeronef.deleteVol(flight);
-        dbAeronef.close();
-        listVols.remove(position);
-    	((ArrayAdapter) l.getAdapter()).notifyDataSetChanged();
-        
-       // finish();
+    	
+    	AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+    	builder.setCancelable(true);
+    	builder.setIcon(R.drawable.ic_launcher); // TODO 
+    	builder.setTitle("Confirmation");
+    	builder.setInverseBackgroundForced(true);
+    	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    	  @Override
+    	  public void onClick(DialogInterface dialog, int which) {
+    		  // TODO
+    	    dialog.dismiss();
+    	  }
+    	});
+    	builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+    	  @Override
+    	  public void onClick(DialogInterface dialog, int which) {
+   		    dialog.dismiss();
+    	  }
+    	});
+    	AlertDialog alert = builder.create();
+    	alert.show();
+
+    	
+	    	Vol flight = vols.get(position);
+	    	dbAeronef.open();
+	        dbAeronef.deleteVol(flight);
+	        dbAeronef.close();
+	        listVols.remove(position);
+	    	((ArrayAdapter) l.getAdapter()).notifyDataSetChanged();
+    	
+       
+    
     	
     }
-    
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
