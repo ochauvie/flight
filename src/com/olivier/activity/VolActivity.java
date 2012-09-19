@@ -103,6 +103,7 @@ public class VolActivity extends Activity {
         		minVol.setText(null);
                 minMot.setText(null);
                 secMot.setText(null);
+                editText1.setText("");
         	}
         });        
         

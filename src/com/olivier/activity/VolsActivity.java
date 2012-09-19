@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import com.olivier.R;
+import com.olivier.activity.MyDialogInterface.DialogReturn;
 import com.olivier.model.Vol;
 import com.olivier.sqllite.DbAeronef;
 
@@ -20,17 +21,25 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 
-public class VolsActivity extends ListActivity  {
+public class VolsActivity extends ListActivity  implements DialogReturn {
 
+	MyDialogInterface myInterface;
+	MyDialogInterface.DialogReturn dialogReturn;
+	
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Vol> vols;
 	ArrayList<String> listVols = new ArrayList<String>();
+	int selectItim = -1;
+	ListView listView;
 	
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vols);
+        
+        myInterface = new MyDialogInterface();
+        myInterface.setListener(this);
         
         dbAeronef.open();
         vols = dbAeronef.getVols();
@@ -63,8 +72,9 @@ public class VolsActivity extends ListActivity  {
     @SuppressWarnings("rawtypes")
 	@Override
     protected void onListItemClick (ListView l, View v, int position, long id) {
-    	
-    	AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+    	listView = l;
+    	selectItim = position;
+    	AlertDialog.Builder builder = new AlertDialog.Builder(l.getContext());
     	builder.setCancelable(true);
     	builder.setIcon(R.drawable.ic_launcher); // TODO 
     	builder.setTitle("Confirmation");
@@ -72,31 +82,37 @@ public class VolsActivity extends ListActivity  {
     	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		  // TODO
+    		myInterface.getListener().onDialogCompleted(true);
     	    dialog.dismiss();
     	  }
     	});
     	builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-   		    dialog.dismiss();
+    		myInterface.getListener().onDialogCompleted(false);
+    		dialog.dismiss();
     	  }
     	});
     	AlertDialog alert = builder.create();
     	alert.show();
-
     	
-	    	Vol flight = vols.get(position);
+    }
+
+    
+	@SuppressWarnings("rawtypes")
+	@Override
+	public void onDialogCompleted(boolean answer) {
+		if (answer && selectItim!=-1) {
+			Vol flight = vols.get(selectItim);
 	    	dbAeronef.open();
 	        dbAeronef.deleteVol(flight);
 	        dbAeronef.close();
-	        listVols.remove(position);
-	    	((ArrayAdapter) l.getAdapter()).notifyDataSetChanged();
-    	
-       
-    
-    	
-    }
+	        listVols.remove(selectItim);
+	    	((ArrayAdapter) listView.getAdapter()).notifyDataSetChanged();
+		}
+		
+	}
+
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -104,8 +120,5 @@ public class VolsActivity extends ListActivity  {
         return true;
     }
 
-    
-    
-    
     
 }
