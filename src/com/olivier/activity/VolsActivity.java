@@ -21,6 +21,7 @@ public class VolsActivity extends ListActivity  {
 
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Vol> vols;
+	ArrayList<String> listVols = new ArrayList<String>();
 	
 	
     @Override
@@ -33,7 +34,7 @@ public class VolsActivity extends ListActivity  {
         dbAeronef.close();
         
         if (vols!=null) {
-        	String[] listVols = new String[vols.size()];
+        	
         	for (int i=0; i<vols.size(); i++) {
         		SimpleDateFormat sdf = new SimpleDateFormat("MM/dd", Locale.FRANCE);
         		Vol flight = vols.get(i);
@@ -41,31 +42,32 @@ public class VolsActivity extends ListActivity  {
 				String sFlight = sDate + " - " + flight.getAeronef() 
 						+ " : " + flight.getMinutesVol() + " min dont "
 						+ " " + flight.getMinutesMoteur() + ":" + flight.getSecondsMoteur() + " moteur \n";
-				listVols[i] = sFlight;
+				listVols.add(sFlight);
 			}
         
-        	//Création d'un SimpleAdapter qui se chargera de mettre les items présents dans notre list (listItem) dans la vue affichageitem    
+        	//Création d'un SimpleAdapter qui se chargera de mettre les items présents dans notre list (listItem) dans la vue affichageitem
         	ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_single_choice, listVols);
         
         	//On attribue à notre listView l'adapter que l'on vient de créer
         	setListAdapter(adapter);
+        	adapter.setNotifyOnChange(true);
         
         }
-        
-        
-      
         
     }
 
     
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     protected void onListItemClick (ListView l, View v, int position, long id) {
     	Vol flight = vols.get(position);
     	dbAeronef.open();
-        long nd = dbAeronef.deleteVol(flight);
+        dbAeronef.deleteVol(flight);
         dbAeronef.close();
-    	
-    	finish();
+        listVols.remove(position);
+    	((ArrayAdapter) l.getAdapter()).notifyDataSetChanged();
+        
+       // finish();
     	
     }
     

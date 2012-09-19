@@ -96,14 +96,13 @@ public class VolActivity extends Activity {
         	}
         });        
 
-        // Reset database
+        // Reset screen
         deleteButton = (Button) findViewById(R.id.deleteVol);
         deleteButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		dbAeronef.open();
-        		dbAeronef.deleteVols();
-        		dbAeronef.close();
-        		editText1.setText(afficheVols());
+        		minVol.setText(null);
+                minMot.setText(null);
+                secMot.setText(null);
         	}
         });        
         

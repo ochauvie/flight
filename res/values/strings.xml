@@ -8,7 +8,7 @@
     <string name="reset">Reset</string>
     <string name="StartService">Start service</string>
     
-    <string name="title_activity_vol">Saisie d\'un vol</string>
+    <string name="title_activity_vol">Vol</string>
     <string name="aeronef">Aeronef</string>
     <string name="selectAeronef">F</string>
     <string name="minVol">Vol (min)</string>
@@ -19,7 +19,7 @@
 	<string name="deleteVol">Reset</string>
 	<string name="viewVol">Vols..</string>
     
-	<string name="title_activity_aeronef">Aeronef</string>
+	<string name="title_activity_aeronef">Hangar</string>
 	
-	<string name="title_activity_vols">Vols</string>
+	<string name="title_activity_vols">Liste des vols</string>
 </resources>
