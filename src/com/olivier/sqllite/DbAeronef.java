@@ -48,6 +48,11 @@ public class DbAeronef {
 		return bdd;
 	}
 	
+	/**
+	 * Insert new {@link Vol}
+	 * @param vol the {@link Vol} to insert
+	 * @return
+	 */
 	public long insertVol(Vol vol){
 		//Création d'un ContentValues (fonctionne comme une HashMap)
 		ContentValues values = new ContentValues();
@@ -65,7 +70,10 @@ public class DbAeronef {
 		return bdd.insert(DbManager.TABLE_VOLS, null, values);
 	}
 		
-	
+	/**
+	 * Get {@link Vol} list 
+	 * @return the list
+	 */
 	public ArrayList<Vol> getVols(){
 		//Récupère dans un Cursor les valeurs correspondant à un livre contenu dans la BDD (ici on sélectionne le livre grâce à son titre)
 		//String orderBy = DbManager.COL_DATE + "," + DbManager.COL_NAME;
@@ -80,10 +88,19 @@ public class DbAeronef {
 		return cursorToVols(c);
 	}
 	
+	/**
+	 * Delete all {@link Vol}
+	 * @return
+	 */
 	public long deleteVols(){
 		return bdd.delete(DbManager.TABLE_VOLS, null, null);
 	}
 	
+	/**
+	 * Delete a {@link Vol}
+	 * @param vol the {@link Vol} to delete
+	 * @return
+	 */
 	public long deleteVol(Vol vol){
 		return bdd.delete(DbManager.TABLE_VOLS, DbManager.COL_ID + "=" + vol.getId(), null);
 	}
@@ -99,7 +116,6 @@ public class DbAeronef {
 		if (c.getCount() == 0) {
 			return null;
 		}
-		//c.moveToFirst();
 		while (c.moveToNext()) {
 			Vol vol = new Vol();
 			vol.setId(c.getInt(DbManager.NUM_COL_ID));
@@ -133,6 +149,11 @@ public class DbAeronef {
 		return bdd.insert(DbManager.TABLE_AERONEFS, null, values);
 	}
 	
+	/**
+	 * Delete a {@link Aeronef}
+	 * @param aeronef the {@link Aeronef} to delete
+	 * @return
+	 */
 	public long deleteAeronef(Aeronef aeronef) {
 		return bdd.delete(DbManager.TABLE_AERONEFS, DbManager.COL_ID + "=" + aeronef.getId(), null);
 	}
@@ -160,7 +181,6 @@ public class DbAeronef {
 		if (c.getCount() == 0) {
 			return null;
 		}
-		//c.moveToFirst();
 		while (c.moveToNext()) {
 			Aeronef aeronef = new Aeronef();
 			aeronef.setId(c.getInt(DbManager.NUM_COL_ID));

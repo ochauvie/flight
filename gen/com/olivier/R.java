@@ -11,15 +11,16 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int hangar=0x7f020000;
-        public static final int ic_action_search=0x7f020001;
-        public static final int ic_launcher=0x7f020002;
-        public static final int listview_selector=0x7f020003;
-        public static final int listview_selector_focussed=0x7f020004;
-        public static final int listview_selector_pressed=0x7f020005;
-        public static final int recorder=0x7f020006;
-        public static final int reset=0x7f020007;
-        public static final int save=0x7f020008;
+        public static final int delete=0x7f020000;
+        public static final int hangar=0x7f020001;
+        public static final int ic_action_search=0x7f020002;
+        public static final int ic_launcher=0x7f020003;
+        public static final int listview_selector=0x7f020004;
+        public static final int listview_selector_focussed=0x7f020005;
+        public static final int listview_selector_pressed=0x7f020006;
+        public static final int recorder=0x7f020007;
+        public static final int reset=0x7f020008;
+        public static final int save=0x7f020009;
     }
     public static final class id {
         public static final int LL_Fond=0x7f070000;
@@ -62,21 +63,24 @@ public final class R {
         public static final int aeronef=0x7f040008;
         public static final int app_name=0x7f040000;
         public static final int deleteVol=0x7f040010;
+        public static final int deletel=0x7f040012;
         public static final int menu_settings=0x7f040001;
         public static final int minMot=0x7f04000d;
         public static final int minVol=0x7f04000b;
         public static final int moteur=0x7f04000c;
+        public static final int non=0x7f040014;
+        public static final int oui=0x7f040013;
         public static final int reset=0x7f040005;
         public static final int saveVol=0x7f04000f;
         public static final int secMot=0x7f04000e;
         public static final int selectAeronef=0x7f04000a;
         public static final int startChronometre1=0x7f040003;
         public static final int stopChronometre1=0x7f040004;
-        public static final int title_activity_aeronef=0x7f040012;
-        public static final int title_activity_hangar=0x7f040013;
+        public static final int title_activity_aeronef=0x7f040015;
+        public static final int title_activity_hangar=0x7f040016;
         public static final int title_activity_olivier=0x7f040002;
         public static final int title_activity_vol=0x7f040007;
-        public static final int title_activity_vols=0x7f040014;
+        public static final int title_activity_vols=0x7f040017;
         public static final int type=0x7f040009;
         public static final int viewVol=0x7f040011;
     }

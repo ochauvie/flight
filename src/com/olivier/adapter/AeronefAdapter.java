@@ -9,7 +9,6 @@ import com.olivier.model.Aeronef;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,7 +87,6 @@ public class AeronefAdapter extends BaseAdapter{
 		  String type = aeronefs.get(position).getType();
 		  if (Aeronef.T_PLANEUR.equals(type)) {
 		    tv_name.setTextColor(Color.RED);
-		    //tv_name.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
 		  } else if (Aeronef.T_AVION.equals(type)) {
 			  tv_name.setTextColor(Color.MAGENTA);
 		  } else if (Aeronef.T_HELICO.equals(type)) {
@@ -115,7 +113,6 @@ public class AeronefAdapter extends BaseAdapter{
 							
 					//On prévient les listeners qu'il y a eu un clic sur le TextView "tv_name".
 					sendListener(aeronefs.get(position), position);
-							
 				}
 			        	
 			});

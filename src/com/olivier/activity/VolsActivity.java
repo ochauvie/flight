@@ -75,17 +75,17 @@ public class VolsActivity extends ListActivity  implements DialogReturn {
     	selectItim = position;
     	AlertDialog.Builder builder = new AlertDialog.Builder(l.getContext());
     	builder.setCancelable(true);
-    	builder.setIcon(R.drawable.ic_launcher); // TODO 
-    	builder.setTitle("Confirmation");
+    	builder.setIcon(R.drawable.delete); 
+    	builder.setTitle(R.string.deletel);
     	builder.setInverseBackgroundForced(true);
-    	builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+    	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
     		myInterface.getListener().onDialogCompleted(true);
     	    dialog.dismiss();
     	  }
     	});
-    	builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+    	builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
     		myInterface.getListener().onDialogCompleted(false);

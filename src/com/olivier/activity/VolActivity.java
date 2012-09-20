@@ -1,9 +1,6 @@
 package com.olivier.activity;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.Locale;
 
 import com.olivier.R;
 import com.olivier.model.Vol;
@@ -14,7 +11,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -112,7 +108,6 @@ public class VolActivity extends Activity {
         selectAeronef = (ImageButton) findViewById(R.id.selectAeronef);
         selectAeronef.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		//Intent myIntent = new Intent(v.getContext(), AeronefActivity.class);
         		Intent myIntent = new Intent(v.getContext(), HangarActivity.class);
                 startActivityForResult(myIntent, 0);
                 finish();
@@ -125,29 +120,8 @@ public class VolActivity extends Activity {
         	public void onClick(View v) {
         		Intent myIntent = new Intent(v.getContext(), VolsActivity.class);
                 startActivityForResult(myIntent, 0);
-        		
-        		//editText1.setText(afficheVols());
         	}
         });
-    }
-
-    private String afficheVols() {
-    	String result = "LISTE DES VOLS \n";
-    	dbAeronef.open();
-    	ArrayList<Vol> vols = dbAeronef.getVols();
-    	dbAeronef.close();
-		if (vols!=null && vols.size()>0) {
-			for (Vol flight:vols) {
-				SimpleDateFormat sdf = new SimpleDateFormat("MM/dd", Locale.FRANCE);
-				String sDate = sdf.format(flight.getDateVol());
-				result = result + sDate + " - " + flight.getAeronef() 
-						+ " : " + flight.getMinutesVol() + " min dont "
-						+ " " + flight.getMinutesMoteur() + ":" + flight.getSecondsMoteur() + " moteur \n";
-			}
-		} else {
-			result = "Aucun vol enregistré";
-		}
-    	return result;
     }
 
     
