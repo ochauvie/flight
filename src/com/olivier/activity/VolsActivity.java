@@ -18,7 +18,6 @@ import android.content.DialogInterface;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 
 public class VolsActivity extends ListActivity  implements DialogReturn {
@@ -69,7 +68,7 @@ public class VolsActivity extends ListActivity  implements DialogReturn {
     }
 
     
-    @SuppressWarnings("rawtypes")
+    
 	@Override
     protected void onListItemClick (ListView l, View v, int position, long id) {
     	listView = l;

@@ -16,20 +16,21 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 
 public class VolActivity extends Activity {
 
 	private DbAeronef dbAeronef = new DbAeronef(this);
-	private Button saveButton;
-	private Button deleteButton;
+	private ImageButton saveButton;
+	private ImageButton deleteButton;
 	private EditText aeronef;
 	private EditText minVol;
 	private EditText minMot;
 	private EditText secMot;
-	private Button selectAeronef;
-	private Button viewVol;
+	private ImageButton selectAeronef;
+	private ImageButton viewVol;
 	
 	private TextView editText1;
 	
@@ -59,7 +60,7 @@ public class VolActivity extends Activity {
         }
         
         // Save flight
-        saveButton = (Button) findViewById(R.id.saveVol);
+        saveButton = (ImageButton) findViewById(R.id.saveVol);
         saveButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		String sAronef = aeronef.getText().toString();
@@ -85,7 +86,7 @@ public class VolActivity extends Activity {
 	        		
 	        		dbAeronef.open();
 	        		dbAeronef.insertVol(vol);
-	        		String result = "Vol ajouté: \n" + vol.getAeronef() 
+	        		String result = "Vol ajouté: \n\n" + vol.getAeronef() 
 							+ " : " + vol.getMinutesVol() + " min dont "
 							+ " " + vol.getMinutesMoteur() + ":" + vol.getSecondsMoteur() + " moteur \n";
 	        		editText1.setText(result);
@@ -97,7 +98,7 @@ public class VolActivity extends Activity {
         });        
 
         // Reset screen
-        deleteButton = (Button) findViewById(R.id.deleteVol);
+        deleteButton = (ImageButton) findViewById(R.id.deleteVol);
         deleteButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		minVol.setText(null);
@@ -108,7 +109,7 @@ public class VolActivity extends Activity {
         });        
         
         // Find aeronef
-        selectAeronef = (Button) findViewById(R.id.selectAeronef);
+        selectAeronef = (ImageButton) findViewById(R.id.selectAeronef);
         selectAeronef.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		Intent myIntent = new Intent(v.getContext(), AeronefActivity.class);
@@ -118,7 +119,7 @@ public class VolActivity extends Activity {
         });
 
         // View flights
-        viewVol = (Button) findViewById(R.id.viewVol);
+        viewVol = (ImageButton) findViewById(R.id.viewVol);
         viewVol.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		Intent myIntent = new Intent(v.getContext(), VolsActivity.class);

@@ -11,8 +11,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:listSelector="@drawable/listview_selector"
-        
-        
          >
         
     </ListView>

@@ -10,7 +10,7 @@
     
     <string name="title_activity_vol">Vol</string>
     <string name="aeronef">Aeronef</string>
-    <string name="selectAeronef">F</string>
+    <string name="selectAeronef">Hangar</string>
     <string name="minVol">Vol (min)</string>
     <string name="moteur">Moteur</string>
     <string name="minMot">min</string>
