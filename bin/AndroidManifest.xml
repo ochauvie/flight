@@ -35,7 +35,13 @@
         </activity>
         <activity
             android:name=".activity.VolsActivity"
-            android:label="@string/title_activity_vols" >
+            android:label="@string/title_activity_vols" 
+            android:icon="@drawable/recorder">
+        </activity>
+        <activity
+            android:name=".activity.HangarActivity"
+            android:label="@string/title_activity_hangar"
+            android:icon="@drawable/hangar">
         </activity>
          <service android:name=".service.OlivierService"/>
     </application>

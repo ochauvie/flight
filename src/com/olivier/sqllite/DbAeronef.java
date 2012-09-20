@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import com.olivier.model.Aeronef;
 import com.olivier.model.Vol;
 
 import android.content.ContentValues;
@@ -65,7 +66,6 @@ public class DbAeronef {
 	}
 		
 	
-	
 	public ArrayList<Vol> getVols(){
 		//Récupère dans un Cursor les valeurs correspondant à un livre contenu dans la BDD (ici on sélectionne le livre grâce à son titre)
 		//String orderBy = DbManager.COL_DATE + "," + DbManager.COL_NAME;
@@ -89,13 +89,17 @@ public class DbAeronef {
 	}
 	
 	
-	//Cette méthode permet de convertir un cursor en un vol
+	/**
+	 * Transform {@link Cursor} in list of {@link Vol}
+	 * @param c{@link Cursor}
+	 * @return the list of {@link Vol}
+	 */
 	private ArrayList<Vol> cursorToVols(Cursor c){
 		ArrayList<Vol> vols = new ArrayList<Vol>();
 		if (c.getCount() == 0) {
 			return null;
 		}
-		c.moveToFirst();
+		//c.moveToFirst();
 		while (c.moveToNext()) {
 			Vol vol = new Vol();
 			vol.setId(c.getInt(DbManager.NUM_COL_ID));
@@ -115,6 +119,57 @@ public class DbAeronef {
 		}
 		c.close();
  		return vols;
+	}
+	
+	/**
+	 * Insert a new {@link Aeronef}
+	 * @param aeronef the {@link Aeronef} to insert
+	 * @return
+	 */
+	public long insertAeronef(Aeronef aeronef) {
+		ContentValues values = new ContentValues();
+		values.put(DbManager.COL_NAME, aeronef.getName());
+		values.put(DbManager.COL_TYPE, aeronef.getType());
+		return bdd.insert(DbManager.TABLE_AERONEFS, null, values);
+	}
+	
+	public long deleteAeronef(Aeronef aeronef) {
+		return bdd.delete(DbManager.TABLE_AERONEFS, DbManager.COL_ID + "=" + aeronef.getId(), null);
+	}
+	
+	/**
+	 * Get the list of {@link Aeronef}
+	 * @return the list of {@link Aeronef}
+	 */
+	public ArrayList<Aeronef> getAeronefs(){
+		String orderBy = DbManager.COL_TYPE + " DESC";
+		Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID, 
+																 DbManager.COL_NAME, 
+																 DbManager.COL_TYPE}, 
+							null, null, null, null, orderBy);
+		return cursorToAeronefs(c);
+	}
+	
+	/**
+	 * Transform {@link Cursor} in list of {@link Aeronef}
+	 * @param c{@link Cursor}
+	 * @return the list of {@link Aeronef}
+	 */
+	private ArrayList<Aeronef> cursorToAeronefs(Cursor c){
+		ArrayList<Aeronef> aeronefs = new ArrayList<Aeronef>();
+		if (c.getCount() == 0) {
+			return null;
+		}
+		//c.moveToFirst();
+		while (c.moveToNext()) {
+			Aeronef aeronef = new Aeronef();
+			aeronef.setId(c.getInt(DbManager.NUM_COL_ID));
+			aeronef.setName(c.getString(DbManager.NUM_COL_NAME));
+			aeronef.setType(c.getString(DbManager.NUM_COL_TYPE));
+			aeronefs.add(aeronef);
+		}
+		c.close();
+ 		return aeronefs;
 	}
 	
 }

@@ -10,8 +10,9 @@
     
     <string name="title_activity_vol">Vol</string>
     <string name="aeronef">Aeronef</string>
+    <string name="type">Type</string>
     <string name="selectAeronef">Hangar</string>
-    <string name="minVol">Vol (min)</string>
+    <string name="minVol">Temps</string>
     <string name="moteur">Moteur</string>
     <string name="minMot">min</string>
     <string name="secMot">sec</string>
@@ -20,6 +21,8 @@
 	<string name="viewVol">Vols..</string>
     
 	<string name="title_activity_aeronef">Hangar</string>
+	
+	<string name="title_activity_hangar">Hangar</string>
 	
 	<string name="title_activity_vols">Liste des vols</string>
 </resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	android:id="@+id/LL_Fond">
+	
+	
+	<TextView android:text="@string/aeronef" android:id="@+id/name"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:textSize="35sp"
+		android:layout_marginLeft="5dp">
+	</TextView>
+	
+	<TextView android:id="@+id/type"
+	    android:text="@string/type"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_marginLeft="15dp">
+	</TextView>
+	
+	
+</LinearLayout>

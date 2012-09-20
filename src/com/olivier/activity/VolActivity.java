@@ -86,7 +86,7 @@ public class VolActivity extends Activity {
 	        		
 	        		dbAeronef.open();
 	        		dbAeronef.insertVol(vol);
-	        		String result = "Vol ajouté: \n\n" + vol.getAeronef() 
+	        		String result = "\nVol ajouté: \n\n" + vol.getAeronef() 
 							+ " : " + vol.getMinutesVol() + " min dont "
 							+ " " + vol.getMinutesMoteur() + ":" + vol.getSecondsMoteur() + " moteur \n";
 	        		editText1.setText(result);
@@ -112,7 +112,8 @@ public class VolActivity extends Activity {
         selectAeronef = (ImageButton) findViewById(R.id.selectAeronef);
         selectAeronef.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		Intent myIntent = new Intent(v.getContext(), AeronefActivity.class);
+        		//Intent myIntent = new Intent(v.getContext(), AeronefActivity.class);
+        		Intent myIntent = new Intent(v.getContext(), HangarActivity.class);
                 startActivityForResult(myIntent, 0);
                 finish();
         	}
