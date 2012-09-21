@@ -66,6 +66,7 @@ public final class R {
     }
     public static final class string {
         public static final int StartService=0x7f040006;
+        public static final int addAeronef=0x7f040016;
         public static final int aeronef=0x7f040008;
         public static final int app_name=0x7f040000;
         public static final int deleteVol=0x7f040010;
@@ -83,10 +84,10 @@ public final class R {
         public static final int startChronometre1=0x7f040003;
         public static final int stopChronometre1=0x7f040004;
         public static final int title_activity_aeronef=0x7f040015;
-        public static final int title_activity_hangar=0x7f040016;
+        public static final int title_activity_hangar=0x7f040017;
         public static final int title_activity_olivier=0x7f040002;
         public static final int title_activity_vol=0x7f040007;
-        public static final int title_activity_vols=0x7f040017;
+        public static final int title_activity_vols=0x7f040018;
         public static final int type=0x7f040009;
         public static final int viewVol=0x7f040011;
     }

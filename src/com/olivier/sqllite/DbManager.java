@@ -90,6 +90,9 @@ public class DbManager extends SQLiteOpenHelper {
 		values.put(DbManager.COL_NAME, "Bullet");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AUTO);
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
+		values.put(DbManager.COL_NAME, "Opale");
+		values.put(DbManager.COL_TYPE, Aeronef.T_PARAMOTEUR);
+		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
 	}
 

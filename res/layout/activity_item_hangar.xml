@@ -7,7 +7,7 @@
 	<TextView android:text="@string/aeronef" android:id="@+id/name"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
-		android:textSize="35sp"
+		android:textSize="30sp"
 		android:layout_marginLeft="5dp">
 	</TextView>
 	
