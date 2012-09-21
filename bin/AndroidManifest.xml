@@ -31,7 +31,7 @@
         </activity>
         <activity
             android:name=".activity.AeronefActivity"
-            android:label="@string/title_activity_aeronef" >
+            android:label="@string/title_activity_aeronef">
         </activity>
         <activity
             android:name=".activity.VolsActivity"

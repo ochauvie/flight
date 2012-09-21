@@ -29,6 +29,7 @@ public class VolActivity extends Activity {
 	private ImageButton viewVol;
 	
 	private TextView editText1;
+	private String typeAeronef;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,9 +51,8 @@ public class VolActivity extends Activity {
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
         	String sAeronef = bundle.getString("aeronef");
-        	if (sAeronef!=null) {
-        		aeronef.setText(sAeronef);	
-        	}
+        	typeAeronef = bundle.getString("type");
+        	if (sAeronef!=null) {aeronef.setText(sAeronef);}
         }
         
         // Save flight
@@ -63,6 +63,7 @@ public class VolActivity extends Activity {
         		if (!"".equals(sAronef) && sAronef!=null) {
 	        		Vol vol = new Vol();
 	        		vol.setAeronef(sAronef);
+	        		vol.setType(typeAeronef);
 	        		try {
 	        			vol.setMinutesVol(Integer.valueOf(minVol.getText().toString()));
 	        		} catch (NumberFormatException e) {

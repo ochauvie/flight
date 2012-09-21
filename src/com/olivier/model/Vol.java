@@ -6,6 +6,7 @@ public class Vol {
 
 	private int id;
 	private String aeronef;
+	private String type;
 	private int minutesVol;
 	private int minutesMoteur;
 	private int secondsMoteur;
@@ -13,6 +14,21 @@ public class Vol {
 
 	
 	
+	
+	/**
+	 * Getter type
+	 * @return the type
+	 */
+	public String getType() {
+		return type;
+	}
+	/**
+	 * Setter type
+	 * @param type the type to set
+	 */
+	public void setType(String type) {
+		this.type = type;
+	}
 	/**
 	 * Getter dateVol
 	 * @return the dateVol

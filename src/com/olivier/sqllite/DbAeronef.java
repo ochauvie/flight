@@ -58,6 +58,7 @@ public class DbAeronef {
 		ContentValues values = new ContentValues();
 		//on lui ajoute une valeur associée à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
 		values.put(DbManager.COL_NAME, vol.getAeronef());
+		values.put(DbManager.COL_TYPE, vol.getType());
 		values.put(DbManager.COL_MIN_VOL, vol.getMinutesVol());
 		values.put(DbManager.COL_MIN_MOTEUR, vol.getMinutesMoteur());
 		values.put(DbManager.COL_SEC_MOTEUR, vol.getSecondsMoteur());
@@ -80,6 +81,7 @@ public class DbAeronef {
 		String orderBy = null;
 		Cursor c = bdd.query(DbManager.TABLE_VOLS, new String[] {DbManager.COL_ID, 
 																 DbManager.COL_NAME, 
+																 DbManager.COL_TYPE,
 																 DbManager.COL_MIN_VOL, 
 																 DbManager.COL_MIN_MOTEUR, 
 																 DbManager.COL_SEC_MOTEUR, 
@@ -120,6 +122,7 @@ public class DbAeronef {
 			Vol vol = new Vol();
 			vol.setId(c.getInt(DbManager.NUM_COL_ID));
 			vol.setAeronef(c.getString(DbManager.NUM_COL_NAME));
+			vol.setType(c.getString(DbManager.NUM_COL_TYPE));
 			vol.setMinutesVol(c.getInt(DbManager.NUM_COL_MIN_VOL));
 			vol.setMinutesMoteur(c.getInt(DbManager.NUM_COL_MIN_MOTEUR));
 			vol.setSecondsMoteur(c.getInt(DbManager.NUM_COL_SEC_MOTEUR));

@@ -1,5 +1,7 @@
 package com.olivier.model;
 
+import android.graphics.Color;
+
 public class Aeronef {
 	
 	public static final String T_PLANEUR = "Planeur";
@@ -54,6 +56,21 @@ public class Aeronef {
 		this.type = type;
 	}
 	
+	public static int getColor(String type) {
+		if (Aeronef.T_PLANEUR.equals(type)) {
+		    return Color.RED;
+		  } else if (Aeronef.T_AVION.equals(type)) {
+			  return Color.MAGENTA;
+		  } else if (Aeronef.T_HELICO.equals(type)) {
+			  return Color.GREEN;
+		  } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
+			  return Color.YELLOW;
+		  } else if (Aeronef.T_AUTO.equals(type)) {
+			  return Color.GRAY;
+		  } else {
+			  return Color.WHITE;
+		  }
+	}
 	
 	
 }

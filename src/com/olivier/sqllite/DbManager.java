@@ -17,13 +17,13 @@ public class DbManager extends SQLiteOpenHelper {
 	public static final String COL_NAME = "NAME";
 	public static final int NUM_COL_NAME = 1;
 	public static final String COL_MIN_VOL = "MIN_VOL";
-	public static final int NUM_COL_MIN_VOL = 2;
+	public static final int NUM_COL_MIN_VOL = 3;
 	public static final String COL_MIN_MOTEUR = "MIN_MOT";
-	public static final int NUM_COL_MIN_MOTEUR = 3;
+	public static final int NUM_COL_MIN_MOTEUR = 4;
 	public static final String COL_SEC_MOTEUR = "SEC_MOT";
-	public static final int NUM_COL_SEC_MOTEUR = 4;
+	public static final int NUM_COL_SEC_MOTEUR = 5;
 	public static final String COL_DATE = "DATE_VOL";
-	public static final int NUM_COL_DATE = 5;
+	public static final int NUM_COL_DATE = 6;
 	
 	public static final String TABLE_AERONEFS = "table_aeronefs";
 	//public static final String COL_ID = "ID";
@@ -34,9 +34,11 @@ public class DbManager extends SQLiteOpenHelper {
 	public static final int NUM_COL_TYPE = 2;
 	
 	
+	
 	private static final String CREATE_TABLE_VOLS = "CREATE TABLE " + TABLE_VOLS + " ("
 			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
 			+ COL_NAME + " TEXT NOT NULL, "
+			+ COL_TYPE + " TEXT, "
 			+ COL_MIN_VOL + " INTEGER, "
 			+ COL_MIN_MOTEUR + " INTEGER, "
 			+ COL_SEC_MOTEUR + " INTEGER, "

@@ -6,7 +6,7 @@ package com.olivier.activity;
 import java.util.ArrayList;
 
 import com.olivier.R;
-import com.olivier.adapter.AeronefAdapter;
+import com.olivier.adapter.AeronefsAdapter;
 import com.olivier.listener.AeronefAdapterListener;
 import com.olivier.model.Aeronef;
 import com.olivier.sqllite.DbAeronef;
@@ -34,7 +34,7 @@ public class HangarActivity extends ListActivity  implements AeronefAdapterListe
         dbAeronef.close();
         
         // Création et initialisation de l'Adapter pour les personnes
-        AeronefAdapter adapter = new AeronefAdapter(this, aeronefs);
+        AeronefsAdapter adapter = new AeronefsAdapter(this, aeronefs);
             
         // Ecoute des évènements sur votre liste
         adapter.addListener(this);
@@ -53,6 +53,7 @@ public class HangarActivity extends ListActivity  implements AeronefAdapterListe
     	Aeronef sel = aeronefs.get(position);
     	Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
     	volActivity.putExtra("aeronef", sel.getName());
+    	volActivity.putExtra("type", sel.getType());
     	startActivity(volActivity);
     	finish();
 	}
