@@ -12,7 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class AeronefsAdapter extends BaseAdapter{
@@ -42,6 +43,13 @@ public class AeronefsAdapter extends BaseAdapter{
 	    }
 	}
 	
+	
+	private void sendListenerToDelete(Aeronef item, int position) {
+	    for(int i = mListListener.size()-1; i >= 0; i--) {
+	    	mListListener.get(i).onClickNameToDelete(item, position);
+	    }
+	}
+	
 	@Override
 	public int getCount() {
 		if (aeronefs!=null) {
@@ -65,18 +73,19 @@ public class AeronefsAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		LinearLayout layoutItem;
+		RelativeLayout layoutItem;
 		  //(1) : Réutilisation des layouts
 		  if (convertView == null) {
 		  	//Initialisation de notre item à partir du  layout XML "personne_layout.xml"
-		    layoutItem = (LinearLayout) mInflater.inflate(R.layout.activity_item_hangar, parent, false);
+		    layoutItem = (RelativeLayout) mInflater.inflate(R.layout.activity_item_hangar, parent, false);
 		  } else {
-		  	layoutItem = (LinearLayout) convertView;
+		  	layoutItem = (RelativeLayout) convertView;
 		  }
 		  
 		  //(2) : Récupération des TextView de notre layout      
 		  TextView tv_type = (TextView)layoutItem.findViewById(R.id.type);
 		  TextView tv_name = (TextView)layoutItem.findViewById(R.id.name);
+		  ImageButton bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteAeronef);
 		        
 		  //(3) : Renseignement des valeurs       
 		  tv_type.setText("(" + aeronefs.get(position).getType() + ")");
@@ -88,6 +97,7 @@ public class AeronefsAdapter extends BaseAdapter{
 		  
 		//On mémorise la position de la "Personne" dans le composant textview
 		  tv_name.setTag(position);
+		  bDelete.setTag(position);
 		  //On ajoute un listener
 		  tv_name.setOnClickListener(new View.OnClickListener() {
 			
@@ -101,6 +111,20 @@ public class AeronefsAdapter extends BaseAdapter{
 				}
 			        	
 			});
+		  
+		  
+		  bDelete.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					//Lorsque l'on clique sur le nom, on récupère la position de Aeronef"
+					Integer position = (Integer)v.getTag();
+							
+					//On prévient les listeners qu'il y a eu un clic sur le TextView "tv_name".
+					sendListenerToDelete(aeronefs.get(position), position);
+				}
+			        	
+			});
+		  
 		  
 		  //On retourne l'item créé.
 		  return layoutItem;

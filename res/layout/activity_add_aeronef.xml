@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content"
+	android:id="@+id/item_vols">
+	
+	<TextView
+        android:id="@+id/textViewAeronef"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/aeronef" />
+	
+	<EditText
+        android:id="@+id/editTextAeronef"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewAeronef"
+        android:layout_alignBottom="@+id/textViewAeronef"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="80dp"
+        android:ems="10"
+        android:inputType="text" />
+
+	<RadioGroup
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_alignParentTop="true"
+	    android:layout_marginLeft="16dp"
+	    android:layout_marginTop="50dp"
+	    android:orientation="vertical" >
+
+	    <RadioButton
+	        android:id="@+id/option_planeur"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/opt_planeur" />
+
+	    <RadioButton
+	        android:id="@+id/option_avion"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/opt_avion" />
+
+	    <RadioButton
+	        android:id="@+id/option_paramoteur"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/opt_paramoteur" />
+	    
+	    <RadioButton
+	        android:id="@+id/option_helico"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/opt_helico" />
+	    
+	    <RadioButton
+	        android:id="@+id/option_auto"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/opt_auto" />
+	    
+	    <RadioButton
+	        android:id="@+id/option_divers"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/opt_divers" />
+	</RadioGroup>
+	
+	<TextView
+        android:id="@+id/textViewLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="280dp" 
+        android:text="log" />
+	
+	
+	 <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true" >
+			    
+		<ImageButton
+	        android:id="@+id/save"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="5dp"
+	        android:layout_marginTop="310dp"
+	        android:background="#00000000"
+	        android:contentDescription="@string/save"
+	        android:src="@drawable/save" />
+		
+		 <ImageButton
+	        android:id="@+id/close"
+	        android:layout_width="96dp"
+	        android:layout_height="wrap_content"
+	        android:layout_marginTop="310dp"
+	        android:layout_marginLeft="170dp"
+	        android:background="#00000000"
+	        android:contentDescription="@string/close"
+	        android:src="@drawable/close" />
+			
+	 </LinearLayout>
+	
+</RelativeLayout>

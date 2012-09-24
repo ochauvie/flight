@@ -43,6 +43,11 @@
             android:label="@string/title_activity_hangar"
             android:icon="@drawable/hangar">
         </activity>
+        <activity
+            android:name=".activity.AddAeronefActivity"
+            android:label="@string/title_activity_addAeronef"
+            android:icon="@drawable/hangar">
+        </activity>
          <service android:name=".service.OlivierService"/>
     </application>
 

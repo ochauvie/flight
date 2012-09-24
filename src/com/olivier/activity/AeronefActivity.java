@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+@Deprecated
 public class AeronefActivity extends ListActivity  {
 
 	

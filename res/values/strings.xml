@@ -6,21 +6,22 @@
     <string name="startChronometre1">Chronometre is started</string>
     <string name="stopChronometre1">Stop</string>
     <string name="reset">Reset</string>
+    <string name="close">Fermer</string>
     <string name="StartService">Start service</string>
     
     <string name="title_activity_vol">Vol</string>
-    <string name="aeronef">Aeronef</string>
+    <string name="aeronef">Machine</string>
     <string name="type">Type</string>
     <string name="selectAeronef">Hangar</string>
     <string name="minVol">Temps</string>
     <string name="moteur">Moteur</string>
     <string name="minMot">min</string>
     <string name="secMot">sec</string>
-	<string name="saveVol">Enregistrer</string>
+	<string name="save">Enregistrer</string>
 	<string name="deleteVol">Reset</string>
 	<string name="viewVol">Vols..</string>
     
-	<string name="deletel">Suppression</string>
+	<string name="delete">Suppression</string>
 	<string name="oui">Oui</string>
 	<string name="non">Non</string>
 	
@@ -30,5 +31,16 @@
 	
 	<string name="title_activity_hangar">Hangar</string>
 	
-	<string name="title_activity_vols">Liste des vols</string>
+	<string name="title_activity_vols">Liste des enregistrements</string>
+	
+	<string name="title_activity_addAeronef">Nouvelle machine</string>
+	<string name="opt_planeur">Planeur</string>
+	<string name="opt_avion">Avion</string>
+	<string name="opt_paramoteur">Paramoteur</string>
+	<string name="opt_helico">Helicoptère</string>
+	<string name="opt_auto">Automobile</string>
+	<string name="opt_divers">Divers</string>
+	
+	
+	
 </resources>

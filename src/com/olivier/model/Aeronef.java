@@ -9,6 +9,7 @@ public class Aeronef {
 	public static final String T_PARAMOTEUR = "Paramoteur";
 	public static final String T_HELICO = "Helico";
 	public static final String T_AUTO = "Automobile";
+	public static final String T_DIVERS = "Divers";
 	
 	private int id;
 	private String name;
@@ -67,6 +68,8 @@ public class Aeronef {
 			  return Color.CYAN;
 		  } else if (Aeronef.T_AUTO.equals(type)) {
 			  return Color.GRAY;
+		  } else if (Aeronef.T_DIVERS.equals(type)) {
+			  return Color.YELLOW;
 		  } else {
 			  return Color.WHITE;
 		  }
