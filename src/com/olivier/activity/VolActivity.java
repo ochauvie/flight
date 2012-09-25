@@ -9,6 +9,7 @@ import com.olivier.sqllite.DbAeronef;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -43,6 +44,7 @@ public class VolActivity extends Activity {
         secMot = (EditText)  findViewById(R.id.editTextSecMot);
         note = (EditText)  findViewById(R.id.editTextNote);
         editText1 = (TextView)  findViewById(R.id.editText1);
+        editText1.setTextColor(Color.RED);
         
         aeronef.setText(null);
         minVol.setText(null);
@@ -86,9 +88,12 @@ public class VolActivity extends Activity {
 	        		
 	        		dbAeronef.open();
 	        		dbAeronef.insertVol(vol);
+	        		String sSecondsMOteur = String.valueOf(vol.getSecondsMoteur());
+	        		if (vol.getSecondsMoteur()<10) {sSecondsMOteur="0"+sSecondsMOteur;}
 	        		String result = "\nVol ajouté: \n\n" + vol.getAeronef() 
 							+ " : " + vol.getMinutesVol() + " min dont "
-							+ " " + vol.getMinutesMoteur() + ":" + vol.getSecondsMoteur() + " moteur \n";
+							+ " " + vol.getMinutesMoteur() + ":" + sSecondsMOteur + " moteur \n"
+							+  vol.getNote();
 	        		editText1.setText(result);
 	        		dbAeronef.close();
         		} else {

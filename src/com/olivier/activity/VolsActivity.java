@@ -18,6 +18,9 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.view.Menu;
+import android.view.View;
+import android.widget.ListView;
+import android.widget.TextView;
 
 public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener  {
 
@@ -28,6 +31,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private ArrayList<Vol> vols;
 	int selectItim = -1;
 	VolsAdapter adapter;
+	TextView totalVol;
+	
 	
 	
     @Override
@@ -35,12 +40,21 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vols);
         
+        View header = getLayoutInflater().inflate(R.layout.activity_header_vols, null);
+        View footer = getLayoutInflater().inflate(R.layout.activity_footer_vols, null);
+        ListView listView = getListView();
+        listView.addHeaderView(header);
+        listView.addFooterView(footer);
+        totalVol = (TextView) footer.findViewById(R.id.totalVol);
+        
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
         dbAeronef.open();
         vols = dbAeronef.getVols();
         dbAeronef.close();
+        
+        totalVol.setText(getTotalVol());
         
         if (vols!=null) {
         	
@@ -55,9 +69,26 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
                 
             //Initialisation de la liste avec les données
             setListAdapter(adapter);
+            
         }
     }
 
+    private String getTotalVol() {
+    	int total = 0;
+    	if (vols!=null) {
+	    	for (Vol vol:vols) {
+	        	total = total + vol.getMinutesVol();
+	        }
+    	}
+   		int heu = total/60;
+   		int min = total % 60;
+   		String sMin = String.valueOf(min);
+   		if (min<10) {
+   			sMin = "0" + sMin;
+   		}
+   		return String.valueOf(heu + "h" + sMin);
+    }
+    
 	@Override
 	public void onClickName(Vol vol, int position) {
 		selectItim = position;
@@ -118,6 +149,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	        dbAeronef.close();
 	        vols.remove(selectItim);
 	        adapter.notifyDataSetChanged();
+	        totalVol.setText(getTotalVol());
 		}
 	}
 

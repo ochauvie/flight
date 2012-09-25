@@ -21,6 +21,8 @@
 	<string name="deleteVol">Reset</string>
 	<string name="viewVol">Vols..</string>
 	<string name="note">Note</string>
+	<string name="date">Date</string>
+	<string name="vol">Vol</string>
     
 	<string name="delete">Suppression</string>
 	<string name="oui">Oui</string>

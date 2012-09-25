@@ -106,7 +106,11 @@ public class VolsAdapter extends BaseAdapter {
 		  tv_date.setText(sDate);
 		  tv_name.setText(flight.getAeronef());
 		  tv_vol.setText(String.valueOf(flight.getMinutesVol()));
-		  tv_moteur.setText("(" + String.valueOf(flight.getMinutesMoteur()) + ":" + String.valueOf(flight.getSecondsMoteur()) + ")");
+		  String sSecondsMoteur = String.valueOf(flight.getSecondsMoteur());
+		  if (flight.getSecondsMoteur()<10) {
+			  sSecondsMoteur = "0" + sSecondsMoteur;
+		  }
+		  tv_moteur.setText(String.valueOf(flight.getMinutesMoteur()) + ":" + sSecondsMoteur);
 		  
 		  //(4) Changement de la couleur du fond de notre item
 		  tv_name.setTextColor(Aeronef.getColor(flight.getType()));
