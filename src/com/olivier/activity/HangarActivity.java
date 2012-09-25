@@ -29,6 +29,7 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Aeronef> aeronefs;
 	
+	AeronefsAdapter adapter;
 	private MyDialogInterface myInterface;
 	int selectItim = -1;
 	
@@ -47,7 +48,7 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         dbAeronef.close();
         
         // Création et initialisation de l'Adapter pour les personnes
-        AeronefsAdapter adapter = new AeronefsAdapter(this, aeronefs);
+        adapter = new AeronefsAdapter(this, aeronefs);
             
         // Ecoute des évènements sur votre liste
         adapter.addListener(this);
@@ -127,10 +128,14 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 			dbAeronef.open();
 	        dbAeronef.deleteAeronef(aeronefs.get(selectItim));
 	        dbAeronef.close();
-			
+	        
+	        aeronefs.remove(selectItim);
+	        adapter.notifyDataSetChanged();
+			/*
 	        Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
 	    	startActivity(hangarActivity);
 	    	finish();
+	    	*/
 		}
 	}
 

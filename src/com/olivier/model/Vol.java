@@ -11,10 +11,24 @@ public class Vol {
 	private int minutesMoteur;
 	private int secondsMoteur;
 	private Date dateVol;
-
+	private String note;
 	
 	
 	
+	/**
+	 * Getter note
+	 * @return the note
+	 */
+	public String getNote() {
+		return note;
+	}
+	/**
+	 * Setter note
+	 * @param note the note to set
+	 */
+	public void setNote(String note) {
+		this.note = note;
+	}
 	/**
 	 * Getter type
 	 * @return the type

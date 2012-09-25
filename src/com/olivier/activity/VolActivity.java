@@ -25,6 +25,7 @@ public class VolActivity extends Activity {
 	private EditText minVol;
 	private EditText minMot;
 	private EditText secMot;
+	private EditText note;
 	private ImageButton selectAeronef;
 	private ImageButton viewVol;
 	
@@ -40,6 +41,7 @@ public class VolActivity extends Activity {
         minVol = (EditText)  findViewById(R.id.editTextMinVol);
         minMot = (EditText)  findViewById(R.id.editTextMinMot);
         secMot = (EditText)  findViewById(R.id.editTextSecMot);
+        note = (EditText)  findViewById(R.id.editTextNote);
         editText1 = (TextView)  findViewById(R.id.editText1);
         
         aeronef.setText(null);
@@ -80,6 +82,7 @@ public class VolActivity extends Activity {
 	        			vol.setSecondsMoteur(0);
 	        		}
 	        		vol.setDateVol(new Date());
+	        		vol.setNote(note.getText().toString());
 	        		
 	        		dbAeronef.open();
 	        		dbAeronef.insertVol(vol);
@@ -101,6 +104,7 @@ public class VolActivity extends Activity {
         		minVol.setText(null);
                 minMot.setText(null);
                 secMot.setText(null);
+                note.setText(null);
                 editText1.setText("");
         	}
         });        

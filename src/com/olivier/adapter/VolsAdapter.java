@@ -11,11 +11,11 @@ import com.olivier.model.Aeronef;
 import com.olivier.model.Vol;
 
 import android.content.Context;
-import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -29,6 +29,7 @@ public class VolsAdapter extends BaseAdapter {
 	private TextView tv_name;
 	private TextView tv_vol;
 	private TextView tv_moteur;
+	ImageButton bDelete;
 	
 	//Contient la liste des listeners
 	private ArrayList<VolsAdapterListener> mListListener = new ArrayList<VolsAdapterListener>();
@@ -46,9 +47,15 @@ public class VolsAdapter extends BaseAdapter {
 	    mListListener.add(aListener);
 	}
 	
-	private void sendListener(Vol item, int position) {
+	private void sendListenerToNote(Vol item, int position) {
 	    for(int i = mListListener.size()-1; i >= 0; i--) {
 	    	mListListener.get(i).onClickName(item, position);
+	    }
+	}
+	
+	private void sendListenerToDelete(Vol item, int position) {
+	    for(int i = mListListener.size()-1; i >= 0; i--) {
+	    	mListListener.get(i).onClickDelete(item, position);
 	    }
 	}
 	
@@ -90,6 +97,7 @@ public class VolsAdapter extends BaseAdapter {
 		  tv_name = (TextView)layoutItem.findViewById(R.id.name);
 		  tv_vol = (TextView)layoutItem.findViewById(R.id.tempsVol);
 		  tv_moteur = (TextView)layoutItem.findViewById(R.id.tempsMoteur);
+		  bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteVol);
 		        
 		  //(3) : Renseignement des valeurs
 		  Vol flight = vols.get(position);
@@ -106,6 +114,8 @@ public class VolsAdapter extends BaseAdapter {
 		  
 		//On mémorise la position de u vol dans le composant textview
 		  tv_name.setTag(position);
+		  bDelete.setTag(position);
+		  
 		  //On ajoute un listener
 		  tv_name.setOnClickListener(new View.OnClickListener() {
 			
@@ -115,10 +125,22 @@ public class VolsAdapter extends BaseAdapter {
 					Integer position = (Integer)v.getTag();
 					
 					//On prévient les listeners qu'il y a eu un clic sur le TextView "tv_name".
-					sendListener(vols.get(position), position);
+					sendListenerToNote(vols.get(position), position);
+				}
+			});
+		  
+		  bDelete.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					//Lorsque l'on clique sur le nom, on récupère la position de Aeronef"
+					Integer position = (Integer)v.getTag();
+							
+					//On prévient les listeners qu'il y a eu un clic sur le bouton
+					sendListenerToDelete(vols.get(position), position);
 				}
 			        	
 			});
+		  
 		  
 		  //On retourne l'item créé.
 		  return layoutItem;

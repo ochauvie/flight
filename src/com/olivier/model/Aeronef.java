@@ -61,15 +61,15 @@ public class Aeronef {
 		if (Aeronef.T_PLANEUR.equals(type)) {
 		    return Color.RED;
 		  } else if (Aeronef.T_AVION.equals(type)) {
-			  return Color.MAGENTA;
+			  return Color.BLUE;
 		  } else if (Aeronef.T_HELICO.equals(type)) {
 			  return Color.GREEN;
 		  } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
-			  return Color.CYAN;
+			  return Color.MAGENTA;
 		  } else if (Aeronef.T_AUTO.equals(type)) {
 			  return Color.GRAY;
 		  } else if (Aeronef.T_DIVERS.equals(type)) {
-			  return Color.YELLOW;
+			  return Color.LTGRAY;
 		  } else {
 			  return Color.WHITE;
 		  }

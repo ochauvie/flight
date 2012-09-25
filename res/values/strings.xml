@@ -20,6 +20,7 @@
 	<string name="save">Enregistrer</string>
 	<string name="deleteVol">Reset</string>
 	<string name="viewVol">Vols..</string>
+	<string name="note">Note</string>
     
 	<string name="delete">Suppression</string>
 	<string name="oui">Oui</string>
@@ -41,6 +42,6 @@
 	<string name="opt_auto">Automobile</string>
 	<string name="opt_divers">Divers</string>
 	
-	
+	<string name="title_activity_drive">Synchronisation Google Drive</string>
 	
 </resources>

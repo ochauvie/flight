@@ -62,6 +62,7 @@ public class DbAeronef {
 		values.put(DbManager.COL_MIN_VOL, vol.getMinutesVol());
 		values.put(DbManager.COL_MIN_MOTEUR, vol.getMinutesMoteur());
 		values.put(DbManager.COL_SEC_MOTEUR, vol.getSecondsMoteur());
+		values.put(DbManager.COL_NOTE, vol.getNote());
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
 		String sDate = sdf.format(vol.getDateVol());
@@ -85,7 +86,8 @@ public class DbAeronef {
 																 DbManager.COL_MIN_VOL, 
 																 DbManager.COL_MIN_MOTEUR, 
 																 DbManager.COL_SEC_MOTEUR, 
-																 DbManager.COL_DATE}, 
+																 DbManager.COL_DATE,
+																 DbManager.COL_NOTE}, 
 							null, null, null, null, orderBy);
 		return cursorToVols(c);
 	}
@@ -133,6 +135,7 @@ public class DbAeronef {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+			vol.setNote(c.getString(DbManager.NUM_COL_NOTE));
 			vol.setDateVol(dVol);
 			vols.add(vol);
 		}

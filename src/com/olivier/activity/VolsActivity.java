@@ -60,7 +60,27 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 
 	@Override
 	public void onClickName(Vol vol, int position) {
-    	selectItim = position;
+		selectItim = position;
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setCancelable(true);
+    	builder.setIcon(R.drawable.note);
+    	builder.setTitle(vol.getAeronef());
+    	builder.setMessage(vol.getNote());
+    	builder.setInverseBackgroundForced(true);
+    	builder.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
+    	  @Override
+    	  public void onClick(DialogInterface dialog, int which) {
+    		dialog.dismiss();
+    	  }
+    	});
+    	AlertDialog alert = builder.create();
+    	alert.show();
+	}
+	
+	
+	@Override
+	public void onClickDelete(Vol vol, int position) {
+		selectItim = position;
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setCancelable(true);
     	builder.setIcon(R.drawable.delete);
@@ -89,7 +109,6 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     	alert.show();
 	}
 	
-	
 	@Override
 	public void onDialogCompleted(boolean answer) {
 		if (answer && selectItim!=-1) {
@@ -108,5 +127,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         getMenuInflater().inflate(R.menu.activity_olivier, menu);
         return true;
     }
+
+	
 
 }
