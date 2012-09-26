@@ -57,7 +57,11 @@ public class MeteoActivity extends Activity {
         	public void onClick(View v) {
         		String oaci = editTextOaci.getText().toString();
         		if (oaci!=null && !"".equals(oaci)) {
-        			webView.loadUrl("http://cunimb.net/decodemet.php?station=" + oaci.toUpperCase());
+        			String url = "http://cunimb.net/decodemet.php?station=" + oaci.toUpperCase();
+        			//String url = "http://www.aviationweather.gov/adds/metars/?station_ids=" + oaci.toUpperCase() + "&std_trans=translated&chk_metars=on&hoursStr=most+recent+only&submitmet=Submit";
+        			webView.loadUrl(url);
+        			
+        			
         		}
         	}
         });

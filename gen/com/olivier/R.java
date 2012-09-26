@@ -32,7 +32,7 @@ public final class R {
         public static final int LL_Fond=0x7f070014;
         public static final int addAeronef=0x7f07000e;
         public static final int btnLaunch=0x7f07001a;
-        public static final int butMeteo=0x7f07002e;
+        public static final int butMeteo=0x7f07002f;
         public static final int button1=0x7f07001e;
         public static final int button2=0x7f07001f;
         public static final int button3=0x7f070020;
@@ -41,13 +41,13 @@ public final class R {
         public static final int date=0x7f070010;
         public static final int deleteAeronef=0x7f070016;
         public static final int deleteVol=0x7f070017;
-        public static final int editText1=0x7f07002f;
+        public static final int editText1=0x7f070030;
         public static final int editTextAeronef=0x7f070002;
-        public static final int editTextMinMot=0x7f070026;
-        public static final int editTextMinVol=0x7f070023;
-        public static final int editTextNote=0x7f07002b;
+        public static final int editTextMinMot=0x7f070027;
+        public static final int editTextMinVol=0x7f070024;
+        public static final int editTextNote=0x7f07002c;
         public static final int editTextOaci=0x7f070019;
-        public static final int editTextSecMot=0x7f070028;
+        public static final int editTextSecMot=0x7f070029;
         public static final int footer_vols=0x7f07000c;
         public static final int header_vols=0x7f07000f;
         public static final int item_vols=0x7f070000;
@@ -58,24 +58,25 @@ public final class R {
         public static final int option_helico=0x7f070006;
         public static final int option_paramoteur=0x7f070005;
         public static final int option_planeur=0x7f070003;
+        public static final int relativeLayoutVol=0x7f070021;
         public static final int save=0x7f07000a;
-        public static final int saveVol=0x7f07002c;
-        public static final int selectAeronef=0x7f070021;
+        public static final int saveVol=0x7f07002d;
+        public static final int selectAeronef=0x7f070022;
         public static final int tempsMoteur=0x7f070013;
         public static final int tempsVol=0x7f070012;
         public static final int textView1=0x7f07001c;
         public static final int textViewAeronef=0x7f070001;
         public static final int textViewLog=0x7f070009;
-        public static final int textViewMinMot=0x7f070027;
-        public static final int textViewMinVol=0x7f070022;
-        public static final int textViewMot=0x7f070025;
-        public static final int textViewNote=0x7f07002a;
+        public static final int textViewMinMot=0x7f070028;
+        public static final int textViewMinVol=0x7f070023;
+        public static final int textViewMot=0x7f070026;
+        public static final int textViewNote=0x7f07002b;
         public static final int textViewOaci=0x7f070018;
-        public static final int textViewSecMot=0x7f070029;
-        public static final int textViewUnitVol=0x7f070024;
+        public static final int textViewSecMot=0x7f07002a;
+        public static final int textViewUnitVol=0x7f070025;
         public static final int totalVol=0x7f07000d;
         public static final int type=0x7f070015;
-        public static final int viewVol=0x7f07002d;
+        public static final int viewVol=0x7f07002e;
         public static final int webview=0x7f07001b;
     }
     public static final class layout {
@@ -90,6 +91,8 @@ public final class R {
         public static final int activity_olivier=0x7f030008;
         public static final int activity_vol=0x7f030009;
         public static final int activity_vols=0x7f03000a;
+        public static final int animation_1=0x7f03000b;
+        public static final int animation_2=0x7f03000c;
     }
     public static final class menu {
         public static final int activity_olivier=0x7f060000;

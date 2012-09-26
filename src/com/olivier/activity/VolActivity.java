@@ -12,14 +12,19 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
 public class VolActivity extends Activity {
 
 	private DbAeronef dbAeronef = new DbAeronef(this);
+	RelativeLayout relativeLayout;
 	private ImageButton saveButton;
 	private ImageButton deleteButton;
 	private EditText aeronef;
@@ -34,10 +39,18 @@ public class VolActivity extends Activity {
 	private TextView editText1;
 	private String typeAeronef;
 	
+	private AlphaAnimation alphaAnimation;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vol);
+        
+        alphaAnimation = new AlphaAnimation(0.0f , 1.0f ) ;
+        alphaAnimation.setFillAfter(true);
+        alphaAnimation.setDuration(1200);
+        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutVol);
+        relativeLayout.startAnimation(alphaAnimation);
         
         aeronef = (EditText)  findViewById(R.id.editTextAeronef);
         minVol = (EditText)  findViewById(R.id.editTextMinVol);
@@ -112,6 +125,7 @@ public class VolActivity extends Activity {
                 secMot.setText(null);
                 note.setText(null);
                 editText1.setText("");
+                //relativeLayout.startAnimation(alphaAnimation);
         	}
         });        
         
@@ -129,6 +143,8 @@ public class VolActivity extends Activity {
         viewVol = (ImageButton) findViewById(R.id.viewVol);
         viewVol.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
+        		Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.layout.animation_1);
+       			viewVol.startAnimation(animation);
         		Intent myIntent = new Intent(v.getContext(), VolsActivity.class);
                 startActivityForResult(myIntent, 0);
         	}
@@ -138,6 +154,8 @@ public class VolActivity extends Activity {
         butMeteo = (ImageButton) findViewById(R.id.butMeteo);
         butMeteo.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
+        		Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.layout.animation_1);
+        		butMeteo.startAnimation(animation);
         		Intent myIntent = new Intent(v.getContext(), MeteoActivity.class);
                 startActivityForResult(myIntent, 0);
         	}
