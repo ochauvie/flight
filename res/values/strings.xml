@@ -46,4 +46,11 @@
 	
 	<string name="title_activity_drive">Synchronisation Google Drive</string>
 	
+	<string name="title_activity_meteo">Metar</string>
+	<string name="meteo">Metar</string>
+	<string name="oaci">Code OACI</string>
+	<string name="defaultOaci">LFPG</string>
+	
+	
+	
 </resources>

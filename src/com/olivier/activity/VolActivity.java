@@ -29,6 +29,7 @@ public class VolActivity extends Activity {
 	private EditText note;
 	private ImageButton selectAeronef;
 	private ImageButton viewVol;
+	private ImageButton butMeteo;
 	
 	private TextView editText1;
 	private String typeAeronef;
@@ -132,6 +133,15 @@ public class VolActivity extends Activity {
                 startActivityForResult(myIntent, 0);
         	}
         });
+        
+        // Meteo
+        butMeteo = (ImageButton) findViewById(R.id.butMeteo);
+        butMeteo.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View v) {
+        		Intent myIntent = new Intent(v.getContext(), MeteoActivity.class);
+                startActivityForResult(myIntent, 0);
+        	}
+        }); 
     }
 
     

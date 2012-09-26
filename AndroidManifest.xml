@@ -7,8 +7,8 @@
         android:minSdkVersion="8"
         android:targetSdkVersion="15" />
 
-    <!-- uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_GPS" />
     <uses-permission android:name="android.permission.ACCESS_ASSISTED_GPS" />
     <uses-permission android:name="android.permission.LOCATION" /-->
@@ -48,7 +48,12 @@
             android:label="@string/title_activity_addAeronef"
             android:icon="@drawable/hangar">
         </activity>
-         <!-- service android:name=".service.OlivierService"/-->
+        <activity
+            android:name=".activity.MeteoActivity"
+            android:label="@string/title_activity_meteo"
+            android:icon="@drawable/meteo">
+        </activity>
+         <!-- service android:name=".service.MeteoService"/-->
     </application>
 
     
