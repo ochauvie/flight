@@ -8,6 +8,12 @@
 package com.olivier;
 
 public final class R {
+    public static final class anim {
+        public static final int animation_1=0x7f040000;
+        public static final int animation_2=0x7f040001;
+        public static final int animation_scale=0x7f040002;
+        public static final int list_layout_controller=0x7f040003;
+    }
     public static final class attr {
     }
     public static final class drawable {
@@ -29,55 +35,55 @@ public final class R {
         public static final int save=0x7f02000f;
     }
     public static final class id {
-        public static final int LL_Fond=0x7f070014;
-        public static final int addAeronef=0x7f07000e;
-        public static final int btnLaunch=0x7f07001a;
-        public static final int butMeteo=0x7f07002f;
-        public static final int button1=0x7f07001e;
-        public static final int button2=0x7f07001f;
-        public static final int button3=0x7f070020;
-        public static final int chronometer1=0x7f07001d;
-        public static final int close=0x7f07000b;
-        public static final int date=0x7f070010;
-        public static final int deleteAeronef=0x7f070016;
-        public static final int deleteVol=0x7f070017;
-        public static final int editText1=0x7f070030;
-        public static final int editTextAeronef=0x7f070002;
-        public static final int editTextMinMot=0x7f070027;
-        public static final int editTextMinVol=0x7f070024;
-        public static final int editTextNote=0x7f07002c;
-        public static final int editTextOaci=0x7f070019;
-        public static final int editTextSecMot=0x7f070029;
-        public static final int footer_vols=0x7f07000c;
-        public static final int header_vols=0x7f07000f;
-        public static final int item_vols=0x7f070000;
-        public static final int name=0x7f070011;
-        public static final int option_auto=0x7f070007;
-        public static final int option_avion=0x7f070004;
-        public static final int option_divers=0x7f070008;
-        public static final int option_helico=0x7f070006;
-        public static final int option_paramoteur=0x7f070005;
-        public static final int option_planeur=0x7f070003;
-        public static final int relativeLayoutVol=0x7f070021;
-        public static final int save=0x7f07000a;
-        public static final int saveVol=0x7f07002d;
-        public static final int selectAeronef=0x7f070022;
-        public static final int tempsMoteur=0x7f070013;
-        public static final int tempsVol=0x7f070012;
-        public static final int textView1=0x7f07001c;
-        public static final int textViewAeronef=0x7f070001;
-        public static final int textViewLog=0x7f070009;
-        public static final int textViewMinMot=0x7f070028;
-        public static final int textViewMinVol=0x7f070023;
-        public static final int textViewMot=0x7f070026;
-        public static final int textViewNote=0x7f07002b;
-        public static final int textViewOaci=0x7f070018;
-        public static final int textViewSecMot=0x7f07002a;
-        public static final int textViewUnitVol=0x7f070025;
-        public static final int totalVol=0x7f07000d;
-        public static final int type=0x7f070015;
-        public static final int viewVol=0x7f07002e;
-        public static final int webview=0x7f07001b;
+        public static final int LL_Fond=0x7f080014;
+        public static final int addAeronef=0x7f08000e;
+        public static final int btnLaunch=0x7f08001a;
+        public static final int butMeteo=0x7f08002f;
+        public static final int button1=0x7f08001e;
+        public static final int button2=0x7f08001f;
+        public static final int button3=0x7f080020;
+        public static final int chronometer1=0x7f08001d;
+        public static final int close=0x7f08000b;
+        public static final int date=0x7f080010;
+        public static final int deleteAeronef=0x7f080016;
+        public static final int deleteVol=0x7f080017;
+        public static final int editText1=0x7f080030;
+        public static final int editTextAeronef=0x7f080002;
+        public static final int editTextMinMot=0x7f080027;
+        public static final int editTextMinVol=0x7f080024;
+        public static final int editTextNote=0x7f08002c;
+        public static final int editTextOaci=0x7f080019;
+        public static final int editTextSecMot=0x7f080029;
+        public static final int footer_vols=0x7f08000c;
+        public static final int header_vols=0x7f08000f;
+        public static final int item_vols=0x7f080000;
+        public static final int name=0x7f080011;
+        public static final int option_auto=0x7f080007;
+        public static final int option_avion=0x7f080004;
+        public static final int option_divers=0x7f080008;
+        public static final int option_helico=0x7f080006;
+        public static final int option_paramoteur=0x7f080005;
+        public static final int option_planeur=0x7f080003;
+        public static final int relativeLayoutVol=0x7f080021;
+        public static final int save=0x7f08000a;
+        public static final int saveVol=0x7f08002d;
+        public static final int selectAeronef=0x7f080022;
+        public static final int tempsMoteur=0x7f080013;
+        public static final int tempsVol=0x7f080012;
+        public static final int textView1=0x7f08001c;
+        public static final int textViewAeronef=0x7f080001;
+        public static final int textViewLog=0x7f080009;
+        public static final int textViewMinMot=0x7f080028;
+        public static final int textViewMinVol=0x7f080023;
+        public static final int textViewMot=0x7f080026;
+        public static final int textViewNote=0x7f08002b;
+        public static final int textViewOaci=0x7f080018;
+        public static final int textViewSecMot=0x7f08002a;
+        public static final int textViewUnitVol=0x7f080025;
+        public static final int totalVol=0x7f08000d;
+        public static final int type=0x7f080015;
+        public static final int viewVol=0x7f08002e;
+        public static final int webview=0x7f08001b;
     }
     public static final class layout {
         public static final int activity_add_aeronef=0x7f030000;
@@ -91,56 +97,54 @@ public final class R {
         public static final int activity_olivier=0x7f030008;
         public static final int activity_vol=0x7f030009;
         public static final int activity_vols=0x7f03000a;
-        public static final int animation_1=0x7f03000b;
-        public static final int animation_2=0x7f03000c;
     }
     public static final class menu {
-        public static final int activity_olivier=0x7f060000;
+        public static final int activity_olivier=0x7f070000;
     }
     public static final class string {
-        public static final int StartService=0x7f040007;
-        public static final int addAeronef=0x7f04001a;
-        public static final int aeronef=0x7f040009;
-        public static final int app_name=0x7f040000;
-        public static final int close=0x7f040006;
-        public static final int date=0x7f040014;
-        public static final int defaultOaci=0x7f040028;
-        public static final int delete=0x7f040016;
-        public static final int deleteVol=0x7f040011;
-        public static final int menu_settings=0x7f040001;
-        public static final int meteo=0x7f040026;
-        public static final int minMot=0x7f04000e;
-        public static final int minVol=0x7f04000c;
-        public static final int moteur=0x7f04000d;
-        public static final int non=0x7f040018;
-        public static final int note=0x7f040013;
-        public static final int oaci=0x7f040027;
-        public static final int opt_auto=0x7f040022;
-        public static final int opt_avion=0x7f04001f;
-        public static final int opt_divers=0x7f040023;
-        public static final int opt_helico=0x7f040021;
-        public static final int opt_paramoteur=0x7f040020;
-        public static final int opt_planeur=0x7f04001e;
-        public static final int oui=0x7f040017;
-        public static final int reset=0x7f040005;
-        public static final int save=0x7f040010;
-        public static final int secMot=0x7f04000f;
-        public static final int selectAeronef=0x7f04000b;
-        public static final int startChronometre1=0x7f040003;
-        public static final int stopChronometre1=0x7f040004;
-        public static final int title_activity_addAeronef=0x7f04001d;
-        public static final int title_activity_aeronef=0x7f040019;
-        public static final int title_activity_drive=0x7f040024;
-        public static final int title_activity_hangar=0x7f04001b;
-        public static final int title_activity_meteo=0x7f040025;
-        public static final int title_activity_olivier=0x7f040002;
-        public static final int title_activity_vol=0x7f040008;
-        public static final int title_activity_vols=0x7f04001c;
-        public static final int type=0x7f04000a;
-        public static final int viewVol=0x7f040012;
-        public static final int vol=0x7f040015;
+        public static final int StartService=0x7f050007;
+        public static final int addAeronef=0x7f05001a;
+        public static final int aeronef=0x7f050009;
+        public static final int app_name=0x7f050000;
+        public static final int close=0x7f050006;
+        public static final int date=0x7f050014;
+        public static final int defaultOaci=0x7f050028;
+        public static final int delete=0x7f050016;
+        public static final int deleteVol=0x7f050011;
+        public static final int menu_settings=0x7f050001;
+        public static final int meteo=0x7f050026;
+        public static final int minMot=0x7f05000e;
+        public static final int minVol=0x7f05000c;
+        public static final int moteur=0x7f05000d;
+        public static final int non=0x7f050018;
+        public static final int note=0x7f050013;
+        public static final int oaci=0x7f050027;
+        public static final int opt_auto=0x7f050022;
+        public static final int opt_avion=0x7f05001f;
+        public static final int opt_divers=0x7f050023;
+        public static final int opt_helico=0x7f050021;
+        public static final int opt_paramoteur=0x7f050020;
+        public static final int opt_planeur=0x7f05001e;
+        public static final int oui=0x7f050017;
+        public static final int reset=0x7f050005;
+        public static final int save=0x7f050010;
+        public static final int secMot=0x7f05000f;
+        public static final int selectAeronef=0x7f05000b;
+        public static final int startChronometre1=0x7f050003;
+        public static final int stopChronometre1=0x7f050004;
+        public static final int title_activity_addAeronef=0x7f05001d;
+        public static final int title_activity_aeronef=0x7f050019;
+        public static final int title_activity_drive=0x7f050024;
+        public static final int title_activity_hangar=0x7f05001b;
+        public static final int title_activity_meteo=0x7f050025;
+        public static final int title_activity_olivier=0x7f050002;
+        public static final int title_activity_vol=0x7f050008;
+        public static final int title_activity_vols=0x7f05001c;
+        public static final int type=0x7f05000a;
+        public static final int viewVol=0x7f050012;
+        public static final int vol=0x7f050015;
     }
     public static final class style {
-        public static final int AppTheme=0x7f050000;
+        public static final int AppTheme=0x7f060000;
     }
 }

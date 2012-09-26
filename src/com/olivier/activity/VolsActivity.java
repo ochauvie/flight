@@ -19,6 +19,8 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -69,8 +71,12 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
                 
             //Initialisation de la liste avec les données
             setListAdapter(adapter);
-            
-        }
+         }
+        
+        // Animation
+        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(
+        				this, R.anim.list_layout_controller);
+        listView.setLayoutAnimation(controller);
     }
 
     private String getTotalVol() {

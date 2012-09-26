@@ -111,7 +111,7 @@ public class VolActivity extends Activity {
 	        		editText1.setText(result);
 	        		dbAeronef.close();
         		} else {
-        			editText1.setText("Il faut choisir un aéronef");
+        			editText1.setText("Il faut choisir une machine");
         		}
         	}
         });        
@@ -143,7 +143,7 @@ public class VolActivity extends Activity {
         viewVol = (ImageButton) findViewById(R.id.viewVol);
         viewVol.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.layout.animation_1);
+        		Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.anim.animation_1);
        			viewVol.startAnimation(animation);
         		Intent myIntent = new Intent(v.getContext(), VolsActivity.class);
                 startActivityForResult(myIntent, 0);
@@ -154,7 +154,7 @@ public class VolActivity extends Activity {
         butMeteo = (ImageButton) findViewById(R.id.butMeteo);
         butMeteo.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.layout.animation_1);
+        		Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.anim.animation_1);
         		butMeteo.startAnimation(animation);
         		Intent myIntent = new Intent(v.getContext(), MeteoActivity.class);
                 startActivityForResult(myIntent, 0);

@@ -19,12 +19,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.ImageButton;
+import android.widget.ListView;
 
 public class HangarActivity extends ListActivity  implements DialogReturn, AeronefAdapterListener {
 
 	private ImageButton addAeronef;
 	private ImageButton close;
+	private ListView listView;
 	
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Aeronef> aeronefs;
@@ -47,6 +51,8 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         aeronefs = dbAeronef.getAeronefs();
         dbAeronef.close();
         
+        listView = getListView();
+        
         // Création et initialisation de l'Adapter pour les personnes
         adapter = new AeronefsAdapter(this, aeronefs);
             
@@ -58,6 +64,11 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
             
         //Initialisation de la liste avec les données
         setListAdapter(adapter);
+        
+        // Animation
+        LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(
+        				this, R.anim.list_layout_controller);
+        listView.setLayoutAnimation(controller);
         
         
         // Open view add aeronef
