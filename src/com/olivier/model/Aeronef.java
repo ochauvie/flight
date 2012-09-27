@@ -71,7 +71,7 @@ public class Aeronef {
 		  } else if (Aeronef.T_DIVERS.equals(type)) {
 			  return Color.LTGRAY;
 		  } else {
-			  return Color.WHITE;
+			  return Color.YELLOW;
 		  }
 	}
 	

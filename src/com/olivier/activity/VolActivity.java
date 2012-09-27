@@ -11,7 +11,9 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.Menu;
@@ -27,7 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-public class VolActivity extends Activity implements OnTouchListener {
+public class VolActivity extends Activity implements OnTouchListener{
 //public class VolActivity extends Activity  {
 
 	private DbAeronef dbAeronef = new DbAeronef(this);
@@ -40,7 +42,10 @@ public class VolActivity extends Activity implements OnTouchListener {
 	private EditText secMot;
 	private EditText note;
 	private EditText lieu;
-	private String lieuGps = "";
+	private Double latitude;
+	private Double longitude;
+	private Double altitude;
+	private String lieuGps;
 	private ImageButton selectAeronef;
 	private ImageButton viewVol;
 	private ImageButton butMeteo;
@@ -70,9 +75,12 @@ public class VolActivity extends Activity implements OnTouchListener {
 	
 			@Override
 			public void onLocationChanged(Location location) {
-				Double latitude = location.getLatitude();
-				Double longitude = location.getLongitude();
-				lieuGps = latitude + "\n" + longitude;
+				latitude = location.getLatitude();
+				longitude = location.getLongitude();
+				altitude = location.getAltitude();
+				lieuGps = "Lat: " + latitude + "\n" +
+						  "Long: " + longitude + "\n" +
+						  "Alt: " + altitude;
 			}
 		};
 	
@@ -100,6 +108,7 @@ public class VolActivity extends Activity implements OnTouchListener {
         minVol.setText(null);
         minMot.setText(null);
         secMot.setText(null);
+        
         
         // Gps
         locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -148,14 +157,35 @@ public class VolActivity extends Activity implements OnTouchListener {
 	        		
 	        		dbAeronef.open();
 	        		dbAeronef.insertVol(vol);
+	        		dbAeronef.close();
+	        		
+	        		resetPage();
+	        		
 	        		String sSecondsMOteur = String.valueOf(vol.getSecondsMoteur());
 	        		if (vol.getSecondsMoteur()<10) {sSecondsMOteur="0"+sSecondsMOteur;}
-	        		String result = "\nVol ajouté: \n\n" + vol.getAeronef() 
-							+ " : " + vol.getMinutesVol() + " min dont "
-							+ " " + vol.getMinutesMoteur() + ":" + sSecondsMOteur + " moteur \n"
-							+  vol.getNote() + "\n" + vol.getLieu();
-	        		editText1.setText(result);
-	        		dbAeronef.close();
+	        		
+	        		AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
+	            	builder.setCancelable(true);
+	            	builder.setIcon(R.drawable.recorder); 
+	            	builder.setTitle("Enregistrement effectué");
+	            	String result = "Machine: " + vol.getAeronef() + "\n" 
+							+ "Vol: " + vol.getMinutesVol() + " min \n"
+							+ "Moteur: " + vol.getMinutesMoteur() + ":" + sSecondsMOteur + " moteur \n"
+							+ "Note: " +  vol.getNote() + "\n" 
+							+ vol.getLieu();
+	        		
+	            	builder.setMessage(result);
+	            	builder.setInverseBackgroundForced(true);
+	            	builder.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
+	            	  @Override
+	            	  public void onClick(DialogInterface dialog, int which) {
+	            		dialog.dismiss();
+	            	  }
+	            	});
+	            	
+	            	AlertDialog alert = builder.create();
+	            	alert.show();
+	        		
         		} else {
         			editText1.setText("Il faut choisir une machine");
         		}
@@ -166,13 +196,7 @@ public class VolActivity extends Activity implements OnTouchListener {
         deleteButton = (ImageButton) findViewById(R.id.deleteVol);
         deleteButton.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		minVol.setText(null);
-                minMot.setText(null);
-                secMot.setText(null);
-                note.setText(null);
-                lieu.setText(null);
-                editText1.setText("");
-                //relativeLayout.startAnimation(alphaAnimation);
+        		resetPage();
         	}
         });        
         
@@ -217,6 +241,15 @@ public class VolActivity extends Activity implements OnTouchListener {
         }); 
     }
 
+
+    private void resetPage() {
+    	minVol.setText(null);
+        minMot.setText(null);
+        secMot.setText(null);
+        note.setText(null);
+        lieu.setText(null);
+        editText1.setText("");
+    }
     
     @Override
     public void onStop() {
@@ -266,6 +299,7 @@ public class VolActivity extends Activity implements OnTouchListener {
         // if you return false, these actions will not be recorded
         return true;
 	}
-    
-    
+
+
+	
 }
