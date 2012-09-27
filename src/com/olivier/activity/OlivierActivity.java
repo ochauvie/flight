@@ -3,7 +3,7 @@ package com.olivier.activity;
 import com.olivier.R;
 import com.olivier.activity.listener.ButtonResetListener;
 import com.olivier.activity.listener.ButtonStartStopListener;
-import com.olivier.service.OlivierService;
+import com.olivier.service.GpsService;
 
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -49,7 +49,7 @@ public class OlivierActivity extends Activity {
         button3.setEnabled(false);
         button3.setOnClickListener( new View.OnClickListener() {
         	public void onClick(View actuelView) {
-        		startService(new Intent(OlivierActivity.this, OlivierService.class));
+        		startService(new Intent(OlivierActivity.this, GpsService.class));
         	}
         });
         

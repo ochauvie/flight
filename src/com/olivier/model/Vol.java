@@ -12,9 +12,24 @@ public class Vol {
 	private int secondsMoteur;
 	private Date dateVol;
 	private String note;
+	private String lieu;
 	
 	
 	
+	/**
+	 * Getter lieu
+	 * @return the lieu
+	 */
+	public String getLieu() {
+		return lieu;
+	}
+	/**
+	 * Setter lieu
+	 * @param lieu the lieu to set
+	 */
+	public void setLieu(String lieu) {
+		this.lieu = lieu;
+	}
 	/**
 	 * Getter note
 	 * @return the note

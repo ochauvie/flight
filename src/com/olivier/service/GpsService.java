@@ -10,10 +10,9 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.widget.Toast;
 
-public class OlivierService extends Service {
+public class GpsService extends Service {
 
 	private LocationManager locationMgr = null;
-	
 	private LocationListener onLocationChange = new LocationListener()
 
 	{

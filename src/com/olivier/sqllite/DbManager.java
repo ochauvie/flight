@@ -26,6 +26,8 @@ public class DbManager extends SQLiteOpenHelper {
 	public static final int NUM_COL_DATE = 6;
 	public static final String COL_NOTE = "NOTE";
 	public static final int NUM_COL_NOTE = 7;
+	public static final String COL_LIEU = "LIEU";
+	public static final int NUM_COL_LIEU = 8;
 	
 	public static final String TABLE_AERONEFS = "table_aeronefs";
 	//public static final String COL_ID = "ID";
@@ -44,7 +46,8 @@ public class DbManager extends SQLiteOpenHelper {
 			+ COL_MIN_MOTEUR + " INTEGER, "
 			+ COL_SEC_MOTEUR + " INTEGER, "
 			+ COL_DATE + " TEXT NOT NULL, "
-			+ COL_NOTE + " TEXT);";
+			+ COL_NOTE + " TEXT, "
+			+ COL_LIEU + " TEXT);";
 	
 	
 	private static final String CREATE_TABLE_AERONEFS = "CREATE TABLE " + TABLE_AERONEFS + " ("

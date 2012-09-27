@@ -24,7 +24,7 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="90dp"
         android:ems="10"
-        android:inputType="text" >
+        android:inputType="textCapWords" >
 		
         <!-- requestFocus /-->
     </EditText>
@@ -145,51 +145,61 @@
         android:ems="10"
         android:inputType="text" />
     
+    <TextView
+        android:id="@+id/textViewLieu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewNote"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/lieu" />
+    
+    <EditText
+        android:id="@+id/editTextLieu"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewLieu"
+        android:layout_alignBottom="@+id/textViewNote"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="90dp"
+        android:ems="10"
+        android:inputType="textMultiLine" />
+    
+      <ImageButton
+        android:id="@+id/gps"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:layout_alignTop="@+id/textViewLieu"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/gps"
+        android:background="#00000000"
+        android:src="@drawable/gps" />
+    
     
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/textViewNote" >
+        android:layout_below="@+id/textViewLieu" >
 			    
 			    <ImageButton
 			        android:id="@+id/saveVol"
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
 			        android:layout_marginLeft="5dp"
-			        android:layout_marginTop="16dp"
+			        android:layout_marginTop="26dp"
 			        android:background="#00000000"
 			        android:contentDescription="@string/save"
 			        android:src="@drawable/save" />
-			
-			
-			    <ImageButton
-			        android:id="@+id/viewVol"
-			        android:layout_width="76dp"
-			        android:layout_height="76dp"
-			        android:layout_marginLeft="5dp"
-			        android:layout_marginTop="12dp"
-			        android:background="#00000000"
-			        android:contentDescription="@string/viewVol"
-			        android:src="@drawable/recorder" />
-			    
-			     <ImageButton
-			        android:id="@+id/butMeteo"
-			        android:layout_width="76dp"
-			        android:layout_height="76dp"
-			        android:layout_marginLeft="5dp"
-			        android:layout_marginTop="12dp"
-			        android:background="#00000000"
-			        android:contentDescription="@string/meteo"
-			        android:src="@drawable/meteo" />
-
+	
 			    <ImageButton
 			        android:id="@+id/deleteVol"
 			        android:layout_width="76dp"
 			        android:layout_height="76dp"
 			        android:layout_marginLeft="5dp"
-			        android:layout_marginTop="12dp"
+			        android:layout_marginTop="22dp"
 			        android:background="#00000000"
 			        android:contentDescription="@string/viewVol"
 			        android:src="@drawable/reset" />
@@ -203,9 +213,39 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="240dp"
-        android:ems="10" />
-
+        android:layout_marginTop="280dp"
+        android:ems="10"
+    />
     
+     <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true" 
+        >
+			    
+			     <ImageButton
+			        android:id="@+id/butMeteo"
+			        android:layout_width="56dp"
+			        android:layout_height="56dp"
+			        android:layout_marginLeft="10dp"
+			        android:layout_marginTop="22dp"
+			        android:background="#00000000"
+			        android:contentDescription="@string/meteo"
+			        android:src="@drawable/meteo" />
+			     
+				<ImageButton
+			        android:id="@+id/viewVol"
+			        android:layout_width="56dp"
+			        android:layout_height="56dp"
+			        android:layout_marginLeft="180dp"
+			        android:layout_marginTop="22dp"
+			        android:background="#00000000"
+			        android:contentDescription="@string/viewVol"
+			        android:src="@drawable/recorder" />
+			    
+			    
+	</LinearLayout>
     
 </RelativeLayout>

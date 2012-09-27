@@ -23,6 +23,8 @@
 	<string name="note">Note</string>
 	<string name="date">Date</string>
 	<string name="vol">Vol</string>
+	<string name="lieu">Lieu</string>
+	<string name="gps">Gps</string>
     
 	<string name="delete">Suppression</string>
 	<string name="oui">Oui</string>
