@@ -57,21 +57,19 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         dbAeronef.close();
         
         totalVol.setText(getTotalVol());
-        
-        if (vols!=null) {
         	
-        	// Création et initialisation de l'Adapter pour les personnes
-            adapter = new VolsAdapter(this, vols);
-                
-            // Ecoute des évènements sur votre liste
-            adapter.addListener(this);
+    	// Création et initialisation de l'Adapter pour les personnes
+        adapter = new VolsAdapter(this, vols);
             
-            // Récupération du composant ListView
-            //ListView list = (ListView)findViewById(R.id.ListViewHangar);
-                
-            //Initialisation de la liste avec les données
-            setListAdapter(adapter);
-         }
+        // Ecoute des évènements sur votre liste
+        adapter.addListener(this);
+        
+        // Récupération du composant ListView
+        //ListView list = (ListView)findViewById(R.id.ListViewHangar);
+            
+        //Initialisation de la liste avec les données
+        setListAdapter(adapter);
+
         
         // Animation
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(
