@@ -1,6 +1,7 @@
 <resources>
 
-    <string name="app_name">Olivier</string>
+    <string name="app_name">Carnet de vol</string>
+    <string name="app_name_maj">CARNET DE VOL</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_olivier">Olivier</string>
     <string name="startChronometre1">Chronometre is started</string>
@@ -15,8 +16,8 @@
     <string name="selectAeronef">Hangar</string>
     <string name="minVol">Temps</string>
     <string name="moteur">Moteur</string>
-    <string name="minMot">min</string>
-    <string name="secMot">sec</string>
+    <string name="min">min</string>
+    <string name="sec">sec</string>
 	<string name="save">Enregistrer</string>
 	<string name="deleteVol">Reset</string>
 	<string name="viewVol">Vols..</string>

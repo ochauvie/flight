@@ -69,7 +69,7 @@
         android:layout_alignBottom="@+id/textViewMinVol"
         android:layout_marginLeft="245dp"
         android:layout_marginTop="16dp"
-        android:text="@string/minMot" />
+        android:text="@string/min" />
     
     <TextView
         android:id="@+id/textViewMot"
@@ -99,7 +99,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editTextMinVol"
         android:layout_marginLeft="150dp"
-        android:text="@string/minMot" />
+        android:text="@string/min" />
     
     <EditText
         android:id="@+id/editTextSecMot"
@@ -120,7 +120,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/editTextMinVol"
         android:layout_marginLeft="240dp"
-        android:text="@string/secMot" />
+        android:text="@string/sec" />
     
     
     
