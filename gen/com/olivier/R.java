@@ -39,7 +39,7 @@ public final class R {
         public static final int LL_Fond=0x7f080014;
         public static final int addAeronef=0x7f08000e;
         public static final int btnLaunch=0x7f08001a;
-        public static final int butMeteo=0x7f080036;
+        public static final int butMeteo=0x7f080035;
         public static final int button1=0x7f08001e;
         public static final int button2=0x7f08001f;
         public static final int button3=0x7f080020;
@@ -48,7 +48,7 @@ public final class R {
         public static final int date=0x7f080010;
         public static final int deleteAeronef=0x7f080016;
         public static final int deleteVol=0x7f080017;
-        public static final int editText1=0x7f080035;
+        public static final int editText1=0x7f080034;
         public static final int editTextAeronef=0x7f080002;
         public static final int editTextLieu=0x7f080032;
         public static final int editTextMinMot=0x7f08002b;
@@ -73,7 +73,7 @@ public final class R {
         public static final int relativeLayoutVol=0x7f080025;
         public static final int relativeLayoutVols=0x7f080038;
         public static final int save=0x7f08000a;
-        public static final int saveVol=0x7f080034;
+        public static final int saveVol=0x7f080036;
         public static final int second=0x7f080024;
         public static final int selectAeronef=0x7f080026;
         public static final int tempsMoteur=0x7f080013;
