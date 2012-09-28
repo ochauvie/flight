@@ -5,11 +5,9 @@ import com.olivier.anim.MyFlipperAnimation;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.content.Intent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 import android.widget.ViewFlipper;
 
