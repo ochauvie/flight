@@ -52,7 +52,7 @@
 	        android:contentDescription="@string/meteo"
 	        android:src="@drawable/gps" />
 	    </LinearLayout>
-
+
     <ImageView
         android:id="@+id/imgWelcome"
         android:layout_width="match_parent"
@@ -60,15 +60,13 @@
         android:contentDescription="@string/app_name_maj"
         android:scaleType="centerInside"
         android:src="@drawable/welcome" />
-    
+    
     <ImageView
         android:id="@+id/img1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/splash" 
-        android:scaleType="centerInside"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:contentDescription="@string/app_name_maj"
-        />
-	
+        android:scaleType="fitCenter"
+        android:src="@drawable/splash" />
     
 </LinearLayout>	
