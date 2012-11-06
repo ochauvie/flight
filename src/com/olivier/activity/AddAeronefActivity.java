@@ -21,15 +21,13 @@ import android.widget.TextView;
 public class AddAeronefActivity extends Activity {
 
 	private DbAeronef dbAeronef = new DbAeronef(this);
-	
 	private Aeronef aeronef = null;
 
-	EditText name, wingSpan, weight, engine, firstFlight, comment;
-	TextView log;
-	RadioButton optPlaneur, optAvion, optParamoteur, optHelico, optAuto, optDivers;
-	ImageButton save, close;
-	
-	RadioGroup rg1, rg2 ,rg3;
+	private EditText name, wingSpan, weight, engine, firstFlight, comment;
+	private TextView log;
+	private RadioButton optPlaneur, optAvion, optParamoteur, optHelico, optAuto, optDivers;
+	private ImageButton save, close;
+	private RadioGroup rg1, rg2 ,rg3;
 	    
 	
 		private OnCheckedChangeListener listener1 = new OnCheckedChangeListener() {
@@ -162,11 +160,13 @@ public class AddAeronefActivity extends Activity {
 		        				aeronef.setType(Aeronef.T_DIVERS);
 		        			}
 		        			
+		        			dbAeronef.open();
 		        			if (aeronef.getId()!=0) {
-		        				updateAeronef();
+		        				dbAeronef.updateAeronef(aeronef);
 		        			} else {
-		        				saveAeronef();
+		        				dbAeronef.insertAeronef(aeronef);
 		        			}
+		        			dbAeronef.close();
 		        			
 		        			log.setText("Machine sauvegarder");
 		        			
@@ -225,18 +225,5 @@ public class AddAeronefActivity extends Activity {
 	    		   // TODO Auto-generated method stub
 	    		  }
 	    };
-	    
-	    
-	    private void saveAeronef() {
-	    	dbAeronef.open();
-			dbAeronef.insertAeronef(aeronef);
-			dbAeronef.close();
-	    }
-	    
-	    private void updateAeronef() {
-	    	dbAeronef.open();
-			dbAeronef.updateAeronef(aeronef);
-			dbAeronef.close();
-	    }
 	    
 }

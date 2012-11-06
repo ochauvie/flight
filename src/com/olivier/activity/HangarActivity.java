@@ -151,11 +151,6 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	        
 	        aeronefs.remove(selectItim);
 	        adapter.notifyDataSetChanged();
-			/*
-	        Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
-	    	startActivity(hangarActivity);
-	    	finish();
-	    	*/
 		}
 	}
 

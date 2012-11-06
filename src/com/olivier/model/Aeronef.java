@@ -1,6 +1,5 @@
 package com.olivier.model;
 
-import java.util.Date;
 
 import android.graphics.Color;
 
