@@ -37,9 +37,15 @@ public class AeronefsAdapter extends BaseAdapter{
 	    mListListener.add(aListener);
 	}
 	
-	private void sendListener(Aeronef item, int position) {
+	private void sendListenerName(Aeronef item, int position) {
 	    for(int i = mListListener.size()-1; i >= 0; i--) {
 	    	mListListener.get(i).onClickName(item, position);
+	    }
+	}
+	
+	private void sendListenerType(Aeronef item, int position) {
+	    for(int i = mListListener.size()-1; i >= 0; i--) {
+	    	mListListener.get(i).onClickType(item, position);
 	    }
 	}
 	
@@ -95,10 +101,12 @@ public class AeronefsAdapter extends BaseAdapter{
 		  String type = aeronefs.get(position).getType();
 		  tv_name.setTextColor(Aeronef.getColor(type));
 		  
-		//On mémorise la position de la "Personne" dans le composant textview
+		  // On mémorise la position de l'aeronef dans le composant textview
 		  tv_name.setTag(position);
+		  tv_type.setTag(position);
 		  bDelete.setTag(position);
-		  //On ajoute un listener
+		  
+		  // On ajoute un listener sur name
 		  tv_name.setOnClickListener(new View.OnClickListener() {
 			
 				@Override
@@ -107,7 +115,21 @@ public class AeronefsAdapter extends BaseAdapter{
 					Integer position = (Integer)v.getTag();
 							
 					//On prévient les listeners qu'il y a eu un clic sur le TextView "tv_name".
-					sendListener(aeronefs.get(position), position);
+					sendListenerName(aeronefs.get(position), position);
+				}
+			        	
+			});
+		  
+		  // On ajoute un listener sur type
+		  tv_type.setOnClickListener(new View.OnClickListener() {
+			
+				@Override
+				public void onClick(View v) {
+					//Lorsque l'on clique sur le type, on récupère la position de Aeronef"
+					Integer position = (Integer)v.getTag();
+							
+					//On prévient les listeners qu'il y a eu un clic sur le TextView "tv_type".
+					sendListenerType(aeronefs.get(position), position);
 				}
 			        	
 			});

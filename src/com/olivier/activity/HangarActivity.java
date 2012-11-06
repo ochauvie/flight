@@ -53,7 +53,7 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         
         listView = getListView();
         
-        // Création et initialisation de l'Adapter pour les personnes
+        // Création et initialisation de l'Adapter pour les aeronefs
         adapter = new AeronefsAdapter(this, aeronefs);
             
         // Ecoute des évènements sur votre liste
@@ -101,6 +101,15 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
     	volActivity.putExtra("aeronef", sel.getName());
     	volActivity.putExtra("type", sel.getType());
     	startActivity(volActivity);
+    	finish();
+	}
+    
+    @Override
+	public void onClickType(Aeronef item, int position) {
+    	Aeronef sel = aeronefs.get(position);
+    	Intent addAeronefActivity = new Intent(getApplicationContext(), AddAeronefActivity.class);
+    	addAeronefActivity.putExtra("aeronefId", sel.getId());
+    	startActivity(addAeronefActivity);
     	finish();
 	}
     
