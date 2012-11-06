@@ -7,3 +7,6 @@ Application android d'enregistrement de vols pour des aéronefs radiocommandés.
 * Localisation GPS des vols
 * METAR par code OACI
 
+# Target
+Android 4.0.3
+
