@@ -8,8 +8,8 @@ Application android d'enregistrement de vols pour des aéronefs radiocommandés.
 * METAR par code OACI
 
 # Target
-Android 4.0.3
-Sqllite
+* Android 4.0.3
+* Sqllite
 
 # Permission
 * INTERNET
