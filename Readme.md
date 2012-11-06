@@ -9,4 +9,11 @@ Application android d'enregistrement de vols pour des aéronefs radiocommandés.
 
 # Target
 Android 4.0.3
+Sqllite
 
+# Permission
+* INTERNET
+* LOCATION
+* ACCESS_FINE_LOCATION
+* ACCESS_GPS
+* ACCESS_ASSISTED_GPS
