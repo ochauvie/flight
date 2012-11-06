@@ -26,6 +26,10 @@
 	<string name="vol">Vol</string>
 	<string name="lieu">Lieu</string>
 	<string name="gps">Gps</string>
+	
+	<string name="wingSpan">Envergure</string>
+	<string name="weight">Poids</string>
+	<string name="fistFlight">Premier vol</string>
     
 	<string name="delete">Suppression</string>
 	<string name="oui">Oui</string>

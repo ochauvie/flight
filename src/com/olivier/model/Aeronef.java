@@ -1,5 +1,7 @@
 package com.olivier.model;
 
+import java.util.Date;
+
 import android.graphics.Color;
 
 public class Aeronef {
@@ -14,6 +16,13 @@ public class Aeronef {
 	private int id;
 	private String name;
 	private String type;
+	
+	private float wingSpan;
+	private float weight;
+	private String engine;
+	private String firstFlight;
+	private String comment;
+	
 	/**
 	 * Getter id
 	 * @return the id
@@ -57,6 +66,78 @@ public class Aeronef {
 		this.type = type;
 	}
 	
+	
+	
+	/**
+	 * Getter wingSpan
+	 * @return the wingSpan
+	 */
+	public float getWingSpan() {
+		return wingSpan;
+	}
+	/**
+	 * Setter wingSpan
+	 * @param wingSpan the wingSpan to set
+	 */
+	public void setWingSpan(float wingSpan) {
+		this.wingSpan = wingSpan;
+	}
+	/**
+	 * Getter weight
+	 * @return the weight
+	 */
+	public float getWeight() {
+		return weight;
+	}
+	/**
+	 * Setter weight
+	 * @param weight the weight to set
+	 */
+	public void setWeight(float weight) {
+		this.weight = weight;
+	}
+	/**
+	 * Getter engine
+	 * @return the engine
+	 */
+	public String getEngine() {
+		return engine;
+	}
+	/**
+	 * Setter engine
+	 * @param engine the engine to set
+	 */
+	public void setEngine(String engine) {
+		this.engine = engine;
+	}
+	/**
+	 * Getter firstFlight
+	 * @return the firstFlight
+	 */
+	public String getFirstFlight() {
+		return firstFlight;
+	}
+	/**
+	 * Setter firstFlight
+	 * @param firstFlight the firstFlight to set
+	 */
+	public void setFirstFlight(String firstFlight) {
+		this.firstFlight = firstFlight;
+	}
+	/**
+	 * Getter comment
+	 * @return the comment
+	 */
+	public String getComment() {
+		return comment;
+	}
+	/**
+	 * Setter comment
+	 * @param comment the comment to set
+	 */
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
 	public static int getColor(String type) {
 		if (Aeronef.T_PLANEUR.equals(type)) {
 		    return Color.RED;

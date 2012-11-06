@@ -1,5 +1,6 @@
 package com.olivier.activity;
 
+
 import com.olivier.R;
 import com.olivier.model.Aeronef;
 import com.olivier.sqllite.DbAeronef;
@@ -19,7 +20,7 @@ public class AddAeronefActivity extends Activity {
 
 	private DbAeronef dbAeronef = new DbAeronef(this);
 
-	EditText name;
+	EditText name, wingSpan, weight, engine, firstFlight, comment;
 	TextView log;
 	RadioButton optPlaneur, optAvion, optParamoteur, optHelico, optAuto, optDivers;
 	ImageButton save, close;
@@ -34,6 +35,11 @@ public class AddAeronefActivity extends Activity {
 	        log.setTextColor(Color.RED);
 	        
 	        name = (EditText) findViewById(R.id.editTextAeronef);
+	        wingSpan = (EditText) findViewById(R.id.editTextWingSpan);
+	        weight = (EditText) findViewById(R.id.editTextWeight);
+	        engine = (EditText) findViewById(R.id.editTextEngine);
+	        firstFlight = (EditText) findViewById(R.id.editTextFirstFlight);
+	        comment = (EditText) findViewById(R.id.editTextComment);
 	        
 	        optPlaneur = (RadioButton) findViewById(R.id.option_planeur);
 	        optAvion = (RadioButton) findViewById(R.id.option_avion);
@@ -64,32 +70,44 @@ public class AddAeronefActivity extends Activity {
 	        				!optAuto.isChecked() && !optDivers.isChecked()) {
 	        			log.setText("Il faut selectionner un type de machine !");
 	        		} else {
-	        				        			
-	        			log.setText("Machine sauvegarder");
 	        			
-	        			Aeronef aeronef = new Aeronef();
-	        			aeronef.setName(edName.toString());
-	        			if (optPlaneur.isChecked()) {
-	        				aeronef.setType(Aeronef.T_PLANEUR);
-	        			} else if (optAvion.isChecked()) {
-	        				aeronef.setType(Aeronef.T_AVION);
-	        			} else if (optParamoteur.isChecked()) {
-	        				aeronef.setType(Aeronef.T_PARAMOTEUR);
-	        			} else if (optHelico.isChecked()) {
-	        				aeronef.setType(Aeronef.T_HELICO);
-	        			} else if (optAuto.isChecked()) {
-	        				aeronef.setType(Aeronef.T_AUTO);
-	        			} else if (optDivers.isChecked()) {
-	        				aeronef.setType(Aeronef.T_DIVERS);
+	        			try {
+	        			
+		        			Aeronef aeronef = new Aeronef();
+		        			aeronef.setName(edName.toString());
+		        			aeronef.setWingSpan(Float.valueOf(wingSpan.getText().toString()));
+		        			aeronef.setWeight(Float.valueOf(weight.getText().toString()));
+		        			aeronef.setEngine(engine.getText().toString());
+		        			aeronef.setFirstFlight(firstFlight.getText().toString());
+		        			aeronef.setComment(comment.getText().toString());
+		        			
+		        			if (optPlaneur.isChecked()) {
+		        				aeronef.setType(Aeronef.T_PLANEUR);
+		        			} else if (optAvion.isChecked()) {
+		        				aeronef.setType(Aeronef.T_AVION);
+		        			} else if (optParamoteur.isChecked()) {
+		        				aeronef.setType(Aeronef.T_PARAMOTEUR);
+		        			} else if (optHelico.isChecked()) {
+		        				aeronef.setType(Aeronef.T_HELICO);
+		        			} else if (optAuto.isChecked()) {
+		        				aeronef.setType(Aeronef.T_AUTO);
+		        			} else if (optDivers.isChecked()) {
+		        				aeronef.setType(Aeronef.T_DIVERS);
+		        			}
+		        			
+		        			dbAeronef.open();
+		        			dbAeronef.insertAeronef(aeronef);
+		        			dbAeronef.close();
+		        			
+		        			log.setText("Machine sauvegarder");
+		        			
+		        			Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
+			            	startActivity(hangarActivity);
+			            	finish();
+	        			} catch (NumberFormatException nfe) {
+	        				log.setText("Format de nombre non valide !");
 	        			}
 	        			
-	        			dbAeronef.open();
-	        			dbAeronef.insertAeronef(aeronef);
-	        			dbAeronef.close();
-	        			
-	        			Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
-		            	startActivity(hangarActivity);
-		            	finish();
 	        		}
 	        	}
 	        });

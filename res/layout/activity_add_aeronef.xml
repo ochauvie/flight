@@ -21,18 +21,126 @@
         android:layout_alignBaseline="@+id/textViewAeronef"
         android:layout_alignBottom="@+id/textViewAeronef"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="90dp"
         android:ems="10"
         android:inputType="text" />
 
+	
+	<TextView
+        android:id="@+id/textViewWingSpan"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewAeronef"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/wingSpan" />
+	
+	<EditText
+        android:id="@+id/editTextWingSpan"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewWingSpan"
+        android:layout_alignBottom="@+id/textViewWingSpan"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="90dp"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+	
+	<TextView
+        android:id="@+id/textViewWeight"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewWingSpan"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/weight" />
+	
+	<EditText
+        android:id="@+id/editTextWeight"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewWeight"
+        android:layout_alignBottom="@+id/textViewWeight"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="90dp"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+	
+	<TextView
+        android:id="@+id/textViewEngine"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewWeight"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/moteur" />
+	
+	<EditText
+        android:id="@+id/editTextEngine"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewEngine"
+        android:layout_alignBottom="@+id/textViewEngine"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="90dp"
+        android:ems="10"
+        android:inputType="text" />
+	
+	<TextView
+        android:id="@+id/textViewFirstFlight"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewEngine"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/fistFlight" />
+	
+	<EditText
+        android:id="@+id/editTextFirstFlight"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewFirstFlight"
+        android:layout_alignBottom="@+id/textViewFirstFlight"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="90dp"
+        android:ems="10"
+        android:inputType="text" />
+	
+	
+	<TextView
+        android:id="@+id/textViewComment"
+         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/textViewFirstFlight"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="17dp"
+        android:text="@string/note" />
+	
+	<EditText
+        android:id="@+id/editTextComment"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewComment"
+        android:layout_alignBottom="@+id/textViewComment"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="90dp"
+        android:ems="10"
+        android:inputType="text" />
+	
 	<RadioGroup
+	    android:id="@+id/radioGroup1"
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentTop="true"
-	    android:layout_marginLeft="16dp"
-	    android:layout_marginTop="50dp"
-	    android:orientation="vertical" >
+	    android:layout_below="@+id/textViewComment"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="17dp"
+	    android:orientation="horizontal" >
 
 	    <RadioButton
 	        android:id="@+id/option_planeur"
@@ -45,7 +153,16 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/opt_avion" />
-
+	</RadioGroup>
+	<RadioGroup
+	    android:id="@+id/radioGroup2"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/radioGroup1"
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal" >
+	
 	    <RadioButton
 	        android:id="@+id/option_paramoteur"
 	        android:layout_width="wrap_content"
@@ -57,7 +174,16 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:text="@string/opt_helico" />
-	    
+	</RadioGroup>
+	<RadioGroup
+	    android:id="@+id/radioGroup3"
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:layout_below="@+id/radioGroup2"
+        android:layout_marginLeft="16dp"
+        android:orientation="horizontal" >
+	
 	    <RadioButton
 	        android:id="@+id/option_auto"
 	        android:layout_width="wrap_content"
@@ -76,24 +202,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/radioGroup3"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="280dp" 
+        android:layout_marginTop="17dp" 
         android:text="log" />
-	
 	
 	 <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true" >
+        android:layout_below="@+id/textViewLog"
+        android:layout_marginLeft="16dp"
+        >
 			    
 		<ImageButton
 	        android:id="@+id/save"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_marginLeft="5dp"
-	        android:layout_marginTop="310dp"
 	        android:background="#00000000"
 	        android:contentDescription="@string/save"
 	        android:src="@drawable/save" />
@@ -102,8 +228,7 @@
 	        android:id="@+id/close"
 	        android:layout_width="96dp"
 	        android:layout_height="wrap_content"
-	        android:layout_marginTop="310dp"
-	        android:layout_marginLeft="170dp"
+	        android:layout_marginLeft="150dp"
 	        android:background="#00000000"
 	        android:contentDescription="@string/close"
 	        android:src="@drawable/close" />

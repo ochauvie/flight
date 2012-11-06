@@ -155,6 +155,12 @@ public class DbAeronef {
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, aeronef.getName());
 		values.put(DbManager.COL_TYPE, aeronef.getType());
+		values.put(DbManager.COL_WINGSPAN, aeronef.getWingSpan());
+		values.put(DbManager.COL_WEIGHT, aeronef.getWeight());
+		values.put(DbManager.COL_ENGINE, aeronef.getEngine());
+		values.put(DbManager.COL_FIRST_FLIGHT, aeronef.getFirstFlight());
+		values.put(DbManager.COL_COMMENT, aeronef.getComment());
+		
 		return bdd.insert(DbManager.TABLE_AERONEFS, null, values);
 	}
 	
@@ -175,7 +181,12 @@ public class DbAeronef {
 		String orderBy = DbManager.COL_TYPE + " DESC";
 		Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID, 
 																 DbManager.COL_NAME, 
-																 DbManager.COL_TYPE}, 
+																 DbManager.COL_TYPE,
+																 DbManager.COL_WINGSPAN,
+																 DbManager.COL_WEIGHT,
+																 DbManager.COL_ENGINE,
+																 DbManager.COL_FIRST_FLIGHT,
+																 DbManager.COL_COMMENT}, 
 							null, null, null, null, orderBy);
 		return cursorToAeronefs(c);
 	}
@@ -195,6 +206,12 @@ public class DbAeronef {
 			aeronef.setId(c.getInt(DbManager.NUM_COL_ID));
 			aeronef.setName(c.getString(DbManager.NUM_COL_NAME));
 			aeronef.setType(c.getString(DbManager.NUM_COL_TYPE));
+			aeronef.setWingSpan(c.getFloat(DbManager.NUM_COL_WINGSPAN));
+			aeronef.setWeight(c.getFloat(DbManager.NUM_COL_WEIGHT));
+			aeronef.setEngine(c.getString(DbManager.NUM_COL_ENGINE));
+			aeronef.setFirstFlight(c.getString(DbManager.NUM_COL_FIRST_FLIGHT));
+			aeronef.setComment(c.getString(DbManager.NUM_COL_COMMENT));
+
 			aeronefs.add(aeronef);
 		}
 		c.close();

@@ -1,5 +1,6 @@
 package com.olivier.sqllite;
 
+
 import com.olivier.model.Aeronef;
 
 import android.content.ContentValues;
@@ -37,6 +38,17 @@ public class DbManager extends SQLiteOpenHelper {
 	public static final String COL_TYPE = "TYPE";
 	public static final int NUM_COL_TYPE = 2;
 	
+	public static final String COL_WINGSPAN = "WINGSPAN";
+	public static final int NUM_COL_WINGSPAN = 3;
+	public static final String COL_WEIGHT = "WEIGHT";
+	public static final int NUM_COL_WEIGHT = 4;
+	public static final String COL_ENGINE = "ENGINE";
+	public static final int NUM_COL_ENGINE = 5;
+	public static final String COL_FIRST_FLIGHT = "FIRST_FLIGHT";
+	public static final int NUM_COL_FIRST_FLIGHT = 6;
+	public static final String COL_COMMENT = "COMMENT";
+	public static final int NUM_COL_COMMENT = 7;
+	
 	
 	private static final String CREATE_TABLE_VOLS = "CREATE TABLE " + TABLE_VOLS + " ("
 			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
@@ -53,7 +65,12 @@ public class DbManager extends SQLiteOpenHelper {
 	private static final String CREATE_TABLE_AERONEFS = "CREATE TABLE " + TABLE_AERONEFS + " ("
 			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
 			+ COL_NAME + " TEXT NOT NULL, "
-			+ COL_TYPE + " TEXT);";
+			+ COL_TYPE + " TEXT, "
+			+ COL_WINGSPAN + " REAL, "
+			+ COL_WEIGHT + " REAL, "
+			+ COL_ENGINE + " TEXT, "
+			+ COL_FIRST_FLIGHT + " TEXT, "
+			+ COL_COMMENT + " TEXT);";
 	
 	public DbManager(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
@@ -69,11 +86,12 @@ public class DbManager extends SQLiteOpenHelper {
 		values.put(DbManager.COL_NAME, "Alpina 4001");
 		values.put(DbManager.COL_TYPE, Aeronef.T_PLANEUR);
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
-		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Arcus");
 		values.put(DbManager.COL_TYPE, Aeronef.T_PLANEUR);
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
-		values = new ContentValues();
+		values.put(DbManager.COL_NAME, "Spatz 55");
+		values.put(DbManager.COL_TYPE, Aeronef.T_PLANEUR);
+		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		values.put(DbManager.COL_NAME, "Calmato");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AVION);
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
