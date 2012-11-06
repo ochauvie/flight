@@ -28,7 +28,9 @@
 	<string name="gps">Gps</string>
 	
 	<string name="wingSpan">Envergure</string>
+	<string name="metre">m</string>
 	<string name="weight">Poids</string>
+	<string name="kilo">kg</string>
 	<string name="fistFlight">Premier vol</string>
     
 	<string name="delete">Suppression</string>

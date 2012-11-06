@@ -47,6 +47,17 @@
         android:ems="10"
         android:inputType="numberDecimal" />
 	
+		<TextView
+	        android:id="@+id/textViewMetre"
+	         android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/editTextWingSpan"
+        	android:layout_alignBottom="@+id/editTextWingSpan"
+        	android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="250dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/metre" />
+	
 	<TextView
         android:id="@+id/textViewWeight"
          android:layout_width="wrap_content"
@@ -67,6 +78,17 @@
         android:layout_marginLeft="90dp"
         android:ems="10"
         android:inputType="numberDecimal" />
+	
+		<TextView
+	        android:id="@+id/textViewKilo"
+	         android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/editTextWeight"
+        	android:layout_alignBottom="@+id/editTextWeight"
+        	android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="250dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/kilo" />
 	
 	<TextView
         android:id="@+id/textViewEngine"
