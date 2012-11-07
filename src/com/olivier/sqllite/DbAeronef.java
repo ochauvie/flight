@@ -295,6 +295,25 @@ public class DbAeronef {
 		
 	}
 	
+	public long addRadio(Radio radio) {
+		ContentValues values = new ContentValues();
+		values.put(DbManager.COL_NAME, radio.getName());
+		return bdd.insert(DbManager.TABLE_RADIO, null, values);
+	}
+	
+	public long deleteRadio(Radio radio) {
+		for (Switch sw:radio.getSwitchs()) {
+			bdd.delete(DbManager.TABLE_SWITCH, DbManager.COL_ID + "=" + sw.getId(), null);	
+		}
+		for (Potar potar:radio.getPotars()) {
+			bdd.delete(DbManager.TABLE_POTAR, DbManager.COL_ID + "=" + potar.getId(), null);
+		}
+		bdd.delete(DbManager.TABLE_RADIO, DbManager.COL_ID + "=" + radio.getId(), null);
+		bdd.delete(DbManager.TABLE_RADIO_SWITCH, DbManager.COL_ID_RADIO + "=" + radio.getId(), null);
+		bdd.delete(DbManager.TABLE_RADIO_POTAR, DbManager.COL_ID_RADIO + "=" + radio.getId(), null);
+		return 0;
+	}
+	
 	public ArrayList<Radio> getRadios(){
 		Cursor c = bdd.query(DbManager.TABLE_RADIO, new String[] {DbManager.COL_ID, 
 																 DbManager.COL_NAME}, 

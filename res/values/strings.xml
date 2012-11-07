@@ -8,6 +8,7 @@
     <string name="stopChronometre1">Stop</string>
     <string name="reset">Reset</string>
     <string name="close">Fermer</string>
+    <string name="add">Ajout</string>
     <string name="StartService">Start service</string>
     
     <string name="title_activity_vol">Vol</string>
