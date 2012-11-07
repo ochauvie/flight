@@ -7,6 +7,9 @@ import java.util.Date;
 import java.util.Locale;
 
 import com.olivier.model.Aeronef;
+import com.olivier.model.Potar;
+import com.olivier.model.Radio;
+import com.olivier.model.Switch;
 import com.olivier.model.Vol;
 
 import android.content.ContentValues;
@@ -263,8 +266,7 @@ public class DbAeronef {
 	 * @return the {@link Aeronef}
 	 */
 	private Aeronef cursorToAeronef(Cursor c){
-		Aeronef aeronef = null;
-		aeronef = new Aeronef();
+		Aeronef aeronef = new Aeronef();
 		aeronef.setId(c.getInt(DbManager.NUM_COL_ID));
 		aeronef.setName(c.getString(DbManager.NUM_COL_NAME));
 		aeronef.setType(c.getString(DbManager.NUM_COL_TYPE));
@@ -278,5 +280,94 @@ public class DbAeronef {
 	}
 	
 	
+	public Radio getRadioById(int id) {
+		String where = DbManager.COL_ID + "=?";
+		String[] whereArgs = new String[] {String.valueOf(id)};
+		Cursor c = bdd.query(DbManager.TABLE_RADIO, new String[] {DbManager.COL_ID, DbManager.COL_NAME}, 
+				where, whereArgs, null, null, null);
+		if (c.getCount() == 0) {
+			return null;
+		}
+		c.moveToNext();
+		Radio radio = cursorToRadio(c);
+		c.close();
+		return radio;
+		
+	}
 	
+	public ArrayList<Radio> getRadios(){
+		Cursor c = bdd.query(DbManager.TABLE_RADIO, new String[] {DbManager.COL_ID, 
+																 DbManager.COL_NAME}, 
+							null, null, null, null, null);
+		return cursorToRadios(c);
+	}
+	
+	private ArrayList<Radio> cursorToRadios(Cursor c){
+		ArrayList<Radio> radios = new ArrayList<Radio>();
+		if (c.getCount() == 0) {
+			return null;
+		}
+		while (c.moveToNext()) {
+			Radio radio = cursorToRadio(c);
+			if (radio!=null) {
+				radios.add(radio);
+			}
+		}
+		c.close();
+ 		return radios;
+	}
+	
+	private Radio cursorToRadio(Cursor c){
+		Radio radio = new Radio();
+		radio.setId(c.getInt(DbManager.NUM_COL_ID));
+		radio.setName(c.getString(DbManager.NUM_COL_NAME));
+		
+		// Switch
+		String switchQuery = "SELECT " + DbManager.COL_ID + ","
+				 						+ DbManager.COL_NAME + "," 
+				 						+ DbManager.COL_UP + ","
+				 						+ DbManager.COL_CENTER + ","
+				 						+ DbManager.COL_DOWN + ","
+				 						+ DbManager.COL_ACTION 
+				 			 + " FROM " + DbManager.TABLE_RADIO_SWITCH + " t1, " + DbManager.TABLE_SWITCH + " t2 "
+		 					 + " WHERE t1." + DbManager.COL_ID_SWITCH + "=t2." + DbManager.COL_ID 
+		 					 + " AND t1." + DbManager.COL_ID_RADIO + "=" + radio.getId();
+	     Cursor cursorSwitch = bdd.rawQuery(switchQuery, null);
+	     while (cursorSwitch.moveToNext()) {
+	    	 Switch sw = new Switch();
+	    	 sw.setId(cursorSwitch.getInt(0));
+	    	 sw.setName(cursorSwitch.getString(1));
+	    	 sw.setUp(cursorSwitch.getString(2));
+	    	 sw.setCenter(cursorSwitch.getString(3));
+	    	 sw.setDown(cursorSwitch.getString(4));
+	    	 sw.setAction(cursorSwitch.getString(5));
+	    	 radio.addSwitch(sw);
+	     }
+	     cursorSwitch.close();
+		
+	    // Potar
+	     String potarQuery = "SELECT " + DbManager.COL_ID + ","
+					+ DbManager.COL_NAME + "," 
+					+ DbManager.COL_UP + ","
+					+ DbManager.COL_CENTER + ","
+					+ DbManager.COL_DOWN + ","
+					+ DbManager.COL_ACTION 
+		 + " FROM " + DbManager.TABLE_RADIO_POTAR + " t1, " + DbManager.TABLE_POTAR + " t2 "
+		 + " WHERE t1." + DbManager.COL_ID_POTAR + "=t2." + DbManager.COL_ID 
+		 + " AND t1." + DbManager.COL_ID_RADIO + "=" + radio.getId();
+		Cursor cursorPotar = bdd.rawQuery(potarQuery, null);
+		while (cursorPotar.moveToNext()) {
+			Potar potar = new Potar();
+			potar.setId(cursorPotar.getInt(0));
+			potar.setName(cursorPotar.getString(1));
+			potar.setUp(cursorPotar.getString(2));
+			potar.setCenter(cursorPotar.getString(3));
+			potar.setDown(cursorPotar.getString(4));
+			potar.setAction(cursorPotar.getString(5));
+			radio.addPotar(potar);
+		}
+		cursorPotar.close();
+
+		return radio;
+	}
 }

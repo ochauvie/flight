@@ -72,6 +72,47 @@ public class DbManager extends SQLiteOpenHelper {
 			+ COL_FIRST_FLIGHT + " TEXT, "
 			+ COL_COMMENT + " TEXT);";
 	
+	public static final String TABLE_SWITCH = "table_switch";
+	public static final String COL_UP = "UP";
+	public static final String COL_CENTER = "CENTER";
+	public static final String COL_DOWN = "DOWN";
+	public static final String COL_ACTION = "ACTION";
+	
+	private static final String CREATE_TABLE_SWITCH = "CREATE TABLE " + TABLE_SWITCH + " ("
+			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ COL_NAME + " TEXT NOT NULL," 
+			+ COL_UP + " TEXT, "  
+			+ COL_CENTER + " TEXT, " 
+			+ COL_DOWN + " TEXT, " 
+			+ COL_ACTION + " TEXT);";
+	
+	public static final String TABLE_POTAR = "table_potar";
+	private static final String CREATE_TABLE_POTAR = "CREATE TABLE " + TABLE_POTAR + " ("
+			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ COL_NAME + " TEXT NOT NULL," 
+			+ COL_UP + " TEXT, "  
+			+ COL_CENTER + " TEXT, "
+			+ COL_DOWN + " TEXT, " 
+			+ COL_ACTION + " TEXT);";
+	
+	public static final String TABLE_RADIO = "table_radio";
+	private static final String CREATE_TABLE_RADIO = "CREATE TABLE " + TABLE_RADIO + " ("
+			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
+			+ COL_NAME + " TEXT NOT NULL);";
+	
+	public static final String TABLE_RADIO_SWITCH = "table_radio_switch";
+	public static final String COL_ID_RADIO = "ID_RADIO";
+	public static final String COL_ID_SWITCH = "ID_SWITCH";
+	private static final String CREATE_TABLE_RADIO_SWITCH = "CREATE TABLE " + TABLE_RADIO_SWITCH + " ("
+			+ COL_ID_RADIO + " INTEGER  NOT NULL, " 
+			+ COL_ID_SWITCH + " INTEGER NOT NULL);";
+	
+	public static final String TABLE_RADIO_POTAR = "table_radio_potar";
+	public static final String COL_ID_POTAR = "ID_POTAR";
+	private static final String CREATE_TABLE_RADIO_POTAR = "CREATE TABLE " + TABLE_RADIO_POTAR + " ("
+			+ COL_ID_RADIO + " INTEGER  NOT NULL, " 
+			+ COL_ID_POTAR + " INTEGER NOT NULL);";
+	
 	public DbManager(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
 	}
@@ -80,7 +121,26 @@ public class DbManager extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		db.execSQL(CREATE_TABLE_VOLS);
 		db.execSQL(CREATE_TABLE_AERONEFS);
+		
+		db.execSQL(CREATE_TABLE_SWITCH);
+		db.execSQL(CREATE_TABLE_POTAR);
+		db.execSQL(CREATE_TABLE_RADIO);
+		db.execSQL(CREATE_TABLE_RADIO_SWITCH);
+		db.execSQL(CREATE_TABLE_RADIO_POTAR);
+		
 		initHangar(db);
+		initRadio(db);
+	}
+	
+	@Override
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		db.execSQL("DROP TABLE " + TABLE_VOLS + ";");
+		db.execSQL("DROP TABLE " + TABLE_AERONEFS + ";");
+		db.execSQL("DROP TABLE " + CREATE_TABLE_RADIO_SWITCH + ";");
+		db.execSQL("DROP TABLE " + CREATE_TABLE_RADIO_POTAR + ";");
+		db.execSQL("DROP TABLE " + CREATE_TABLE_RADIO + ";");
+		db.execSQL("DROP TABLE " + CREATE_TABLE_POTAR + ";");
+		db.execSQL("DROP TABLE " + CREATE_TABLE_SWITCH + ";");
 	}
 	
 	private void initHangar(SQLiteDatabase db) {
@@ -93,6 +153,7 @@ public class DbManager extends SQLiteOpenHelper {
 		values.put(DbManager.COL_FIRST_FLIGHT, "17/06/2012");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Arcus");
 		values.put(DbManager.COL_TYPE, Aeronef.T_PLANEUR);
 		values.put(DbManager.COL_WINGSPAN, 2);
@@ -100,24 +161,28 @@ public class DbManager extends SQLiteOpenHelper {
 		values.put(DbManager.COL_ENGINE, "Protronik DM2615-1100");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Spatz 55");
 		values.put(DbManager.COL_TYPE, Aeronef.T_PLANEUR);
 		values.put(DbManager.COL_WINGSPAN, 2);
 		values.put(DbManager.COL_ENGINE, "Protronik DM2810-800");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Calmato");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AVION);
 		values.put(DbManager.COL_ENGINE, "OS 46 LA");
 		values.put(DbManager.COL_FIRST_FLIGHT, "29/10/2011");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "P40");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AVION);
 		values.put(DbManager.COL_ENGINE, "OS 46 LA");
 		values.put(DbManager.COL_FIRST_FLIGHT, "22/03/2003");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Broussard");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AVION);
 		values.put(DbManager.COL_WINGSPAN, 2.8);
@@ -126,41 +191,123 @@ public class DbManager extends SQLiteOpenHelper {
 		values.put(DbManager.COL_FIRST_FLIGHT, "16/04/2011");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Raptor");
 		values.put(DbManager.COL_TYPE, Aeronef.T_HELICO);
 		values.put(DbManager.COL_ENGINE, "OS 32");
 		values.put(DbManager.COL_FIRST_FLIGHT, "06/07/2002");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Honcho");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AUTO);
 		values.put(DbManager.COL_ENGINE, "Axial 55T");
 		values.put(DbManager.COL_FIRST_FLIGHT, "20/08/2011");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Savage X");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AUTO);
 		values.put(DbManager.COL_ENGINE, "HPI 4.1");
 		values.put(DbManager.COL_FIRST_FLIGHT, "02/08/2007");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Bullet");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AUTO);
 		values.put(DbManager.COL_FIRST_FLIGHT, "10/09/2010");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
+		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Opale");
 		values.put(DbManager.COL_TYPE, Aeronef.T_PARAMOTEUR);
 		values.put(DbManager.COL_ENGINE, "Protronik DM2810-1200");
 		values.put(DbManager.COL_FIRST_FLIGHT, "10/04/2010");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 	}
-
-	@Override
-	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE " + TABLE_VOLS + ";");
-		db.execSQL("DROP TABLE " + TABLE_AERONEFS + ";");
-		onCreate(db);
+	
+	private void initRadio(SQLiteDatabase db) {
+		// Switch
+		ContentValues values = new ContentValues();
+		values.put(DbManager.COL_ID, 1);
+		values.put(DbManager.COL_NAME, "A");
+		values.put(DbManager.COL_UP, "Inactif + Stop chronomètre");
+		values.put(DbManager.COL_DOWN, "Actif + Start chronomètre");
+		values.put(DbManager.COL_ACTION, "Mixage butterfly + chronomètre vol");
+		db.insert(DbManager.TABLE_SWITCH, null, values);
+		
+		values = new ContentValues();
+		values.put(DbManager.COL_ID, 2);
+		values.put(DbManager.COL_NAME, "C");
+		values.put(DbManager.COL_UP, "Négatif");
+		values.put(DbManager.COL_CENTER, "Neutre");
+		values.put(DbManager.COL_DOWN, "Positif");
+		values.put(DbManager.COL_ACTION, "Volet courbure");
+		db.insert(DbManager.TABLE_SWITCH, null, values);
+		
+		values = new ContentValues();
+		values.put(DbManager.COL_ID, 3);
+		values.put(DbManager.COL_NAME, "D");
+		values.put(DbManager.COL_UP, "Arrêt moteur");
+		values.put(DbManager.COL_DOWN, "Moteur plein gaz");
+		values.put(DbManager.COL_ACTION, "Moteur");
+		db.insert(DbManager.TABLE_SWITCH, null, values);
+		
+		values = new ContentValues();
+		values.put(DbManager.COL_ID, 4);
+		values.put(DbManager.COL_NAME, "G");
+		values.put(DbManager.COL_UP, "Actif");
+		values.put(DbManager.COL_DOWN, "Inactif");
+		values.put(DbManager.COL_ACTION, "Mixage ailerons -> volets");
+		db.insert(DbManager.TABLE_SWITCH, null, values);
+		
+		
+		// Potar
+		values = new ContentValues();
+		values.put(DbManager.COL_ID, 1);
+		values.put(DbManager.COL_NAME, "Côté droit");
+		values.put(DbManager.COL_UP, "Température");
+		values.put(DbManager.COL_CENTER, "Variomètre, Altimètre");
+		values.put(DbManager.COL_DOWN, "Réglage, Variomètre, Altimètre");
+		values.put(DbManager.COL_ACTION, "Variomètre");
+		db.insert(DbManager.TABLE_POTAR, null, values);
+		
+		// Radio
+		values = new ContentValues();
+		values.put(DbManager.COL_ID, 1);
+		values.put(DbManager.COL_NAME, "FF9 - Alpina 4001");
+		db.insert(DbManager.TABLE_RADIO, null, values);
+		
+		// Radio - switch
+		values = new ContentValues();
+		values.put(DbManager.COL_ID_RADIO, 1);
+		values.put(DbManager.COL_ID_SWITCH, 1);
+		db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+		
+		values = new ContentValues();
+		values.put(DbManager.COL_ID_RADIO, 1);
+		values.put(DbManager.COL_ID_SWITCH, 2);
+		db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+		
+		values = new ContentValues();
+		values.put(DbManager.COL_ID_RADIO, 1);
+		values.put(DbManager.COL_ID_SWITCH, 3);
+		db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+		
+		
+		values = new ContentValues();
+		values.put(DbManager.COL_ID_RADIO, 1);
+		values.put(DbManager.COL_ID_SWITCH, 4);
+		db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+		
+		// Radio - potar
+		values = new ContentValues();
+		values.put(DbManager.COL_ID_RADIO, 1);
+		values.put(DbManager.COL_ID_POTAR, 1);
+		db.insert(DbManager.TABLE_RADIO_POTAR, null, values);
+		
 	}
+
+	
 
 }

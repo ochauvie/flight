@@ -123,7 +123,6 @@
         android:text="@string/sec" />
     
     
-    
      <TextView
         android:id="@+id/textViewNote"
         android:layout_width="wrap_content"
@@ -187,56 +186,79 @@
         android:ems="10"
     />
     
+    
+    
      <LinearLayout
+        android:id="@+id/layout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editText1"
+        >
+			    
+		  <ImageButton
+		        android:id="@+id/butMeteo"
+		        android:layout_width="56dp"
+		        android:layout_height="56dp"
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginTop="22dp"
+		        android:background="#00000000"
+		        android:contentDescription="@string/meteo"
+		        android:src="@drawable/meteo" />
+		         
+			<ImageButton
+	        	android:id="@+id/radio"
+	        	android:layout_width="wrap_content"
+	        	android:layout_height="wrap_content"
+	        	android:layout_marginLeft="60dp"
+	        	android:background="#00000000"
+	        	android:contentDescription="@string/radio"
+	        	android:src="@drawable/ff9" />
+	              		     
+			<ImageButton
+			    android:id="@+id/viewVol"
+			    android:layout_width="56dp"
+			    android:layout_height="56dp"
+			    android:layout_marginLeft="50dp"
+			    android:layout_marginTop="22dp"
+			    android:background="#00000000"
+			    android:contentDescription="@string/viewVol"
+			    android:src="@drawable/recorder" />
+		
+				
+	</LinearLayout>
+	
+     <LinearLayout
+        android:id="@+id/layout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true" 
+        android:layout_below="@+id/layout1"
         >
-			    
-			     <ImageButton
-			        android:id="@+id/butMeteo"
-			        android:layout_width="56dp"
-			        android:layout_height="56dp"
-			        android:layout_marginLeft="10dp"
-			        android:layout_marginTop="22dp"
-			        android:background="#00000000"
-			        android:contentDescription="@string/meteo"
-			        android:src="@drawable/meteo" />
 			     
-			     
-			      <ImageButton
-			        android:id="@+id/saveVol"
-			        android:layout_width="56dp"
-			        android:layout_height="56dp"
-			        android:layout_marginLeft="30dp"
-			        android:layout_marginTop="22dp"
-			        android:background="#00000000"
-			        android:contentDescription="@string/save"
-			        android:src="@drawable/save" />
+	      <ImageButton
+		        android:id="@+id/saveVol"
+		        android:layout_width="56dp"
+		        android:layout_height="56dp"
+		        android:layout_marginLeft="15dp"
+		        android:layout_marginTop="22dp"
+		        android:background="#00000000"
+		        android:contentDescription="@string/save"
+		        android:src="@drawable/save" />
 	
-			    	<ImageButton
-			        android:id="@+id/deleteVol"
-			        android:layout_width="56dp"
-			        android:layout_height="56dp"
-			        android:layout_marginLeft="30dp"
-			        android:layout_marginTop="22dp"
-			        android:background="#00000000"
-			        android:contentDescription="@string/viewVol"
-			        android:src="@drawable/reset" />
-			     
-				<ImageButton
-			        android:id="@+id/viewVol"
-			        android:layout_width="56dp"
-			        android:layout_height="56dp"
-			        android:layout_marginLeft="20dp"
-			        android:layout_marginTop="22dp"
-			        android:background="#00000000"
-			        android:contentDescription="@string/viewVol"
-			        android:src="@drawable/recorder" />
-			    
-			    
+		   	<ImageButton
+		        android:id="@+id/deleteVol"
+		        android:layout_width="56dp"
+		        android:layout_height="56dp"
+		        android:layout_marginLeft="170dp"
+		        android:layout_marginTop="22dp"
+		        android:background="#00000000"
+		        android:contentDescription="@string/viewVol"
+		        android:src="@drawable/reset" />
+				
 	</LinearLayout>
     
 </RelativeLayout>

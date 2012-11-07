@@ -50,6 +50,7 @@ public class VolActivity extends Activity implements OnTouchListener{
 	private ImageButton viewVol;
 	private ImageButton butMeteo;
 	private ImageButton butGps;
+	private ImageButton radio;
 	
 	float downXValue;
 	
@@ -239,6 +240,16 @@ public class VolActivity extends Activity implements OnTouchListener{
         		lieu.setText(lieuGps);
         	}
         }); 
+        
+       // Radio
+        radio = (ImageButton) findViewById(R.id.radio);
+        radio.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View v) {
+        		Intent radiosActivity = new Intent(getApplicationContext(),RadiosActivity.class);
+            	startActivity(radiosActivity);
+        	}
+        });
+        
     }
 
 

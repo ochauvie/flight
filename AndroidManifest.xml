@@ -71,6 +71,16 @@
             android:label="@string/title_activity_meteo"
             android:icon="@drawable/meteo">
         </activity>
+        <activity
+            android:name=".activity.RadiosActivity"
+            android:label="@string/title_activity_radios"
+            android:icon="@drawable/ff9">
+        </activity>
+        <activity
+            android:name=".activity.RadioActivity"
+            android:label="@string/title_activity_radio"
+            android:icon="@drawable/ff9">
+        </activity>
          <!--  service android:name=".service.GpsService"/-->
     </application>
 

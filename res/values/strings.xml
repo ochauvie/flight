@@ -45,7 +45,7 @@
 	
 	<string name="title_activity_vols">Liste des enregistrements</string>
 	
-	<string name="title_activity_addAeronef">Nouvelle machine</string>
+	<string name="title_activity_addAeronef">Machine</string>
 	<string name="opt_planeur">Planeur</string>
 	<string name="opt_avion">Avion</string>
 	<string name="opt_paramoteur">Paramoteur</string>
@@ -60,6 +60,9 @@
 	<string name="oaci">Code OACI</string>
 	<string name="defaultOaci">LFPG</string>
 	
+	<string name="title_activity_radios">Programmes radio</string>
+	<string name="title_activity_radio">Programme radio</string>
+	<string name="radio">Programme</string>
 	
 	
 </resources>

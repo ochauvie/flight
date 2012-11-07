@@ -117,6 +117,7 @@ public class AddAeronefActivity extends Activity {
 	        	}
 	        });
 	        
+	        
 	       
 	        // Save view
 	        save = (ImageButton) findViewById(R.id.save);
