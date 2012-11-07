@@ -1,15 +1,11 @@
 package com.olivier.activity;
 
-
-
-
 import java.util.ArrayList;
 
 import com.olivier.R;
 import com.olivier.activity.MyDialogInterface.DialogReturn;
 import com.olivier.adapter.RadiosAdapter;
 import com.olivier.listener.RadiosAdapterListener;
-import com.olivier.model.Aeronef;
 import com.olivier.model.Radio;
 import com.olivier.sqllite.DbAeronef;
 
@@ -18,10 +14,7 @@ import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -84,11 +77,9 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         			radios.add(r);
         			adapter.notifyDataSetChanged();
         			*/
-        			
         			Intent radiosActivity = new Intent(getApplicationContext(), RadiosActivity.class);
                 	startActivity(radiosActivity);
                 	finish();
-        			
         		}
         	}
         });
@@ -103,7 +94,6 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
     	radioActivity.putExtra("radioId", radio.getId());
     	startActivity(radioActivity);
 	}
-
 
 	@Override
 	public void onClickToDelete(Radio item, int position) {
@@ -134,7 +124,6 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 		
 	}
 
-
 	@Override
 	public void onDialogCompleted(boolean answer) {
 		if (answer && selectItim!=-1) {
@@ -145,11 +134,7 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 	        radios.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}
-		
 	}
 
-
-
-    
     
 }

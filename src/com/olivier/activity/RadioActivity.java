@@ -1,7 +1,5 @@
 package com.olivier.activity;
 
-
-
 import com.olivier.R;
 import com.olivier.adapter.RadioAdapter;
 import com.olivier.model.Radio;
@@ -24,9 +22,8 @@ public class RadioActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
-    
-        
-        
+
+        // Get radio to edit
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
         	int radioId = bundle.getInt("radioId");
@@ -35,6 +32,7 @@ public class RadioActivity extends ListActivity {
             dbAeronef.close();
         }
         
+        // View title
         setTitle(radio.getName());
         
         listView = getListView();
