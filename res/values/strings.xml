@@ -63,7 +63,18 @@
 	
 	<string name="title_activity_radios">Programmes radio</string>
 	<string name="title_activity_radio">Programme radio</string>
+	<string name="title_activity_switchpotar">Ajout inter - potentiomètre</string>
+	
 	<string name="radio">Programme</string>
+	<string name="action">Action</string>
+	<string name="name">Nom</string>
+	<string name="up">UP</string>
+	<string name="down">DOWN</string>
+	<string name="center">CENTER</string>
+	<string name="inter">Inter</string>
+	<string name="potar">Potar</string>
+	
+	
 	
 	
 </resources>

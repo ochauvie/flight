@@ -81,6 +81,11 @@
             android:label="@string/title_activity_radio"
             android:icon="@drawable/ff9">
         </activity>
+        <activity
+            android:name=".activity.AddSwitchPotarActivity"
+            android:label="@string/title_activity_switchpotar"
+            android:icon="@drawable/inter">
+        </activity>
          <!--  service android:name=".service.GpsService"/-->
     </application>
 

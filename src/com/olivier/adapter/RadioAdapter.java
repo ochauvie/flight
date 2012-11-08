@@ -1,10 +1,9 @@
 package com.olivier.adapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.olivier.R;
-import com.olivier.listener.RadiosAdapterListener;
+import com.olivier.listener.SwitchPotarAdapterListener;
 import com.olivier.model.Potar;
 import com.olivier.model.Radio;
 import com.olivier.model.Switch;
@@ -15,7 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -24,7 +23,23 @@ public class RadioAdapter extends BaseAdapter{
 	private Radio radio;
 	private Context mContext;
 	private LayoutInflater mInflater;
+	private LinearLayout layout2;
+	private ArrayList<SwitchPotarAdapterListener> mListListener = new ArrayList<SwitchPotarAdapterListener>();
 	
+	
+	/**
+	 * Pour ajouter un listener sur notre adapter
+	 */
+	public void addListener(SwitchPotarAdapterListener aListener) {
+	    mListListener.add(aListener);
+	}
+	
+	
+	private void sendListenerLayout(Object item, int position) {
+	    for(int i = mListListener.size()-1; i >= 0; i--) {
+	    	mListListener.get(i).onClickLayout(item, position);
+	    }
+	}
 	
 	
 	public RadioAdapter(Context context, Radio rad) {
@@ -101,26 +116,25 @@ public class RadioAdapter extends BaseAdapter{
 		  }
 		  
 		  
-		  // On mémorise la position de l'aeronef dans le composant textview
-		  tv_name.setTag(position);
+		  // On ajoute un listener sur le layout switch / potar
+		  layout2 = (LinearLayout) layoutItem.findViewById(R.id.layout2);
+		  layout2.setTag(position); // On mémorise la position dans le composant textview
+		  layout2.setOnClickListener(new View.OnClickListener() {
 		  
-		  
-		  // On ajoute un listener sur name
-		  /*
-		  tv_name.setOnClickListener(new View.OnClickListener() {
-			
 				@Override
 				public void onClick(View v) {
-					//Lorsque l'on clique sur le nom, on récupère la position de Aeronef"
+					//Lorsque l'on clique sur le nom, on récupère la position"
 					Integer position = (Integer)v.getTag();
 							
-					//On prévient les listeners qu'il y a eu un clic sur le TextView "tv_name".
-					sendListenerName(radios.get(position), position);
+					//On prévient les listeners qu'il y a eu un clic 
+					if (position<radio.getSwitchs().size()) {
+						sendListenerLayout(radio.getSwitchs().get(position), position);
+					} else {
+						sendListenerLayout(radio.getPotars().get(position-radio.getSwitchs().size()), position);
+					}
 				}
 			        	
 			});
-		  */
-		  
 		  
 		  
 		  //On retourne l'item créé.
