@@ -227,7 +227,7 @@
         android:layout_below="@+id/radioGroup3"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="17dp" 
-        android:text="log" />
+        android:text="@string/log" />
 	
 	 <LinearLayout
         android:layout_width="wrap_content"

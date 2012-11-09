@@ -17,20 +17,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 public class RadiosActivity extends ListActivity implements DialogReturn, RadiosAdapterListener  {
 
-	private ListView listView;
 	private ImageButton add;
 	private EditText newRadioName;
 	
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Radio> radios;
-	RadiosAdapter adapter;
+	private RadiosAdapter adapter;
 	
 	private MyDialogInterface myInterface;
-	int selectItim = -1;
+	private int selectItim = -1;
 	
 	
     @Override
@@ -45,7 +43,6 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
-        listView = getListView();
         
         // Création et initialisation de l'Adapter pour les aeronefs
         adapter = new RadiosAdapter(this, radios);
@@ -70,7 +67,7 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         			Radio r = new Radio();
         			r.setName(newName);
         			dbAeronef.open();
-        			dbAeronef.addRadio(r);
+        				dbAeronef.addRadio(r);
         			dbAeronef.close();
         			
         			/* On ne connait pas le nouveau id
@@ -128,9 +125,8 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 	public void onDialogCompleted(boolean answer) {
 		if (answer && selectItim!=-1) {
 			dbAeronef.open();
-	        dbAeronef.deleteRadio(radios.get(selectItim));
+	        	dbAeronef.deleteRadio(radios.get(selectItim));
 	        dbAeronef.close();
-	        
 	        radios.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}

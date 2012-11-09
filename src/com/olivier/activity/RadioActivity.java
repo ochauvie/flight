@@ -16,11 +16,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 public class RadioActivity extends ListActivity implements DialogReturn, SwitchPotarAdapterListener{
 
-	private ListView listView;
 	private ImageButton addSwitchPotar;
 	private Radio radio;
 	
@@ -52,17 +50,13 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         // View title
         setTitle(radio.getName());
         
-        listView = getListView();
-        
         // Création et initialisation de l'Adapter pour les aeronefs
         adapter = new RadioAdapter(this, radio);
         // Ecoute des évènements sur votre liste
         adapter.addListener(this);
         
-        
         //Initialisation de la liste avec les données
         setListAdapter(adapter);
-        
         
         // Close view
         addSwitchPotar = (ImageButton) findViewById(R.id.addSwitchPotar);

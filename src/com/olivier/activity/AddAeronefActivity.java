@@ -9,7 +9,6 @@ import com.olivier.R;
 import com.olivier.model.Aeronef;
 import com.olivier.sqllite.DbAeronef;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -24,10 +23,8 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.view.View;
-import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -80,7 +77,6 @@ public class AddAeronefActivity extends Activity {
 	                rg3.setOnCheckedChangeListener(null);
 	                rg3.clearCheck();
 	                rg3.setOnCheckedChangeListener(listener3);
-	
 	            }
 	        }
 	    };
@@ -95,7 +91,6 @@ public class AddAeronefActivity extends Activity {
 	                rg2.setOnCheckedChangeListener(null);
 	                rg2.clearCheck();
 	                rg2.setOnCheckedChangeListener(listener2);
-	
 	            }
 	        }
 	    };
@@ -139,6 +134,7 @@ public class AddAeronefActivity extends Activity {
 	        optAuto = (RadioButton) findViewById(R.id.option_auto);
 	        optDivers = (RadioButton) findViewById(R.id.option_divers);
 	    
+	        // Get aeronef in parameter
 	        initView();
 	        
 	        // Close view
@@ -220,19 +216,19 @@ public class AddAeronefActivity extends Activity {
 							Toast.makeText(ctx, "Approchez vous du tag à écrire", Toast.LENGTH_LONG ).show();
 						} else {
 							try {
-								write(aerName , aerType, mytag);
+								write(aerName, aerType, mytag);
 								Toast.makeText(ctx, "Ecriture du tag réussie", Toast.LENGTH_LONG ).show();
 							
 							} catch (IOException e) {
-								Toast.makeText(ctx, "Error d'écriture", Toast.LENGTH_LONG ).show();
+								Toast.makeText(ctx, "Erreur d'écriture", Toast.LENGTH_LONG ).show();
 								e.printStackTrace();
 							} catch (FormatException e) {
-								Toast.makeText(ctx, "Error d'écriture" , Toast.LENGTH_LONG ).show();
+								Toast.makeText(ctx, "Erreur d'écriture" , Toast.LENGTH_LONG ).show();
 								e.printStackTrace();
 							}
 						}
         			} else {
-        				Toast.makeText(ctx, "La machine doit avoir été enregistrée", Toast.LENGTH_LONG ).show();
+        				Toast.makeText(ctx, "La machine doit avoir été enregistrée avnt d'être taguée", Toast.LENGTH_LONG ).show();
         			}
         			
 	        	}
@@ -246,7 +242,7 @@ public class AddAeronefActivity extends Activity {
 	        	int aeronefId = bundle.getInt("aeronefId");
 	        	if (aeronefId!=0) {
 	        		dbAeronef.open();
-	        		aeronef = dbAeronef.getAeronefById(aeronefId);
+	        			aeronef = dbAeronef.getAeronefById(aeronefId);
 	        		dbAeronef.close();
 	        		if (aeronef!=null) {
 	        			name.setText(aeronef.getName());
@@ -282,7 +278,7 @@ public class AddAeronefActivity extends Activity {
 	    		  }
 	    };
 	    
-	    @SuppressLint("NewApi")
+	   
 		@Override
 		protected void onNewIntent(Intent intent){
 			if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
@@ -318,7 +314,6 @@ public class AddAeronefActivity extends Activity {
 		
 		private void write(String name, String type, Tag tag) throws IOException, FormatException {
 			NdefRecord appRecord = NdefRecord.createApplicationRecord("com.olivier");
-			
 			NdefRecord[] records = {createRecord(name, "CDV_NAME_"), createRecord(type, "CDV_TYPE_"), appRecord};
 			NdefMessage  message = new NdefMessage(records);
 			// Get an instance of Ndef for the tag.

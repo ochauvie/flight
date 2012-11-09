@@ -98,7 +98,6 @@ public final class R {
         public static final int layoutNew=0x7f080042;
         public static final int layout_main=0x7f08004c;
         public static final int layout_splash=0x7f080045;
-        public static final int list=0x7f080066;
         public static final int name=0x7f080020;
         public static final int nfc=0x7f08001a;
         public static final int option_auto=0x7f080016;
@@ -141,7 +140,6 @@ public final class R {
         public static final int textViewUnitVol=0x7f080054;
         public static final int textViewWeight=0x7f080006;
         public static final int textViewWingSpan=0x7f080003;
-        public static final int title=0x7f080065;
         public static final int totalVol=0x7f08002b;
         public static final int type=0x7f080031;
         public static final int up=0x7f080024;
@@ -167,7 +165,6 @@ public final class R {
         public static final int activity_view_flipper=0x7f03000f;
         public static final int activity_vol=0x7f030010;
         public static final int activity_vols=0x7f030011;
-        public static final int tag_viewer=0x7f030012;
     }
     public static final class menu {
         public static final int activity_olivier=0x7f070000;
@@ -192,6 +189,7 @@ public final class R {
         public static final int inter=0x7f05003b;
         public static final int kilo=0x7f05001d;
         public static final int lieu=0x7f050018;
+        public static final int log=0x7f05003e;
         public static final int menu_settings=0x7f050002;
         public static final int meteo=0x7f05002f;
         public static final int metre=0x7f05001b;
@@ -199,7 +197,7 @@ public final class R {
         public static final int minVol=0x7f05000e;
         public static final int moteur=0x7f05000f;
         public static final int name=0x7f050037;
-        public static final int nfc=0x7f05003e;
+        public static final int nfc=0x7f05003d;
         public static final int non=0x7f050021;
         public static final int note=0x7f050015;
         public static final int oaci=0x7f050030;
@@ -229,7 +227,6 @@ public final class R {
         public static final int title_activity_switchpotar=0x7f050034;
         public static final int title_activity_vol=0x7f05000a;
         public static final int title_activity_vols=0x7f050025;
-        public static final int title_scanned_tag=0x7f05003d;
         public static final int type=0x7f05000c;
         public static final int up=0x7f050038;
         public static final int viewVol=0x7f050014;

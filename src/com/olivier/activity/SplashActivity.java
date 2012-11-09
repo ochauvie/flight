@@ -5,7 +5,6 @@ import java.io.UnsupportedEncodingException;
 
 import com.olivier.R;
 
-import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.PendingIntent;
@@ -25,10 +24,7 @@ import android.widget.ImageView;
 
 @TargetApi(10)
 public class SplashActivity extends Activity {
-
-	// Set the display time, in milliseconds (or extract it out as a configurable parameter)
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
-    
+	
     private Context ctx;
     private Tag mytag;
     private NfcAdapter adapter;
@@ -73,20 +69,6 @@ public class SplashActivity extends Activity {
         super.onResume();
         WriteModeOn(); // NFC
         processIntent(getIntent());
-        
-        /*
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run()
-            {
-                //Finish the splash activity so it can't be returned to.
-                SplashActivity.this.finish();
-                // Create an Intent that will start the main activity.
-                Intent mainIntent = new Intent(SplashActivity.this, VolActivity.class);
-                SplashActivity.this.startActivity(mainIntent);
-            }
-        }, SPLASH_DISPLAY_LENGTH);
-        */
     }
     
     
@@ -115,9 +97,8 @@ public class SplashActivity extends Activity {
 						byte[] id = record.getId();
 						short tnf = record.getTnf();
 						byte[] type = record.getType();
-						String msg;
 						try {
-							msg = new String( record.getPayload() , "Cp1252" );
+							String msg = new String( record.getPayload() , "Cp1252" );
 							if (msg!=null) {msg.trim();}
 							if (msg!=null && msg.startsWith("\tCDV_NAME_")) {
 								aeronefName = msg.substring(10, msg.length());
@@ -137,7 +118,6 @@ public class SplashActivity extends Activity {
 		
 		if (aeronefType!=null && aeronefName!=null) {
 			SplashActivity.this.finish();
-	        // Create an Intent that will start the main activity.
 	        Intent volActivity = new Intent(SplashActivity.this, VolActivity.class);
 	        volActivity.putExtra("aeronef", aeronefName);
 	    	volActivity.putExtra("type", aeronefType);
