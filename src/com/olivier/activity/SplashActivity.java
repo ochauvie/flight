@@ -82,7 +82,8 @@ public class SplashActivity extends Activity {
 		String aeronefName = null;
     	String aeronefType = null;
     	
-    	// ACTION_NDEF_DISCOVERED when app start - ACTION_TAG_DISCOVERED when read tag in splash screen
+    	// ACTION_NDEF_DISCOVERED when application start 
+    	// ACTION_TAG_DISCOVERED  when read tag in splash screen
 		if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())){
 			mytag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);    
 			Vibrator vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
@@ -117,6 +118,7 @@ public class SplashActivity extends Activity {
 			}
 		}
 		
+		// Start VolActivity if we have a aeronef
 		if (aeronefType!=null && aeronefName!=null) {
 			SplashActivity.this.finish();
 	        Intent volActivity = new Intent(SplashActivity.this, VolActivity.class);
