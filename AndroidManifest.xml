@@ -43,10 +43,6 @@
             android:label="@string/title_activity_olivier" >
         </activity>
         <activity
-            android:name=".activity.AeronefActivity"
-            android:label="@string/title_activity_aeronef">
-        </activity>
-        <activity
             android:name=".activity.VolsActivity"
             android:label="@string/title_activity_vols" 
             android:icon="@drawable/recorder">

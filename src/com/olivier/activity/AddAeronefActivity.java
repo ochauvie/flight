@@ -239,7 +239,7 @@ public class AddAeronefActivity extends Activity {
 	    private void initView() {
 	    	Bundle bundle = getIntent().getExtras();
 	        if (bundle!=null) {
-	        	int aeronefId = bundle.getInt("aeronefId");
+	        	int aeronefId = bundle.getInt(Aeronef.ID);
 	        	if (aeronefId!=0) {
 	        		dbAeronef.open();
 	        			aeronef = dbAeronef.getAeronefById(aeronefId);

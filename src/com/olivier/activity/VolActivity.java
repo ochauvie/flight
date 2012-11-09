@@ -3,6 +3,7 @@ package com.olivier.activity;
 import java.util.Date;
 
 import com.olivier.R;
+import com.olivier.model.Aeronef;
 import com.olivier.model.Vol;
 import com.olivier.sqllite.DbAeronef;
 
@@ -30,30 +31,15 @@ import android.widget.TextView;
 
 
 public class VolActivity extends Activity implements OnTouchListener{
-//public class VolActivity extends Activity  {
 
 	private DbAeronef dbAeronef = new DbAeronef(this);
-	RelativeLayout relativeLayout;
-	private ImageButton saveButton;
-	private ImageButton deleteButton;
-	private EditText aeronef;
-	private EditText minVol;
-	private EditText minMot;
-	private EditText secMot;
-	private EditText note;
-	private EditText lieu;
-	private Double latitude;
-	private Double longitude;
-	private Double altitude;
+	private RelativeLayout relativeLayout;
+	private ImageButton saveButton, deleteButton;
+	private EditText aeronef, minVol, minMot, secMot, note, lieu;
+	private Double latitude, longitude, altitude;
 	private String lieuGps;
-	private ImageButton selectAeronef;
-	private ImageButton viewVol;
-	private ImageButton butMeteo;
-	private ImageButton butGps;
-	private ImageButton radio;
-	
-	float downXValue;
-	
+	private ImageButton selectAeronef, viewVol, butMeteo, butGps, radio;
+	private float downXValue;
 	private TextView editText1;
 	private String typeAeronef;
 	
@@ -110,7 +96,6 @@ public class VolActivity extends Activity implements OnTouchListener{
         minMot.setText(null);
         secMot.setText(null);
         
-        
         // Gps
         locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		locationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, onLocationChange);
@@ -118,13 +103,12 @@ public class VolActivity extends Activity implements OnTouchListener{
         
 		// Add these two lines
         relativeLayout.setOnTouchListener((OnTouchListener) this); 
-
         
-        // Init aeronef selection by AeronefActivity
+        // Init aeronef selection by HangarActivity or SplashActivity (Nfc tag)
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
-        	String sAeronef = bundle.getString("aeronef");
-        	typeAeronef = bundle.getString("type");
+        	String sAeronef = bundle.getString(Aeronef.NAME);
+        	typeAeronef = bundle.getString(Aeronef.TYPE);
         	if (sAeronef!=null) {aeronef.setText(sAeronef);}
         }
         
@@ -157,7 +141,7 @@ public class VolActivity extends Activity implements OnTouchListener{
 	        		vol.setLieu(lieu.getText().toString());
 	        		
 	        		dbAeronef.open();
-	        		dbAeronef.insertVol(vol);
+	        			dbAeronef.insertVol(vol);
 	        		dbAeronef.close();
 	        		
 	        		resetPage();
@@ -233,7 +217,7 @@ public class VolActivity extends Activity implements OnTouchListener{
         	}
         }); 
         
-        
+        // Position
         butGps = (ImageButton) findViewById(R.id.gps);
         butGps.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
@@ -252,7 +236,9 @@ public class VolActivity extends Activity implements OnTouchListener{
         
     }
 
-
+    /**
+     * Clean the view
+     */
     private void resetPage() {
     	minVol.setText(null);
         minMot.setText(null);

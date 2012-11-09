@@ -29,7 +29,6 @@ public class MeteoActivity extends Activity {
 		editTextOaci = (EditText) findViewById(R.id.editTextOaci);
 		editTextOaci.setText(R.string.defaultOaci);
 		
-		
 		// Progress dialog
         mProgress = ProgressDialog.show(this, "Chargement", "Recherche en cours ...");
 
@@ -60,12 +59,9 @@ public class MeteoActivity extends Activity {
         			String url = "http://cunimb.net/decodemet.php?station=" + oaci.toUpperCase();
         			//String url = "http://www.aviationweather.gov/adds/metars/?station_ids=" + oaci.toUpperCase() + "&std_trans=translated&chk_metars=on&hoursStr=most+recent+only&submitmet=Submit";
         			webView.loadUrl(url);
-        			
-        			
         		}
         	}
         });
-        
 			
 	}
 	

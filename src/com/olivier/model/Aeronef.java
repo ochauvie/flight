@@ -12,6 +12,10 @@ public class Aeronef {
 	public static final String T_AUTO = "Automobile";
 	public static final String T_DIVERS = "Divers";
 	
+	public static final String ID = "aeronefId";
+	public static final String NAME = "aeronef";
+	public static final String TYPE = "type";
+	
 	private int id;
 	private String name;
 	private String type;

@@ -1,8 +1,5 @@
 package com.olivier.activity;
 
-
-
-
 import java.util.ArrayList;
 
 import com.olivier.R;
@@ -33,9 +30,9 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Aeronef> aeronefs;
 	
-	AeronefsAdapter adapter;
+	private AeronefsAdapter adapter;
 	private MyDialogInterface myInterface;
-	int selectItim = -1;
+	private int selectItim = -1;
 	
 	
 	
@@ -98,8 +95,8 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	public void onClickName(Aeronef item, int position) {
     	Aeronef sel = aeronefs.get(position);
     	Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
-    	volActivity.putExtra("aeronef", sel.getName());
-    	volActivity.putExtra("type", sel.getType());
+    	volActivity.putExtra(Aeronef.NAME, sel.getName());
+    	volActivity.putExtra(Aeronef.TYPE, sel.getType());
     	startActivity(volActivity);
     	finish();
 	}
@@ -108,7 +105,7 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	public void onClickType(Aeronef item, int position) {
     	Aeronef sel = aeronefs.get(position);
     	Intent addAeronefActivity = new Intent(getApplicationContext(), AddAeronefActivity.class);
-    	addAeronefActivity.putExtra("aeronefId", sel.getId());
+    	addAeronefActivity.putExtra(Aeronef.ID, sel.getId());
     	startActivity(addAeronefActivity);
     	finish();
 	}

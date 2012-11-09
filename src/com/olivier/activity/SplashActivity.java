@@ -4,6 +4,7 @@ package com.olivier.activity;
 import java.io.UnsupportedEncodingException;
 
 import com.olivier.R;
+import com.olivier.model.Aeronef;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -119,8 +120,8 @@ public class SplashActivity extends Activity {
 		if (aeronefType!=null && aeronefName!=null) {
 			SplashActivity.this.finish();
 	        Intent volActivity = new Intent(SplashActivity.this, VolActivity.class);
-	        volActivity.putExtra("aeronef", aeronefName);
-	    	volActivity.putExtra("type", aeronefType);
+	        volActivity.putExtra(Aeronef.NAME, aeronefName);
+	    	volActivity.putExtra(Aeronef.TYPE, aeronefType);
 	        SplashActivity.this.startActivity(volActivity);
 		}
 	}
