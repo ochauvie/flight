@@ -1,13 +1,27 @@
 package com.olivier.activity;
 
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+
 import com.olivier.R;
 import com.olivier.model.Aeronef;
 import com.olivier.sqllite.DbAeronef;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.nfc.FormatException;
+import android.nfc.NdefMessage;
+import android.nfc.NdefRecord;
+import android.nfc.NfcAdapter;
+import android.nfc.Tag;
+import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -15,9 +29,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
+@TargetApi(10)
 public class AddAeronefActivity extends Activity {
 
 	private DbAeronef dbAeronef = new DbAeronef(this);
@@ -26,10 +42,17 @@ public class AddAeronefActivity extends Activity {
 	private EditText name, wingSpan, weight, engine, firstFlight, comment;
 	private TextView log;
 	private RadioButton optPlaneur, optAvion, optParamoteur, optHelico, optAuto, optDivers;
-	private ImageButton save, close;
+	private ImageButton save, close, nfc;
 	private RadioGroup rg1, rg2 ,rg3;
 	    
+	private Context ctx;
+	private Tag mytag;
+	private NfcAdapter adapter;
+    private PendingIntent pendingIntent;
+	private IntentFilter writeTagFilters[];
+	boolean writeMode;
 	
+		// Listener to synchronize radio groups 
 		private OnCheckedChangeListener listener1 = new OnCheckedChangeListener() {
 	        @Override
 	        public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -80,6 +103,14 @@ public class AddAeronefActivity extends Activity {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.activity_add_aeronef);
 	        
+	        // NFC writer
+	        ctx=this;
+	        adapter = NfcAdapter.getDefaultAdapter(this);
+			pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
+			IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
+			tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
+			writeTagFilters = new IntentFilter[] { tagDetected };
+	        
 	        rg1 = (RadioGroup) findViewById(R.id.radioGroup1);
 	    	rg2 = (RadioGroup) findViewById(R.id.radioGroup2);
 	    	rg3 = (RadioGroup) findViewById(R.id.radioGroup3);
@@ -116,14 +147,11 @@ public class AddAeronefActivity extends Activity {
 	            	 finish();
 	        	}
 	        });
-	        
-	        
 	       
 	        // Save view
 	        save = (ImageButton) findViewById(R.id.save);
 	        save.setOnClickListener(new View.OnClickListener() {
 	        	public void onClick(View v) {
-
 	        		
 	        		Editable edName = name.getText();
 	        		if (edName==null || "".equals(edName.toString())) {
@@ -133,13 +161,10 @@ public class AddAeronefActivity extends Activity {
 	        				!optAuto.isChecked() && !optDivers.isChecked()) {
 	        			log.setText("Il faut selectionner un type de machine !");
 	        		} else {
-	        			
 	        			try {
-	        				
 	        				if (aeronef==null) {
 	        					aeronef = new Aeronef();	
 	    	        		} 
-		        			
 		        			aeronef.setName(edName.toString());
 		        			aeronef.setWingSpan(Float.valueOf(wingSpan.getText().toString()));
 		        			aeronef.setWeight(Float.valueOf(weight.getText().toString()));
@@ -177,11 +202,38 @@ public class AddAeronefActivity extends Activity {
 	        			} catch (NumberFormatException nfe) {
 	        				log.setText("Format de nombre non valide !");
 	        			}
-	        			
 	        		}
 	        	}
 	        });
 	        
+	        // NFC write
+	        nfc = (ImageButton) findViewById(R.id.nfc);
+	        nfc.setOnClickListener(new View.OnClickListener() {
+	        	public void onClick(View v) {
+        			String aerName = aeronef.getName();
+        			String aerType = aeronef.getType();
+        			if (aerName!= null && aerType!= null) {
+        				if(mytag==null){
+							Toast.makeText(ctx, "Approchez vous du tag à écrire", Toast.LENGTH_LONG ).show();
+						} else {
+							try {
+								write(aerName , aerType, mytag);
+								Toast.makeText(ctx, "Ecriture du tag réussie", Toast.LENGTH_LONG ).show();
+							
+							} catch (IOException e) {
+								Toast.makeText(ctx, "Error d'écriture", Toast.LENGTH_LONG ).show();
+								e.printStackTrace();
+							} catch (FormatException e) {
+								Toast.makeText(ctx, "Error d'écriture" , Toast.LENGTH_LONG ).show();
+								e.printStackTrace();
+							}
+						}
+        			} else {
+        				Toast.makeText(ctx, "La machine doit avoir été enregistrée", Toast.LENGTH_LONG ).show();
+        			}
+        			
+	        	}
+	        });
 	        
 	    }
 	    
@@ -226,5 +278,73 @@ public class AddAeronefActivity extends Activity {
 	    		   // TODO Auto-generated method stub
 	    		  }
 	    };
+	    
+	    @SuppressLint("NewApi")
+		@Override
+		protected void onNewIntent(Intent intent){
+			if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
+				mytag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);    
+				Toast.makeText(this, "Tag détécté", Toast.LENGTH_LONG ).show();
+			}
+	    }
+			
+	    
+	    @Override
+	    protected void onResume()
+	    {
+	        super.onResume();
+	        WriteModeOn(); // NFC
+	    }
+
+	    @Override
+		public void onPause(){
+			super.onPause();
+			WriteModeOff();
+		}
+
+	    
+	    private void WriteModeOn(){
+			writeMode = true;
+			adapter.enableForegroundDispatch(this, pendingIntent, writeTagFilters, null);
+		}
+
+		private void WriteModeOff(){
+			writeMode = false;
+			adapter.disableForegroundDispatch(this);
+		}
+		
+		private void write(String name, String type, Tag tag) throws IOException, FormatException {
+
+			NdefRecord[] records = { createRecord(name, "CDV_NAME_"),  createRecord(type, "CDV_TYPE_")};
+			NdefMessage  message = new NdefMessage(records);
+			// Get an instance of Ndef for the tag.
+			Ndef ndef = Ndef.get(tag);
+			// Enable I/O
+			ndef.connect();
+			// Write the message
+			ndef.writeNdefMessage(message);
+			// Close the connection
+			ndef.close();
+		}
+		
+		private NdefRecord createRecord(String text, String prefix) throws UnsupportedEncodingException {
+			String lang       = prefix;
+			byte[] textBytes  = text.getBytes();
+			byte[] langBytes  = lang.getBytes("US-ASCII");
+			int    langLength = langBytes.length;
+			int    textLength = textBytes.length;
+			byte[] payload    = new byte[1 + langLength + textLength];
+
+			// set status byte (see NDEF spec for actual bits)
+			payload[0] = (byte) langLength;
+
+			// copy langbytes and textbytes into payload
+			System.arraycopy(langBytes, 0, payload, 1,              langLength);
+			System.arraycopy(textBytes, 0, payload, 1 + langLength, textLength);
+
+			NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,  NdefRecord.RTD_TEXT,  new byte[0], payload);
+			return recordNFC;
+		}
+
 	    
 }

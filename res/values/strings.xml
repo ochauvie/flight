@@ -75,6 +75,9 @@
 	<string name="potar">Potar</string>
 	
 	
+	 <string name="title_scanned_tag">New tag collected</string>
+	 <string name="nfc">Nfc</string>
+	
 	
 	
 </resources>

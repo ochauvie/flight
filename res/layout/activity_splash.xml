@@ -60,9 +60,9 @@
         android:contentDescription="@string/app_name_maj"
         android:scaleType="centerInside"
         android:src="@drawable/welcome" />
-    
+    
     <ImageView
-        android:id="@+id/img1"
+        android:id="@+id/imgStart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:contentDescription="@string/app_name_maj"
