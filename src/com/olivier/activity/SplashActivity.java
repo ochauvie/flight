@@ -72,10 +72,8 @@ public class SplashActivity extends Activity {
     {
         super.onResume();
         WriteModeOn(); // NFC
-        // Check to see that the Activity started due to an Android Beam
-        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(getIntent().getAction())) {
-            processIntent(getIntent());
-        }
+        processIntent(getIntent());
+        
         /*
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -101,7 +99,8 @@ public class SplashActivity extends Activity {
 		String aeronefName = null;
     	String aeronefType = null;
     	
-		if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())){
+    	// ACTION_NDEF_DISCOVERED when app start - ACTION_TAG_DISCOVERED when read tag in splash screen
+		if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction()) || NfcAdapter.ACTION_NDEF_DISCOVERED.equals(intent.getAction())){
 			mytag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);    
 			Vibrator vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 			vib.vibrate(500);

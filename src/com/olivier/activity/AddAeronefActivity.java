@@ -3,6 +3,7 @@ package com.olivier.activity;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 
 import com.olivier.R;
 import com.olivier.model.Aeronef;
@@ -23,8 +24,10 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
@@ -316,7 +319,7 @@ public class AddAeronefActivity extends Activity {
 		private void write(String name, String type, Tag tag) throws IOException, FormatException {
 			NdefRecord appRecord = NdefRecord.createApplicationRecord("com.olivier");
 			
-			NdefRecord[] records = { appRecord, createRecord(name, "CDV_NAME_"),  createRecord(type, "CDV_TYPE_")};
+			NdefRecord[] records = {createRecord(name, "CDV_NAME_"), createRecord(type, "CDV_TYPE_"), appRecord};
 			NdefMessage  message = new NdefMessage(records);
 			// Get an instance of Ndef for the tag.
 			Ndef ndef = Ndef.get(tag);
@@ -343,7 +346,10 @@ public class AddAeronefActivity extends Activity {
 			System.arraycopy(langBytes, 0, payload, 1,              langLength);
 			System.arraycopy(textBytes, 0, payload, 1 + langLength, textLength);
 
-			NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,  NdefRecord.RTD_TEXT,  new byte[0], payload);
+			//NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,  NdefRecord.RTD_TEXT,  new byte[0], payload);
+			String mimeType = "application/com.olivier";
+			byte[] mimeBytes = mimeType.getBytes(Charset.forName("US-ASCII"));
+			NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,  mimeBytes,  new byte[0], payload);
 			return recordNFC;
 		}
 
