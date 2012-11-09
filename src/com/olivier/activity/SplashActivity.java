@@ -63,6 +63,8 @@ public class SplashActivity extends Activity {
 			}
 		});
 		
+		processIntent(getIntent());
+		
     }
 	
     @Override
@@ -70,6 +72,10 @@ public class SplashActivity extends Activity {
     {
         super.onResume();
         WriteModeOn(); // NFC
+        // Check to see that the Activity started due to an Android Beam
+        if (NfcAdapter.ACTION_TAG_DISCOVERED.equals(getIntent().getAction())) {
+            processIntent(getIntent());
+        }
         /*
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -88,8 +94,11 @@ public class SplashActivity extends Activity {
     
 	@Override
 	protected void onNewIntent(Intent intent){
-    	
-    	String aeronefName = null;
+		setIntent(intent);
+	}
+	
+	private void processIntent(Intent intent) {
+		String aeronefName = null;
     	String aeronefType = null;
     	
 		if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())){
@@ -135,8 +144,6 @@ public class SplashActivity extends Activity {
 	    	volActivity.putExtra("type", aeronefType);
 	        SplashActivity.this.startActivity(volActivity);
 		}
-        
-		
 	}
     
     @Override

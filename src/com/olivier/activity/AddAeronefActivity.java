@@ -33,7 +33,7 @@ import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 
-@TargetApi(10)
+@TargetApi(14)
 public class AddAeronefActivity extends Activity {
 
 	private DbAeronef dbAeronef = new DbAeronef(this);
@@ -314,8 +314,9 @@ public class AddAeronefActivity extends Activity {
 		}
 		
 		private void write(String name, String type, Tag tag) throws IOException, FormatException {
-
-			NdefRecord[] records = { createRecord(name, "CDV_NAME_"),  createRecord(type, "CDV_TYPE_")};
+			NdefRecord appRecord = NdefRecord.createApplicationRecord("com.olivier");
+			
+			NdefRecord[] records = { appRecord, createRecord(name, "CDV_NAME_"),  createRecord(type, "CDV_TYPE_")};
 			NdefMessage  message = new NdefMessage(records);
 			// Get an instance of Ndef for the tag.
 			Ndef ndef = Ndef.get(tag);
