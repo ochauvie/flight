@@ -48,6 +48,10 @@
 	<string name="title_activity_vols">Liste des enregistrements</string>
 	
 	<string name="title_activity_addAeronef">Machine</string>
+	<string name="aeronef_save">Machine sauvegardée</string>
+	<string name="number_format_ko">Format de nombre non valide !</string>
+	<string name="name_mandatory">Il faut donner un nom !</string>
+	<string name="type_mandatory">Il faut selectionner un type de machine !</string>
 	<string name="opt_planeur">Planeur</string>
 	<string name="opt_avion">Avion</string>
 	<string name="opt_paramoteur">Paramoteur</string>
@@ -76,6 +80,12 @@
 	<string name="potar">Potar</string>
 	 
 	<string name="nfc">Nfc</string>
+	<string name="nfc_tag_detected">Tag détécté</string>
+	<string name="nfc_approch_tag">Approchez vous du tag à écrire</string>
+	<string name="nfc_write_ok">Ecriture du tag réussie</string>
+	<string name="nfc_write_ko">Erreur d\'écriture</string>
+	<string name="nfc_save_before">La machine doit avoir été enregistrée avant d\'être taguée</string>
+	
 	
 	<string name="log">Log</string>
 	

@@ -50,7 +50,7 @@ public class AddAeronefActivity extends Activity {
 	private NfcAdapter adapter;
     private PendingIntent pendingIntent;
 	private IntentFilter writeTagFilters[];
-	boolean writeMode;
+	private boolean writeMode;
 	
 		// Listener to synchronize radio groups 
 		private OnCheckedChangeListener listener1 = new OnCheckedChangeListener() {
@@ -137,6 +137,8 @@ public class AddAeronefActivity extends Activity {
 	        // Get aeronef in parameter
 	        initView();
 	        
+	        
+	        
 	        // Close view
 	        close = (ImageButton) findViewById(R.id.close);
 	        close.setOnClickListener(new View.OnClickListener() {
@@ -154,11 +156,11 @@ public class AddAeronefActivity extends Activity {
 	        		
 	        		Editable edName = name.getText();
 	        		if (edName==null || "".equals(edName.toString())) {
-	        			log.setText("Il faut donner un nom !");
+	        			log.setText(R.string.name_mandatory);
 	        		} else if (!optPlaneur.isChecked() && !optAvion.isChecked() &&
 	        				!optParamoteur.isChecked() && !optHelico.isChecked() &&
 	        				!optAuto.isChecked() && !optDivers.isChecked()) {
-	        			log.setText("Il faut selectionner un type de machine !");
+	        			log.setText(R.string.type_mandatory);
 	        		} else {
 	        			try {
 	        				if (aeronef==null) {
@@ -193,13 +195,13 @@ public class AddAeronefActivity extends Activity {
 		        			}
 		        			dbAeronef.close();
 		        			
-		        			log.setText("Machine sauvegarder");
+		        			log.setText(R.string.aeronef_save);
 		        			
 		        			Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
 			            	startActivity(hangarActivity);
 			            	finish();
 	        			} catch (NumberFormatException nfe) {
-	        				log.setText("Format de nombre non valide !");
+	        				log.setText(R.string.number_format_ko);
 	        			}
 	        		}
 	        	}
@@ -207,30 +209,35 @@ public class AddAeronefActivity extends Activity {
 	        
 	        // NFC write
 	        nfc = (ImageButton) findViewById(R.id.nfc);
+	        if (aeronef==null) {
+	        	nfc.setClickable(false);
+	        }
 	        nfc.setOnClickListener(new View.OnClickListener() {
 	        	public void onClick(View v) {
-        			String aerName = aeronef.getName();
-        			String aerType = aeronef.getType();
-        			if (aerName!= null && aerType!= null) {
-        				if(mytag==null){
-							Toast.makeText(ctx, "Approchez vous du tag à écrire", Toast.LENGTH_LONG ).show();
-						} else {
-							try {
-								write(aerName, aerType, mytag);
-								Toast.makeText(ctx, "Ecriture du tag réussie", Toast.LENGTH_LONG ).show();
-							
-							} catch (IOException e) {
-								Toast.makeText(ctx, "Erreur d'écriture", Toast.LENGTH_LONG ).show();
-								e.printStackTrace();
-							} catch (FormatException e) {
-								Toast.makeText(ctx, "Erreur d'écriture" , Toast.LENGTH_LONG ).show();
-								e.printStackTrace();
-							}
-						}
-        			} else {
-        				Toast.makeText(ctx, "La machine doit avoir été enregistrée avnt d'être taguée", Toast.LENGTH_LONG ).show();
-        			}
         			
+	        		if (aeronef!=null) {
+		        		String aerName = aeronef.getName();
+	        			String aerType = aeronef.getType();
+	        			if (aerName!= null && aerType!= null) {
+	        				if(mytag==null){
+								Toast.makeText(ctx, R.string.nfc_approch_tag, Toast.LENGTH_LONG ).show();
+							} else {
+								try {
+									write(aerName, aerType, mytag);
+									Toast.makeText(ctx, R.string.nfc_write_ok, Toast.LENGTH_LONG ).show();
+								
+								} catch (IOException e) {
+									Toast.makeText(ctx, R.string.nfc_write_ko, Toast.LENGTH_LONG ).show();
+									e.printStackTrace();
+								} catch (FormatException e) {
+									Toast.makeText(ctx, R.string.nfc_write_ko , Toast.LENGTH_LONG ).show();
+									e.printStackTrace();
+								}
+							}
+	        			}
+	        		} else {
+		        		Toast.makeText(ctx, R.string.nfc_save_before, Toast.LENGTH_LONG ).show();
+		        	}
 	        	}
 	        });
 	        
@@ -283,7 +290,7 @@ public class AddAeronefActivity extends Activity {
 		protected void onNewIntent(Intent intent){
 			if(NfcAdapter.ACTION_TAG_DISCOVERED.equals(intent.getAction())) {
 				mytag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);    
-				Toast.makeText(this, "Tag détécté", Toast.LENGTH_LONG ).show();
+				Toast.makeText(this, R.string.nfc_tag_detected, Toast.LENGTH_LONG ).show();
 			}
 	    }
 			

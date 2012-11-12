@@ -1,264 +1,260 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" 
-    android:id="@+id/relativeLayoutVol"
-	>
-	
-    <TextView
-        android:id="@+id/textViewAeronef"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="34dp"
-        android:text="@string/aeronef" />
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
 
-    <EditText
-        android:id="@+id/editTextAeronef"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewAeronef"
-        android:layout_alignBottom="@+id/textViewAeronef"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="90dp"
-        android:ems="10"
-        android:inputType="textCapWords" >
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:tools="http://schemas.android.com/tools"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content" 
+	    android:id="@+id/relativeLayoutVol">
 		
-        <!-- requestFocus /-->
-    </EditText>
-
-    <ImageButton
-        android:id="@+id/selectAeronef"
-        android:layout_width="96dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/editTextAeronef"
-        android:layout_alignParentRight="true"
-        android:contentDescription="@string/selectAeronef"
-        android:background="#00000000"
-        android:src="@drawable/hangar" />
-    
-    
-    <TextView
-        android:id="@+id/textViewMinVol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextAeronef"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="17dp"
-        android:text="@string/minVol" />
-    
-    <EditText
-        android:id="@+id/editTextMinVol"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewMinVol"
-        android:layout_alignBottom="@+id/textViewMinVol"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="90dp"
-        android:ems="10"
-        android:inputType="number" />
-
-    <TextView
-        android:id="@+id/textViewUnitVol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewMinVol"
-        android:layout_alignBottom="@+id/textViewMinVol"
-        android:layout_marginLeft="245dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/min" />
-    
-    <TextView
-        android:id="@+id/textViewMot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMinVol"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/moteur" />
-    
-    <EditText
-        android:id="@+id/editTextMinMot"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewMot"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="90dp"
-        android:ems="10"
-        android:inputType="number" />
-    
-    <TextView
-        android:id="@+id/textViewMinMot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewMot"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMinVol"
-        android:layout_marginLeft="150dp"
-        android:text="@string/min" />
-    
-    <EditText
-        android:id="@+id/editTextSecMot"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewMot"
-        android:layout_alignBottom="@+id/textViewSecMot"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="180dp"
-        android:ems="10"
-        android:inputType="number" />
-    
-    <TextView
-        android:id="@+id/textViewSecMot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewMot"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/editTextMinVol"
-        android:layout_marginLeft="240dp"
-        android:text="@string/sec" />
-    
-    
-     <TextView
-        android:id="@+id/textViewNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewMot"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="17dp"
-        android:text="@string/note" />
-    
-    <EditText
-        android:id="@+id/editTextNote"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewNote"
-        android:layout_alignBottom="@+id/textViewNote"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="90dp"
-        android:ems="10"
-        android:inputType="text" />
-    
-    <TextView
-        android:id="@+id/textViewLieu"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewNote"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="17dp"
-        android:text="@string/lieu" />
-    
-    <EditText
-        android:id="@+id/editTextLieu"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/textViewLieu"
-        android:layout_alignBottom="@+id/textViewNote"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="90dp"
-        android:ems="10"
-        android:inputType="textMultiLine" />
-    
-      <ImageButton
-        android:id="@+id/gps"
-        android:layout_width="44dp"
-        android:layout_height="44dp"
-        android:layout_alignTop="@+id/textViewLieu"
-        android:layout_alignParentRight="true"
-        android:contentDescription="@string/gps"
-        android:background="#00000000"
-        android:src="@drawable/gps" />
-    
-    <TextView
-        android:id="@+id/editText1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textViewLieu"
-        android:layout_marginTop="60dp"
-        android:layout_marginLeft="16dp"
-        android:ems="10"
-    />
-    
-    
-    
-     <LinearLayout
-        android:id="@+id/layout1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/editText1"
-        >
-			    
-		  <ImageButton
-		        android:id="@+id/butMeteo"
-		        android:layout_width="56dp"
-		        android:layout_height="56dp"
-		        android:layout_marginLeft="15dp"
-		        android:layout_marginTop="22dp"
-		        android:background="#00000000"
-		        android:contentDescription="@string/meteo"
-		        android:src="@drawable/meteo" />
-		         
-			<ImageButton
-	        	android:id="@+id/radio"
-	        	android:layout_width="wrap_content"
-	        	android:layout_height="wrap_content"
-	        	android:layout_marginLeft="60dp"
-	        	android:background="#00000000"
-	        	android:contentDescription="@string/radio"
-	        	android:src="@drawable/ff9" />
-	              		     
-			<ImageButton
-			    android:id="@+id/viewVol"
-			    android:layout_width="56dp"
-			    android:layout_height="56dp"
-			    android:layout_marginLeft="50dp"
-			    android:layout_marginTop="22dp"
-			    android:background="#00000000"
-			    android:contentDescription="@string/viewVol"
-			    android:src="@drawable/recorder" />
-		
-				
-	</LinearLayout>
+	    <TextView
+	        android:id="@+id/textViewAeronef"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="34dp"
+	        android:text="@string/aeronef" />
 	
-     <LinearLayout
-        android:id="@+id/layout2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true" 
-        android:layout_below="@+id/layout1"
-        >
-			     
+	    <EditText
+	        android:id="@+id/editTextAeronef"
+	        android:layout_width="150dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewAeronef"
+	        android:layout_alignBottom="@+id/textViewAeronef"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="textCapWords" >
+	    </EditText>
+	
+	    <ImageButton
+	        android:id="@+id/selectAeronef"
+	        android:layout_width="96dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/editTextAeronef"
+	        android:layout_alignParentRight="true"
+	        android:contentDescription="@string/selectAeronef"
+	        android:background="#00000000"
+	        android:src="@drawable/hangar" />
+	    
+	    <TextView
+	        android:id="@+id/textViewMinVol"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/editTextAeronef"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/minVol" />
+	    
+	    <EditText
+	        android:id="@+id/editTextMinVol"
+	        android:layout_width="150dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewMinVol"
+	        android:layout_alignBottom="@+id/textViewMinVol"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="number" />
+	
+	    <TextView
+	        android:id="@+id/textViewUnitVol"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewMinVol"
+	        android:layout_alignBottom="@+id/textViewMinVol"
+	        android:layout_marginLeft="245dp"
+	        android:layout_marginTop="16dp"
+	        android:text="@string/min" />
+	    
+	    <TextView
+	        android:id="@+id/textViewMot"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/editTextMinVol"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="16dp"
+	        android:text="@string/moteur" />
+	    
+	    <EditText
+	        android:id="@+id/editTextMinMot"
+	        android:layout_width="60dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewMot"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="number" />
+	    
+	    <TextView
+	        android:id="@+id/textViewMinMot"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewMot"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/editTextMinVol"
+	        android:layout_marginLeft="150dp"
+	        android:text="@string/min" />
+	    
+	    <EditText
+	        android:id="@+id/editTextSecMot"
+	        android:layout_width="60dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewMot"
+	        android:layout_alignBottom="@+id/textViewSecMot"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="180dp"
+	        android:ems="10"
+	        android:inputType="number" />
+	    
+	    <TextView
+	        android:id="@+id/textViewSecMot"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewMot"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/editTextMinVol"
+	        android:layout_marginLeft="240dp"
+	        android:text="@string/sec" />
+	    
+	     <TextView
+	        android:id="@+id/textViewNote"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textViewMot"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/note" />
+	    
+	    <EditText
+	        android:id="@+id/editTextNote"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewNote"
+	        android:layout_alignBottom="@+id/textViewNote"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="text" />
+	    
+	    <TextView
+	        android:id="@+id/textViewLieu"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textViewNote"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/lieu" />
+	    
+	    <EditText
+	        android:id="@+id/editTextLieu"
+	        android:layout_width="180dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewLieu"
+	        android:layout_alignBottom="@+id/textViewNote"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="textMultiLine" />
+	    
 	      <ImageButton
-		        android:id="@+id/saveVol"
-		        android:layout_width="56dp"
-		        android:layout_height="56dp"
-		        android:layout_marginLeft="15dp"
-		        android:layout_marginTop="22dp"
-		        android:background="#00000000"
-		        android:contentDescription="@string/save"
-		        android:src="@drawable/save" />
-	
-		   	<ImageButton
-		        android:id="@+id/deleteVol"
-		        android:layout_width="56dp"
-		        android:layout_height="56dp"
-		        android:layout_marginLeft="170dp"
-		        android:layout_marginTop="22dp"
-		        android:background="#00000000"
-		        android:contentDescription="@string/viewVol"
-		        android:src="@drawable/reset" />
-				
-	</LinearLayout>
-    
-</RelativeLayout>
+	        android:id="@+id/gps"
+	        android:layout_width="44dp"
+	        android:layout_height="44dp"
+	        android:layout_alignTop="@+id/textViewLieu"
+	        android:layout_alignParentRight="true"
+	        android:contentDescription="@string/gps"
+	        android:background="#00000000"
+	        android:src="@drawable/gps" />
+	    
+	    <TextView
+	        android:id="@+id/editText1"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textViewLieu"
+	        android:layout_marginTop="60dp"
+	        android:layout_marginLeft="16dp"
+	        android:ems="10"/>
+	    
+	     <LinearLayout
+	        android:id="@+id/layout1"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_below="@+id/editText1">
+				    
+			  <ImageButton
+			        android:id="@+id/butMeteo"
+			        android:layout_width="56dp"
+			        android:layout_height="56dp"
+			        android:layout_marginLeft="15dp"
+			        android:layout_marginTop="22dp"
+			        android:background="#00000000"
+			        android:contentDescription="@string/meteo"
+			        android:src="@drawable/meteo" />
+			         
+				<ImageButton
+		        	android:id="@+id/radio"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:layout_marginLeft="60dp"
+		        	android:background="#00000000"
+		        	android:contentDescription="@string/radio"
+		        	android:src="@drawable/ff9" />
+		              		     
+				<ImageButton
+				    android:id="@+id/viewVol"
+				    android:layout_width="56dp"
+				    android:layout_height="56dp"
+				    android:layout_marginLeft="50dp"
+				    android:layout_marginTop="22dp"
+				    android:background="#00000000"
+				    android:contentDescription="@string/viewVol"
+				    android:src="@drawable/recorder" />
+					
+		</LinearLayout>
+		
+	     <LinearLayout
+	        android:id="@+id/layout2"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentRight="true"
+	        android:layout_alignParentBottom="true" 
+	        android:layout_below="@+id/layout1">
+				     
+		      <ImageButton
+			        android:id="@+id/saveVol"
+			        android:layout_width="56dp"
+			        android:layout_height="56dp"
+			        android:layout_marginLeft="15dp"
+			        android:layout_marginTop="22dp"
+			        android:background="#00000000"
+			        android:contentDescription="@string/save"
+			        android:src="@drawable/save" />
+		
+			   	<ImageButton
+			        android:id="@+id/deleteVol"
+			        android:layout_width="56dp"
+			        android:layout_height="56dp"
+			        android:layout_marginLeft="170dp"
+			        android:layout_marginTop="22dp"
+			        android:background="#00000000"
+			        android:contentDescription="@string/viewVol"
+			        android:src="@drawable/reset" />
+					
+		</LinearLayout>
+	    
+	</RelativeLayout>
+
+</ScrollView>
