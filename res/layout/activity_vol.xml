@@ -207,16 +207,25 @@
 		        	android:id="@+id/radio"
 		        	android:layout_width="wrap_content"
 		        	android:layout_height="wrap_content"
-		        	android:layout_marginLeft="60dp"
+		        	android:layout_marginLeft="20dp"
 		        	android:background="#00000000"
 		        	android:contentDescription="@string/radio"
 		        	android:src="@drawable/ff9" />
+				
+				<ImageButton
+		        	android:id="@+id/carte"
+		        	android:layout_width="wrap_content"
+		        	android:layout_height="wrap_content"
+		        	android:layout_marginLeft="20dp"
+		        	android:background="#00000000"
+		        	android:contentDescription="@string/carte"
+		        	android:src="@drawable/carte" />
 		              		     
 				<ImageButton
 				    android:id="@+id/viewVol"
 				    android:layout_width="56dp"
 				    android:layout_height="56dp"
-				    android:layout_marginLeft="50dp"
+				    android:layout_marginLeft="20dp"
 				    android:layout_marginTop="22dp"
 				    android:background="#00000000"
 				    android:contentDescription="@string/viewVol"
@@ -237,7 +246,7 @@
 			        android:id="@+id/saveVol"
 			        android:layout_width="56dp"
 			        android:layout_height="56dp"
-			        android:layout_marginLeft="15dp"
+			        android:layout_marginLeft="20dp"
 			        android:layout_marginTop="22dp"
 			        android:background="#00000000"
 			        android:contentDescription="@string/save"
@@ -247,7 +256,7 @@
 			        android:id="@+id/deleteVol"
 			        android:layout_width="56dp"
 			        android:layout_height="56dp"
-			        android:layout_marginLeft="170dp"
+			        android:layout_marginLeft="180dp"
 			        android:layout_marginTop="22dp"
 			        android:background="#00000000"
 			        android:contentDescription="@string/viewVol"

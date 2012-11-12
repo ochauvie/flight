@@ -227,6 +227,8 @@ public class DbManager extends SQLiteOpenHelper {
 	}
 	
 	private void initRadio(SQLiteDatabase db) {
+		 // APLINA 4001
+		
 		// Switch
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_ID, 1);
@@ -305,6 +307,67 @@ public class DbManager extends SQLiteOpenHelper {
 		values.put(DbManager.COL_ID_RADIO, 1);
 		values.put(DbManager.COL_ID_POTAR, 1);
 		db.insert(DbManager.TABLE_RADIO_POTAR, null, values);
+	
+		// Broussard
+		
+		// Switch
+				values = new ContentValues();
+				values.put(DbManager.COL_ID, 6);
+				values.put(DbManager.COL_NAME, "C");
+				values.put(DbManager.COL_UP, "Rentrés");
+				values.put(DbManager.COL_CENTER, "Sortis 50%");
+				values.put(DbManager.COL_DOWN, "Sortis 100%");
+				values.put(DbManager.COL_ACTION, "Volets");
+				db.insert(DbManager.TABLE_SWITCH, null, values);
+				
+				values = new ContentValues();
+				values.put(DbManager.COL_ID, 7);
+				values.put(DbManager.COL_NAME, "D");
+				values.put(DbManager.COL_UP, "Stop");
+				values.put(DbManager.COL_DOWN, "Actif");
+				values.put(DbManager.COL_ACTION, "Chronomètre");
+				db.insert(DbManager.TABLE_SWITCH, null, values);
+				
+				// Radio
+				values = new ContentValues();
+				values.put(DbManager.COL_ID, 2);
+				values.put(DbManager.COL_NAME, "FF9 - Broussard");
+				db.insert(DbManager.TABLE_RADIO, null, values);
+				
+				// Radio - switch
+				values = new ContentValues();
+				values.put(DbManager.COL_ID_RADIO, 2);
+				values.put(DbManager.COL_ID_SWITCH, 6);
+				db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+				
+				values = new ContentValues();
+				values.put(DbManager.COL_ID_RADIO, 2);
+				values.put(DbManager.COL_ID_SWITCH, 7);
+				db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+
+			// Spatz
+			
+				// Potar
+				values = new ContentValues();
+				values.put(DbManager.COL_ID, 2);
+				values.put(DbManager.COL_NAME, "Côté gauche");
+				values.put(DbManager.COL_UP, "Sortis");
+				values.put(DbManager.COL_DOWN, "Rentrés");
+				values.put(DbManager.COL_ACTION, "AF");
+				db.insert(DbManager.TABLE_POTAR, null, values);
+					
+				// Radio
+				values = new ContentValues();
+				values.put(DbManager.COL_ID, 3);
+				values.put(DbManager.COL_NAME, "FF9 - Spatz 55");
+				db.insert(DbManager.TABLE_RADIO, null, values);
+				
+				// Radio - potar
+				values = new ContentValues();
+				values.put(DbManager.COL_ID_RADIO, 3);
+				values.put(DbManager.COL_ID_POTAR, 2);
+				db.insert(DbManager.TABLE_RADIO_POTAR, null, values);
+	
 		
 	}
 

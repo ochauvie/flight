@@ -20,6 +20,9 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+        
+        <uses-library android:name="com.google.android.maps" />
+        
         <activity
             android:name=".activity.SplashActivity"
             android:label="@string/app_name_maj"> 
@@ -77,7 +80,14 @@
             android:label="@string/title_activity_switchpotar"
             android:icon="@drawable/inter">
         </activity>
-         <!--  service android:name=".service.GpsService"/-->
+        <activity
+            android:name=".activity.CarteActivity"
+            android:label="@string/title_activity_carte"
+            android:icon="@drawable/carte">
+        </activity>
+        
+        <!--  service android:name=".service.GpsService"/-->
+        
     </application>
 
     

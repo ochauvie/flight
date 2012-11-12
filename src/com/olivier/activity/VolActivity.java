@@ -7,6 +7,7 @@ import com.olivier.model.Aeronef;
 import com.olivier.model.Vol;
 import com.olivier.sqllite.DbAeronef;
 
+import android.R.integer;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -38,7 +39,7 @@ public class VolActivity extends Activity implements OnTouchListener{
 	private EditText aeronef, minVol, minMot, secMot, note, lieu;
 	private Double latitude, longitude, altitude;
 	private String lieuGps;
-	private ImageButton selectAeronef, viewVol, butMeteo, butGps, radio;
+	private ImageButton selectAeronef, viewVol, butMeteo, butGps, radio, carte;
 	private float downXValue;
 	private TextView editText1;
 	private String typeAeronef;
@@ -234,6 +235,17 @@ public class VolActivity extends Activity implements OnTouchListener{
         	}
         });
         
+        // Carte
+        carte = (ImageButton) findViewById(R.id.carte);
+        carte.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View v) {
+        		Intent carteActivity = new Intent(getApplicationContext(),CarteActivity.class);
+        		carteActivity.putExtra("latitude", latitude*1000000);
+        		carteActivity.putExtra("longitude", longitude*1000000);
+            	startActivity(carteActivity);
+        	}
+        });
+                
     }
 
     /**

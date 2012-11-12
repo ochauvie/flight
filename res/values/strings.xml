@@ -86,6 +86,10 @@
 	<string name="nfc_write_ko">Erreur d\'écriture</string>
 	<string name="nfc_save_before">La machine doit avoir été enregistrée avant d\'être taguée</string>
 	
+	<string name="title_activity_carte">Carte</string>
+	<string name="carte">Carte</string>
+	<string name="production_api_key">0ri1fmvpao2WRhNvGbPaajkp035avJTSW_JwWCw</string>
+	
 	
 	<string name="log">Log</string>
 	
