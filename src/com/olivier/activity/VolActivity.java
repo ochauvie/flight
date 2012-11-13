@@ -7,7 +7,6 @@ import com.olivier.model.Aeronef;
 import com.olivier.model.Vol;
 import com.olivier.sqllite.DbAeronef;
 
-import android.R.integer;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -19,12 +18,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -39,7 +38,7 @@ public class VolActivity extends Activity implements OnTouchListener{
 	private EditText aeronef, minVol, minMot, secMot, note, lieu;
 	private Double latitude, longitude, altitude;
 	private String lieuGps;
-	private ImageButton selectAeronef, viewVol, butMeteo, butGps, radio, carte;
+	private ImageButton selectAeronef, butGps;
 	private float downXValue;
 	private TextView editText1;
 	private String typeAeronef;
@@ -196,27 +195,6 @@ public class VolActivity extends Activity implements OnTouchListener{
         	}
         });
 
-        // View flights
-        viewVol = (ImageButton) findViewById(R.id.viewVol);
-        viewVol.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.anim.animation_1);
-       			viewVol.startAnimation(animation);
-        		Intent myIntent = new Intent(v.getContext(), VolsActivity.class);
-                startActivityForResult(myIntent, 0);
-        	}
-        });
-        
-        // Meteo
-        butMeteo = (ImageButton) findViewById(R.id.butMeteo);
-        butMeteo.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Animation animation = AnimationUtils.loadAnimation(v.getContext(), R.anim.animation_1);
-        		butMeteo.startAnimation(animation);
-        		Intent myIntent = new Intent(v.getContext(), MeteoActivity.class);
-                startActivityForResult(myIntent, 0);
-        	}
-        }); 
         
         // Position
         butGps = (ImageButton) findViewById(R.id.gps);
@@ -225,26 +203,7 @@ public class VolActivity extends Activity implements OnTouchListener{
         		lieu.setText(lieuGps);
         	}
         }); 
-        
-       // Radio
-        radio = (ImageButton) findViewById(R.id.radio);
-        radio.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Intent radiosActivity = new Intent(getApplicationContext(),RadiosActivity.class);
-            	startActivity(radiosActivity);
-        	}
-        });
-        
-        // Carte
-        carte = (ImageButton) findViewById(R.id.carte);
-        carte.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Intent carteActivity = new Intent(getApplicationContext(),CarteActivity.class);
-        		carteActivity.putExtra("latitude", latitude*1000000);
-        		carteActivity.putExtra("longitude", longitude*1000000);
-            	startActivity(carteActivity);
-        	}
-        });
+       
                 
     }
 
@@ -266,14 +225,44 @@ public class VolActivity extends Activity implements OnTouchListener{
     	locationMgr.removeUpdates(onLocationChange);
     }
     
-    
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_olivier, menu);
+    	 //Création d'un MenuInflater qui va permettre d'instancier un Menu XML en un objet Menu
+        MenuInflater inflater = getMenuInflater();
+        //Instanciation du menu XML spécifier en un objet Menu
+        inflater.inflate(R.menu.menu, menu);
+        
+        menu.getItem(0).setIcon(R.drawable.meteo_icon);
+        menu.getItem(1).setIcon(R.drawable.ff9_icon);
+        menu.getItem(2).setIcon(R.drawable.carte_icon);
+        menu.getItem(3).setIcon(R.drawable.recorder_icon);
+        
         return true;
     }
 
+    //Méthode qui se déclenchera au clic sur un item
+    public boolean onOptionsItemSelected(MenuItem item) {
+       switch (item.getItemId()) {
+          case R.id.meteo:
+             Intent myIntent = new Intent(VolActivity.this, MeteoActivity.class);
+             startActivityForResult(myIntent, 0);
+             return true;
+          case R.id.radio:
+        	  Intent radiosActivity = new Intent(VolActivity.this, RadiosActivity.class);
+          		startActivity(radiosActivity);
+              return true;
+          case R.id.carte:
+        	  Intent carteActivity = new Intent(VolActivity.this, CarteActivity.class);
+        	  carteActivity.putExtra("latitude", latitude*1000000);
+      		  carteActivity.putExtra("longitude", longitude*1000000);
+      		  startActivity(carteActivity);
+              return true;
+         case R.id.vols:
+        	 Intent volsActivity = new Intent(VolActivity.this, VolsActivity.class);
+             startActivityForResult(volsActivity, 0);
+             return true;
+       }
+       return false;}
     
 	@Override
 	public boolean onTouch(View v, MotionEvent arg1) {

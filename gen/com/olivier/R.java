@@ -19,31 +19,35 @@ public final class R {
     public static final class drawable {
         public static final int add=0x7f020000;
         public static final int carte=0x7f020001;
-        public static final int close=0x7f020002;
-        public static final int delete=0x7f020003;
-        public static final int ff9=0x7f020004;
-        public static final int find=0x7f020005;
-        public static final int glider=0x7f020006;
-        public static final int gps=0x7f020007;
-        public static final int hangar=0x7f020008;
-        public static final int ic_action_search=0x7f020009;
-        public static final int ic_launcher=0x7f02000a;
-        public static final int inter=0x7f02000b;
-        public static final int listview_selector=0x7f02000c;
-        public static final int listview_selector_focussed=0x7f02000d;
-        public static final int listview_selector_pressed=0x7f02000e;
-        public static final int meteo=0x7f02000f;
-        public static final int nfc=0x7f020010;
-        public static final int note=0x7f020011;
-        public static final int punaise=0x7f020012;
-        public static final int recorder=0x7f020013;
-        public static final int reset=0x7f020014;
-        public static final int save=0x7f020015;
-        public static final int smalladd=0x7f020016;
-        public static final int splash=0x7f020017;
-        public static final int splash_old=0x7f020018;
-        public static final int vol=0x7f020019;
-        public static final int welcome=0x7f02001a;
+        public static final int carte_icon=0x7f020002;
+        public static final int close=0x7f020003;
+        public static final int delete=0x7f020004;
+        public static final int ff9=0x7f020005;
+        public static final int ff9_icon=0x7f020006;
+        public static final int find=0x7f020007;
+        public static final int glider=0x7f020008;
+        public static final int gps=0x7f020009;
+        public static final int hangar=0x7f02000a;
+        public static final int ic_action_search=0x7f02000b;
+        public static final int ic_launcher=0x7f02000c;
+        public static final int inter=0x7f02000d;
+        public static final int listview_selector=0x7f02000e;
+        public static final int listview_selector_focussed=0x7f02000f;
+        public static final int listview_selector_pressed=0x7f020010;
+        public static final int meteo=0x7f020011;
+        public static final int meteo_icon=0x7f020012;
+        public static final int nfc=0x7f020013;
+        public static final int note=0x7f020014;
+        public static final int punaise=0x7f020015;
+        public static final int recorder=0x7f020016;
+        public static final int recorder_icon=0x7f020017;
+        public static final int reset=0x7f020018;
+        public static final int save=0x7f020019;
+        public static final int smalladd=0x7f02001a;
+        public static final int splash=0x7f02001b;
+        public static final int splash_old=0x7f02001c;
+        public static final int vol=0x7f02001d;
+        public static final int welcome=0x7f02001e;
     }
     public static final class id {
         public static final int LL_Fond=0x7f08001d;
@@ -52,12 +56,11 @@ public final class R {
         public static final int addAeronef=0x7f08002e;
         public static final int addSwitchPotar=0x7f080043;
         public static final int btnLaunch=0x7f08003c;
-        public static final int butMeteo=0x7f080062;
         public static final int butNew=0x7f080046;
         public static final int button1=0x7f080040;
         public static final int button2=0x7f080041;
         public static final int button3=0x7f080042;
-        public static final int carte=0x7f080064;
+        public static final int carte=0x7f080066;
         public static final int center=0x7f080027;
         public static final int chronometer1=0x7f08003f;
         public static final int close=0x7f08001c;
@@ -103,6 +106,7 @@ public final class R {
         public static final int layout_main=0x7f08004e;
         public static final int layout_splash=0x7f080047;
         public static final int mapview=0x7f08002b;
+        public static final int meteo=0x7f080064;
         public static final int name=0x7f080021;
         public static final int nfc=0x7f08001b;
         public static final int option_auto=0x7f080017;
@@ -113,16 +117,16 @@ public final class R {
         public static final int option_planeur=0x7f080011;
         public static final int option_potar=0x7f080020;
         public static final int option_switch=0x7f08001f;
-        public static final int radio=0x7f080063;
+        public static final int radio=0x7f080065;
         public static final int radioGroup=0x7f08001e;
         public static final int radioGroup1=0x7f080010;
         public static final int radioGroup2=0x7f080013;
         public static final int radioGroup3=0x7f080016;
         public static final int radioName=0x7f080035;
         public static final int relativeLayoutVol=0x7f080052;
-        public static final int relativeLayoutVols=0x7f080067;
+        public static final int relativeLayoutVols=0x7f080063;
         public static final int save=0x7f08001a;
-        public static final int saveVol=0x7f080066;
+        public static final int saveVol=0x7f080062;
         public static final int second=0x7f080051;
         public static final int selectAeronef=0x7f080053;
         public static final int tempsMoteur=0x7f080032;
@@ -148,7 +152,7 @@ public final class R {
         public static final int totalVol=0x7f08002d;
         public static final int type=0x7f080033;
         public static final int up=0x7f080025;
-        public static final int viewVol=0x7f080065;
+        public static final int vols=0x7f080067;
         public static final int webview=0x7f08003d;
     }
     public static final class layout {
@@ -173,7 +177,7 @@ public final class R {
         public static final int activity_vols=0x7f030012;
     }
     public static final class menu {
-        public static final int activity_olivier=0x7f070000;
+        public static final int menu=0x7f070000;
     }
     public static final class string {
         public static final int StartService=0x7f050009;

@@ -17,7 +17,6 @@ import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
-import android.view.Menu;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -157,13 +156,5 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 		}
 	}
 
-
-	@Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.activity_olivier, menu);
-        return true;
-    }
-
-	
 
 }
