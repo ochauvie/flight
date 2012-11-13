@@ -6,7 +6,9 @@ Application android d'enregistrement de vols pour des aéronefs radiocommandés.
 * Visualisation des vols effectués
 * Localisation GPS des vols, affichage de la carte
 * METAR par code OACI
-* Lecture et écriture de tag NFC sur l'aéronef
+* Lecture et écriture de tag NFC à coller sur l'aéronef
+* Gestion des programmations radio (action inter et potar)
+* Gestion de checklist
 
 # Target
 * Samsung Galaxy S2
