@@ -232,11 +232,6 @@ public class VolActivity extends Activity implements OnTouchListener{
         //Instanciation du menu XML spécifier en un objet Menu
         inflater.inflate(R.menu.menu, menu);
         
-        menu.getItem(0).setIcon(R.drawable.meteo_icon);
-        menu.getItem(1).setIcon(R.drawable.ff9_icon);
-        menu.getItem(2).setIcon(R.drawable.carte_icon);
-        menu.getItem(3).setIcon(R.drawable.recorder_icon);
-        
         return true;
     }
 
@@ -260,6 +255,10 @@ public class VolActivity extends Activity implements OnTouchListener{
          case R.id.vols:
         	 Intent volsActivity = new Intent(VolActivity.this, VolsActivity.class);
              startActivityForResult(volsActivity, 0);
+             return true;
+         case R.id.checklists:
+        	 Intent checklistsActivity = new Intent(VolActivity.this, ChecklistsActivity.class);
+             startActivityForResult(checklistsActivity, 0);
              return true;
        }
        return false;}

@@ -85,6 +85,23 @@
             android:label="@string/title_activity_carte"
             android:icon="@drawable/carte">
         </activity>
+        <activity
+            android:name=".activity.ChecklistsActivity"
+            android:label="@string/title_activity_checklist"
+            android:icon="@drawable/checklist">
+        </activity>
+        <activity
+            android:name=".activity.ChecklistActivity"
+            android:label="@string/title_activity_checklist"
+            android:icon="@drawable/checklist">
+        </activity>
+        <activity
+            android:name=".activity.UpdateChecklistActivity"
+            android:label="@string/title_activity_checklist"
+            android:icon="@drawable/checklist">
+        </activity>
+        
+        
         
         <!--  service android:name=".service.GpsService"/-->
         

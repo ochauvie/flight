@@ -10,6 +10,7 @@
     <string name="reset">Reset</string>
     <string name="close">Fermer</string>
     <string name="add">Ajout</string>
+    <string name="update">Modifier</string>
     <string name="StartService">Start service</string>
     
     <string name="title_activity_vol">Vol</string>
@@ -70,7 +71,7 @@
 	<string name="title_activity_radio">Programme radio</string>
 	<string name="title_activity_switchpotar">Ajout inter - potentiomètre</string>
 	
-	<string name="radio">Programme</string>
+	<string name="radio">Programme radio</string>
 	<string name="action">Action</string>
 	<string name="name">Nom</string>
 	<string name="up">UP</string>
@@ -89,6 +90,12 @@
 	<string name="title_activity_carte">Carte</string>
 	<string name="carte">Carte</string>
 	<string name="production_api_key">0ri1fmvpao2WRhNvGbPaajkp035avJTSW_JwWCw</string>
+	
+	<string name="title_activity_checklist">Checklist</string>
+	<string name="checklist">Checklist</string>
+	<string name="checklistItem">Item</string>
+	<string name="order">Ordre</string>
+	
 	
 	
 	<string name="log">Log</string>

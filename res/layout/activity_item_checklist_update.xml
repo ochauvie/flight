@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	android:id="@+id/LL_Fond">
+	
+	
+	<EditText android:text="@string/order" android:id="@+id/order"
+		android:layout_width="50dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+		android:textSize="15sp"
+		android:layout_marginLeft="5dp"
+		android:ems="10"
+	    android:inputType="number">
+	</EditText>
+	
+	<EditText android:id="@+id/action"
+	    android:text="@string/type"
+		android:layout_width="210dp"
+		android:layout_height="wrap_content"
+		android:layout_alignBaseline="@+id/order"
+	    android:layout_alignBottom="@+id/order"
+		android:layout_alignParentLeft="true"
+		android:textSize="15sp"
+		android:layout_marginLeft="60dp"
+		android:ems="10"
+	    android:inputType="textCapWords">
+	</EditText>
+	
+	<ImageButton
+        android:id="@+id/delete"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="280dp"
+        android:background="#00000000"
+        android:contentDescription="@string/delete"
+        android:src="@drawable/delete" />
+	
+	
+</RelativeLayout>

@@ -17,4 +17,8 @@
      android:title="@string/viewVol"
      android:icon="@drawable/recorder_icon"/>
 	
+	<item android:id="@+id/checklists" 
+     android:title="@string/checklist"
+     android:icon="@drawable/checklist_icon"/>
+	
 </menu>

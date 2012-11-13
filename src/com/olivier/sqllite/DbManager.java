@@ -113,6 +113,17 @@ public class DbManager extends SQLiteOpenHelper {
 			+ COL_ID_RADIO + " INTEGER  NOT NULL, " 
 			+ COL_ID_POTAR + " INTEGER NOT NULL);";
 	
+	
+	public static final String TABLE_CHECKLIST = "table_checklist";
+	public static final String COL_ORDER = "TRI";
+	private static final String CREATE_TABLE_CHECKLIST = "CREATE TABLE " + TABLE_CHECKLIST + " ("
+			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+			+ COL_NAME + " TEXT  NOT NULL, "
+			+ COL_ACTION + " TEXT , "
+			+ COL_ORDER + " INTEGER NOT NULL);";
+	
+	
+	
 	public DbManager(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
 	}
@@ -128,8 +139,11 @@ public class DbManager extends SQLiteOpenHelper {
 		db.execSQL(CREATE_TABLE_RADIO_SWITCH);
 		db.execSQL(CREATE_TABLE_RADIO_POTAR);
 		
+		db.execSQL(CREATE_TABLE_CHECKLIST);
+		
 		initHangar(db);
 		initRadio(db);
+		initChecklist(db);
 	}
 	
 	@Override
@@ -372,5 +386,26 @@ public class DbManager extends SQLiteOpenHelper {
 	}
 
 	
-
+	private void initChecklist(SQLiteDatabase db) {
+		ContentValues values = new ContentValues();
+		values.put(DbManager.COL_NAME, "Alpina 4001");
+		values.put(DbManager.COL_ACTION, "Emetteur ON");
+		values.put(DbManager.COL_ORDER, 1);
+		db.insert(DbManager.TABLE_CHECKLIST, null, values);
+		
+		values = new ContentValues();
+		values.put(DbManager.COL_NAME, "Alpina 4001");
+		values.put(DbManager.COL_ACTION, "Moteur OFF");
+		values.put(DbManager.COL_ORDER, 2);
+		db.insert(DbManager.TABLE_CHECKLIST, null, values);
+		
+		values = new ContentValues();
+		values.put(DbManager.COL_NAME, "Alpina 4001");
+		values.put(DbManager.COL_ACTION, "Récepeteur ON");
+		values.put(DbManager.COL_ORDER, 3);
+		db.insert(DbManager.TABLE_CHECKLIST, null, values);
+		
+	}
+		 
+		
 }
