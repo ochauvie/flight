@@ -95,6 +95,9 @@
 	<string name="checklist">Checklist</string>
 	<string name="checklistItem">Item</string>
 	<string name="order">Ordre</string>
+	<string name="checklist_update_ok">Toutes les modifications ont été enregistrées</string>
+	<string name="checklist_order_mandatory">Renseigner un ordre</string>
+	<string name="checklist_action_mandatory">Renseigner une action</string>
 	
 	
 	

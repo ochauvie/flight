@@ -500,8 +500,6 @@ public class DbAeronef {
 		bdd.delete(DbManager.TABLE_CHECKLIST, DbManager.COL_ID + "=" + checklistItemId , null);	
 	}
 	
-	
-	
 	public void addCheckList(Checklist checklist) {
 		for (ChecklistItem item: checklist.getItems()) {
 			ContentValues values = new ContentValues();
@@ -510,8 +508,18 @@ public class DbAeronef {
 			values.put(DbManager.COL_ORDER, item.getOrder());
 			bdd.insert(DbManager.TABLE_CHECKLIST, null, values);	
 		}
-		
-		
+	}
+	
+	public void updateChecklist(Checklist checklist) {
+		String where = DbManager.COL_ID + "=?";
+		for (ChecklistItem item: checklist.getItems()) {
+			String[] whereArgs = new String[] {String.valueOf(item.getId())};
+			ContentValues values = new ContentValues();
+			values.put(DbManager.COL_ACTION, item.getAction());
+			values.put(DbManager.COL_ORDER, item.getOrder());
+			bdd.update(DbManager.TABLE_CHECKLIST, values, where, whereArgs);
+		}
+			
 	}
 	
 }

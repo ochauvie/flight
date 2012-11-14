@@ -1,10 +1,8 @@
 package com.olivier.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.olivier.R;
-import com.olivier.listener.ChecklistAdapterListener;
 import com.olivier.model.ChecklistItem;
 
 import android.content.Context;

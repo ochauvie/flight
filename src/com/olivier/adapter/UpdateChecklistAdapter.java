@@ -10,11 +10,11 @@ import com.olivier.model.ChecklistItem;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 public class UpdateChecklistAdapter extends BaseAdapter {
 
@@ -63,55 +63,70 @@ public class UpdateChecklistAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
-		// TODO
-		// TODO  http://vikaskanani.wordpress.com/2011/07/27/android-focusable-edittext-inside-listview/
-		// TODO
-		
-		RelativeLayout layoutItem;
-		  //(1) : Réutilisation des layouts
-		  if (convertView == null) {
-		  	//Initialisation de notre item à partir du  layout XML 
-		    layoutItem = (RelativeLayout) mInflater.inflate(R.layout.activity_item_checklist_detail_update, parent, false);
-		  } else {
-		  	layoutItem = (RelativeLayout) convertView;
-		  }
-		  
-		  //(2) : Récupération des TextView de notre layout      
-		  EditText order = (EditText)layoutItem.findViewById(R.id.itemOrder);
-		  EditText action = (EditText)layoutItem.findViewById(R.id.itemAction);
-		  ImageButton bDelete = (ImageButton)layoutItem.findViewById(R.id.itemDelete);
-		  if (position==0) {
-			  bDelete.setVisibility(View.GONE);
-		  }
-		        
-		  //(3) : Renseignement des valeurs
-		  ChecklistItem item = items.get(position);
-		  action.setText(item.getAction());
-		  order.setText(String.valueOf(item.getOrder()));
-		  
-		  // On mémorise la position de l'aeronef dans le composant textview
-		  order.setTag(position);
-		  action.setTag(position);
-		  bDelete.setTag(position);
-		  
-		  // On ajoute un listener sur name
+		 ViewHolder holder;
+         if (convertView == null) {
+             holder = new ViewHolder();
+             convertView = mInflater.inflate(R.layout.activity_item_checklist_detail_update, null);
+             holder.captionOrder = (EditText) convertView.findViewById(R.id.itemOrder);
+             holder.captionAction = (EditText)convertView.findViewById(R.id.itemAction);
+             convertView.setTag(holder);
+         } else {
+             holder = (ViewHolder) convertView.getTag();
+         }
+         
+         // Fill EditText with the value you have in data source
+         	ChecklistItem item = items.get(position);
+             holder.captionOrder.setText(String.valueOf(item.getOrder()));
+             holder.captionOrder.setId(position);
+ 
+             holder.captionAction.setText(item.getAction());
+             holder.captionAction.setId(position);
+ 
+          // We need to update adapter once we finish with editing
+         holder.captionOrder.setOnFocusChangeListener(new OnFocusChangeListener() {
+             public void onFocusChange(View v, boolean hasFocus) {
+                 if (!hasFocus){
+                     final int position = v.getId();
+                     final EditText Caption = (EditText) v;
+                     items.get(position).setOrder(Integer.valueOf(Caption.getText().toString()));
+                 }
+             }
+         });
+         
+         holder.captionAction.setOnFocusChangeListener(new OnFocusChangeListener() {
+             public void onFocusChange(View v, boolean hasFocus) {
+                 if (!hasFocus){
+                     final int position = v.getId();
+                     final EditText Caption = (EditText) v;
+                     items.get(position).setAction(Caption.getText().toString());
+                 }
+             }
+         });
+         
+         ImageButton bDelete = (ImageButton)convertView.findViewById(R.id.itemDelete);
+         bDelete.setTag(position);
+	  	 if (position==0) {
+	  		 bDelete.setVisibility(View.GONE);
+	  	 }
+	  	 
+	  	 // On ajoute un listener sur name
 		  bDelete.setOnClickListener(new View.OnClickListener() {
 			
 				@Override
 				public void onClick(View v) {
-					//Lorsque l'on clique sur le nom, on récupère la position
 					Integer position = (Integer)v.getTag();
-							
 					//On prévient les listeners qu'il y a eu un clic sur le TextView "tv_name".
 					sendListenerToDelete(items.get(position), position);
-				
 				}
 			        	
 			});
-		  
-		  //On retourne l'item créé.
-		  return layoutItem;
-	}
+ 
+             return convertView;
+         }
+	
+	class ViewHolder {
+		EditText captionOrder;
+		EditText captionAction;
+		}
 
 }

@@ -3,7 +3,7 @@
 
 	<item android:id="@+id/meteo" 
      android:title="@string/meteo"
-     android:icon="@drawable/meteo_icon"/>
+     android:icon="@drawable/meteo_icon" />
 	
 	<item android:id="@+id/radio" 
      android:title="@string/radio"

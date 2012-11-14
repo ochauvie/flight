@@ -10,7 +10,6 @@ import com.olivier.adapter.ChecklistsAdapter;
 import com.olivier.listener.ChecklistsAdapterListener;
 import com.olivier.model.Checklist;
 import com.olivier.model.ChecklistItem;
-import com.olivier.model.Radio;
 import com.olivier.sqllite.DbAeronef;
 
 import android.os.Bundle;
