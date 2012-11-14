@@ -206,14 +206,14 @@ public class DbManager extends SQLiteOpenHelper {
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
 		values = new ContentValues();
-		values.put(DbManager.COL_NAME, "Raptor");
+		values.put(DbManager.COL_NAME, "Raptor 30");
 		values.put(DbManager.COL_TYPE, Aeronef.T_HELICO);
 		values.put(DbManager.COL_ENGINE, "OS 32");
 		values.put(DbManager.COL_FIRST_FLIGHT, "06/07/2002");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
 		values = new ContentValues();
-		values.put(DbManager.COL_NAME, "Honcho");
+		values.put(DbManager.COL_NAME, "Honcho scx10");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AUTO);
 		values.put(DbManager.COL_ENGINE, "Axial 55T");
 		values.put(DbManager.COL_FIRST_FLIGHT, "20/08/2011");
@@ -227,13 +227,13 @@ public class DbManager extends SQLiteOpenHelper {
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
 		values = new ContentValues();
-		values.put(DbManager.COL_NAME, "Bullet");
+		values.put(DbManager.COL_NAME, "Bullet flux");
 		values.put(DbManager.COL_TYPE, Aeronef.T_AUTO);
 		values.put(DbManager.COL_FIRST_FLIGHT, "10/09/2010");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
 		values = new ContentValues();
-		values.put(DbManager.COL_NAME, "Opale");
+		values.put(DbManager.COL_NAME, "Spiral 1.2");
 		values.put(DbManager.COL_TYPE, Aeronef.T_PARAMOTEUR);
 		values.put(DbManager.COL_ENGINE, "Protronik DM2810-1200");
 		values.put(DbManager.COL_FIRST_FLIGHT, "10/04/2010");

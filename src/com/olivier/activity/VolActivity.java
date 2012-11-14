@@ -17,6 +17,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -30,8 +32,11 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-public class VolActivity extends Activity implements OnTouchListener{
+public class VolActivity extends Activity implements OnTouchListener, OnInitListener {
 
+	private TextToSpeech mTts;
+	private int MY_DATA_CHECK_CODE = 0;
+	
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private RelativeLayout relativeLayout;
 	private ImageButton saveButton, deleteButton;
@@ -76,6 +81,10 @@ public class VolActivity extends Activity implements OnTouchListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vol);
         
+        Intent checkIntent = new Intent();
+        checkIntent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(checkIntent, MY_DATA_CHECK_CODE);
+        
         alphaAnimation = new AlphaAnimation(0.0f , 1.0f ) ;
         alphaAnimation.setFillAfter(true);
         alphaAnimation.setDuration(1200);
@@ -109,7 +118,9 @@ public class VolActivity extends Activity implements OnTouchListener{
         if (bundle!=null) {
         	String sAeronef = bundle.getString(Aeronef.NAME);
         	typeAeronef = bundle.getString(Aeronef.TYPE);
-        	if (sAeronef!=null) {aeronef.setText(sAeronef);}
+        	if (sAeronef!=null) {
+        		aeronef.setText(sAeronef);
+        	}
         }
         
         // Save flight
@@ -153,6 +164,7 @@ public class VolActivity extends Activity implements OnTouchListener{
 	            	builder.setCancelable(true);
 	            	builder.setIcon(R.drawable.recorder); 
 	            	builder.setTitle("Enregistrement effectué");
+	            	speakOut("enregistrement effectué pour " + vol.getAeronef());
 	            	String result = "Machine: " + vol.getAeronef() + "\n" 
 							+ "Vol: " + vol.getMinutesVol() + " min \n"
 							+ "Moteur: " + vol.getMinutesMoteur() + ":" + sSecondsMOteur + " moteur \n"
@@ -173,6 +185,7 @@ public class VolActivity extends Activity implements OnTouchListener{
 	        		
         		} else {
         			editText1.setText("Il faut choisir une machine");
+        			speakOut("Il faut choisir une machine");
         		}
         	}
         });        
@@ -204,6 +217,7 @@ public class VolActivity extends Activity implements OnTouchListener{
         	}
         }); 
        
+        
                 
     }
 
@@ -226,6 +240,16 @@ public class VolActivity extends Activity implements OnTouchListener{
     }
     
     @Override
+    public void onDestroy() {
+        // Don't forget to shutdown tts!
+        if (mTts != null) {
+        	mTts.stop();
+            mTts.shutdown();
+        }
+        super.onDestroy();
+    }
+    
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
     	 //Création d'un MenuInflater qui va permettre d'instancier un Menu XML en un objet Menu
         MenuInflater inflater = getMenuInflater();
@@ -239,14 +263,17 @@ public class VolActivity extends Activity implements OnTouchListener{
     public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
           case R.id.meteo:
-             Intent myIntent = new Intent(VolActivity.this, MeteoActivity.class);
+              speakOut("météo");
+        	  Intent myIntent = new Intent(VolActivity.this, MeteoActivity.class);
              startActivityForResult(myIntent, 0);
              return true;
           case R.id.radio:
+        	  speakOut("programme radio");
         	  Intent radiosActivity = new Intent(VolActivity.this, RadiosActivity.class);
           		startActivity(radiosActivity);
               return true;
           case R.id.carte:
+        	  speakOut("carte");
         	  if (latitude!=null && longitude!=null) {
         		  Intent carteActivity = new Intent(VolActivity.this, CarteActivity.class);
             	  carteActivity.putExtra("latitude", latitude*1000000);
@@ -255,10 +282,12 @@ public class VolActivity extends Activity implements OnTouchListener{
         	  }
               return true;
          case R.id.vols:
+        	 speakOut("liste des enregistrements");
         	 Intent volsActivity = new Intent(VolActivity.this, VolsActivity.class);
              startActivityForResult(volsActivity, 0);
              return true;
          case R.id.checklists:
+        	 speakOut("checklist");
         	 Intent checklistsActivity = new Intent(VolActivity.this, ChecklistsActivity.class);
              startActivityForResult(checklistsActivity, 0);
              return true;
@@ -299,6 +328,40 @@ public class VolActivity extends Activity implements OnTouchListener{
         return true;
 	}
 
+	 
+	 
+
+	 @Override
+	 protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	    if (requestCode == MY_DATA_CHECK_CODE) {
+	        if (resultCode == TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+	            // success, create the TTS instance
+	            mTts = new TextToSpeech(this, this);
+	        } else {
+	            // missing data, install it
+	        	/*
+	            Intent installIntent = new Intent();
+	            installIntent.setAction(
+	                TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+	            startActivity(installIntent);
+	            */
+	        }
+	    }
+	}
+
+	private void speakOut(String textToSay) {
+		mTts.speak(textToSay, TextToSpeech.QUEUE_FLUSH, null);
+	}
+
+	@Override
+	public void onInit(int status) {
+		if (status == TextToSpeech.SUCCESS) {
+			if (aeronef!=null && aeronef.getText().toString()!=null && !aeronef.getText().toString().equals("")) {
+			speakOut(aeronef.getText().toString());
+			}
+		}
+		
+	}
 
 	
 }

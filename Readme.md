@@ -15,6 +15,7 @@ Application android d'enregistrement de vols pour des aéronefs radiocommandés.
 * Android 4.0.3 + Google APIs
 * Sqllite
 * NCF tag
+* TextToSpeech
 
 # Permission
 * INTERNET
