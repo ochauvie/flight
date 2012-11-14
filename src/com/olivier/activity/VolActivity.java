@@ -136,7 +136,7 @@ public class VolActivity extends Activity implements OnTouchListener{
 	        		} catch (NumberFormatException e) {
 	        			vol.setSecondsMoteur(0);
 	        		}
-	        		vol.setDateVol(new Date());
+	        		vol.setDateVol(new Date()); // TODO ; ajouter un champ pour pouvoir saisir une date antérieure
 	        		vol.setNote(note.getText().toString());
 	        		vol.setLieu(lieu.getText().toString());
 	        		
@@ -247,10 +247,12 @@ public class VolActivity extends Activity implements OnTouchListener{
           		startActivity(radiosActivity);
               return true;
           case R.id.carte:
-        	  Intent carteActivity = new Intent(VolActivity.this, CarteActivity.class);
-        	  carteActivity.putExtra("latitude", latitude*1000000);
-      		  carteActivity.putExtra("longitude", longitude*1000000);
-      		  startActivity(carteActivity);
+        	  if (latitude!=null && longitude!=null) {
+        		  Intent carteActivity = new Intent(VolActivity.this, CarteActivity.class);
+            	  carteActivity.putExtra("latitude", latitude*1000000);
+          		  carteActivity.putExtra("longitude", longitude*1000000);
+          		  startActivity(carteActivity);  
+        	  }
               return true;
          case R.id.vols:
         	 Intent volsActivity = new Intent(VolActivity.this, VolsActivity.class);
