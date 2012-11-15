@@ -86,7 +86,6 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
             	finish();
         	}
         });
-        
     }
     
     

@@ -5,6 +5,7 @@ import java.io.UnsupportedEncodingException;
 
 import com.olivier.R;
 import com.olivier.model.Aeronef;
+import com.olivier.speech.TtsProviderFactory;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -33,6 +34,8 @@ public class SplashActivity extends Activity {
 	private IntentFilter writeTagFilters[];
 	private boolean writeMode;
  	private ImageView imgStart;
+ 	
+ 	private TtsProviderFactory ttsProviderImpl; 
     
     
 	@Override
@@ -40,6 +43,12 @@ public class SplashActivity extends Activity {
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        
+        // Init Speech
+        ttsProviderImpl = TtsProviderFactory.getInstance();
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl.init(this.getApplication().getApplicationContext());
+        }
         
         ctx=this;
         

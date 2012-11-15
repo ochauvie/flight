@@ -220,6 +220,7 @@ public final class R {
         public static final int checklist=0x7f05004c;
         public static final int checklistItem=0x7f05004d;
         public static final int checklist_action_mandatory=0x7f050051;
+        public static final int checklist_item_not_check=0x7f050052;
         public static final int checklist_order_mandatory=0x7f050050;
         public static final int checklist_update_ok=0x7f05004f;
         public static final int close=0x7f050007;
@@ -233,7 +234,7 @@ public final class R {
         public static final int inter=0x7f050040;
         public static final int kilo=0x7f05001e;
         public static final int lieu=0x7f050019;
-        public static final int log=0x7f050052;
+        public static final int log=0x7f050053;
         public static final int menu_settings=0x7f050002;
         public static final int meteo=0x7f050034;
         public static final int metre=0x7f05001c;

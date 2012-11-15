@@ -7,6 +7,7 @@ import com.olivier.listener.SwitchPotarAdapterListener;
 import com.olivier.model.Potar;
 import com.olivier.model.Radio;
 import com.olivier.model.Switch;
+import com.olivier.speech.TtsProviderFactory;
 import com.olivier.sqllite.DbAeronef;
 
 import android.app.AlertDialog;
@@ -29,6 +30,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 	private int itemId;
 	private String typeItem;
 	
+	private TtsProviderFactory ttsProviderImpl;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
+        
+        ttsProviderImpl = TtsProviderFactory.getInstance();
 
         // Get radio to edit
         Bundle bundle = getIntent().getExtras();
@@ -49,6 +53,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         
         // View title
         setTitle(radio.getName());
+        ttsProviderImpl.say("Programme radio pour " + radio.getName());
         
         // Création et initialisation de l'Adapter pour les aeronefs
         adapter = new RadioAdapter(this, radio);

@@ -228,10 +228,10 @@ public class AddAeronefActivity extends Activity {
 								
 								} catch (IOException e) {
 									Toast.makeText(ctx, R.string.nfc_write_ko, Toast.LENGTH_LONG ).show();
-									e.printStackTrace();
+									//e.printStackTrace();
 								} catch (FormatException e) {
 									Toast.makeText(ctx, R.string.nfc_write_ko , Toast.LENGTH_LONG ).show();
-									e.printStackTrace();
+									//e.printStackTrace();
 								}
 							}
 	        			}

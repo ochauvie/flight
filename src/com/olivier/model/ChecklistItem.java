@@ -5,6 +5,7 @@ public class ChecklistItem {
 	private int id;
 	private String action;
 	private int order;
+	private boolean checked;
 	
 	
 	
@@ -12,6 +13,7 @@ public class ChecklistItem {
 		super();
 		this.action = action;
 		this.order = order;
+		this.checked = false;
 	}
 	
 	public ChecklistItem(int id, String action, int order) {
@@ -19,6 +21,7 @@ public class ChecklistItem {
 		this.id = id;
 		this.action = action;
 		this.order = order;
+		this.checked = false;
 	}
 	
 	/**
@@ -30,6 +33,22 @@ public class ChecklistItem {
 	}
 
 
+
+	/**
+	 * Getter checked
+	 * @return the checked
+	 */
+	public boolean isChecked() {
+		return checked;
+	}
+
+	/**
+	 * Setter checked
+	 * @param checked the checked to set
+	 */
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
 
 	/**
 	 * Setter id
