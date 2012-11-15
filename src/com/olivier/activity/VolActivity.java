@@ -33,7 +33,6 @@ import android.widget.TextView;
 
 public class VolActivity extends Activity implements OnTouchListener {
 	
-	
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private RelativeLayout relativeLayout;
 	private ImageButton saveButton, deleteButton;
@@ -97,11 +96,6 @@ public class VolActivity extends Activity implements OnTouchListener {
         editText1 = (TextView)  findViewById(R.id.editText1);
         editText1.setTextColor(Color.RED);
         
-        aeronef.setText(null);
-        minVol.setText(null);
-        minMot.setText(null);
-        secMot.setText(null);
-        
         // Gps
         locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 		locationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, onLocationChange);
@@ -111,15 +105,7 @@ public class VolActivity extends Activity implements OnTouchListener {
         relativeLayout.setOnTouchListener((OnTouchListener) this); 
         
         // Init aeronef selection by HangarActivity or SplashActivity (Nfc tag)
-        Bundle bundle = getIntent().getExtras();
-        if (bundle!=null) {
-        	String sAeronef = bundle.getString(Aeronef.NAME);
-        	typeAeronef = bundle.getString(Aeronef.TYPE);
-        	if (sAeronef!=null) {
-        		aeronef.setText(sAeronef);
-        		ttsProviderImpl.say(sAeronef);
-        	}
-        }
+        initPage();
         
         // Save flight
         saveButton = (ImageButton) findViewById(R.id.saveVol);
@@ -216,9 +202,28 @@ public class VolActivity extends Activity implements OnTouchListener {
         }); 
     }
     
+    /**
+     * Init the view data
+     */
+    private void initPage() {
+    	aeronef.setText(null);
+        minVol.setText(null);
+        minMot.setText(null);
+        secMot.setText(null);
+        
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null) {
+        	String sAeronef = bundle.getString(Aeronef.NAME);
+        	typeAeronef = bundle.getString(Aeronef.TYPE);
+        	if (sAeronef!=null) {
+        		aeronef.setText(sAeronef);
+        		ttsProviderImpl.say(sAeronef);
+        	}
+        }
+    }
     
     /**
-     * Clean the view
+     * Clean the view data
      */
     private void resetPage() {
     	minVol.setText(null);
@@ -238,15 +243,14 @@ public class VolActivity extends Activity implements OnTouchListener {
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-    	 //Création d'un MenuInflater qui va permettre d'instancier un Menu XML en un objet Menu
         MenuInflater inflater = getMenuInflater();
-        //Instanciation du menu XML spécifier en un objet Menu
         inflater.inflate(R.menu.menu, menu);
-        
         return true;
     }
 
-    //Méthode qui se déclenchera au clic sur un item
+    /**
+     * Call when menu item is selected
+     */
     public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
           case R.id.meteo:
@@ -287,7 +291,7 @@ public class VolActivity extends Activity implements OnTouchListener {
         switch (arg1.getAction())
         {
             case MotionEvent.ACTION_DOWN: {
-                // store the X value when the user's finger was pressed down
+                // Store the X value when the user's finger was pressed down
                 downXValue = arg1.getX();
                 break;
             }
@@ -296,26 +300,24 @@ public class VolActivity extends Activity implements OnTouchListener {
                 // Get the X value when the user released his/her finger
                 float currentX = arg1.getX();            
 
-                // going backwards: pushing stuff to the right
+                // Going backwards: pushing stuff to the right
                 if (downXValue < currentX) {
                 	Intent myIntent = new Intent(v.getContext(), VolsActivity.class);
-                    startActivityForResult(myIntent, 0);
+                    startActivity(myIntent);
                 }
 
-                // going forwards: pushing stuff to the left
+                // Going forwards: pushing stuff to the left
                 if (downXValue > currentX) {
                 	Intent myIntent = new Intent(v.getContext(), MeteoActivity.class);
-                    startActivityForResult(myIntent, 0);
+                    startActivity(myIntent);
                 }
                 break;
             }
         }
 
-        // if you return false, these actions will not be recorded
+        // If you return false, these actions will not be recorded
         return true;
 	}
-
-
 	
 	
 }

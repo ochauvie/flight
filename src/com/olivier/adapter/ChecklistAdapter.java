@@ -23,6 +23,7 @@ public class ChecklistAdapter extends BaseAdapter{
 	private LayoutInflater mInflater;
 	private ChecklistAdapter adapter;
 	private TtsProviderFactory ttsProviderImpl; 
+	private ViewGroup mParent;
 	
 	public ChecklistAdapter(Context context, List<ChecklistItem> itemsList) {
 		  mContext = context;
@@ -55,8 +56,9 @@ public class ChecklistAdapter extends BaseAdapter{
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		
+		mParent = parent; 
 		RelativeLayout layoutItem;
+		
 		  //(1) : Réutilisation des layouts
 		  if (convertView == null) {
 		  	//Initialisation de notre item à partir du  layout XML 
@@ -64,6 +66,7 @@ public class ChecklistAdapter extends BaseAdapter{
 		  } else {
 		  	layoutItem = (RelativeLayout) convertView;
 		  }
+		  
 		  
 		  //(2) : Récupération des TextView de notre layout      
 		  CheckBox checkBox = (CheckBox)layoutItem.findViewById(R.id.checkBox1);
@@ -121,13 +124,15 @@ public class ChecklistAdapter extends BaseAdapter{
 						}
 					}
 					if (isOk) {
+						mParent.setBackgroundColor(Color.GRAY);
 						ttsProviderImpl.addToSay("Checklist terminée");
+					} else {
+						mParent.setBackgroundColor(Color.WHITE);
 					}
 				}
 			        	
 			});
 		  
-		  //On retourne l'item créé.
 		  return layoutItem;
 	}
 
