@@ -1,8 +1,6 @@
 package com.olivier.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import com.olivier.R;
 import com.olivier.activity.MyDialogInterface.DialogReturn;
@@ -14,7 +12,9 @@ import com.olivier.sqllite.DbAeronef;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -85,6 +85,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         
         ttsProviderImpl = TtsProviderFactory.getInstance();
         
+               
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
@@ -157,10 +158,10 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	            	builder.setIcon(R.drawable.recorder); 
 	            	builder.setTitle("Enregistrement effectué");
 	            	ttsProviderImpl.say("enregistrement effectué pour " + vol.getAeronef());
-	            	String result = "Machine: " + vol.getAeronef() + "\n" 
-							+ "Vol: " + vol.getMinutesVol() + " min \n"
-							+ "Moteur: " + vol.getMinutesMoteur() + ":" + sSecondsMOteur + " moteur \n"
-							+ "Note: " +  vol.getNote() + "\n" 
+	            	String result = "Machine: \t" + vol.getAeronef() + "\n" 
+							+ "Vol: \t\t\t\t" + vol.getMinutesVol() + " min \n"
+							+ "Moteur: \t\t" + vol.getMinutesMoteur() + ":" + sSecondsMOteur + "\n"
+							+ "Note: \t\t\t" +  vol.getNote() + "\n" 
 							+ vol.getLieu();
 	        		
 	            	builder.setMessage(result);
@@ -253,6 +254,10 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+    		ActionBar actionBar = getActionBar();
+    		actionBar.setDisplayHomeAsUpEnabled(true);
+    	}
         return true;
     }
 

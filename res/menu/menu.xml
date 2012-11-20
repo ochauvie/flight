@@ -3,22 +3,27 @@
 
 	<item android:id="@+id/meteo" 
      android:title="@string/meteo"
-     android:icon="@drawable/meteo_icon" />
+     android:icon="@drawable/meteo_icon" 
+     android:showAsAction="ifRoom|withText"/>
 	
 	<item android:id="@+id/radio" 
      android:title="@string/radio"
-     android:icon="@drawable/ff9_icon"/>
+     android:icon="@drawable/ff9_icon"
+     android:showAsAction="ifRoom|withText"/>
 	
 	<item android:id="@+id/carte" 
      android:title="@string/carte"
-     android:icon="@drawable/carte_icon"/>
+     android:icon="@drawable/carte_icon"
+     android:showAsAction="ifRoom|withText"/>
 
 	<item android:id="@+id/vols" 
      android:title="@string/viewVol"
-     android:icon="@drawable/recorder_icon"/>
+     android:icon="@drawable/recorder_icon"
+     android:showAsAction="ifRoom|withText"/>
 	
 	<item android:id="@+id/checklists" 
      android:title="@string/checklist"
-     android:icon="@drawable/checklist_icon"/>
+     android:icon="@drawable/checklist_icon"
+     android:showAsAction="ifRoom|withText"/>
 	
 </menu>

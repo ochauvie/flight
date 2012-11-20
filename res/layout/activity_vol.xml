@@ -143,7 +143,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-	        android:inputType="text" />
+	        android:inputType="textCapSentences" />
 	    
 	    <TextView
 	        android:id="@+id/textViewLieu"
@@ -201,7 +201,7 @@
 			        android:layout_width="56dp"
 			        android:layout_height="56dp"
 			        android:layout_marginLeft="20dp"
-			        android:layout_marginTop="122dp"
+			        android:layout_marginTop="70dp"
 			        android:background="#00000000"
 			        android:contentDescription="@string/save"
 			        android:src="@drawable/save" />
@@ -211,7 +211,7 @@
 			        android:layout_width="56dp"
 			        android:layout_height="56dp"
 			        android:layout_marginLeft="180dp"
-			        android:layout_marginTop="122dp"
+			        android:layout_marginTop="70dp"
 			        android:background="#00000000"
 			        android:contentDescription="@string/viewVol"
 			        android:src="@drawable/reset" />
