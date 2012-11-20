@@ -59,9 +59,7 @@ public class DbAeronef {
 	 * @return
 	 */
 	public long insertVol(Vol vol){
-		//Création d'un ContentValues (fonctionne comme une HashMap)
 		ContentValues values = new ContentValues();
-		//on lui ajoute une valeur associée à une clé (qui est le nom de la colonne dans laquelle on veut mettre la valeur)
 		values.put(DbManager.COL_NAME, vol.getAeronef());
 		values.put(DbManager.COL_TYPE, vol.getType());
 		values.put(DbManager.COL_MIN_VOL, vol.getMinutesVol());
@@ -74,7 +72,6 @@ public class DbAeronef {
 		String sDate = sdf.format(vol.getDateVol());
 		values.put(DbManager.COL_DATE, sDate);
 		
-		//on insère l'objet dans la BDD via le ContentValues
 		return bdd.insert(DbManager.TABLE_VOLS, null, values);
 	}
 		
@@ -83,8 +80,6 @@ public class DbAeronef {
 	 * @return the list
 	 */
 	public ArrayList<Vol> getVols(){
-		//Récupère dans un Cursor les valeurs correspondant à un livre contenu dans la BDD (ici on sélectionne le livre grâce à son titre)
-		//String orderBy = DbManager.COL_DATE + "," + DbManager.COL_NAME;
 		String orderBy = null;
 		Cursor c = bdd.query(DbManager.TABLE_VOLS, new String[] {DbManager.COL_ID, 
 																 DbManager.COL_NAME, 

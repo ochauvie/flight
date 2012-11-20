@@ -25,14 +25,14 @@ import android.widget.TextView;
 
 public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener  {
 
-	MyDialogInterface myInterface;
-	MyDialogInterface.DialogReturn dialogReturn;
+	private MyDialogInterface myInterface;
+	private MyDialogInterface.DialogReturn dialogReturn;
 	
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Vol> vols;
 	int selectItim = -1;
-	VolsAdapter adapter;
-	TextView totalVol;
+	private VolsAdapter adapter;
+	private TextView totalVol;
 	
 	
 	

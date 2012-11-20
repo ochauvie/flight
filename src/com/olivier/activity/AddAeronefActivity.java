@@ -137,8 +137,6 @@ public class AddAeronefActivity extends Activity {
 	        // Get aeronef in parameter
 	        initView();
 	        
-	        
-	        
 	        // Close view
 	        close = (ImageButton) findViewById(R.id.close);
 	        close.setOnClickListener(new View.OnClickListener() {
@@ -223,9 +221,12 @@ public class AddAeronefActivity extends Activity {
 								Toast.makeText(ctx, R.string.nfc_approch_tag, Toast.LENGTH_LONG ).show();
 							} else {
 								try {
-									write(aerName, aerType, mytag);
-									Toast.makeText(ctx, R.string.nfc_write_ok, Toast.LENGTH_LONG ).show();
-								
+									int result = write(aerName, aerType, mytag);
+									if (result!=0) {
+										Toast.makeText(ctx, R.string.nfc_write_ko_format, Toast.LENGTH_LONG ).show();
+									} else {
+										Toast.makeText(ctx, R.string.nfc_write_ok, Toast.LENGTH_LONG ).show();
+									}
 								} catch (IOException e) {
 									Toast.makeText(ctx, R.string.nfc_write_ko, Toast.LENGTH_LONG ).show();
 									//e.printStackTrace();
@@ -319,7 +320,7 @@ public class AddAeronefActivity extends Activity {
 			adapter.disableForegroundDispatch(this);
 		}
 		
-		private void write(String name, String type, Tag tag) throws IOException, FormatException {
+		private int write(String name, String type, Tag tag) throws IOException, FormatException {
 			NdefRecord appRecord = NdefRecord.createApplicationRecord("com.olivier");
 			NdefRecord[] records = {createRecord(name, "CDV_NAME_"), createRecord(type, "CDV_TYPE_"), appRecord};
 			NdefMessage  message = new NdefMessage(records);
@@ -327,10 +328,15 @@ public class AddAeronefActivity extends Activity {
 			Ndef ndef = Ndef.get(tag);
 			// Enable I/O
 			ndef.connect();
-			// Write the message
-			ndef.writeNdefMessage(message);
-			// Close the connection
-			ndef.close();
+			if (ndef==null) {
+				return -1;
+			} else {
+				// Write the message
+				ndef.writeNdefMessage(message);
+				// Close the connection
+				ndef.close();
+			}
+			return 0;
 		}
 		
 		private NdefRecord createRecord(String text, String prefix) throws UnsupportedEncodingException {
@@ -355,5 +361,8 @@ public class AddAeronefActivity extends Activity {
 			return recordNFC;
 		}
 
-	    
+		@Override
+	    public void onBackPressed() {
+			// Nothings
+		}
 }

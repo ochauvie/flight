@@ -1,8 +1,11 @@
 package com.olivier.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import com.olivier.R;
+import com.olivier.activity.MyDialogInterface.DialogReturn;
 import com.olivier.model.Aeronef;
 import com.olivier.model.Vol;
 import com.olivier.speech.TtsProviderFactory;
@@ -31,8 +34,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-public class VolActivity extends Activity implements OnTouchListener {
+public class VolActivity extends Activity implements DialogReturn, OnTouchListener {
 	
+	private MyDialogInterface myInterface;
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private RelativeLayout relativeLayout;
 	private ImageButton saveButton, deleteButton;
@@ -81,6 +85,9 @@ public class VolActivity extends Activity implements OnTouchListener {
         
         ttsProviderImpl = TtsProviderFactory.getInstance();
         
+        myInterface = new MyDialogInterface();
+        myInterface.setListener(this);
+        
         alphaAnimation = new AlphaAnimation(0.0f , 1.0f ) ;
         alphaAnimation.setFillAfter(true);
         alphaAnimation.setDuration(1200);
@@ -89,6 +96,7 @@ public class VolActivity extends Activity implements OnTouchListener {
         
         aeronef = (EditText)  findViewById(R.id.editTextAeronef);
         minVol = (EditText)  findViewById(R.id.editTextMinVol);
+        minVol.requestFocus();
         minMot = (EditText)  findViewById(R.id.editTextMinMot);
         secMot = (EditText)  findViewById(R.id.editTextSecMot);
         note = (EditText)  findViewById(R.id.editTextNote);
@@ -319,5 +327,36 @@ public class VolActivity extends Activity implements OnTouchListener {
         return true;
 	}
 	
+	@Override
+    public void onBackPressed() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    	builder.setCancelable(true);
+    	builder.setIcon(R.drawable.fermeture);
+    	builder.setTitle(R.string.close);
+    	builder.setInverseBackgroundForced(true);
+    	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+    	  @Override
+    	  public void onClick(DialogInterface dialog, int which) {
+    		myInterface.getListener().onDialogCompleted(true);
+    	    dialog.dismiss();
+    	  }
+    	});
+    	builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
+    	  @Override
+    	  public void onClick(DialogInterface dialog, int which) {
+    		myInterface.getListener().onDialogCompleted(false);
+    		dialog.dismiss();
+    	  }
+    	});
+    	AlertDialog alert = builder.create();
+    	alert.show();
+    }
+
+	@Override
+	public void onDialogCompleted(boolean answer) {
+		if (answer) {
+			finish();
+		}
+	}
 	
 }

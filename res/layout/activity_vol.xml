@@ -60,7 +60,8 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-	        android:inputType="number" />
+	        android:inputType="number" 
+	        />
 	
 	    <TextView
 	        android:id="@+id/textViewUnitVol"

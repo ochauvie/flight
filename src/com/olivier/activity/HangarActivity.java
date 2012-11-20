@@ -150,6 +150,9 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	}
 
     
-   
+	@Override
+    public void onBackPressed() {
+		// Nothings
+	}
 
 }
