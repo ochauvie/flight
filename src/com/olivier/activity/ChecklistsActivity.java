@@ -29,13 +29,12 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
 	private ImageButton add;
 	private EditText newCkeckListName;
 	
-	MyDialogInterface myInterface;
-	MyDialogInterface.DialogReturn dialogReturn;
+	private MyDialogInterface myInterface;
 	
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Checklist> checklists;
-	int selectItim = -1;
-	ChecklistsAdapter adapter;
+	private int selectItim = -1;
+	private ChecklistsAdapter adapter;
 	
 	
     @Override
@@ -77,7 +76,7 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
         		String newName = newCkeckListName.getText().toString();
         		if (newName!=null && !"".equals(newName)) {
         			Checklist cl = new Checklist(newName);
-        			ChecklistItem item = new ChecklistItem("Emetteur ON", 1);
+        			ChecklistItem item = new ChecklistItem(getString(R.string.checklistDefaultItem), 1);
         			cl.addItem(item);
         			dbAeronef.open();
         				dbAeronef.addCheckList(cl);

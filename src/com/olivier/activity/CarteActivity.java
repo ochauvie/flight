@@ -52,8 +52,9 @@ public class CarteActivity extends MapActivity {
 	    Drawable drawable = this.getResources().getDrawable(R.drawable.punaise);
 	    CarteItemizedOverlay itemizedoverlay = new CarteItemizedOverlay(drawable,this);
 	    
-	    String txt = "Longitude: " + String.valueOf((float)point.getLongitudeE6()/1000000) + "\n" + "Latitude: "+ String.valueOf((float)point.getLatitudeE6()/1000000);
-	    OverlayItem overlayitem = new OverlayItem(point, "Vous êtes ici !", txt);
+	    String txt = getString(R.string.longitude) + ": " + String.valueOf((float)point.getLongitudeE6()/1000000) 
+	    		+ "\n" + getString(R.string.latitude) + ": "+ String.valueOf((float)point.getLatitudeE6()/1000000);
+	    OverlayItem overlayitem = new OverlayItem(point, getString(R.string.ici), txt);
 
 	    itemizedoverlay.addOverlay(overlayitem);
 	    

@@ -6,6 +6,8 @@ import java.util.List;
 
 public class Radio  {
 	
+	public static final String RADIO_ID = "radioId";
+	
 	private int id;
 	private String name;
 	private List<Switch> switchs = new ArrayList<Switch>();

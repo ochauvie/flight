@@ -33,7 +33,8 @@ public class ChecklistActivity extends ListActivity {
         		ArrayList<Checklist> l = dbAeronef.getChecklists(checklistName);
         		if (l!=null) {
         			checklist = l.get(0);
-        			ttsProviderImpl.say("Checklist pour " + checklistName);
+        			String say = getString(R.string.checklist) + " " + getString(R.string.st_for) + " " + checklistName;  
+        			ttsProviderImpl.say(say);
         		}
             dbAeronef.close();
         }

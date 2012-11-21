@@ -72,9 +72,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 				latitude = location.getLatitude();
 				longitude = location.getLongitude();
 				altitude = location.getAltitude();
-				lieuGps = "Lat: " + latitude + "\n" +
-						  "Long: " + longitude + "\n" +
-						  "Alt: " + altitude;
+				lieuGps = getString(R.string.lat) + ": " + latitude + "\n" +
+						  getString(R.string.lon) + ": " + longitude + "\n" +
+						  getString(R.string.alt) + ": " + altitude;
 			}
 		};
 	
@@ -156,14 +156,16 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	        		AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 	            	builder.setCancelable(true);
 	            	builder.setIcon(R.drawable.recorder); 
-	            	builder.setTitle("Enregistrement effectué");
-	            	ttsProviderImpl.say("enregistrement effectué pour " + vol.getAeronef());
-	            	String result = "Machine: \t" + vol.getAeronef() + "\n" 
-							+ "Vol: \t\t\t\t" + vol.getMinutesVol() + " min \n"
-							+ "Moteur: \t\t" + vol.getMinutesMoteur() + ":" + sSecondsMOteur + "\n"
-							+ "Note: \t\t\t" +  vol.getNote() + "\n" 
+	            	builder.setTitle(getString(R.string.save_ok));
+	            	String say = getString(R.string.save_ok) + " " + getString(R.string.st_for) + " " + vol.getAeronef();
+	            	ttsProviderImpl.say(say);
+	            	
+	            	String result = getString(R.string.aeronef) + ": \t" + vol.getAeronef() + "\n" 
+	            			+ getString(R.string.vol) + ": \t\t\t\t" + vol.getMinutesVol() + " " + getString(R.string.min) + "\n"
+	            			+ getString(R.string.moteur) + ": \t\t" + vol.getMinutesMoteur() + ":" + sSecondsMOteur + "\n"
+	            			+ getString(R.string.note) + ": \t\t\t" +  vol.getNote() + "\n" 
 							+ vol.getLieu();
-	        		
+	            	
 	            	builder.setMessage(result);
 	            	builder.setInverseBackgroundForced(true);
 	            	builder.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
@@ -177,8 +179,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	            	alert.show();
 	        		
         		} else {
-        			editText1.setText("Il faut choisir une machine");
-        			ttsProviderImpl.say("Il faut choisir une machine");
+        			
+        			editText1.setText(getString(R.string.aeronef_mandatory));
+        			ttsProviderImpl.say(getString(R.string.aeronef_mandatory));
         		}
         	}
         });        
@@ -267,17 +270,17 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
           case R.id.meteo:
-              ttsProviderImpl.say("météo");
+              ttsProviderImpl.say(getString(R.string.meteo));
         	  Intent myIntent = new Intent(VolActivity.this, MeteoActivity.class);
              startActivityForResult(myIntent, 0);
              return true;
           case R.id.radio:
-        	  ttsProviderImpl.say("programme radio");
+        	  ttsProviderImpl.say(getString(R.string.radio));
         	  Intent radiosActivity = new Intent(VolActivity.this, RadiosActivity.class);
           		startActivity(radiosActivity);
               return true;
           case R.id.carte:
-        	  ttsProviderImpl.say("carte");
+        	  ttsProviderImpl.say(getString(R.string.carte));
         	  if (latitude!=null && longitude!=null) {
         		  Intent carteActivity = new Intent(VolActivity.this, CarteActivity.class);
             	  carteActivity.putExtra("latitude", latitude*1000000);
@@ -286,12 +289,12 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         	  }
               return true;
          case R.id.vols:
-        	 ttsProviderImpl.say("liste des enregistrements");
+        	 ttsProviderImpl.say(getString(R.string.title_activity_vols));
         	 Intent volsActivity = new Intent(VolActivity.this, VolsActivity.class);
              startActivityForResult(volsActivity, 0);
              return true;
          case R.id.checklists:
-        	 ttsProviderImpl.say("checklist");
+        	 ttsProviderImpl.say(getString(R.string.checklist));
         	 Intent checklistsActivity = new Intent(VolActivity.this, ChecklistsActivity.class);
              startActivityForResult(checklistsActivity, 0);
              return true;

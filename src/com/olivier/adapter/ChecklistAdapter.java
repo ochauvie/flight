@@ -111,7 +111,7 @@ public class ChecklistAdapter extends BaseAdapter{
 							ttsProviderImpl.say(items.get(position).getAction());
 						} else {
 							Toast.makeText(v.getContext(), R.string.checklist_item_not_check , Toast.LENGTH_LONG ).show();
-							ttsProviderImpl.say("Attention");
+							ttsProviderImpl.say(v.getContext().getString(R.string.checklist_becarfull));
 						}	
 					}
 					adapter.notifyDataSetChanged();
@@ -125,7 +125,7 @@ public class ChecklistAdapter extends BaseAdapter{
 					}
 					if (isOk) {
 						mParent.setBackgroundColor(Color.GRAY);
-						ttsProviderImpl.addToSay("Checklist terminée");
+						ttsProviderImpl.addToSay(v.getContext().getString(R.string.checklist_teminated));
 					} else {
 						mParent.setBackgroundColor(Color.WHITE);
 					}

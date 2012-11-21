@@ -36,7 +36,7 @@
         android:layout_alignBottom="@+id/textViewOaci"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="260dp"
-        android:contentDescription="@string/meteo"
+        android:contentDescription="@string/metar"
         android:background="#00000000"
         android:src="@drawable/find" />
     

@@ -30,7 +30,7 @@ public class MeteoActivity extends Activity {
 		editTextOaci.setText(R.string.defaultOaci);
 		
 		// Progress dialog
-        mProgress = ProgressDialog.show(this, "Chargement", "Recherche en cours ...");
+        mProgress = ProgressDialog.show(this, getString(R.string.download), getString(R.string.wainting));
 
         // Add a WebViewClient for WebView, which actually handles loading data from web
 		webView = (WebView) findViewById(R.id.webview);

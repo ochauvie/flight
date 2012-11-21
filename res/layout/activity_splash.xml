@@ -19,7 +19,7 @@
 	        android:layout_marginLeft="8dp"
 	        android:layout_marginTop="10dp"
 	        android:background="#00000000"
-	        android:contentDescription="@string/meteo"
+	        android:contentDescription="@string/metar"
 	        android:src="@drawable/meteo" />
 	    
 	    <ImageView
@@ -28,7 +28,7 @@
 	        android:layout_height="50dp"
 	        android:layout_marginTop="10dp"
 	        android:background="#00000000"
-	        android:contentDescription="@string/meteo"
+	        android:contentDescription="@string/metar"
 	        android:src="@drawable/recorder" />
 
 	    <ImageView
@@ -37,7 +37,7 @@
 	        android:layout_height="50dp"
 	        android:layout_marginTop="10dp"
 	        android:background="#00000000"
-	        android:contentDescription="@string/meteo"
+	        android:contentDescription="@string/metar"
 	        android:src="@drawable/hangar" />
 	    
 	    <ImageView
@@ -46,7 +46,7 @@
 	        android:layout_height="50dp"
 	        android:layout_marginTop="10dp"
 	        android:background="#00000000"
-	        android:contentDescription="@string/meteo"
+	        android:contentDescription="@string/metar"
 	        android:src="@drawable/gps" />
 	    
 	    <ImageView

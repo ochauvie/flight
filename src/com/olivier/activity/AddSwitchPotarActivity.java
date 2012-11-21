@@ -3,6 +3,7 @@ package com.olivier.activity;
 
 import com.olivier.R;
 import com.olivier.model.Potar;
+import com.olivier.model.Radio;
 import com.olivier.model.Switch;
 import com.olivier.sqllite.DbAeronef;
 
@@ -48,7 +49,7 @@ public class AddSwitchPotarActivity extends Activity {
 	        
 	        Bundle bundle = getIntent().getExtras();
 	        if (bundle!=null) {
-	        	radioId = bundle.getInt("radioId");
+	        	radioId = bundle.getInt(Radio.RADIO_ID);
 	        }
 	        
 	        // Close view
@@ -56,7 +57,7 @@ public class AddSwitchPotarActivity extends Activity {
 	        close.setOnClickListener(new View.OnClickListener() {
 	        	public void onClick(View v) {
 	        		Intent radioActivity = new Intent(getApplicationContext(), RadioActivity.class);
-	            	radioActivity.putExtra("radioId", radioId);
+	            	radioActivity.putExtra(Radio.RADIO_ID, radioId);
 	            	startActivity(radioActivity);
 	            	finish();
 	        	}
@@ -69,9 +70,9 @@ public class AddSwitchPotarActivity extends Activity {
 	        		
 	        		Editable edName = name.getText();
 	        		if (edName==null || "".equals(edName.toString())) {
-	        			log.setText("Il faut donner un nom !");
+	        			log.setText(getString(R.string.name_mandatory));
 	        		} else if (!optSwitch.isChecked() && !optPotar.isChecked() ) {
-	        			log.setText("Il faut choisir entre un inter ou un potar !");
+	        			log.setText(getString(R.string.inter_potar_mandatory));
 	        		} else {
 	        			
 	        			if (optSwitch.isChecked()) {
@@ -97,10 +98,10 @@ public class AddSwitchPotarActivity extends Activity {
 	        				dbAeronef.close();
 	        			}
 	        			
-	        			log.setText("Sauvegarde réussie");
+	        			log.setText(getString(R.string.save_ok));
 	        			
 	        			Intent radioActivity = new Intent(getApplicationContext(), RadioActivity.class);
-		            	radioActivity.putExtra("radioId", radioId);
+		            	radioActivity.putExtra(Radio.RADIO_ID, radioId);
 		            	startActivity(radioActivity);
 		            	finish();
 	        			

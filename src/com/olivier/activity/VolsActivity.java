@@ -98,7 +98,11 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     	builder.setCancelable(true);
     	builder.setIcon(R.drawable.note);
     	builder.setTitle(vol.getAeronef());
-    	builder.setMessage("     Note: \n\n" + vol.getNote() + "\n\n" + "     Lieu: \n\n" + vol.getLieu());
+    	
+    	builder.setMessage("     " + getString(R.string.note) +" : \n\n" 
+    						+ vol.getNote() + "\n\n" 
+    						+ "     " + getString(R.string.note) + ": \n\n" 
+    						+ vol.getLieu());
     	builder.setInverseBackgroundForced(true);
     	builder.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
     	  @Override

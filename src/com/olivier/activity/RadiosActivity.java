@@ -88,7 +88,7 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 	public void onClickName(Radio item, int position) {
 		Radio radio = radios.get(position);
     	Intent radioActivity = new Intent(getApplicationContext(), RadioActivity.class);
-    	radioActivity.putExtra("radioId", radio.getId());
+    	radioActivity.putExtra(Radio.RADIO_ID, radio.getId());
     	startActivity(radioActivity);
 	}
 

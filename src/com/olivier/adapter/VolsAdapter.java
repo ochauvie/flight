@@ -125,10 +125,10 @@ public class VolsAdapter extends BaseAdapter {
 			
 				@Override
 				public void onClick(View v) {
-					//Lorsque l'on clique sur le nom, on récupère la position de Aeronef"
+					//Lorsque l'on clique sur le nom, on récupère la position 
 					Integer position = (Integer)v.getTag();
 					
-					//On prévient les listeners qu'il y a eu un clic sur le TextView "tv_name".
+					//On prévient les listeners qu'il y a eu un clic 
 					sendListenerToNote(vols.get(position), position);
 				}
 			});

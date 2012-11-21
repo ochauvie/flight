@@ -45,7 +45,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         // Get radio to edit
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
-        	int radioId = bundle.getInt("radioId");
+        	int radioId = bundle.getInt(Radio.RADIO_ID);
         	dbAeronef.open();
             radio = dbAeronef.getRadioById(radioId);
             dbAeronef.close();
@@ -53,7 +53,8 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         
         // View title
         setTitle(radio.getName());
-        ttsProviderImpl.say("Programme radio pour " + radio.getName());
+        String say = getString(R.string.radio) + " " + getString(R.string.st_for) + " " + radio.getName();  
+        ttsProviderImpl.say(say);
         
         // Création et initialisation de l'Adapter pour les aeronefs
         adapter = new RadioAdapter(this, radio);
@@ -68,7 +69,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         addSwitchPotar.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		Intent addSwitchPotarActivity = new Intent(getApplicationContext(), AddSwitchPotarActivity.class);
-        		addSwitchPotarActivity.putExtra("radioId", radio.getId());
+        		addSwitchPotarActivity.putExtra(Radio.RADIO_ID, radio.getId());
             	startActivity(addSwitchPotarActivity);
             	finish();
         	}
@@ -129,7 +130,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 	        dbAeronef.close();
 	        
 	        Intent radioActivity = new Intent(getApplicationContext(), RadioActivity.class);
-	        radioActivity.putExtra("radioId", radio.getId());
+	        radioActivity.putExtra(Radio.RADIO_ID, radio.getId());
         	startActivity(radioActivity);
         	finish();
 		}

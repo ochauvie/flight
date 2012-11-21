@@ -13,6 +13,8 @@
     <string name="update">Modifier</string>
     <string name="StartService">Start service</string>
     
+    <string name="save_ok">Enregistrement effectué</string>
+    
     <string name="title_activity_vol">Vol</string>
     <string name="aeronef">Machine</string>
     <string name="type">Type</string>
@@ -29,6 +31,12 @@
 	<string name="vol">Vol</string>
 	<string name="lieu">Lieu</string>
 	<string name="gps">Gps</string>
+	<string name="lat">Lat</string>
+	<string name="lon">Long</string>
+	<string name="latitude">Latitude</string>
+	<string name="longitude">Longitude</string>
+	<string name="alt">Alt</string>
+	<string name="ici">Vous êtes ici !</string>
 	
 	<string name="wingSpan">Envergure</string>
 	<string name="metre">m</string>
@@ -53,6 +61,7 @@
 	<string name="number_format_ko">Format de nombre non valide !</string>
 	<string name="name_mandatory">Il faut donner un nom !</string>
 	<string name="type_mandatory">Il faut selectionner un type de machine !</string>
+	<string name="aeronef_mandatory">Il faut choisir une machine</string>
 	<string name="opt_planeur">Planeur</string>
 	<string name="opt_avion">Avion</string>
 	<string name="opt_paramoteur">Paramoteur</string>
@@ -63,13 +72,17 @@
 	<string name="title_activity_drive">Synchronisation Google Drive</string>
 	
 	<string name="title_activity_meteo">Metar</string>
-	<string name="meteo">Metar</string>
+	<string name="metar">Metar</string>
+	<string name="meteo">Météo</string>
 	<string name="oaci">Code OACI</string>
 	<string name="defaultOaci">LFPG</string>
+	<string name="download">Chargement</string>
+	<string name="wainting">Recherche en cours</string>
 	
 	<string name="title_activity_radios">Programmes radio</string>
 	<string name="title_activity_radio">Programme radio</string>
 	<string name="title_activity_switchpotar">Ajout inter - potentiomètre</string>
+	<string name="inter_potar_mandatory">Il faut choisir entre un interrupteur ou un potentiomètre !</string>
 	
 	<string name="radio">Programme radio</string>
 	<string name="action">Action</string>
@@ -96,12 +109,15 @@
 	<string name="checklist">Checklist</string>
 	<string name="checklistItem">Item</string>
 	<string name="order">Ordre</string>
+	<string name="checklistDefaultItem">Emetteur activé</string>
 	<string name="checklist_update_ok">Toutes les modifications ont été enregistrées</string>
 	<string name="checklist_order_mandatory">Renseigner un ordre</string>
 	<string name="checklist_action_mandatory">Renseigner une action</string>
 	<string name="checklist_item_not_check">Les items précédents ne sont pas tous validés</string>
+	<string name="checklist_teminated">Checklist terminée</string>
+	<string name="checklist_becarfull">Attention</string>
 	
-	
+	<string name="st_for">pour</string>
 	
 	<string name="log">Log</string>
 	

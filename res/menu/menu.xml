@@ -2,7 +2,7 @@
  
 
 	<item android:id="@+id/meteo" 
-     android:title="@string/meteo"
+     android:title="@string/metar"
      android:icon="@drawable/meteo_icon" 
      android:showAsAction="ifRoom|withText"/>
 	

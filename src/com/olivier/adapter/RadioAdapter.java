@@ -90,6 +90,8 @@ public class RadioAdapter extends BaseAdapter{
 		  	layoutItem = (RelativeLayout) convertView;
 		  }
 		  
+		  Context ctx = layoutItem.getContext();
+		  
 		  //(2) : Récupération des TextView de notre layout      
 		  TextView tv_name = (TextView)layoutItem.findViewById(R.id.name);
 		  	tv_name.setTextColor(Color.RED);
@@ -101,31 +103,31 @@ public class RadioAdapter extends BaseAdapter{
 		        
 		  //(3) : Renseignement des valeurs       
 		  if (position<radio.getSwitchs().size()) {
-			  tv_name.setText("Inter " + radio.getSwitchs().get(position).getName());
+			  tv_name.setText(ctx.getString(R.string.inter) + " " + radio.getSwitchs().get(position).getName());
 			  tv_action.setText(radio.getSwitchs().get(position).getAction());
 			  tv_action.setTextColor(Color.GREEN);
-			  tv_up.setText("UP: " + radio.getSwitchs().get(position).getUp());
+			  tv_up.setText(ctx.getString(R.string.up) + ": " + radio.getSwitchs().get(position).getUp());
 			  String sCenter = radio.getSwitchs().get(position).getCenter();
 			  if (sCenter==null || "".equals(sCenter)) {
 				  tv_center.setVisibility(View.GONE);
 			  } else {
 				  tv_center.setVisibility(View.VISIBLE);
 			  }
-			  tv_center.setText("CENTER: " + sCenter);
+			  tv_center.setText(ctx.getString(R.string.center) + ": " + sCenter);
 			  
-			  tv_down.setText("DOWN: " + radio.getSwitchs().get(position).getDown());
+			  tv_down.setText(ctx.getString(R.string.down) + ": " + radio.getSwitchs().get(position).getDown());
 		  } else {
-			  tv_name.setText("Potar " + radio.getPotars().get(position-radio.getSwitchs().size()).getName());
+			  tv_name.setText(ctx.getString(R.string.potar) + " " + radio.getPotars().get(position-radio.getSwitchs().size()).getName());
 			  tv_action.setText(radio.getPotars().get(position-radio.getSwitchs().size()).getAction());
-			  tv_up.setText("UP: " + radio.getPotars().get(position-radio.getSwitchs().size()).getUp());
+			  tv_up.setText(ctx.getString(R.string.up) + ": " + radio.getPotars().get(position-radio.getSwitchs().size()).getUp());
 			  String sCenter = radio.getPotars().get(position-radio.getSwitchs().size()).getCenter();
 			  if (sCenter==null || "".equals(sCenter)) {
 				  tv_center.setVisibility(View.GONE);
 			  } else {
 				  tv_center.setVisibility(View.VISIBLE);
 			  }
-			  tv_center.setText("CENTER: " + sCenter);
-			  tv_down.setText("DOWN: " + radio.getPotars().get(position-radio.getSwitchs().size()).getDown());
+			  tv_center.setText(ctx.getString(R.string.center) + ": " + sCenter);
+			  tv_down.setText(ctx.getString(R.string.down) + ": " + radio.getPotars().get(position-radio.getSwitchs().size()).getDown());
 		  }
 		  
 		  
