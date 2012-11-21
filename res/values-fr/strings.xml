@@ -1,0 +1,124 @@
+<resources>
+
+    <string name="app_name">Carnet de vol</string>
+    <string name="app_name_maj">CARNET DE VOL</string>
+    <string name="menu_settings">Settings</string>
+    
+    <string name="title_activity_olivier">Olivier</string>
+    <string name="startChronometre1">Chronometre is started</string>
+    <string name="stopChronometre1">Stop</string>
+    <string name="reset">Reset</string>
+    <string name="close">Fermer</string>
+    <string name="add">Ajout</string>
+    <string name="update">Modifier</string>
+    <string name="StartService">Start service</string>
+    
+    <string name="save_ok">Enregistrement effectué</string>
+    
+    <string name="title_activity_vol">Vol</string>
+    <string name="aeronef">Machine</string>
+    <string name="type">Type</string>
+    <string name="selectAeronef">Hangar</string>
+    <string name="minVol">Temps</string>
+    <string name="moteur">Moteur</string>
+    <string name="min">min</string>
+    <string name="sec">sec</string>
+	<string name="save">Enregistrer</string>
+	<string name="deleteVol">Reset</string>
+	<string name="viewVol">Vols</string>
+	<string name="note">Note</string>
+	<string name="date">Date</string>
+	<string name="vol">Vol</string>
+	<string name="lieu">Lieu</string>
+	<string name="gps">Gps</string>
+	<string name="lat">Lat</string>
+	<string name="lon">Long</string>
+	<string name="latitude">Latitude</string>
+	<string name="longitude">Longitude</string>
+	<string name="alt">Alt</string>
+	<string name="ici">Vous êtes ici !</string>
+	
+	<string name="wingSpan">Envergure</string>
+	<string name="metre">m</string>
+	<string name="weight">Poids</string>
+	<string name="kilo">kg</string>
+	<string name="fistFlight">Premier vol</string>
+    
+	<string name="delete">Suppression</string>
+	<string name="oui">Oui</string>
+	<string name="non">Non</string>
+	
+	
+	<string name="title_activity_aeronef">Hangar</string>
+	<string name="addAeronef">Ajout</string>
+	
+	<string name="title_activity_hangar">Hangar</string>
+	
+	<string name="title_activity_vols">Liste des enregistrements</string>
+	
+	<string name="title_activity_addAeronef">Machine</string>
+	<string name="aeronef_save">Machine sauvegardée</string>
+	<string name="number_format_ko">Format de nombre non valide !</string>
+	<string name="name_mandatory">Il faut donner un nom !</string>
+	<string name="type_mandatory">Il faut selectionner un type de machine !</string>
+	<string name="aeronef_mandatory">Il faut choisir une machine</string>
+	<string name="opt_planeur">Planeur</string>
+	<string name="opt_avion">Avion</string>
+	<string name="opt_paramoteur">Paramoteur</string>
+	<string name="opt_helico">Helicoptère</string>
+	<string name="opt_auto">Automobile</string>
+	<string name="opt_divers">Divers</string>
+	
+	<string name="title_activity_drive">Synchronisation Google Drive</string>
+	
+	<string name="title_activity_meteo">Metar</string>
+	<string name="metar">Metar</string>
+	<string name="meteo">Météo</string>
+	<string name="oaci">Code OACI</string>
+	<string name="defaultOaci">LFPG</string>
+	<string name="download">Chargement</string>
+	<string name="wainting">Recherche en cours</string>
+	
+	<string name="title_activity_radios">Programmes radio</string>
+	<string name="title_activity_radio">Programme radio</string>
+	<string name="title_activity_switchpotar">Ajout inter - potentiomètre</string>
+	<string name="inter_potar_mandatory">Il faut choisir entre un interrupteur ou un potentiomètre !</string>
+	
+	<string name="radio">Programme radio</string>
+	<string name="action">Action</string>
+	<string name="name">Nom</string>
+	<string name="up">UP</string>
+	<string name="down">DOWN</string>
+	<string name="center">CENTER</string>
+	<string name="inter">Inter</string>
+	<string name="potar">Potar</string>
+	 
+	<string name="nfc">Nfc</string>
+	<string name="nfc_tag_detected">Tag détécté</string>
+	<string name="nfc_approch_tag">Approchez vous du tag à écrire</string>
+	<string name="nfc_write_ok">Ecriture du tag réussie</string>
+	<string name="nfc_write_ko">Erreur d\'écriture</string>
+	<string name="nfc_save_before">La machine doit avoir été enregistrée avant d\'être taguée</string>
+	<string name="nfc_write_ko_format">Erreur d\'écriture. Il faut peut être formater le tag.</string>
+	
+	<string name="title_activity_carte">Carte</string>
+	<string name="carte">Carte</string>
+	<string name="production_api_key">0ri1fmvpao2WRhNvGbPaajkp035avJTSW_JwWCw</string>
+	
+	<string name="title_activity_checklist">Checklist</string>
+	<string name="checklist">Checklist</string>
+	<string name="checklistItem">Item</string>
+	<string name="order">Ordre</string>
+	<string name="checklistDefaultItem">Emetteur activé</string>
+	<string name="checklist_update_ok">Toutes les modifications ont été enregistrées</string>
+	<string name="checklist_order_mandatory">Renseigner un ordre</string>
+	<string name="checklist_action_mandatory">Renseigner une action</string>
+	<string name="checklist_item_not_check">Les items précédents ne sont pas tous validés</string>
+	<string name="checklist_teminated">Checklist terminée</string>
+	<string name="checklist_becarfull">Attention</string>
+	
+	<string name="st_for">pour</string>
+	
+	<string name="log">Log</string>
+	
+</resources>
