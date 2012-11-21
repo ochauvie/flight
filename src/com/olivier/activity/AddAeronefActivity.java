@@ -325,11 +325,12 @@ public class AddAeronefActivity extends Activity {
 			NdefMessage  message = new NdefMessage(records);
 			// Get an instance of Ndef for the tag.
 			Ndef ndef = Ndef.get(tag);
-			// Enable I/O
-			ndef.connect();
 			if (ndef==null) {
+				// Tag not formated ?
 				return -1;
 			} else {
+				// Enable I/O	
+				ndef.connect();
 				// Write the message
 				ndef.writeNdefMessage(message);
 				// Close the connection
