@@ -40,6 +40,8 @@ public final class InitHangar  {
 		values.put(DbManager.COL_TYPE, Aeronef.T_AVION);
 		values.put(DbManager.COL_ENGINE, "OS 46 LA");
 		values.put(DbManager.COL_FIRST_FLIGHT, "29/10/2011");
+		values.put(DbManager.COL_WINGSPAN, "1.6");
+		values.put(DbManager.COL_WEIGHT, "2.5");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
 		values = new ContentValues();
@@ -47,6 +49,8 @@ public final class InitHangar  {
 		values.put(DbManager.COL_TYPE, Aeronef.T_AVION);
 		values.put(DbManager.COL_ENGINE, "OS 46 LA");
 		values.put(DbManager.COL_FIRST_FLIGHT, "22/03/2003");
+		values.put(DbManager.COL_WINGSPAN, "1.57");
+		values.put(DbManager.COL_WEIGHT, "4");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
 		values = new ContentValues();
@@ -70,6 +74,8 @@ public final class InitHangar  {
 		values.put(DbManager.COL_TYPE, Aeronef.T_AUTO);
 		values.put(DbManager.COL_ENGINE, "Axial 55T");
 		values.put(DbManager.COL_FIRST_FLIGHT, "20/08/2011");
+		values.put(DbManager.COL_NOTE, "Remorque");
+		values.put(DbManager.COL_WINGSPAN, "0.5");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
 		values = new ContentValues();
