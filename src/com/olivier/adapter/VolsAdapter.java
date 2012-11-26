@@ -24,12 +24,8 @@ public class VolsAdapter extends BaseAdapter {
 	private List<Vol> vols;
 	private Context mContext;
 	private LayoutInflater mInflater;
-	
-	private TextView tv_date;
-	private TextView tv_name;
-	private TextView tv_vol;
-	private TextView tv_moteur;
-	ImageButton bDelete;
+	private TextView tv_date, tv_name, tv_vol, tv_moteur;
+	private ImageButton bDelete;
 	
 	//Contient la liste des listeners
 	private ArrayList<VolsAdapterListener> mListListener = new ArrayList<VolsAdapterListener>();
