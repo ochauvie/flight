@@ -19,7 +19,6 @@ public class Aeronef {
 	private int id;
 	private String name;
 	private String type;
-	
 	private float wingSpan;
 	private float weight;
 	private String engine;
@@ -33,6 +32,7 @@ public class Aeronef {
 	public int getId() {
 		return id;
 	}
+	
 	/**
 	 * Setter id
 	 * @param id the id to set
@@ -40,6 +40,7 @@ public class Aeronef {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
 	/**
 	 * Getter name
 	 * @return the name
@@ -47,6 +48,7 @@ public class Aeronef {
 	public String getName() {
 		return name;
 	}
+	
 	/**
 	 * Setter name
 	 * @param name the name to set
@@ -54,6 +56,7 @@ public class Aeronef {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	/**
 	 * Getter type
 	 * @return the type
@@ -61,6 +64,7 @@ public class Aeronef {
 	public String getType() {
 		return type;
 	}
+	
 	/**
 	 * Setter type
 	 * @param type the type to set
@@ -69,8 +73,6 @@ public class Aeronef {
 		this.type = type;
 	}
 	
-	
-	
 	/**
 	 * Getter wingSpan
 	 * @return the wingSpan
@@ -78,6 +80,7 @@ public class Aeronef {
 	public float getWingSpan() {
 		return wingSpan;
 	}
+	
 	/**
 	 * Setter wingSpan
 	 * @param wingSpan the wingSpan to set
@@ -85,6 +88,7 @@ public class Aeronef {
 	public void setWingSpan(float wingSpan) {
 		this.wingSpan = wingSpan;
 	}
+	
 	/**
 	 * Getter weight
 	 * @return the weight
@@ -92,6 +96,7 @@ public class Aeronef {
 	public float getWeight() {
 		return weight;
 	}
+	
 	/**
 	 * Setter weight
 	 * @param weight the weight to set
@@ -99,6 +104,7 @@ public class Aeronef {
 	public void setWeight(float weight) {
 		this.weight = weight;
 	}
+	
 	/**
 	 * Getter engine
 	 * @return the engine
@@ -106,6 +112,7 @@ public class Aeronef {
 	public String getEngine() {
 		return engine;
 	}
+	
 	/**
 	 * Setter engine
 	 * @param engine the engine to set
@@ -113,6 +120,7 @@ public class Aeronef {
 	public void setEngine(String engine) {
 		this.engine = engine;
 	}
+	
 	/**
 	 * Getter firstFlight
 	 * @return the firstFlight
@@ -120,6 +128,7 @@ public class Aeronef {
 	public String getFirstFlight() {
 		return firstFlight;
 	}
+	
 	/**
 	 * Setter firstFlight
 	 * @param firstFlight the firstFlight to set
@@ -127,6 +136,7 @@ public class Aeronef {
 	public void setFirstFlight(String firstFlight) {
 		this.firstFlight = firstFlight;
 	}
+	
 	/**
 	 * Getter comment
 	 * @return the comment
@@ -134,6 +144,7 @@ public class Aeronef {
 	public String getComment() {
 		return comment;
 	}
+	
 	/**
 	 * Setter comment
 	 * @param comment the comment to set
@@ -141,6 +152,12 @@ public class Aeronef {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+	
+	/**
+	 * Return the color type
+	 * @param type the type
+	 * @return the color
+	 */
 	public static int getColor(String type) {
 		if (Aeronef.T_PLANEUR.equals(type)) {
 		    return Color.RED;
