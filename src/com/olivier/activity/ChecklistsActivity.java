@@ -10,7 +10,7 @@ import com.olivier.adapter.ChecklistsAdapter;
 import com.olivier.listener.ChecklistsAdapterListener;
 import com.olivier.model.Checklist;
 import com.olivier.model.ChecklistItem;
-import com.olivier.sqllite.DbAeronef;
+import com.olivier.sqllite.DbChecklist;
 
 import android.os.Bundle;
 import android.app.AlertDialog;
@@ -31,7 +31,7 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
 	
 	private MyDialogInterface myInterface;
 	
-	private DbAeronef dbAeronef = new DbAeronef(this);
+	private DbChecklist dbChecklist = new DbChecklist(this);
 	private ArrayList<Checklist> checklists;
 	private int selectItim = -1;
 	private ChecklistsAdapter adapter;
@@ -48,9 +48,9 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
-        dbAeronef.open();
-        	checklists = dbAeronef.getChecklists(null);
-        dbAeronef.close();
+        dbChecklist.open();
+        	checklists = dbChecklist.getChecklists(null);
+        dbChecklist.close();
         	
     	// Création et initialisation de l'Adapter pour les personnes
         adapter = new ChecklistsAdapter(this, checklists);
@@ -78,9 +78,9 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
         			Checklist cl = new Checklist(newName);
         			ChecklistItem item = new ChecklistItem(getString(R.string.checklistDefaultItem), 1);
         			cl.addItem(item);
-        			dbAeronef.open();
-        				dbAeronef.addCheckList(cl);
-        			dbAeronef.close();
+        			dbChecklist.open();
+        				dbChecklist.addCheckList(cl);
+        			dbChecklist.close();
         			
         			Intent checklistsActivity = new Intent(getApplicationContext(), ChecklistsActivity.class);
                 	startActivity(checklistsActivity);
@@ -129,9 +129,9 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
 	public void onDialogCompleted(boolean answer) {
 		if (answer && selectItim!=-1) {
 			Checklist checklist = checklists.get(selectItim);
-	    	dbAeronef.open();
-	        	dbAeronef.deleteChecklist(checklist);
-	        dbAeronef.close();
+			dbChecklist.open();
+				dbChecklist.deleteChecklist(checklist);
+			dbChecklist.close();
 	        checklists.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}

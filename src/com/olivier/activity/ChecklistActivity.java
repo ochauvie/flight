@@ -6,7 +6,7 @@ import com.olivier.R;
 import com.olivier.adapter.ChecklistAdapter;
 import com.olivier.model.Checklist;
 import com.olivier.speech.TtsProviderFactory;
-import com.olivier.sqllite.DbAeronef;
+import com.olivier.sqllite.DbChecklist;
 
 import android.app.ListActivity;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import android.os.Bundle;
 public class ChecklistActivity extends ListActivity {
 
 	private Checklist checklist;
-	private DbAeronef dbAeronef = new DbAeronef(this);
+	private DbChecklist dbChecklist = new DbChecklist(this);
 	private ChecklistAdapter adapter;
 	private TtsProviderFactory ttsProviderImpl;
 	
@@ -29,14 +29,14 @@ public class ChecklistActivity extends ListActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
         	String checklistName = bundle.getString(Checklist.NAME);
-        	dbAeronef.open();
-        		ArrayList<Checklist> l = dbAeronef.getChecklists(checklistName);
+        	dbChecklist.open();
+        		ArrayList<Checklist> l = dbChecklist.getChecklists(checklistName);
         		if (l!=null) {
         			checklist = l.get(0);
         			String say = getString(R.string.checklist) + " " + getString(R.string.st_for) + " " + checklistName;  
         			ttsProviderImpl.say(say);
         		}
-            dbAeronef.close();
+        		dbChecklist.close();
         }
         
         // View title

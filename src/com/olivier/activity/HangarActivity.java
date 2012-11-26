@@ -7,6 +7,7 @@ import com.olivier.activity.MyDialogInterface.DialogReturn;
 import com.olivier.adapter.AeronefsAdapter;
 import com.olivier.listener.AeronefAdapterListener;
 import com.olivier.model.Aeronef;
+import com.olivier.speech.TtsProviderFactory;
 import com.olivier.sqllite.DbAeronef;
 
 import android.os.Bundle;
@@ -25,13 +26,12 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	private ImageButton addAeronef;
 	private ImageButton close;
 	private ListView listView;
-	
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Aeronef> aeronefs;
-	
 	private AeronefsAdapter adapter;
 	private MyDialogInterface myInterface;
 	private int selectItim = -1;
+	private TtsProviderFactory ttsProviderImpl;
 	
 	
 	
@@ -39,7 +39,9 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hangar);
-    
+        
+        ttsProviderImpl = TtsProviderFactory.getInstance();
+        
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
@@ -86,6 +88,9 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
             	finish();
         	}
         });
+        
+        ttsProviderImpl.say(getString(R.string.selectAeronef));
+        
     }
     
     

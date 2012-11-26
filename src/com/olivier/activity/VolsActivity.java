@@ -11,7 +11,7 @@ import com.olivier.activity.MyDialogInterface.DialogReturn;
 import com.olivier.adapter.VolsAdapter;
 import com.olivier.listener.VolsAdapterListener;
 import com.olivier.model.Vol;
-import com.olivier.sqllite.DbAeronef;
+import com.olivier.sqllite.DbVol;
 
 import android.os.Bundle;
 import android.app.AlertDialog;
@@ -26,10 +26,9 @@ import android.widget.TextView;
 public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener  {
 
 	private MyDialogInterface myInterface;
-	
-	private DbAeronef dbAeronef = new DbAeronef(this);
+	private DbVol dbVol = new DbVol(this);
 	private ArrayList<Vol> vols;
-	int selectItim = -1;
+	private int selectItim = -1;
 	private VolsAdapter adapter;
 	private TextView totalVol;
 	
@@ -50,9 +49,9 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
-        dbAeronef.open();
-        vols = dbAeronef.getVols();
-        dbAeronef.close();
+        dbVol.open();
+        	vols = dbVol.getVols();
+        dbVol.close();
         
         totalVol.setText(getTotalVol());
         	
@@ -150,9 +149,9 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	public void onDialogCompleted(boolean answer) {
 		if (answer && selectItim!=-1) {
 			Vol flight = vols.get(selectItim);
-	    	dbAeronef.open();
-	        dbAeronef.deleteVol(flight);
-	        dbAeronef.close();
+			dbVol.open();
+				dbVol.deleteVol(flight);
+			dbVol.close();
 	        vols.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 	        totalVol.setText(getTotalVol());

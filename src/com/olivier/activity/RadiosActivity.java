@@ -7,7 +7,7 @@ import com.olivier.activity.MyDialogInterface.DialogReturn;
 import com.olivier.adapter.RadiosAdapter;
 import com.olivier.listener.RadiosAdapterListener;
 import com.olivier.model.Radio;
-import com.olivier.sqllite.DbAeronef;
+import com.olivier.sqllite.DbRadio;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -22,11 +22,9 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 
 	private ImageButton add;
 	private EditText newRadioName;
-	
-	private DbAeronef dbAeronef = new DbAeronef(this);
+	private DbRadio dbRadio = new DbRadio(this);
 	private ArrayList<Radio> radios;
 	private RadiosAdapter adapter;
-	
 	private MyDialogInterface myInterface;
 	private int selectItim = -1;
 	
@@ -36,13 +34,12 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radios);
         
-        dbAeronef.open();
-        radios = dbAeronef.getRadios();
-        dbAeronef.close();
+        dbRadio.open();
+        	radios = dbRadio.getRadios();
+        dbRadio.close();
         
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
-        
         
         // Création et initialisation de l'Adapter pour les aeronefs
         adapter = new RadiosAdapter(this, radios);
@@ -66,9 +63,9 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         		if (newName!=null && !"".equals(newName)) {
         			Radio r = new Radio();
         			r.setName(newName);
-        			dbAeronef.open();
-        				dbAeronef.addRadio(r);
-        			dbAeronef.close();
+        			dbRadio.open();
+        				dbRadio.addRadio(r);
+        			dbRadio.close();
         			
         			/* On ne connait pas le nouveau id
         			radios.add(r);
@@ -124,9 +121,9 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 	@Override
 	public void onDialogCompleted(boolean answer) {
 		if (answer && selectItim!=-1) {
-			dbAeronef.open();
-	        	dbAeronef.deleteRadio(radios.get(selectItim));
-	        dbAeronef.close();
+			dbRadio.open();
+				dbRadio.deleteRadio(radios.get(selectItim));
+			dbRadio.close();
 	        radios.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}

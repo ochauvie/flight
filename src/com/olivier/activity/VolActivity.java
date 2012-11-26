@@ -7,7 +7,7 @@ import com.olivier.activity.MyDialogInterface.DialogReturn;
 import com.olivier.model.Aeronef;
 import com.olivier.model.Vol;
 import com.olivier.speech.TtsProviderFactory;
-import com.olivier.sqllite.DbAeronef;
+import com.olivier.sqllite.DbVol;
 
 import android.location.Location;
 import android.location.LocationListener;
@@ -37,7 +37,7 @@ import android.widget.TextView;
 public class VolActivity extends Activity implements DialogReturn, OnTouchListener {
 	
 	private MyDialogInterface myInterface;
-	private DbAeronef dbAeronef = new DbAeronef(this);
+	private DbVol dbVol = new DbVol(this);
 	private RelativeLayout relativeLayout;
 	private ImageButton saveButton, deleteButton;
 	private EditText aeronef, minVol, minMot, secMot, note, lieu;
@@ -84,7 +84,6 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         setContentView(R.layout.activity_vol);
         
         ttsProviderImpl = TtsProviderFactory.getInstance();
-        
                
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
@@ -144,9 +143,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	        		vol.setNote(note.getText().toString());
 	        		vol.setLieu(lieu.getText().toString());
 	        		
-	        		dbAeronef.open();
-	        			dbAeronef.insertVol(vol);
-	        		dbAeronef.close();
+	        		dbVol.open();
+	        			dbVol.insertVol(vol);
+	        		dbVol.close();
 	        		
 	        		resetPage();
 	        		
@@ -209,6 +208,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         butGps = (ImageButton) findViewById(R.id.gps);
         butGps.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
+        		if (lieuGps==null || "".equals(lieuGps)) {
+        			ttsProviderImpl.say(getString(R.string.position_ko));
+        		}
         		lieu.setText(lieuGps);
         	}
         }); 
@@ -286,6 +288,8 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
             	  carteActivity.putExtra("latitude", latitude*1000000);
           		  carteActivity.putExtra("longitude", longitude*1000000);
           		  startActivity(carteActivity);  
+        	  } else {
+        		  ttsProviderImpl.say(getString(R.string.position_ko));
         	  }
               return true;
          case R.id.vols:
@@ -363,6 +367,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	@Override
 	public void onDialogCompleted(boolean answer) {
 		if (answer) {
+			ttsProviderImpl.say(getString(R.string.bye));
 			finish();
 		}
 	}

@@ -8,7 +8,7 @@ import com.olivier.adapter.UpdateChecklistAdapter;
 import com.olivier.listener.UpdateChecklistAdapterListener;
 import com.olivier.model.Checklist;
 import com.olivier.model.ChecklistItem;
-import com.olivier.sqllite.DbAeronef;
+import com.olivier.sqllite.DbChecklist;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -25,7 +25,7 @@ import android.widget.Toast;
 public class UpdateChecklistActivity extends ListActivity implements DialogReturn, UpdateChecklistAdapterListener{
 
 	private Checklist checklist;
-	private DbAeronef dbAeronef = new DbAeronef(this);
+	private DbChecklist dbChecklist = new DbChecklist(this);
 	private UpdateChecklistAdapter adapter;	
 	private int selectItim = -1;
 	private MyDialogInterface myInterface;
@@ -44,12 +44,12 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
         	String checklistName = bundle.getString(Checklist.NAME);
-        	dbAeronef.open();
-        		ArrayList<Checklist> l = dbAeronef.getChecklists(checklistName);
+        	dbChecklist.open();
+        		ArrayList<Checklist> l = dbChecklist.getChecklists(checklistName);
         		if (l!=null) {
         			checklist = l.get(0);
         		}
-            dbAeronef.close();
+        		dbChecklist.close();
         }
         
         myInterface = new MyDialogInterface();
@@ -84,9 +84,9 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
         			Checklist cp = new Checklist(checklist.getName());
         			ChecklistItem item = new ChecklistItem(edItemNewAction.toString(), Integer.valueOf(edItemNewOrder.toString()));
         			cp.addItem(item);
-        			dbAeronef.open();
-    	        		dbAeronef.addCheckList(cp);
-    	        	dbAeronef.close();
+        			dbChecklist.open();
+        				dbChecklist.addCheckList(cp);
+    	        	dbChecklist.close();
     	        	Intent updateChecklistActivity = new Intent(getApplicationContext(), UpdateChecklistActivity.class);
     	        	updateChecklistActivity.putExtra(Checklist.NAME, checklist.getName());
 	            	startActivity(updateChecklistActivity);
@@ -98,9 +98,9 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
         butSave = (ImageButton)  findViewById(R.id.butSave);
         butSave.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		dbAeronef.open();
-        			dbAeronef.updateChecklist(checklist);
-        		dbAeronef.close();
+        		dbChecklist.open();
+        			dbChecklist.updateChecklist(checklist);
+        		dbChecklist.close();
         		Toast.makeText(ctx, R.string.checklist_update_ok, Toast.LENGTH_LONG ).show();
         	}
         });
@@ -143,16 +143,12 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
 	public void onDialogCompleted(boolean answer) {
 		if (answer && selectItim!=-1) {
 			ChecklistItem item = checklist.getItems().get(selectItim);
-	    	dbAeronef.open();
-	        	dbAeronef.deleteChecklistItem(item.getId());
-	        dbAeronef.close();
+			dbChecklist.open();
+				dbChecklist.deleteChecklistItem(item.getId());
+			dbChecklist.close();
 	        checklist.getItems().remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}
 	}
-
-	
-
-
     
 }

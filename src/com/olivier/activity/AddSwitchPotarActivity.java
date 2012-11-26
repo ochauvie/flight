@@ -5,7 +5,7 @@ import com.olivier.R;
 import com.olivier.model.Potar;
 import com.olivier.model.Radio;
 import com.olivier.model.Switch;
-import com.olivier.sqllite.DbAeronef;
+import com.olivier.sqllite.DbRadio;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,7 +20,7 @@ import android.widget.TextView;
 
 public class AddSwitchPotarActivity extends Activity {
 
-	private DbAeronef dbAeronef = new DbAeronef(this);
+	private DbRadio dbRadio = new DbRadio(this);
 	private int radioId;
 
 	private EditText name, action, up, center, down;
@@ -82,9 +82,9 @@ public class AddSwitchPotarActivity extends Activity {
 	        				sw.setUp(up.getText().toString());
 	        				sw.setCenter(center.getText().toString());
 	        				sw.setDown(down.getText().toString());
-	        				dbAeronef.open();
-	        					dbAeronef.addSwitchToRadio(radioId, sw);
-	        				dbAeronef.close();
+	        				dbRadio.open();
+	        					dbRadio.addSwitchToRadio(radioId, sw);
+	        				dbRadio.close();
 	        				
 	        			} else if (optPotar.isChecked()) {
 	        				Potar potar = new Potar();
@@ -93,9 +93,9 @@ public class AddSwitchPotarActivity extends Activity {
 	        				potar.setUp(up.getText().toString());
 	        				potar.setCenter(center.getText().toString());
 	        				potar.setDown(down.getText().toString());
-	        				dbAeronef.open();
-	        					dbAeronef.addPotarToRadio(radioId, potar);
-	        				dbAeronef.close();
+	        				dbRadio.open();
+	        					dbRadio.addPotarToRadio(radioId, potar);
+	        				dbRadio.close();
 	        			}
 	        			
 	        			log.setText(getString(R.string.save_ok));
@@ -108,8 +108,6 @@ public class AddSwitchPotarActivity extends Activity {
 	        		}
 	        	}
 	        });
-	        
-	        
 	    }
 	    
 

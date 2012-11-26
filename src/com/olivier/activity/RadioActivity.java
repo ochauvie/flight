@@ -8,7 +8,7 @@ import com.olivier.model.Potar;
 import com.olivier.model.Radio;
 import com.olivier.model.Switch;
 import com.olivier.speech.TtsProviderFactory;
-import com.olivier.sqllite.DbAeronef;
+import com.olivier.sqllite.DbRadio;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -22,14 +22,11 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 
 	private ImageButton addSwitchPotar;
 	private Radio radio;
-	
-	private DbAeronef dbAeronef = new DbAeronef(this);
+	private DbRadio dbRadio = new DbRadio(this);
 	private RadioAdapter adapter;	
 	private MyDialogInterface myInterface;
-	
 	private int itemId;
 	private String typeItem;
-	
 	private TtsProviderFactory ttsProviderImpl;
 	
     @Override
@@ -46,9 +43,9 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
         	int radioId = bundle.getInt(Radio.RADIO_ID);
-        	dbAeronef.open();
-            radio = dbAeronef.getRadioById(radioId);
-            dbAeronef.close();
+        	dbRadio.open();
+            	radio = dbRadio.getRadioById(radioId);
+            dbRadio.close();
         }
         
         // View title
@@ -121,13 +118,13 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 	@Override
 	public void onDialogCompleted(boolean answer) {
 		if (answer && itemId!=-1) {
-			dbAeronef.open();
+			dbRadio.open();
 				if ("Inter".equals(typeItem)) {
-					dbAeronef.deleteSwitch(itemId);
+					dbRadio.deleteSwitch(itemId);
 				} else if ("Potar".equals(typeItem)) {
-					dbAeronef.deletePotar(itemId);
+					dbRadio.deletePotar(itemId);
 				}
-	        dbAeronef.close();
+				dbRadio.close();
 	        
 	        Intent radioActivity = new Intent(getApplicationContext(), RadioActivity.class);
 	        radioActivity.putExtra(Radio.RADIO_ID, radio.getId());

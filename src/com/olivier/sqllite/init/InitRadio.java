@@ -11,6 +11,8 @@ public final class InitRadio  {
 	public static final void initRadio(SQLiteDatabase db) {
 		initAlpina(db);
 		initBroussard(db);
+		initSpatz(db);
+		initParamoteur(db);
 	}
 	
 	
@@ -133,9 +135,10 @@ public final class InitRadio  {
 		values.put(DbManager.COL_ID_RADIO, 2);
 		values.put(DbManager.COL_ID_SWITCH, 7);
 		db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+	}
 
-	// Spatz
-	
+	private static final void initSpatz(SQLiteDatabase db) {
+		ContentValues values = new ContentValues();
 		// Potar
 		values = new ContentValues();
 		values.put(DbManager.COL_ID, 2);
@@ -156,9 +159,30 @@ public final class InitRadio  {
 		values.put(DbManager.COL_ID_RADIO, 3);
 		values.put(DbManager.COL_ID_POTAR, 2);
 		db.insert(DbManager.TABLE_RADIO_POTAR, null, values);
-	
-		
 	}
-
+	
+	private static final void initParamoteur(SQLiteDatabase db) {
+		ContentValues values = new ContentValues();
+		// Switch
+		values = new ContentValues();
+		values.put(DbManager.COL_ID, 8);
+		values.put(DbManager.COL_NAME, "D");
+		values.put(DbManager.COL_UP, "ON");
+		values.put(DbManager.COL_DOWN, "OFF");
+		values.put(DbManager.COL_ACTION, "Chronomètre");
+		db.insert(DbManager.TABLE_SWITCH, null, values);
+			
+		// Radio
+		values = new ContentValues();
+		values.put(DbManager.COL_ID, 4);
+		values.put(DbManager.COL_NAME, "FF9 Paramoteur");
+		db.insert(DbManager.TABLE_RADIO, null, values);
+		
+		// Radio - switch
+		values = new ContentValues();
+		values.put(DbManager.COL_ID_RADIO, 4);
+		values.put(DbManager.COL_ID_SWITCH, 8);
+		db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+	}
 			
 }

@@ -12,6 +12,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbManager extends SQLiteOpenHelper {
 
+	public static final int VERSION_BDD = 1;
+	public static final String NOM_BDD = "vols.db";
 	
 	public static final String TABLE_VOLS = "table_vols";
 	public static final String COL_ID = "ID";

@@ -103,6 +103,7 @@
 	
 	<string name="title_activity_carte">Map</string>
 	<string name="carte">Map</string>
+	<string name="position_ko">Postition not available</string>
 	<string name="production_api_key">0ri1fmvpao2WRhNvGbPaajkp035avJTSW_JwWCw</string>
 	
 	<string name="title_activity_checklist">Checklist</string>
@@ -121,4 +122,5 @@
 	
 	<string name="log">Log</string>
 	
+	<string name="bye">Bye</string>
 </resources>
