@@ -1,6 +1,9 @@
 package com.olivier.activity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import com.olivier.R;
 import com.olivier.activity.MyDialogInterface.DialogReturn;
@@ -17,6 +20,8 @@ import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -28,26 +33,27 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.animation.AlphaAnimation;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 
-public class VolActivity extends Activity implements DialogReturn, OnTouchListener {
+public class VolActivity extends Activity implements DialogReturn, OnTouchListener, OnDateSetListener {
 	
 	private MyDialogInterface myInterface;
 	private DbVol dbVol = new DbVol(this);
 	private RelativeLayout relativeLayout;
 	private ImageButton saveButton, deleteButton;
-	private EditText aeronef, minVol, minMot, secMot, note, lieu;
+	private EditText aeronef, minVol, minMot, secMot, note, lieu, flightDate;
 	private Double latitude, longitude, altitude;
 	private String lieuGps;
-	private ImageButton selectAeronef, butGps;
+	private ImageButton selectAeronef, butGps, selectDate;
 	private float downXValue;
 	private TextView editText1;
 	private String typeAeronef;
-	
+	private DatePickerDialog datePickerDialog = null;
 	private TtsProviderFactory ttsProviderImpl; 
 	
 	private AlphaAnimation alphaAnimation;
@@ -94,6 +100,8 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutVol);
         relativeLayout.startAnimation(alphaAnimation);
         
+        flightDate = (EditText)  findViewById(R.id.flightDate);
+        flightDate.setEnabled(false);
         aeronef = (EditText)  findViewById(R.id.editTextAeronef);
         minVol = (EditText)  findViewById(R.id.editTextMinVol);
         minVol.requestFocus();
@@ -139,7 +147,12 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	        		} catch (NumberFormatException e) {
 	        			vol.setSecondsMoteur(0);
 	        		}
-	        		vol.setDateVol(new Date()); // TODO ; ajouter un champ pour pouvoir saisir une date antérieure
+	        		try {
+	        			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+	        			vol.setDateVol(sdf.parse(flightDate.getText().toString()));
+					} catch (ParseException e) {
+						vol.setDateVol(new Date());
+					}
 	        		vol.setNote(note.getText().toString());
 	        		vol.setLieu(lieu.getText().toString());
 	        		
@@ -214,12 +227,30 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         		lieu.setText(lieuGps);
         	}
         }); 
+        
+        // Flight date
+        selectDate = (ImageButton) findViewById(R.id.selectDate);
+        selectDate.setOnClickListener(new View.OnClickListener() {
+        	public void onClick(View v) {
+        		String sDate = flightDate.getText().toString();
+        		String[] ssDate = sDate.split("/");
+        		datePickerDialog = new DatePickerDialog(v.getContext(),
+        				VolActivity.this,
+        				Integer.parseInt(ssDate[2]),
+                        Integer.parseInt(ssDate[1])-1,
+                        Integer.parseInt(ssDate[0]));
+        		datePickerDialog.show();
+        	}
+        });
     }
     
     /**
      * Init the view data
      */
     private void initPage() {
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+		String sDate = sdf.format(new Date());
+    	flightDate.setText(sDate);
     	aeronef.setText(null);
         minVol.setText(null);
         minMot.setText(null);
@@ -240,6 +271,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
      * Clean the view data
      */
     private void resetPage() {
+    	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+		String sDate = sdf.format(new Date());
+    	flightDate.setText(sDate);
     	minVol.setText(null);
         minMot.setText(null);
         secMot.setText(null);
@@ -370,6 +404,18 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 			ttsProviderImpl.say(getString(R.string.bye));
 			finish();
 		}
+	}
+
+	@Override
+	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+		String day = String.valueOf(dayOfMonth);
+		if (day.length()<2) {day = "0" + day;}
+		String month = String.valueOf(monthOfYear+1);
+		if (month.length()<2) {month = "0" + month;}
+		String y = String.valueOf(year);
+		if (y.length()<2) {y = "0" + y;}
+		flightDate.setText(day + "/" + month + "/" + y);
+		datePickerDialog.hide();
 	}
 	
 }

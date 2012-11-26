@@ -10,11 +10,44 @@
 	    android:id="@+id/relativeLayoutVol">
 		
 	    <TextView
-	        android:id="@+id/textViewAeronef"
+	        android:id="@+id/textViewDate"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentTop="true"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="34dp"
+	        android:text="@string/date" />
+	    
+	    <EditText
+	        android:id="@+id/flightDate"
+	        android:layout_width="150dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewDate"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+			android:inputType="textCapWords" >
+		</EditText>
+				    
+	     <ImageButton
+	        android:id="@+id/selectDate"
+	        android:layout_width="96dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/textViewDate"
+	        android:layout_alignParentRight="true"
+	        android:contentDescription="@string/date"
+	        android:background="#00000000"
+	        android:src="@drawable/calendrier" />
+	    
+	    
+	    
+	    <TextView
+	        android:id="@+id/textViewAeronef"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/textViewDate"
+	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="16dp"
 	        android:layout_marginTop="34dp"
 	        android:text="@string/aeronef" />
@@ -35,6 +68,7 @@
 	        android:id="@+id/selectAeronef"
 	        android:layout_width="96dp"
 	        android:layout_height="wrap_content"
+	        android:layout_marginTop="60dp"
 	        android:layout_alignBottom="@+id/editTextAeronef"
 	        android:layout_alignParentRight="true"
 	        android:contentDescription="@string/selectAeronef"
@@ -201,7 +235,7 @@
 			        android:layout_width="56dp"
 			        android:layout_height="56dp"
 			        android:layout_marginLeft="20dp"
-			        android:layout_marginTop="70dp"
+			        android:layout_marginTop="22dp"
 			        android:background="#00000000"
 			        android:contentDescription="@string/save"
 			        android:src="@drawable/save" />
@@ -211,7 +245,7 @@
 			        android:layout_width="56dp"
 			        android:layout_height="56dp"
 			        android:layout_marginLeft="180dp"
-			        android:layout_marginTop="70dp"
+			        android:layout_marginTop="22dp"
 			        android:background="#00000000"
 			        android:contentDescription="@string/viewVol"
 			        android:src="@drawable/reset" />

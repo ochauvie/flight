@@ -101,7 +101,7 @@ public class VolsAdapter extends BaseAdapter {
 		        
 		  //(3) : Renseignement des valeurs
 		  Vol flight = vols.get(position);
-		  SimpleDateFormat sdf = new SimpleDateFormat("dd/MM", Locale.FRANCE);
+		  SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 		  String sDate = sdf.format(flight.getDateVol());
 		  tv_date.setText(sDate);
 		  tv_name.setText(flight.getAeronef());

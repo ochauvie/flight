@@ -71,7 +71,7 @@ public class DbVol {
 	 * @return the list
 	 */
 	public ArrayList<Vol> getVols(){
-		String orderBy = null;
+		String orderBy = DbManager.COL_DATE;
 		Cursor c = bdd.query(DbManager.TABLE_VOLS, new String[] {DbManager.COL_ID, 
 																 DbManager.COL_NAME, 
 																 DbManager.COL_TYPE,
