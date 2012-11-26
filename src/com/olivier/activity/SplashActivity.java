@@ -27,7 +27,7 @@ import android.widget.ImageView;
 @TargetApi(10)
 public class SplashActivity extends Activity {
 	
-    private Context ctx;
+    
     private Tag mytag;
     private NfcAdapter adapter;
     private PendingIntent pendingIntent;
@@ -49,8 +49,6 @@ public class SplashActivity extends Activity {
         if (ttsProviderImpl != null) {
             ttsProviderImpl.init(this.getApplication().getApplicationContext());
         }
-        
-        ctx=this;
         
         adapter = NfcAdapter.getDefaultAdapter(this);
 		pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
