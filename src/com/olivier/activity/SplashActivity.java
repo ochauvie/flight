@@ -143,12 +143,16 @@ public class SplashActivity extends Activity {
     
     private void WriteModeOn(){
 		writeMode = true;
-		adapter.enableForegroundDispatch(this, pendingIntent, writeTagFilters, null);
+		if (adapter!= null) {
+			adapter.enableForegroundDispatch(this, pendingIntent, writeTagFilters, null);
+		}
 	}
 
 	private void WriteModeOff(){
 		writeMode = false;
-		adapter.disableForegroundDispatch(this);
+		if (adapter!= null) {
+			adapter.disableForegroundDispatch(this);
+		}
 	}
 	    
 }

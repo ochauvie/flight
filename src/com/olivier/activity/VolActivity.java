@@ -3,6 +3,7 @@ package com.olivier.activity;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import com.olivier.R;
@@ -114,8 +115,19 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         
         // Gps
         locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		locationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, onLocationChange);
-		locationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 100, onLocationChange);
+        if (locationMgr!=null) {
+        	List<String> providers = locationMgr.getAllProviders();
+        	if (providers!=null) {
+        		for (String prov:providers) {
+        			if (LocationManager.NETWORK_PROVIDER.equals(prov)) {
+        				locationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, onLocationChange);			
+        			}
+        			if (LocationManager.GPS_PROVIDER.equals(prov)) {
+        				locationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 100, onLocationChange);
+        			}
+        		}
+        	}
+        }
         
 		// Add these two lines
         relativeLayout.setOnTouchListener((OnTouchListener) this); 
