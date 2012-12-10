@@ -100,7 +100,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     	
     	builder.setMessage("     " + getString(R.string.note) +" : \n\n" 
     						+ vol.getNote() + "\n\n" 
-    						+ "     " + getString(R.string.note) + ": \n\n" 
+    						+ "     " + getString(R.string.lieu) + ": \n\n" 
     						+ vol.getLieu());
     	builder.setInverseBackgroundForced(true);
     	builder.setNegativeButton(R.string.close, new DialogInterface.OnClickListener() {
