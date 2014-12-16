@@ -13,6 +13,7 @@ import com.flightbook.R;
 import com.flightbook.model.Aeronef;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
+import com.flightbook.sqllite.DbBackup;
 import com.flightbook.sqllite.DbVol;
 
 import android.annotation.TargetApi;
@@ -208,47 +209,12 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
     }
 
     @Override
-    // Backup datat base
+    // Backup datata base
     public void onDialogCompleted(boolean answer) {
         if (answer) {
-
-            // Recuperation des vols
-            dbVol.open();
-                vols = dbVol.getVols();
-            dbVol.close();
-
-            // write on SD card file data in the text box
+            DbBackup dbBackup = new DbBackup(this);
             try {
-                File myFile = new File("/sdcard/CarnetVolBackup.txt");
-                myFile.createNewFile();
-                FileOutputStream fOut = new FileOutputStream(myFile);
-                OutputStreamWriter myOutWriter =new OutputStreamWriter(fOut);
-
-                myOutWriter.append("Type|Date|Nom|Min vol|Min moteur|Sec moteur|Note|Lieu");
-                myOutWriter.append("\n");
-
-                if (vols!=null) {
-                    for (int i = 0; i < vols.size(); i++) {
-                        Vol vol = vols.get(i);
-                        myOutWriter.append(vol.getType());
-                        myOutWriter.append('|');
-                        myOutWriter.append(sdf.format(vol.getDateVol()));
-                        myOutWriter.append('|');
-                        myOutWriter.append(vol.getAeronef());
-                        myOutWriter.append('|');
-                        myOutWriter.append(String.valueOf(vol.getMinutesVol()));
-                        myOutWriter.append('|');
-                        myOutWriter.append(String.valueOf(vol.getMinutesMoteur())).append(":").append(String.valueOf(vol.getSecondsMoteur()));
-                        myOutWriter.append('|');
-                        myOutWriter.append(vol.getNote());
-                        myOutWriter.append('|');
-                        myOutWriter.append(vol.getLieu());
-                        myOutWriter.append("\n");
-                    }
-                }
-
-                myOutWriter.close();
-                fOut.close();
+                dbBackup.doBackup();
                 Toast.makeText(getBaseContext(),
                         "Done writing SD 'CarnetVolBackup.txt'",
                         Toast.LENGTH_SHORT).show();
@@ -256,7 +222,6 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
                 Toast.makeText(getBaseContext(), e.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
-
         }
     }
 
