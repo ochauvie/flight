@@ -1,16 +1,26 @@
 package com.flightbook.activity;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Locale;
 
 import com.flightbook.R;
 import com.flightbook.model.Aeronef;
+import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
+import com.flightbook.sqllite.DbVol;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NdefMessage;
@@ -22,28 +32,36 @@ import android.os.Parcelable;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 
 @TargetApi(10)
-public class SplashActivity extends Activity {
-	
-    
+public class SplashActivity extends Activity implements MyDialogInterface.DialogReturn {
+
     private Tag mytag;
     private NfcAdapter adapter;
     private PendingIntent pendingIntent;
 	private IntentFilter writeTagFilters[];
 	private boolean writeMode;
  	private ImageView imgStart;
- 	
- 	private TtsProviderFactory ttsProviderImpl; 
-    
-    
+    private ImageView imgWelcome;
+
+    private MyDialogInterface myInterface;
+ 	private TtsProviderFactory ttsProviderImpl;
+
+    private DbVol dbVol = new DbVol(this);
+    private ArrayList<Vol> vols;
+    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        
+
+        myInterface = new MyDialogInterface();
+        myInterface.setListener(this);
+
         // Init Speech
         ttsProviderImpl = TtsProviderFactory.getInstance();
         if (ttsProviderImpl != null) {
@@ -66,6 +84,16 @@ public class SplashActivity extends Activity {
 		        SplashActivity.this.startActivity(volActivity);
 			}
 		});
+
+
+        imgWelcome = (ImageView) findViewById(R.id.imgWelcome);
+        imgWelcome.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                backupDb();
+            }
+        });
 		
 		processIntent(getIntent());
 		
@@ -154,5 +182,82 @@ public class SplashActivity extends Activity {
 			adapter.disableForegroundDispatch(this);
 		}
 	}
-	    
+
+    private void backupDb() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setIcon(R.drawable.save);
+        builder.setTitle("Data base backup");
+        builder.setInverseBackgroundForced(true);
+        builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myInterface.getListener().onDialogCompleted(true);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myInterface.getListener().onDialogCompleted(false);
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    // Backup datat base
+    public void onDialogCompleted(boolean answer) {
+        if (answer) {
+
+            // Recuperation des vols
+            dbVol.open();
+                vols = dbVol.getVols();
+            dbVol.close();
+
+            // write on SD card file data in the text box
+            try {
+                File myFile = new File("/sdcard/CarnetVolBackup.txt");
+                myFile.createNewFile();
+                FileOutputStream fOut = new FileOutputStream(myFile);
+                OutputStreamWriter myOutWriter =new OutputStreamWriter(fOut);
+
+                myOutWriter.append("Type|Date|Nom|Min vol|Min moteur|Sec moteur|Note|Lieu");
+                myOutWriter.append("\n");
+
+                if (vols!=null) {
+                    for (int i = 0; i < vols.size(); i++) {
+                        Vol vol = vols.get(i);
+                        myOutWriter.append(vol.getType());
+                        myOutWriter.append('|');
+                        myOutWriter.append(sdf.format(vol.getDateVol()));
+                        myOutWriter.append('|');
+                        myOutWriter.append(vol.getAeronef());
+                        myOutWriter.append('|');
+                        myOutWriter.append(String.valueOf(vol.getMinutesVol()));
+                        myOutWriter.append('|');
+                        myOutWriter.append(String.valueOf(vol.getMinutesMoteur())).append(":").append(String.valueOf(vol.getSecondsMoteur()));
+                        myOutWriter.append('|');
+                        myOutWriter.append(vol.getNote());
+                        myOutWriter.append('|');
+                        myOutWriter.append(vol.getLieu());
+                        myOutWriter.append("\n");
+                    }
+                }
+
+                myOutWriter.close();
+                fOut.close();
+                Toast.makeText(getBaseContext(),
+                        "Done writing SD 'CarnetVolBackup.txt'",
+                        Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                Toast.makeText(getBaseContext(), e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+
+        }
+    }
+
 }
