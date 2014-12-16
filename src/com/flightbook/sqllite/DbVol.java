@@ -84,6 +84,33 @@ public class DbVol {
 							null, null, null, null, orderBy);
 		return cursorToVols(c);
 	}
+
+    /**
+     * Get {@link Vol} list
+     * @return the list for one machine
+     */
+    public ArrayList<Vol> getVolsByMachine(String machineName){
+        String orderBy = DbManager.COL_DATE;
+
+        String where = null;
+        String[] whereArgs = null;
+        if (machineName!=null && !"".equals(machineName)) {
+            where = DbManager.COL_NAME + "=?";
+            whereArgs = new String[] {machineName};
+        }
+
+        Cursor c = bdd.query(DbManager.TABLE_VOLS, new String[] {DbManager.COL_ID,
+                        DbManager.COL_NAME,
+                        DbManager.COL_TYPE,
+                        DbManager.COL_MIN_VOL,
+                        DbManager.COL_MIN_MOTEUR,
+                        DbManager.COL_SEC_MOTEUR,
+                        DbManager.COL_DATE,
+                        DbManager.COL_NOTE,
+                        DbManager.COL_LIEU},
+                where, whereArgs, null, null, orderBy);
+        return cursorToVols(c);
+    }
 	
 	/**
 	 * Delete all {@link Vol}

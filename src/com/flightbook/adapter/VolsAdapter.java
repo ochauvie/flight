@@ -45,7 +45,7 @@ public class VolsAdapter extends BaseAdapter {
 	
 	private void sendListenerToNote(Vol item, int position) {
 	    for(int i = mListListener.size()-1; i >= 0; i--) {
-	    	mListListener.get(i).onClickName(item, position);
+	    	mListListener.get(i).onClickVol(item, position);
 	    }
 	}
 	
@@ -54,8 +54,15 @@ public class VolsAdapter extends BaseAdapter {
 	    	mListListener.get(i).onClickDelete(item, position);
 	    }
 	}
-	
-	@Override
+
+    private void sendListenerToFilter(Vol item, int position) {
+        for(int i = mListListener.size()-1; i >= 0; i--) {
+            mListListener.get(i).onClickName(item, position);
+        }
+    }
+
+
+    @Override
 	public int getCount() {
 		if (vols!=null) {
 			return vols.size();
@@ -80,9 +87,9 @@ public class VolsAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		RelativeLayout layoutItem;
-		  //(1) : R�utilisation des layouts
+		  //(1) : Reutilisation des layouts
 		  if (convertView == null) {
-		  	//Initialisation de notre item a partir du  layout XML "personne_layout.xml"
+		  	//Initialisation de notre item a partir du  layout XML
 		    layoutItem = (RelativeLayout) mInflater.inflate(R.layout.activity_item_vols, parent, false);
 		  } else {
 		  	layoutItem = (RelativeLayout) convertView;
@@ -112,16 +119,17 @@ public class VolsAdapter extends BaseAdapter {
 		  tv_name.setTextColor(Aeronef.getColor(flight.getType()));
 
 		  
-		//On m�morise la position de u vol dans le composant textview
+		//On memorise la position du vol dans le composant textview
 		  tv_name.setTag(position);
+          tv_vol.setTag(position);
 		  bDelete.setTag(position);
 		  
 		  //On ajoute un listener
-		  tv_name.setOnClickListener(new View.OnClickListener() {
+           tv_vol.setOnClickListener(new View.OnClickListener() {
 			
 				@Override
 				public void onClick(View v) {
-					//Lorsque l'on clique sur le nom, on recupere la position
+					//Lorsque l'on clique sur le temps de vol, on recupere la position
 					Integer position = (Integer)v.getTag();
 					
 					//On previent les listeners qu'il y a eu un clic
@@ -140,9 +148,21 @@ public class VolsAdapter extends BaseAdapter {
 				}
 			        	
 			});
+
+          tv_name.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                   //Lorsque l'on clique sur nom, on recupere la position
+                   Integer position = (Integer)v.getTag();
+
+                   //On previent les listeners qu'il y a eu un clic
+                   sendListenerToFilter(vols.get(position), position);
+                }
+        });
 		  
 		  
-		  //On retourne l'item cr��.
+		  //On retourne l'item cree.
 		  return layoutItem;
 	}
 

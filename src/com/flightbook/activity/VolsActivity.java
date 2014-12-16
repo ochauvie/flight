@@ -23,7 +23,7 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener  {
+public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {
 
 	private MyDialogInterface myInterface;
 	private DbVol dbVol = new DbVol(this);
@@ -32,20 +32,23 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private VolsAdapter adapter;
 	private TextView totalVol;
 	
-	
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vols);
         
         View header = getLayoutInflater().inflate(R.layout.activity_header_vols, null);
+            // Ajout d'un listener sur la selection du header pour supprimer le filtre sur la liste)
+            header.setOnClickListener(this);
         View footer = getLayoutInflater().inflate(R.layout.activity_footer_vols, null);
         ListView listView = getListView();
         listView.addHeaderView(header);
         listView.addFooterView(footer);
         totalVol = (TextView) footer.findViewById(R.id.totalVol);
-        
+
+
+
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
@@ -55,13 +58,13 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         
         totalVol.setText(getTotalVol());
         	
-    	// Creation et initialisation de l'Adapter pour les personnes
+    	// Creation et initialisation de l'Adapter pour les vols
         adapter = new VolsAdapter(this, vols);
             
         // Ecoute des evevnements sur votre liste
         adapter.addListener(this);
         
-        // R�cup�ration du composant ListView
+        // Recuperation du composant ListView
         //ListView list = (ListView)findViewById(R.id.ListViewHangar);
             
         //Initialisation de la liste avec les donnees
@@ -89,9 +92,9 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
    		}
    		return String.valueOf(heu + "h" + sMin);
     }
-    
+
 	@Override
-	public void onClickName(Vol vol, int position) {
+	public void onClickVol(Vol vol, int position) {
 		selectItim = position;
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
     	builder.setCancelable(true);
@@ -112,9 +115,27 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     	AlertDialog alert = builder.create();
     	alert.show();
 	}
-	
-	
-	@Override
+
+
+    @Override
+    // Filtre la liste avec l'aeronef selectionne
+    public void onClickName(Vol vol, int position) {
+        selectItim = position;
+        if (vols!=null) {
+            for (int i=vols.size()-1; i>=0; i--) {
+                vols.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        dbVol.open();
+        vols.addAll(dbVol.getVolsByMachine(vol.getAeronef()));
+        dbVol.close();
+        adapter.notifyDataSetChanged();
+        totalVol.setText(getTotalVol());
+    }
+
+
+    @Override
 	public void onClickDelete(Vol vol, int position) {
 		selectItim = position;
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -159,4 +180,19 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	}
 
 
+    @Override
+    // Action sur le click du header: suppression du filtre sur la liste
+    public void onClick(View v) {
+        if (vols!=null) {
+            for (int i=vols.size()-1; i>=0; i--) {
+                vols.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        dbVol.open();
+            vols.addAll(dbVol.getVols());
+        dbVol.close();
+        adapter.notifyDataSetChanged();
+        totalVol.setText(getTotalVol());
+    }
 }
