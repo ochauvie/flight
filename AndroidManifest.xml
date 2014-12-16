@@ -1,11 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.olivier"
+    package="com.flightbook"
     android:versionCode="1"
     android:versionName="1.0" >
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="15" />
+        android:targetSdkVersion="16" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -25,7 +25,7 @@
         <uses-library android:name="com.google.android.maps" />
         
         <activity
-            android:name=".activity.SplashActivity"
+            android:name="com.flightbook.activity.SplashActivity"
             android:label="@string/app_name_maj"> 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,70 +34,70 @@
             <intent-filter>
         		<action android:name="android.nfc.action.NDEF_DISCOVERED"/>
 		        <category android:name="android.intent.category.DEFAULT"/>
-		        <data android:mimeType="application/com.olivier"/>
+		        <data android:mimeType="application/com.flightbook"/>
     		</intent-filter>
         </activity>
         <activity
-            android:name=".activity.VolActivity"
+            android:name="com.flightbook.activity.VolActivity"
             android:label="@string/title_activity_vol" 
             android:icon="@drawable/vol">
         </activity>
         <activity
-            android:name=".activity.OlivierActivity"
-            android:label="@string/title_activity_olivier" >
+            android:name=".activity.FlightBookActivity"
+            android:label="@string/title_activity_flightbook" >
         </activity>
         <activity
-            android:name=".activity.VolsActivity"
+            android:name="com.flightbook.activity.VolsActivity"
             android:label="@string/title_activity_vols" 
             android:icon="@drawable/recorder">
         </activity>
         <activity
-            android:name=".activity.HangarActivity"
+            android:name="com.flightbook.activity.HangarActivity"
             android:label="@string/title_activity_hangar"
             android:icon="@drawable/hangar">
         </activity>
         <activity
-            android:name=".activity.AddAeronefActivity"
+            android:name="com.flightbook.activity.AddAeronefActivity"
             android:label="@string/title_activity_addAeronef"
             android:icon="@drawable/hangar">
         </activity>
         <activity
-            android:name=".activity.MeteoActivity"
+            android:name="com.flightbook.activity.MeteoActivity"
             android:label="@string/title_activity_meteo"
             android:icon="@drawable/meteo">
         </activity>
         <activity
-            android:name=".activity.RadiosActivity"
+            android:name="com.flightbook.activity.RadiosActivity"
             android:label="@string/title_activity_radios"
             android:icon="@drawable/ff9">
         </activity>
         <activity
-            android:name=".activity.RadioActivity"
+            android:name="com.flightbook.activity.RadioActivity"
             android:label="@string/title_activity_radio"
             android:icon="@drawable/ff9">
         </activity>
         <activity
-            android:name=".activity.AddSwitchPotarActivity"
+            android:name="com.flightbook.activity.AddSwitchPotarActivity"
             android:label="@string/title_activity_switchpotar"
             android:icon="@drawable/inter">
         </activity>
         <activity
-            android:name=".activity.CarteActivity"
+            android:name="com.flightbook.activity.CarteActivity"
             android:label="@string/title_activity_carte"
             android:icon="@drawable/carte">
         </activity>
         <activity
-            android:name=".activity.ChecklistsActivity"
+            android:name="com.flightbook.activity.ChecklistsActivity"
             android:label="@string/title_activity_checklist"
             android:icon="@drawable/checklist">
         </activity>
         <activity
-            android:name=".activity.ChecklistActivity"
+            android:name="com.flightbook.activity.ChecklistActivity"
             android:label="@string/title_activity_checklist"
             android:icon="@drawable/checklist">
         </activity>
         <activity
-            android:name=".activity.UpdateChecklistActivity"
+            android:name="com.flightbook.activity.UpdateChecklistActivity"
             android:label="@string/title_activity_checklist"
             android:icon="@drawable/checklist">
         </activity>

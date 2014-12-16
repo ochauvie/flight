@@ -4,7 +4,7 @@
     <string name="app_name_maj">FLIGHT LOG BOOK</string>
     <string name="menu_settings">Settings</string>
     
-    <string name="title_activity_olivier">Olivier</string>
+    <string name="title_activity_flightbook">Flight Book</string>
     <string name="startChronometre1">Chronometre is started</string>
     <string name="stopChronometre1">Stop</string>
     <string name="reset">Reset</string>
