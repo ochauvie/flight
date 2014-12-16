@@ -67,7 +67,7 @@ public class DbBackup {
 
 
         if (aeronefs != null) {
-            myOutWriter.append("MACHINE");
+            myOutWriter.append("MACHINES");
             myOutWriter.append("\n");
             myOutWriter.append("Type|Moteur|Note|Date premier vol|Masse|Envergure");
             myOutWriter.append("\n");
@@ -119,7 +119,7 @@ public class DbBackup {
 
         // Recuperation des radios
         if (radios != null) {
-            myOutWriter.append("PROGRAMME RADIO");
+            myOutWriter.append("PROGRAMMES RADIO");
             myOutWriter.append("\n");
             myOutWriter.append("Nom");
             myOutWriter.append("\n");

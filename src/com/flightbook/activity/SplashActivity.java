@@ -209,7 +209,7 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
     }
 
     @Override
-    // Backup datata base
+    // Backup database
     public void onDialogCompleted(boolean answer) {
         if (answer) {
             DbBackup dbBackup = new DbBackup(this);
