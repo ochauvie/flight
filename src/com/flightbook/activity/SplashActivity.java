@@ -1,9 +1,6 @@
 package com.flightbook.activity;
 
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,6 +26,7 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Parcelable;
 import android.os.Vibrator;
 import android.view.View;
@@ -214,9 +212,10 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
         if (answer) {
             DbBackup dbBackup = new DbBackup(this);
             try {
-                dbBackup.doBackup();
+                String fileName = Environment.getExternalStorageDirectory().getPath() + "/CarnetVolBackup.txt";
+                dbBackup.doBackup(fileName);
                 Toast.makeText(getBaseContext(),
-                        "Done writing SD 'CarnetVolBackup.txt'",
+                        "Done writing SD " + fileName,
                         Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 Toast.makeText(getBaseContext(), e.getMessage(),

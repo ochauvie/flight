@@ -1,12 +1,10 @@
 package com.flightbook.sqllite;
 
-import android.content.ContentValues;
 import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.widget.Toast;
 
 import com.flightbook.model.Aeronef;
+import com.flightbook.model.Checklist;
+import com.flightbook.model.ChecklistItem;
 import com.flightbook.model.Potar;
 import com.flightbook.model.Radio;
 import com.flightbook.model.Switch;
@@ -37,12 +35,14 @@ public class DbBackup {
         dbCheckList = new DbChecklist(context);
     }
 
-    public void doBackup() throws Exception {
+    public void doBackup(String fileName) throws Exception {
+
         ArrayList<Aeronef> aeronefs;
         ArrayList<Vol> vols;
         ArrayList<Radio> radios;
         List<Switch> switchs;
         List<Potar> potars;
+        ArrayList<Checklist> checklists;
 
         // Recuperation des areronefs
         dbAeronef.open();
@@ -59,8 +59,14 @@ public class DbBackup {
         radios = dbRadio.getRadios();
         dbRadio.close();
 
+        // Recuperation des check list
+        dbCheckList.open();
+        checklists = dbCheckList.getChecklists(null);
+        dbCheckList.close();
+
+
         // write on SD card file data in the text box
-        File myFile = new File("/sdcard/CarnetVolBackup.txt");
+        File myFile = new File(fileName);
         myFile.createNewFile();
         FileOutputStream fOut = new FileOutputStream(myFile);
         OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
@@ -169,14 +175,37 @@ public class DbBackup {
                 myOutWriter.append("\n");
             }
 
-
-            // TODO : dbCheckList
-
-
-            myOutWriter.close();
-            fOut.close();
-
         }
+
+        // Recuperation des checklist
+        if (checklists != null) {
+            myOutWriter.append("CHECKLIST");
+            myOutWriter.append("\n");
+            myOutWriter.append("Nom");
+            myOutWriter.append("\n");
+            myOutWriter.append("Ordre|Action");
+            myOutWriter.append("\n");
+            myOutWriter.append("\n");
+            for (int i = 0; i < checklists.size(); i++) {
+                Checklist checklist = checklists.get(i);
+                myOutWriter.append(checklist.getName());
+                myOutWriter.append("\n");
+                ArrayList<ChecklistItem> items = checklist.getItems();
+                if (items != null) {
+                    for (int j = 0; j < items.size(); j++) {
+                        ChecklistItem item = items.get(j);
+                        myOutWriter.append(String.valueOf(item.getOrder()));
+                        myOutWriter.append('|');
+                        myOutWriter.append(item.getAction());
+                        myOutWriter.append("\n");
+                    }
+                }
+                myOutWriter.append("\n");
+            }
+        }
+
+        myOutWriter.close();
+        fOut.close();
 
     }
 }
