@@ -13,7 +13,12 @@ public class Vol {
 	private Date dateVol;
 	private String note;
 	private String lieu;
-	
+
+    public static final String MIN_VOL = "minutesVol";
+    public static final String MIN_MOTEUR = "minutesMoteur";
+    public static final String SEC_MOTEUR = "secondsMoteur";
+    public static final String DATE = "dateVol";
+    public static final String NOTE = "note";
 	
 	
 	/**

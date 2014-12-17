@@ -209,6 +209,16 @@
 	        android:contentDescription="@string/gps"
 	        android:background="#00000000"
 	        android:src="@drawable/gps" />
+
+            <ImageButton
+                android:id="@+id/site"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:contentDescription="@string/lieu"
+                android:background="#00000000"
+                android:src="@drawable/index"
+                android:layout_above="@+id/layout2"
+                android:layout_alignLeft="@+id/gps" />
 	    
 	    <TextView
 	        android:id="@+id/editText1"
@@ -227,7 +237,7 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentRight="true"
-	        android:layout_alignParentBottom="true" 
+	        android:layout_alignParentBottom="true"
 	        android:layout_below="@+id/editText1">
 				     
 		      <ImageButton

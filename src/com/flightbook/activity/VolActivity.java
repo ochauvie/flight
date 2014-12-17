@@ -9,6 +9,7 @@ import java.util.Locale;
 import com.flightbook.R;
 import com.flightbook.activity.MyDialogInterface.DialogReturn;
 import com.flightbook.model.Aeronef;
+import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbVol;
@@ -50,7 +51,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	private EditText aeronef, minVol, minMot, secMot, note, lieu, flightDate;
 	private Double latitude, longitude, altitude;
 	private String lieuGps;
-	private ImageButton selectAeronef, butGps, selectDate;
+	private ImageButton selectAeronef, butGps, selectDate, butSite;
 	private float downXValue;
 	private TextView editText1;
 	private String typeAeronef;
@@ -229,7 +230,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         });
 
         
-        // Position
+        // Position GPS
         butGps = (ImageButton) findViewById(R.id.gps);
         butGps.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
@@ -238,7 +239,24 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         		}
         		lieu.setText(lieuGps);
         	}
-        }); 
+        });
+
+        // Liste Positions
+        butSite = (ImageButton) findViewById(R.id.site);
+        butSite.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent myIntent = new Intent(v.getContext(), SiteActivity.class);
+                myIntent.putExtra(Aeronef.NAME, aeronef.getText().toString());
+                myIntent.putExtra(Aeronef.TYPE, typeAeronef);
+                myIntent.putExtra(Vol.DATE, flightDate.getText().toString());
+                myIntent.putExtra(Vol.MIN_VOL, minVol.getText().toString());
+                myIntent.putExtra(Vol.MIN_MOTEUR, minMot.getText().toString());
+                myIntent.putExtra(Vol.SEC_MOTEUR, secMot.getText().toString());
+                myIntent.putExtra(Vol.NOTE, note.getText().toString());
+                startActivity(myIntent);
+                finish();
+            }
+        });
         
         // Flight date
         selectDate = (ImageButton) findViewById(R.id.selectDate);
@@ -276,6 +294,30 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         		aeronef.setText(sAeronef);
         		ttsProviderImpl.say(sAeronef);
         	}
+            String sSite = bundle.getString(Site.NAME);
+            if (sSite!=null) {
+                lieu.setText(sSite);
+            }
+            String sFlightDate = bundle.getString(Vol.DATE);
+            if (sFlightDate!=null) {
+                flightDate.setText(sFlightDate);
+            }
+            String sMinVol = bundle.getString(Vol.MIN_VOL);
+            if (sMinVol!=null) {
+                minVol.setText(sMinVol);
+            }
+            String sMinMot = bundle.getString(Vol.MIN_MOTEUR);
+            if (sMinMot!=null) {
+                minMot.setText(sMinMot);
+            }
+            String sSecMot = bundle.getString(Vol.SEC_MOTEUR);
+            if (sSecMot!=null) {
+                secMot.setText(sSecMot);
+            }
+            String sNote = bundle.getString(Vol.NOTE);
+            if (sNote!=null) {
+                note.setText(sNote);
+            }
         }
     }
     

@@ -19,6 +19,7 @@
     <string name="aeronef">Machine</string>
     <string name="type">Type</string>
     <string name="selectAeronef">Hangar</string>
+    <string name="selectSite">Lieu</string>
     <string name="minVol">Temps</string>
     <string name="moteur">Moteur</string>
     <string name="min">min</string>
@@ -53,6 +54,10 @@
 	<string name="addAeronef">Ajout</string>
 	
 	<string name="title_activity_hangar">Hangar</string>
+
+    <string name="title_activity_site">Lieu</string>
+    <string name="title_activity_addSite">Lieu</string>
+    <string name="site_save">Lieu sauvegardé</string>
 	
 	<string name="title_activity_vols">Liste des enregistrements</string>
 	

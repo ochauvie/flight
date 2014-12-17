@@ -19,6 +19,7 @@
     <string name="aeronef">Machine</string>
     <string name="type">Type</string>
     <string name="selectAeronef">Shed</string>
+    <string name="selectSite">Site</string>
     <string name="minVol">Time</string>
     <string name="moteur">Engine</string>
     <string name="min">min</string>
@@ -31,7 +32,7 @@
 	<string name="vol">Flight</string>
 	<string name="lieu">Place</string>
 	<string name="gps">Gps</string>
-	<string name="lat">Lat</string>
+    <string name="lat">Lat</string>
 	<string name="lon">Long</string>
 	<string name="latitude">Latitude</string>
 	<string name="longitude">Longitude</string>
@@ -53,6 +54,9 @@
 	<string name="addAeronef">Add</string>
 	
 	<string name="title_activity_hangar">Shed</string>
+    <string name="title_activity_site">Site</string>
+    <string name="title_activity_addSite">Site</string>
+    <string name="site_save">Site saved</string>
 	
 	<string name="title_activity_vols">Records</string>
 	

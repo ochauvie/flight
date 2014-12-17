@@ -4,6 +4,7 @@ package com.flightbook.sqllite;
 import com.flightbook.sqllite.init.InitChecklist;
 import com.flightbook.sqllite.init.InitHangar;
 import com.flightbook.sqllite.init.InitRadio;
+import com.flightbook.sqllite.init.InitSites;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -47,6 +48,8 @@ public class DbManager extends SQLiteOpenHelper {
 	public static final int NUM_COL_FIRST_FLIGHT = 6;
 	public static final String COL_COMMENT = "COMMENT";
 	public static final int NUM_COL_COMMENT = 7;
+
+    public static final int NUM_COL_SITE_COMMENT = 2;
 	
 	
 	private static final String CREATE_TABLE_VOLS = "CREATE TABLE " + TABLE_VOLS + " ("
@@ -120,10 +123,17 @@ public class DbManager extends SQLiteOpenHelper {
 			+ COL_NAME + " TEXT  NOT NULL, "
 			+ COL_ACTION + " TEXT , "
 			+ COL_ORDER + " INTEGER NOT NULL);";
-	
-	
-	
-	public DbManager(Context context, String name, CursorFactory factory, int version) {
+
+    public static final String TABLE_SITES = "table_sites";
+
+
+    private static final String CREATE_TABLE_SITES = "CREATE TABLE " + TABLE_SITES + " ("
+            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COL_NAME + " TEXT NOT NULL, "
+            + COL_COMMENT + " TEXT);";
+
+
+    public DbManager(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
 	}
 	
@@ -139,10 +149,13 @@ public class DbManager extends SQLiteOpenHelper {
 		db.execSQL(CREATE_TABLE_RADIO_POTAR);
 		
 		db.execSQL(CREATE_TABLE_CHECKLIST);
+
+        db.execSQL(CREATE_TABLE_SITES);
 		
 		InitHangar.initHangar(db);
 		InitRadio.initRadio(db);
 		InitChecklist.initChecklist(db);
+        InitSites.initSites(db);
 	}
 		
 	
@@ -155,6 +168,7 @@ public class DbManager extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE " + CREATE_TABLE_RADIO + ";");
 		db.execSQL("DROP TABLE " + CREATE_TABLE_POTAR + ";");
 		db.execSQL("DROP TABLE " + CREATE_TABLE_SWITCH + ";");
+        db.execSQL("DROP TABLE " + CREATE_TABLE_SITES + ";");
 	}
 	
 			

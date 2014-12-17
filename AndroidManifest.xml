@@ -63,6 +63,16 @@
             android:icon="@drawable/hangar">
         </activity>
         <activity
+            android:name="com.flightbook.activity.SiteActivity"
+            android:label="@string/title_activity_site"
+            android:icon="@drawable/index">
+        </activity>
+        <activity
+            android:name="com.flightbook.activity.AddSiteActivity"
+            android:label="@string/title_activity_addSite"
+            android:icon="@drawable/index">
+        </activity>
+        <activity
             android:name="com.flightbook.activity.MeteoActivity"
             android:label="@string/title_activity_meteo"
             android:icon="@drawable/meteo">

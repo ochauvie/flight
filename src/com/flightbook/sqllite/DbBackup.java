@@ -7,6 +7,7 @@ import com.flightbook.model.Checklist;
 import com.flightbook.model.ChecklistItem;
 import com.flightbook.model.Potar;
 import com.flightbook.model.Radio;
+import com.flightbook.model.Site;
 import com.flightbook.model.Switch;
 import com.flightbook.model.Vol;
 
@@ -24,6 +25,7 @@ public class DbBackup {
     private DbVol dbVol;
     private DbRadio dbRadio;
     private DbChecklist dbCheckList;
+    private DbSite dbSite;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
@@ -33,6 +35,7 @@ public class DbBackup {
         dbVol = new DbVol(context);
         dbRadio = new DbRadio(context);
         dbCheckList = new DbChecklist(context);
+        dbSite = new DbSite(context);
     }
 
     public void doBackup(String fileName) throws Exception {
@@ -43,6 +46,7 @@ public class DbBackup {
         List<Switch> switchs;
         List<Potar> potars;
         ArrayList<Checklist> checklists;
+        ArrayList<Site> sites;
 
         // Recuperation des areronefs
         dbAeronef.open();
@@ -64,6 +68,10 @@ public class DbBackup {
         checklists = dbCheckList.getChecklists(null);
         dbCheckList.close();
 
+        // Recuperation des sites
+        dbSite.open();
+        sites = dbSite.getSites();
+        dbSite.close();
 
         // write on SD card file data in the text box
         File myFile = new File(fileName);
@@ -96,6 +104,24 @@ public class DbBackup {
             }
         }
         myOutWriter.append("\n");
+
+
+        if (sites != null) {
+            myOutWriter.append("SITES");
+            myOutWriter.append("\n");
+            myOutWriter.append("Nom|Note");
+            myOutWriter.append("\n");
+            for (int i = 0; i < sites.size(); i++) {
+                Site site = sites.get(i);
+                myOutWriter.append(site.getName());
+                myOutWriter.append('|');
+                myOutWriter.append(site.getComment());
+                myOutWriter.append("\n");
+            }
+        }
+
+        myOutWriter.append("\n");
+
 
         if (vols != null) {
             myOutWriter.append("ENREGISTREMENTS");
