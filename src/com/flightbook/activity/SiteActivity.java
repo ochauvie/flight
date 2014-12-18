@@ -178,8 +178,17 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
 		}
 	}
 
-    
-	@Override
+
+    @Override
+    public void onClickToUpdate(Site item, int position) {
+        Intent addSiteActivity = new Intent(getApplicationContext(), AddSiteActivity.class);
+        addSiteActivity.putExtra(Site.ID, item.getId());
+        startActivity(addSiteActivity);
+        finish();
+    }
+
+
+    @Override
     public void onBackPressed() {
 		// Nothings
 	}

@@ -8,4 +8,6 @@ public interface SiteAdapterListener {
 
 	public void onClickNameToDelete(Site item, int position);
 
+    public void onClickToUpdate(Site item, int position);
+
 }

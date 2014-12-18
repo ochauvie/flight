@@ -143,7 +143,7 @@ public class AddAeronefActivity extends Activity {
 	        	public void onClick(View v) {
 	        		Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
 	            	startActivity(hangarActivity);
-	            	 finish();
+	            	finish();
 	        	}
 	        });
 	       

@@ -12,7 +12,7 @@ public final class InitSites {
 	public static void initSites(SQLiteDatabase db) {
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, "HOBBY CLUB");
-		values.put(DbManager.COL_COMMENT, "95380");
+		values.put(DbManager.COL_COMMENT, "Belfontaine");
 		db.insert(DbManager.TABLE_SITES, null, values);
 
         values = new ContentValues();
@@ -26,12 +26,12 @@ public final class InitSites {
         db.insert(DbManager.TABLE_SITES, null, values);
 		
 		values = new ContentValues();
-		values.put(DbManager.COL_NAME, "Fôret Péllissanne");
+		values.put(DbManager.COL_NAME, "Fôret Pellissanne");
 		values.put(DbManager.COL_COMMENT, "");
 		db.insert(DbManager.TABLE_SITES, null, values);
 
         values = new ContentValues();
-        values.put(DbManager.COL_NAME, "Jardin Péllissanne");
+        values.put(DbManager.COL_NAME, "Jardin Pellissanne");
         values.put(DbManager.COL_COMMENT, "");
         db.insert(DbManager.TABLE_SITES, null, values);
 

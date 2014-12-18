@@ -11,10 +11,20 @@
 		android:textSize="25sp"
 		android:layout_marginLeft="5dp">
 	</TextView>
-	
 
-	<ImageButton
-        android:id="@+id/deleteAeronef"
+    <ImageButton
+        android:id="@+id/updateSite"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="250dp"
+        android:background="#00000000"
+        android:contentDescription="@string/update"
+        android:src="@drawable/update" />
+
+
+    <ImageButton
+        android:id="@+id/deleteSite"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:layout_alignParentLeft="true"

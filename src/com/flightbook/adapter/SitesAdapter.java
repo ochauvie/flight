@@ -42,7 +42,12 @@ public class SitesAdapter extends BaseAdapter{
 	    	mListListener.get(i).onClickName(item, position);
 	    }
 	}
-	
+
+    private void sendListenerToUpdate(Site item, int position) {
+        for(int i = mListListener.size()-1; i >= 0; i--) {
+            mListListener.get(i).onClickToUpdate(item, position);
+        }
+    }
 
 	private void sendListenerToDelete(Site item, int position) {
 	    for(int i = mListListener.size()-1; i >= 0; i--) {
@@ -74,25 +79,27 @@ public class SitesAdapter extends BaseAdapter{
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		RelativeLayout layoutItem;
-		  //(1) : Reutilisation des layouts
-		  if (convertView == null) {
-		  	//Initialisation de notre item a partir du  layout XML
+		//(1) : Reutilisation des layouts
+		if (convertView == null) {
+			//Initialisation de notre item a partir du  layout XML
 		    layoutItem = (RelativeLayout) mInflater.inflate(R.layout.activity_item_site, parent, false);
-		  } else {
-		  	layoutItem = (RelativeLayout) convertView;
-		  }
+		} else {
+		    layoutItem = (RelativeLayout) convertView;
+		}
 		  
-		  //(2) : Recuperation des TextView de notre layout
-		  TextView tv_name = (TextView)layoutItem.findViewById(R.id.name);
-		  ImageButton bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteAeronef);
+		//(2) : Recuperation des TextView de notre layout
+		TextView tv_name = (TextView)layoutItem.findViewById(R.id.name);
+		ImageButton bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteSite);
+        ImageButton bUpdate = (ImageButton)layoutItem.findViewById(R.id.updateSite);
 		        
-		  //(3) : Renseignement des valeurs       
-		  tv_name.setText(sites.get(position).getName());
+		//(3) : Renseignement des valeurs
+		tv_name.setText(sites.get(position).getName());
 
-		  
-		  // On memorise la position de l'aeronef dans le composant textview
-		  tv_name.setTag(position);
-		  bDelete.setTag(position);
+
+		// On memorise la position  dans le composant textview
+		tv_name.setTag(position);
+		bDelete.setTag(position);
+        bUpdate.setTag(position);
 		  
 		  // On ajoute un listener sur name
 		  tv_name.setOnClickListener(new View.OnClickListener() {
@@ -121,9 +128,22 @@ public class SitesAdapter extends BaseAdapter{
 				}
 			        	
 			});
-		  
-		  
-		  //On retourne l'item cree.
+
+        // Update
+        bUpdate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Lorsque l'on clique sur le nom, on recupere la position
+                Integer position = (Integer)v.getTag();
+
+                //On previent les listeners qu'il y a eu un clic sur le TextView "tv_name".
+                sendListenerToUpdate(sites.get(position), position);
+            }
+
+        });
+
+
+        //On retourne l'item cree.
 		  return layoutItem;
 	}
 
