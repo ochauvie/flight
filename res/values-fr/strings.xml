@@ -38,6 +38,7 @@
 	<string name="longitude">Longitude</string>
 	<string name="alt">Alt</string>
 	<string name="ici">Vous êtes ici !</string>
+    <string name="total">Total</string>
 	
 	<string name="wingSpan">Envergure</string>
 	<string name="metre">m</string>

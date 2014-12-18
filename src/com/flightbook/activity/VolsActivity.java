@@ -30,7 +30,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private ArrayList<Vol> vols;
 	private int selectItim = -1;
 	private VolsAdapter adapter;
-	private TextView totalVol;
+	private TextView totalVol, nbVol;
 	
 
     @Override
@@ -46,6 +46,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         listView.addHeaderView(header);
         listView.addFooterView(footer);
         totalVol = (TextView) footer.findViewById(R.id.totalVol);
+        nbVol = (TextView) footer.findViewById(R.id.nbVol);
 
 
 
@@ -57,6 +58,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         dbVol.close();
         
         totalVol.setText(getTotalVol());
+        nbVol.setText(getNbVol());
         	
     	// Creation et initialisation de l'Adapter pour les vols
         adapter = new VolsAdapter(this, vols);
@@ -91,6 +93,14 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
    			sMin = "0" + sMin;
    		}
    		return String.valueOf(heu + "h" + sMin);
+    }
+
+    private String getNbVol() {
+        int total = 0;
+        if (vols!=null) {
+            total = vols.size();
+        }
+        return String.valueOf(total);
     }
 
 	@Override
@@ -132,6 +142,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         dbVol.close();
         adapter.notifyDataSetChanged();
         totalVol.setText(getTotalVol());
+        nbVol.setText(getNbVol());
     }
 
 
@@ -176,6 +187,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	        vols.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 	        totalVol.setText(getTotalVol());
+            nbVol.setText(getNbVol());
 		}
 	}
 
@@ -194,5 +206,6 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         dbVol.close();
         adapter.notifyDataSetChanged();
         totalVol.setText(getTotalVol());
+        nbVol.setText(getNbVol());
     }
 }
