@@ -39,6 +39,7 @@
 	<string name="alt">Alt</string>
 	<string name="ici">You are here !</string>
     <string name="total">Total</string>
+    <string name="chart">Chart</string>
 	
 	<string name="wingSpan">Wingspan</string>
 	<string name="metre">m</string>
@@ -60,6 +61,10 @@
     <string name="site_save">Site saved</string>
 	
 	<string name="title_activity_vols">Records</string>
+
+    <string name="title_activity_chart">Charts</string>
+
+
 	
 	<string name="title_activity_addAeronef">Machine</string>
 	<string name="aeronef_save">Machine saved</string>

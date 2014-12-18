@@ -39,6 +39,7 @@
 	<string name="alt">Alt</string>
 	<string name="ici">Vous êtes ici !</string>
     <string name="total">Total</string>
+    <string name="chart">Graphique</string>
 	
 	<string name="wingSpan">Envergure</string>
 	<string name="metre">m</string>
@@ -61,6 +62,8 @@
     <string name="site_save">Lieu sauvegardé</string>
 	
 	<string name="title_activity_vols">Liste des enregistrements</string>
+
+    <string name="title_activity_chart">Graphiques</string>
 	
 	<string name="title_activity_addAeronef">Machine</string>
 	<string name="aeronef_save">Machine sauvegardée</string>

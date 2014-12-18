@@ -11,8 +11,11 @@ import com.flightbook.activity.MyDialogInterface.DialogReturn;
 import com.flightbook.adapter.VolsAdapter;
 import com.flightbook.listener.VolsAdapterListener;
 import com.flightbook.model.Vol;
+import com.flightbook.model.Aeronef;
 import com.flightbook.sqllite.DbVol;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -20,8 +23,19 @@ import android.content.DialogInterface;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.achartengine.ChartFactory;
+import org.achartengine.GraphicalView;
+import org.achartengine.chart.PointStyle;
+import org.achartengine.model.CategorySeries;
+import org.achartengine.model.XYSeries;
+import org.achartengine.renderer.DefaultRenderer;
+import org.achartengine.renderer.SimpleSeriesRenderer;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
+import org.achartengine.renderer.XYSeriesRenderer;
 
 public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {
 
@@ -31,6 +45,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private int selectItim = -1;
 	private VolsAdapter adapter;
 	private TextView totalVol, nbVol;
+    private ImageButton butChart;
 	
 
     @Override
@@ -47,7 +62,13 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         listView.addFooterView(footer);
         totalVol = (TextView) footer.findViewById(R.id.totalVol);
         nbVol = (TextView) footer.findViewById(R.id.nbVol);
-
+        // Position GPS
+        butChart = (ImageButton) findViewById(R.id.viewChart);
+        butChart.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                viewChart(v);
+            }
+        });
 
 
         myInterface = new MyDialogInterface();
@@ -208,4 +229,76 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         totalVol.setText(getTotalVol());
         nbVol.setText(getNbVol());
     }
+
+    // See more at: http://www.survivingwithandroid.com
+    private void viewChart(View v) {
+
+        // Color of each Pie Chart Sections
+        int[] colors = { Color.RED, Color.BLUE, Color.MAGENTA, Color.BLACK, Color.GRAY, Color.LTGRAY, Color.YELLOW};
+
+        CategorySeries distributionSeries = new CategorySeries(" Vols ");
+        double timePlaneur = 0;
+        double timeAvion = 0;
+        double timeParamoteur = 0;
+        double timeHelico = 0;
+        double timeAuto = 0;
+        double timeDivers = 0;
+        double timeAutre = 0;
+
+        if (vols!=null) {
+            for (Vol vol : vols) {
+                String type = vol.getType();
+              if (Aeronef.T_PLANEUR.equals(type)) {
+                  timePlaneur = timePlaneur + vol.getMinutesVol();
+              } else if (Aeronef.T_AVION.equals(type)) {
+                  timeAvion = timeAvion + vol.getMinutesVol();
+              } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
+                  timeParamoteur = timeParamoteur + vol.getMinutesVol();
+              } else if (Aeronef.T_HELICO.equals(type)) {
+                  timeHelico = timeHelico + vol.getMinutesVol();
+              } else if (Aeronef.T_AUTO.equals(type)) {
+                  timeAuto = timeAuto + vol.getMinutesVol();
+              } else if (Aeronef.T_DIVERS.equals(type)) {
+                  timeDivers = timeDivers + vol.getMinutesVol();
+              } else {
+                  timeAutre = timeAutre + vol.getMinutesVol();
+              }
+            }
+        }
+
+        distributionSeries.add(Aeronef.T_PLANEUR, timePlaneur);
+        distributionSeries.add(Aeronef.T_AVION, timeAvion);
+        distributionSeries.add(Aeronef.T_PARAMOTEUR, timeParamoteur);
+        distributionSeries.add(Aeronef.T_HELICO, timeHelico);
+        distributionSeries.add(Aeronef.T_AUTO, timeAuto);
+        distributionSeries.add(Aeronef.T_DIVERS, timeDivers);
+        distributionSeries.add("Inconnu", timeAutre);
+
+
+        // Instantiating a renderer for the Pie Chart
+        DefaultRenderer defaultRenderer  = new DefaultRenderer();
+        for(int i = 0 ;i<distributionSeries.getItemCount();i++){
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(colors[i]);
+            seriesRenderer.setDisplayChartValues(true);
+            // Adding a renderer for a slice
+            defaultRenderer.addSeriesRenderer(seriesRenderer);
+        }
+
+        defaultRenderer.setChartTitle("Temps");
+        defaultRenderer.setChartTitleTextSize(25);
+        defaultRenderer.setZoomButtonsVisible(true);
+        //defaultRenderer.setShowLabels(false);
+        defaultRenderer.setLabelsTextSize(25);
+        defaultRenderer.setLegendTextSize(25);
+        defaultRenderer.setDisplayValues(true);
+        
+        // Creating an intent to plot bar chart using dataset and multipleRenderer
+        Intent intent = ChartFactory.getPieChartIntent(getBaseContext(), distributionSeries , defaultRenderer, getString(R.string.title_activity_chart));
+
+        // Start Activity
+        startActivity(intent);
+
+    }
+
 }

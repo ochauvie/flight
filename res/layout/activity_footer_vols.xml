@@ -33,6 +33,16 @@
 		android:layout_alignParentLeft="true"
         android:layout_marginLeft="190dp">
 	</TextView>
-	
-	
+
+    <ImageButton
+        android:id="@+id/viewChart"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="290dp"
+        android:background="#00000000"
+        android:contentDescription="@string/chart"
+        android:src="@drawable/chart" />
+
+
 </RelativeLayout>

@@ -9,6 +9,7 @@ Application android d'enregistrement de vols pour des aéronefs radiocommandés.
 * Lecture et écriture de tag NFC à coller sur l'aéronef
 * Gestion des programmations radio (action inter et potar)
 * Gestion de checklist
+* Graphique (http://www.survivingwithandroid.com/2014/06/android-chart-tutorial-achartengine.html)
 
 # Target
 * Samsung Galaxy S2

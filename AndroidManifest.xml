@@ -24,6 +24,7 @@
         android:uiOptions="splitActionBarWhenNarrow">
         
         <uses-library android:name="com.google.android.maps" />
+
         
         <activity
             android:name="com.flightbook.activity.SplashActivity"
@@ -112,6 +113,16 @@
             android:label="@string/title_activity_checklist"
             android:icon="@drawable/checklist">
         </activity>
+        <activity
+            android:name="org.achartengine.GraphicalActivity"
+            android:label="@string/title_activity_chart"
+            android:icon="@drawable/chart">
+        </activity>
+
+
+
+
+
         
         <!--  service android:name=".service.SpeechService"/-->
         
