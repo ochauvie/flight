@@ -1,7 +1,6 @@
 package com.flightbook.activity;
 
 import com.flightbook.R;
-
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -16,6 +15,7 @@ public class MeteoActivity extends Activity {
 	
 	private ImageButton mButtonCunimb;
     private ImageButton mButtonADDS;
+    private ImageButton mButtonAllMetarSat;
 	private WebView webView;
 	private EditText editTextOaci;
 	private ProgressDialog mProgress;
@@ -25,6 +25,9 @@ public class MeteoActivity extends Activity {
 
     private String meteoADDSUrlStart = "http://www.aviationweather.gov/adds/metars/?station_ids=";
     private String meteoADDSUrlEnd = "&std_trans=translated&chk_metars=on&hoursStr=most+recent+only&submitmet=Submit";
+
+    private String meteoAllMetarSatUrlStart = "http://fr.allmetsat.com/metar-taf/france.php?icao=";
+    private String meteoAllMetarSatUrlEnd = "";
 
 
     /** Called when the activity is first created. */
@@ -75,6 +78,17 @@ public class MeteoActivity extends Activity {
                 String oaci = editTextOaci.getText().toString();
                 if (oaci!=null && !"".equals(oaci)) {
                     String url = meteoADDSUrlStart + oaci.toUpperCase() + meteoADDSUrlEnd;
+                    webView.loadUrl(url);
+                }
+            }
+        });
+
+        mButtonAllMetarSat = (ImageButton) findViewById(R.id.btnLaunchAllMetarSat);
+        mButtonAllMetarSat.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                String oaci = editTextOaci.getText().toString();
+                if (oaci!=null && !"".equals(oaci)) {
+                    String url = meteoAllMetarSatUrlStart + oaci.toUpperCase() + meteoAllMetarSatUrlEnd;
                     webView.loadUrl(url);
                 }
             }
