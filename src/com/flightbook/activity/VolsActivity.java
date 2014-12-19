@@ -28,14 +28,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.achartengine.ChartFactory;
-import org.achartengine.GraphicalView;
-import org.achartengine.chart.PointStyle;
 import org.achartengine.model.CategorySeries;
-import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
-import org.achartengine.renderer.XYMultipleSeriesRenderer;
-import org.achartengine.renderer.XYSeriesRenderer;
 
 public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {
 
@@ -45,8 +40,10 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private int selectItim = -1;
 	private VolsAdapter adapter;
 	private TextView totalVol, nbVol;
-    private ImageButton butChart;
-	
+    private ImageButton butChartTime,butChartNb ;
+
+    private static final String CHART_TIME = "TIME";
+    private static final String CHART_NB = "NB";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -62,11 +59,18 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         listView.addFooterView(footer);
         totalVol = (TextView) footer.findViewById(R.id.totalVol);
         nbVol = (TextView) footer.findViewById(R.id.nbVol);
-        // Position GPS
-        butChart = (ImageButton) findViewById(R.id.viewChart);
-        butChart.setOnClickListener(new View.OnClickListener() {
+
+        butChartTime = (ImageButton) findViewById(R.id.viewChartTime);
+        butChartTime.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                viewChart(v);
+                viewChart(VolsActivity.CHART_TIME);
+            }
+        });
+
+        butChartNb = (ImageButton) findViewById(R.id.viewChartNb);
+        butChartNb.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                viewChart(VolsActivity.CHART_NB);
             }
         });
 
@@ -231,70 +235,117 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     }
 
     // See more at: http://www.survivingwithandroid.com
-    private void viewChart(View v) {
-
-        // Color of each Pie Chart Sections
-        int[] colors = { Color.RED, Color.BLUE, Color.MAGENTA, Color.BLACK, Color.GRAY, Color.LTGRAY, Color.YELLOW};
+    private void viewChart(String chartType) {
 
         CategorySeries distributionSeries = new CategorySeries(" Vols ");
-        double timePlaneur = 0;
-        double timeAvion = 0;
-        double timeParamoteur = 0;
-        double timeHelico = 0;
-        double timeAuto = 0;
-        double timeDivers = 0;
-        double timeAutre = 0;
+        double dataPlaneur = 0;
+        double dataAvion = 0;
+        double dataParamoteur = 0;
+        double dataHelico = 0;
+        double dataAuto = 0;
+        double dataDivers = 0;
+        double dataAutre = 0;
 
         if (vols!=null) {
             for (Vol vol : vols) {
                 String type = vol.getType();
               if (Aeronef.T_PLANEUR.equals(type)) {
-                  timePlaneur = timePlaneur + vol.getMinutesVol();
+                  if (VolsActivity.CHART_TIME.equals(chartType)) {
+                      dataPlaneur = dataPlaneur + vol.getMinutesVol();
+                  } else {
+                      dataPlaneur++;
+                  }
               } else if (Aeronef.T_AVION.equals(type)) {
-                  timeAvion = timeAvion + vol.getMinutesVol();
+                  if (VolsActivity.CHART_TIME.equals(chartType)) {
+                      dataAvion = dataAvion + vol.getMinutesVol();
+                  } else {
+                      dataAvion++;
+                  }
               } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
-                  timeParamoteur = timeParamoteur + vol.getMinutesVol();
+                  if (VolsActivity.CHART_TIME.equals(chartType)) {
+                      dataParamoteur = dataParamoteur + vol.getMinutesVol();
+                  } else {
+                      dataParamoteur++;
+                  }
+
               } else if (Aeronef.T_HELICO.equals(type)) {
-                  timeHelico = timeHelico + vol.getMinutesVol();
+                  if (VolsActivity.CHART_TIME.equals(chartType)) {
+                      dataHelico = dataHelico + vol.getMinutesVol();
+                  } else {
+                      dataHelico++;
+                  }
               } else if (Aeronef.T_AUTO.equals(type)) {
-                  timeAuto = timeAuto + vol.getMinutesVol();
+                  if (VolsActivity.CHART_TIME.equals(chartType)) {
+                      dataAuto = dataAuto + vol.getMinutesVol();
+                  } else {
+                      dataAuto++;
+                  }
               } else if (Aeronef.T_DIVERS.equals(type)) {
-                  timeDivers = timeDivers + vol.getMinutesVol();
+                  if (VolsActivity.CHART_TIME.equals(chartType)) {
+                      dataDivers = dataDivers + vol.getMinutesVol();
+                  } else {
+                      dataDivers++;
+                  }
               } else {
-                  timeAutre = timeAutre + vol.getMinutesVol();
+                  if (VolsActivity.CHART_TIME.equals(chartType)) {
+                      dataAutre = dataAutre + vol.getMinutesVol();
+                  } else {
+                      dataAutre++;
+                  }
               }
             }
         }
 
-        distributionSeries.add(Aeronef.T_PLANEUR, timePlaneur);
-        distributionSeries.add(Aeronef.T_AVION, timeAvion);
-        distributionSeries.add(Aeronef.T_PARAMOTEUR, timeParamoteur);
-        distributionSeries.add(Aeronef.T_HELICO, timeHelico);
-        distributionSeries.add(Aeronef.T_AUTO, timeAuto);
-        distributionSeries.add(Aeronef.T_DIVERS, timeDivers);
-        distributionSeries.add("Inconnu", timeAutre);
+        if (dataPlaneur>0) {
+            distributionSeries.add(Aeronef.T_PLANEUR, dataPlaneur);
+        }
+        if (dataAvion>0) {
+            distributionSeries.add(Aeronef.T_AVION, dataAvion);
+        }
+        if (dataParamoteur>0) {
+            distributionSeries.add(Aeronef.T_PARAMOTEUR, dataParamoteur);
+        }
+        if (dataHelico>0) {
+            distributionSeries.add(Aeronef.T_HELICO, dataHelico);
+        }
+        if (dataAuto>0) {
+            distributionSeries.add(Aeronef.T_AUTO, dataAuto);
+        }
+        if (dataDivers>0) {
+            distributionSeries.add(Aeronef.T_DIVERS, dataDivers);
+        }
+        if (dataAutre>0) {
+            distributionSeries.add("Inconnu", dataAutre);
+        }
 
 
         // Instantiating a renderer for the Pie Chart
         DefaultRenderer defaultRenderer  = new DefaultRenderer();
         for(int i = 0 ;i<distributionSeries.getItemCount();i++){
             SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
-            seriesRenderer.setColor(colors[i]);
+            seriesRenderer.setColor(Aeronef.getColor(distributionSeries.getCategory(i)));
             seriesRenderer.setDisplayChartValues(true);
+
             // Adding a renderer for a slice
             defaultRenderer.addSeriesRenderer(seriesRenderer);
         }
 
-        defaultRenderer.setChartTitle("Temps");
+        defaultRenderer.setChartTitle("Temps (min)");
         defaultRenderer.setChartTitleTextSize(25);
         defaultRenderer.setZoomButtonsVisible(true);
-        //defaultRenderer.setShowLabels(false);
+        defaultRenderer.setShowLabels(false);
         defaultRenderer.setLabelsTextSize(25);
         defaultRenderer.setLegendTextSize(25);
         defaultRenderer.setDisplayValues(true);
-        
+
+        String title = getString(R.string.title_activity_chart_nb);
+        if (VolsActivity.CHART_TIME.equals(chartType)) {
+            title = getString(R.string.title_activity_chart_time);
+        }
+
         // Creating an intent to plot bar chart using dataset and multipleRenderer
-        Intent intent = ChartFactory.getPieChartIntent(getBaseContext(), distributionSeries , defaultRenderer, getString(R.string.title_activity_chart));
+        Intent intent = ChartFactory.getPieChartIntent(getBaseContext(), distributionSeries , defaultRenderer, title);
+
 
         // Start Activity
         startActivity(intent);

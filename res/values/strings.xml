@@ -62,7 +62,8 @@
 	
 	<string name="title_activity_vols">Records</string>
 
-    <string name="title_activity_chart">Charts</string>
+    <string name="title_activity_chart_time">Time (min)</string>
+    <string name="title_activity_chart_nb">Number of flight</string>
 
 
 	

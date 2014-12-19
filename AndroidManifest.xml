@@ -115,7 +115,7 @@
         </activity>
         <activity
             android:name="org.achartengine.GraphicalActivity"
-            android:label="@string/title_activity_chart"
+            android:label="@string/title_activity_chart_time"
             android:icon="@drawable/chart">
         </activity>
 

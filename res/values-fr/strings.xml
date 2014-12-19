@@ -63,7 +63,8 @@
 	
 	<string name="title_activity_vols">Liste des enregistrements</string>
 
-    <string name="title_activity_chart">Graphiques</string>
+    <string name="title_activity_chart_time">Cumul en minutes</string>
+    <string name="title_activity_chart_nb">Nombre d\'utilisation</string>
 	
 	<string name="title_activity_addAeronef">Machine</string>
 	<string name="aeronef_save">Machine sauvegardée</string>
