@@ -77,11 +77,13 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
-        
+
+        // recuperation de la liste des vols
         dbVol.open();
         	vols = dbVol.getVols();
         dbVol.close();
-        
+
+        // Mise à jour du footer
         totalVol.setText(getTotalVol());
         nbVol.setText(getNbVol());
         	
@@ -90,20 +92,20 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             
         // Ecoute des evevnements sur votre liste
         adapter.addListener(this);
-        
-        // Recuperation du composant ListView
-        //ListView list = (ListView)findViewById(R.id.ListViewHangar);
-            
+
         //Initialisation de la liste avec les donnees
         setListAdapter(adapter);
 
-        
         // Animation
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(
         				this, R.anim.list_layout_controller);
         listView.setLayoutAnimation(controller);
     }
 
+    /**
+     * Total heures de vol
+     * @return
+     */
     private String getTotalVol() {
     	int total = 0;
     	if (vols!=null) {
@@ -120,6 +122,10 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
    		return String.valueOf(heu + "h" + sMin);
     }
 
+    /**
+     * Total nombre de vol
+     * @return
+     */
     private String getNbVol() {
         int total = 0;
         if (vols!=null) {
@@ -234,7 +240,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         nbVol.setText(getNbVol());
     }
 
-    // See more at: http://www.survivingwithandroid.com
+    // See more at: http://www.achartengine.org/index.html
     private void viewChart(String chartType) {
 
         CategorySeries distributionSeries = new CategorySeries(" Vols ");
@@ -345,7 +351,6 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 
         // Creating an intent to plot bar chart using dataset and multipleRenderer
         Intent intent = ChartFactory.getPieChartIntent(getBaseContext(), distributionSeries , defaultRenderer, title);
-
 
         // Start Activity
         startActivity(intent);

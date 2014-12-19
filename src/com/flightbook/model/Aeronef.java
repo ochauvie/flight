@@ -164,7 +164,7 @@ public class Aeronef {
 		  } else if (Aeronef.T_AVION.equals(type)) {
 			  return Color.BLUE;
 		  } else if (Aeronef.T_HELICO.equals(type)) {
-			  return Color.BLACK;
+			  return Color.GREEN;
 		  } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
 			  return Color.MAGENTA;
 		  } else if (Aeronef.T_AUTO.equals(type)) {
