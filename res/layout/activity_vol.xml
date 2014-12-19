@@ -201,24 +201,24 @@
             android:inputType="textMultiLine" />
 	    
 	      <ImageButton
-	        android:id="@+id/gps"
+	        android:id="@+id/site"
 	        android:layout_width="44dp"
 	        android:layout_height="44dp"
 	        android:layout_alignTop="@+id/textViewLieu"
 	        android:layout_alignParentRight="true"
 	        android:contentDescription="@string/gps"
 	        android:background="#00000000"
-	        android:src="@drawable/gps" />
+	        android:src="@drawable/index" />
 
             <ImageButton
-                android:id="@+id/site"
+                android:id="@+id/gps"
                 android:layout_width="44dp"
                 android:layout_height="44dp"
                 android:contentDescription="@string/lieu"
                 android:background="#00000000"
-                android:src="@drawable/index"
+                android:src="@drawable/gps"
                 android:layout_above="@+id/layout2"
-                android:layout_alignLeft="@+id/gps" />
+                android:layout_alignLeft="@+id/site" />
 	    
 	    <TextView
 	        android:id="@+id/editText1"

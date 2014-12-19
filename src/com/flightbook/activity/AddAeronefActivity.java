@@ -128,11 +128,17 @@ public class AddAeronefActivity extends Activity {
 	        comment = (EditText) findViewById(R.id.editTextComment);
 	        
 	        optPlaneur = (RadioButton) findViewById(R.id.option_planeur);
+                optPlaneur.setTextColor(Aeronef.getColor(Aeronef.T_PLANEUR));
 	        optAvion = (RadioButton) findViewById(R.id.option_avion);
+                optAvion.setTextColor(Aeronef.getColor(Aeronef.T_AVION));
 	        optParamoteur = (RadioButton) findViewById(R.id.option_paramoteur);
+                optParamoteur.setTextColor(Aeronef.getColor(Aeronef.T_PARAMOTEUR));
 	        optHelico = (RadioButton) findViewById(R.id.option_helico);
+                optHelico.setTextColor(Aeronef.getColor(Aeronef.T_HELICO));
 	        optAuto = (RadioButton) findViewById(R.id.option_auto);
+                optAuto.setTextColor(Aeronef.getColor(Aeronef.T_AUTO));
 	        optDivers = (RadioButton) findViewById(R.id.option_divers);
+                optDivers.setTextColor(Aeronef.getColor(Aeronef.T_DIVERS));
 	    
 	        // Get aeronef in parameter
 	        initView();

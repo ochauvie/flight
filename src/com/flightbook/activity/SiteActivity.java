@@ -122,7 +122,7 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     @Override
 	public void onClickName(Site item, int position) {
     	Site sel = sites.get(position);
-    	Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
+        Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
     	volActivity.putExtra(Site.NAME, sel.getName());
         volActivity.putExtra(Aeronef.NAME, sAeronefName);
         volActivity.putExtra(Aeronef.TYPE, sType);

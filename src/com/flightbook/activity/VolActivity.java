@@ -288,15 +288,17 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
+            String toSay = "";
         	String sAeronef = bundle.getString(Aeronef.NAME);
         	typeAeronef = bundle.getString(Aeronef.TYPE);
         	if (sAeronef!=null) {
         		aeronef.setText(sAeronef);
-        		ttsProviderImpl.say(sAeronef);
+                toSay = sAeronef;
         	}
             String sSite = bundle.getString(Site.NAME);
             if (sSite!=null) {
                 lieu.setText(sSite);
+                toSay = toSay + " "  + sSite;
             }
             String sFlightDate = bundle.getString(Vol.DATE);
             if (sFlightDate!=null) {
@@ -317,6 +319,10 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
             String sNote = bundle.getString(Vol.NOTE);
             if (sNote!=null && !"".equals(sNote)) {
                 note.setText(sNote);
+            }
+
+            if (!"".equals(toSay)) {
+                ttsProviderImpl.say(toSay);
             }
         }
     }

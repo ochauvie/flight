@@ -185,7 +185,7 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
     private void backupDb() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
-        builder.setIcon(R.drawable.save);
+        builder.setIcon(R.drawable.backup);
         builder.setTitle("Data base backup");
         builder.setInverseBackgroundForced(true);
         builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
