@@ -76,8 +76,9 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/app_name_maj"
         android:scaleType="centerInside"
-        android:src="@drawable/welcome" />
-    
+        android:src="@drawable/backup" />
+    
+
     <ImageView
         android:id="@+id/imgStart"
         android:layout_width="match_parent"
