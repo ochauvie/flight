@@ -315,7 +315,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
                 secMot.setText(sSecMot);
             }
             String sNote = bundle.getString(Vol.NOTE);
-            if (sNote!=null) {
+            if (sNote!=null && !"".equals(sNote)) {
                 note.setText(sNote);
             }
         }
@@ -331,8 +331,8 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     	minVol.setText(null);
         minMot.setText(null);
         secMot.setText(null);
-        note.setText(null);
-        lieu.setText(null);
+        note.setText("");
+        lieu.setText("");
         editText1.setText("");
     }
     

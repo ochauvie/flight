@@ -68,6 +68,15 @@ public final class InitHangar  {
 		values.put(DbManager.COL_ENGINE, "OS 32");
 		values.put(DbManager.COL_FIRST_FLIGHT, "06/07/2002");
 		db.insert(DbManager.TABLE_AERONEFS, null, values);
+
+        values = new ContentValues();
+        values.put(DbManager.COL_NAME, "Trex 450");
+        values.put(DbManager.COL_TYPE, Aeronef.T_HELICO);
+        values.put(DbManager.COL_ENGINE, "Brushless 450MX");
+        values.put(DbManager.COL_WINGSPAN, 0.715);
+        values.put(DbManager.COL_WEIGHT, 0.600);
+        //values.put(DbManager.COL_FIRST_FLIGHT, "06/07/2002");
+        db.insert(DbManager.TABLE_AERONEFS, null, values);
 		
 		values = new ContentValues();
 		values.put(DbManager.COL_NAME, "Honcho SCX10");

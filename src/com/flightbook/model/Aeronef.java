@@ -160,19 +160,19 @@ public class Aeronef {
 	 */
 	public static int getColor(String type) {
 		if (Aeronef.T_PLANEUR.equals(type)) {
-		    return Color.RED;
+		    return Color.rgb(219,23,2);
 		  } else if (Aeronef.T_AVION.equals(type)) {
-			  return Color.BLUE;
+			  return Color.rgb(49,140,231);
 		  } else if (Aeronef.T_HELICO.equals(type)) {
-			  return Color.GREEN;
+			  return Color.rgb(31,160,85);
 		  } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
-			  return Color.MAGENTA;
+			  return Color.rgb(246,220,18);
 		  } else if (Aeronef.T_AUTO.equals(type)) {
 			  return Color.GRAY;
 		  } else if (Aeronef.T_DIVERS.equals(type)) {
-			  return Color.LTGRAY;
+			  return Color.rgb(225,206,154);
 		  } else {
-			  return Color.YELLOW;
+			  return Color.rgb(47,30,14);
 		  }
 	}
 	

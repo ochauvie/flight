@@ -17,7 +17,7 @@
 	        android:layout_alignParentTop="true"
 	        android:layout_marginLeft="16dp"
 	        android:layout_marginTop="34dp"
-	        android:text="@string/date" />
+            android:text="@string/date" />
 	    
 	    <EditText
 	        android:id="@+id/flightDate"
@@ -27,7 +27,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-			android:inputType="textCapWords" >
+            android:inputType="textCapWords" >
 		</EditText>
 				    
 	     <ImageButton
@@ -38,7 +38,7 @@
 	        android:layout_alignParentRight="true"
 	        android:contentDescription="@string/date"
 	        android:background="#00000000"
-	        android:src="@drawable/calendrier" />
+            android:src="@drawable/calendrier" />
 	    
 	    
 	    
@@ -61,7 +61,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-	        android:inputType="textCapWords" >
+            android:inputType="textCapWords" >
 	    </EditText>
 	
 	    <ImageButton
@@ -94,7 +94,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-	        android:inputType="number" 
+            android:inputType="number"
 	        />
 	
 	    <TextView
@@ -125,7 +125,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-	        android:inputType="number" />
+            android:inputType="number" />
 	    
 	    <TextView
 	        android:id="@+id/textViewMinMot"
@@ -166,7 +166,7 @@
 	        android:layout_below="@+id/textViewMot"
 	        android:layout_marginLeft="16dp"
 	        android:layout_marginTop="17dp"
-	        android:text="@string/note" />
+            android:text="@string/note" />
 	    
 	    <EditText
 	        android:id="@+id/editTextNote"
@@ -177,7 +177,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-	        android:inputType="textCapSentences" />
+            android:inputType="textCapSentences" />
 	    
 	    <TextView
 	        android:id="@+id/textViewLieu"
@@ -198,7 +198,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-	        android:inputType="textMultiLine" />
+            android:inputType="textMultiLine" />
 	    
 	      <ImageButton
 	        android:id="@+id/gps"

@@ -12,6 +12,7 @@ import com.flightbook.adapter.VolsAdapter;
 import com.flightbook.listener.VolsAdapterListener;
 import com.flightbook.model.Vol;
 import com.flightbook.model.Aeronef;
+import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbVol;
 
 import android.content.Intent;
@@ -34,21 +35,25 @@ import org.achartengine.renderer.SimpleSeriesRenderer;
 
 public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {
 
-	private MyDialogInterface myInterface;
+    private static final String CHART_TIME = "TIME";
+    private static final String CHART_NB = "NB";
+
+    private MyDialogInterface myInterface;
 	private DbVol dbVol = new DbVol(this);
 	private ArrayList<Vol> vols;
 	private int selectItim = -1;
 	private VolsAdapter adapter;
 	private TextView totalVol, nbVol;
     private ImageButton butChartTime,butChartNb ;
+    private TtsProviderFactory ttsProviderImpl;
 
-    private static final String CHART_TIME = "TIME";
-    private static final String CHART_NB = "NB";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vols);
+
+        ttsProviderImpl = TtsProviderFactory.getInstance();
         
         View header = getLayoutInflater().inflate(R.layout.activity_header_vols, null);
             // Ajout d'un listener sur la selection du header pour supprimer le filtre sur la liste)
@@ -351,6 +356,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 
         // Creating an intent to plot bar chart using dataset and multipleRenderer
         Intent intent = ChartFactory.getPieChartIntent(getBaseContext(), distributionSeries , defaultRenderer, title);
+        ttsProviderImpl.say(title);
 
         // Start Activity
         startActivity(intent);
