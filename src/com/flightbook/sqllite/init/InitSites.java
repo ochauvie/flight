@@ -26,12 +26,12 @@ public final class InitSites {
         db.insert(DbManager.TABLE_SITES, null, values);
 		
 		values = new ContentValues();
-		values.put(DbManager.COL_NAME, "Fôret Pelissanne");
+		values.put(DbManager.COL_NAME, "Fôret Pélissanne");
 		values.put(DbManager.COL_COMMENT, "");
 		db.insert(DbManager.TABLE_SITES, null, values);
 
         values = new ContentValues();
-        values.put(DbManager.COL_NAME, "Jardin Pelissanne");
+        values.put(DbManager.COL_NAME, "Jardin Pélissanne");
         values.put(DbManager.COL_COMMENT, "");
         db.insert(DbManager.TABLE_SITES, null, values);
 
