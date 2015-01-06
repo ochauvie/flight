@@ -216,7 +216,7 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
                 dbBackup.doBackup(fileName);
                 Toast.makeText(getBaseContext(),
                         "Done writing SD " + fileName,
-                        Toast.LENGTH_SHORT).show();
+                        Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 Toast.makeText(getBaseContext(), e.getMessage(),
                         Toast.LENGTH_SHORT).show();

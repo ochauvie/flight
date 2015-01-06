@@ -18,7 +18,7 @@ private static TtsProviderFactory sInstance;
 
 public static TtsProviderFactory getInstance() {
     if (sInstance == null) {
-        int sdkVersion = Integer.parseInt(Build.VERSION.SDK);
+        int sdkVersion = Build.VERSION.SDK_INT;
         if (sdkVersion < Build.VERSION_CODES.DONUT) {
             return null;
         }
