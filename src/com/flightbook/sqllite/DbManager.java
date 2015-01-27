@@ -161,7 +161,8 @@ public class DbManager extends SQLiteOpenHelper {
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		db.execSQL("DROP TABLE " + TABLE_VOLS + ";");
+        /*
+        db.execSQL("DROP TABLE " + TABLE_VOLS + ";");
 		db.execSQL("DROP TABLE " + TABLE_AERONEFS + ";");
 		db.execSQL("DROP TABLE " + CREATE_TABLE_RADIO_SWITCH + ";");
 		db.execSQL("DROP TABLE " + CREATE_TABLE_RADIO_POTAR + ";");
@@ -169,6 +170,7 @@ public class DbManager extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE " + CREATE_TABLE_POTAR + ";");
 		db.execSQL("DROP TABLE " + CREATE_TABLE_SWITCH + ";");
         db.execSQL("DROP TABLE " + CREATE_TABLE_SITES + ";");
+        */
 	}
 	
 			

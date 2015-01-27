@@ -75,7 +75,7 @@ public final class InitHangar  {
         values.put(DbManager.COL_ENGINE, "Brushless 450MX");
         values.put(DbManager.COL_WINGSPAN, 0.715);
         values.put(DbManager.COL_WEIGHT, 0.600);
-        //values.put(DbManager.COL_FIRST_FLIGHT, "06/07/2002");
+        values.put(DbManager.COL_FIRST_FLIGHT, "11/01/2015");
         values.put(DbManager.COL_COMMENT, "Version sport");
         db.insert(DbManager.TABLE_AERONEFS, null, values);
 		

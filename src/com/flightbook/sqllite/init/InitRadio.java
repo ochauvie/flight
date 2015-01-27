@@ -15,6 +15,7 @@ public final class InitRadio  {
 		initParamoteur(db);
 		initArducopter(db);
 		initRaptor(db);
+        initTrex450(db);
 	}
 	
 	
@@ -340,5 +341,73 @@ public final class InitRadio  {
 		db.insert(DbManager.TABLE_RADIO_POTAR, null, values);
 		
 	}
-	
+
+    private static void initTrex450(SQLiteDatabase db) {
+        // Switch
+        ContentValues values = new ContentValues();
+        values.put(DbManager.COL_ID, 17);
+        values.put(DbManager.COL_NAME, "F");
+        values.put(DbManager.COL_UP, "Normal");
+        values.put(DbManager.COL_DOWN, "Conservateur de cap");
+        values.put(DbManager.COL_ACTION, "Mode gyroscope");
+        db.insert(DbManager.TABLE_SWITCH, null, values);
+
+        values = new ContentValues();
+        values.put(DbManager.COL_ID, 18);
+        values.put(DbManager.COL_NAME, "E");
+        values.put(DbManager.COL_UP, "Linéaire");
+        values.put(DbManager.COL_CENTER, "Idle up 1");
+        values.put(DbManager.COL_DOWN, "Idle up 2");
+        values.put(DbManager.COL_ACTION, "Idle UP");
+        db.insert(DbManager.TABLE_SWITCH, null, values);
+
+
+        // Potar
+        values = new ContentValues();
+        values.put(DbManager.COL_ID, 5);
+        values.put(DbManager.COL_NAME, "A");
+        values.put(DbManager.COL_UP, "+");
+        values.put(DbManager.COL_DOWN, "-");
+        values.put(DbManager.COL_ACTION, "Pas stationnaire");
+        db.insert(DbManager.TABLE_POTAR, null, values);
+
+        values = new ContentValues();
+        values.put(DbManager.COL_ID, 6);
+        values.put(DbManager.COL_NAME, "C");
+        values.put(DbManager.COL_UP, "+");
+        values.put(DbManager.COL_DOWN, "-");
+        values.put(DbManager.COL_ACTION, "Gaz stationnaire");
+        db.insert(DbManager.TABLE_POTAR, null, values);
+
+
+        // Radio
+        values = new ContentValues();
+        values.put(DbManager.COL_ID, 7);
+        values.put(DbManager.COL_NAME, "FF9 Trex 450");
+        db.insert(DbManager.TABLE_RADIO, null, values);
+
+        // Radio - switch
+        values = new ContentValues();
+        values.put(DbManager.COL_ID_RADIO, 7);
+        values.put(DbManager.COL_ID_SWITCH, 17);
+        db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+
+        values = new ContentValues();
+        values.put(DbManager.COL_ID_RADIO, 7);
+        values.put(DbManager.COL_ID_SWITCH, 18);
+        db.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
+
+
+        // Radio - potar
+        values = new ContentValues();
+        values.put(DbManager.COL_ID_RADIO, 7);
+        values.put(DbManager.COL_ID_POTAR, 5);
+        db.insert(DbManager.TABLE_RADIO_POTAR, null, values);
+        values = new ContentValues();
+        values.put(DbManager.COL_ID_RADIO, 7);
+        values.put(DbManager.COL_ID_POTAR, 6);
+        db.insert(DbManager.TABLE_RADIO_POTAR, null, values);
+
+    }
+
 }

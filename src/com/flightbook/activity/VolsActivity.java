@@ -4,6 +4,9 @@ package com.flightbook.activity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.Locale;
 
 import com.flightbook.R;
@@ -17,6 +20,7 @@ import com.flightbook.sqllite.DbVol;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -29,9 +33,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import org.achartengine.ChartFactory;
+import org.achartengine.chart.BarChart;
 import org.achartengine.model.CategorySeries;
+import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.renderer.DefaultRenderer;
 import org.achartengine.renderer.SimpleSeriesRenderer;
+import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
 public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {
 
@@ -44,7 +51,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private int selectItim = -1;
 	private VolsAdapter adapter;
 	private TextView totalVol, nbVol;
-    private ImageButton butChartTime,butChartNb ;
+    private ImageButton butChartTime,butChartNb, viewChartRepVol, viewChartRepNbVol ;
     private TtsProviderFactory ttsProviderImpl;
 
 
@@ -76,6 +83,21 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         butChartNb.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 viewChart(VolsActivity.CHART_NB);
+            }
+        });
+
+        viewChartRepVol = (ImageButton) findViewById(R.id.viewChartRepVol);
+        viewChartRepVol.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                viewChartByMachine(VolsActivity.CHART_TIME);
+            }
+        });
+
+
+        viewChartRepNbVol = (ImageButton) findViewById(R.id.viewChartRepNbVol);
+        viewChartRepNbVol.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                viewChartByMachine(VolsActivity.CHART_NB);
             }
         });
 
@@ -362,5 +384,84 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         startActivity(intent);
 
     }
+
+
+    // See more at: http://www.achartengine.org/index.html
+    private void viewChartByMachine(String chartType) {
+
+        String title = getString(R.string.title_activity_chart_nb);
+        if (VolsActivity.CHART_TIME.equals(chartType)) {
+            title = getString(R.string.title_activity_chart_time);
+        }
+
+        // Instantiating a renderer
+        XYMultipleSeriesRenderer  defaultRenderer  = new XYMultipleSeriesRenderer ();
+        defaultRenderer.setZoomButtonsVisible(false);
+        defaultRenderer.setLabelsTextSize(25);
+        defaultRenderer.setShowLegend(false);
+        defaultRenderer.setMargins(new int[]{20, 30, 15, 0});
+        defaultRenderer.setBarSpacing(0.1);
+        defaultRenderer.setYAxisMin(0);
+        defaultRenderer.setYLabelsAlign(Paint.Align.LEFT);
+        defaultRenderer.setXAxisMin(0);
+        defaultRenderer.setBackgroundColor(Color.BLACK);
+        defaultRenderer.setApplyBackgroundColor(true);
+        defaultRenderer.setShowGrid(true);
+
+
+        SimpleSeriesRenderer r = new SimpleSeriesRenderer();
+        if (VolsActivity.CHART_TIME.equals(chartType)) {
+            r.setColor(Color.RED);
+        } else {
+            r.setColor(Color.GREEN);
+        }
+        r.setDisplayChartValues(true);
+        r.setChartValuesTextSize(25);
+        r.setChartValuesTextAlign(Paint.Align.CENTER);
+        defaultRenderer.addSeriesRenderer(r);
+
+        XYMultipleSeriesDataset dataSet = new XYMultipleSeriesDataset();
+        CategorySeries series = new CategorySeries("");
+        Hashtable hashVols = new Hashtable();
+
+        if (vols!=null) {
+            for (Vol vol : vols) {
+                String aeronef = vol.getAeronef();
+                int value = 0;
+                if (VolsActivity.CHART_TIME.equals(chartType)) {
+                    value =  vol.getMinutesVol();
+                } else {
+                    value++;
+                }
+                if (hashVols.containsKey(aeronef)) {
+                    int old = (Integer) hashVols.get(aeronef);
+                    hashVols.put(aeronef, value + old);
+
+                } else {
+                    hashVols.put(aeronef, value);
+                }
+            }
+        }
+
+        Iterator iter = hashVols.keySet().iterator();
+        int i=0;
+        while (iter.hasNext())
+        {
+            String clef = (String)iter.next();
+            int valeur = (Integer)hashVols.get(clef);
+            series.add(valeur);
+            i++;
+            defaultRenderer.addXTextLabel(i, clef);
+        }
+        defaultRenderer.setXAxisMax(hashVols.size());
+        dataSet.addSeries(series.toXYSeries());
+
+        // Creating an intent to plot bar chart using dataset and multipleRenderer
+        Intent intent = ChartFactory.getBarChartIntent(getBaseContext(), dataSet, defaultRenderer, BarChart.Type.DEFAULT, title);
+        ttsProviderImpl.say(title);
+        startActivity(intent);
+
+    }
+
 
 }
