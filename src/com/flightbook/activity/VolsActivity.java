@@ -404,6 +404,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         defaultRenderer.setYAxisMin(0);
         defaultRenderer.setYLabelsAlign(Paint.Align.LEFT);
         defaultRenderer.setXAxisMin(0);
+        defaultRenderer.setXLabels(0);
         defaultRenderer.setBackgroundColor(Color.BLACK);
         defaultRenderer.setApplyBackgroundColor(true);
         defaultRenderer.setShowGrid(true);
