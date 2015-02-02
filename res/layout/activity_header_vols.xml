@@ -8,7 +8,7 @@
 	<TextView android:id="@+id/date" 
 	    android:text="@string/date" 
 	    android:textSize="20sp"
-	    android:textStyle="bold|italic"
+	    android:textStyle="bold"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:layout_alignParentLeft="true"
@@ -17,7 +17,7 @@
 	
 	<TextView android:id="@+id/name"
 	    android:text="@string/aeronef"
-	    android:textStyle="bold|italic"
+	    android:textStyle="bold"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:textSize="20sp"
@@ -27,7 +27,7 @@
 	
 	<TextView android:id="@+id/tempsVol"
 	    android:text="@string/vol"
-	    android:textStyle="bold|italic"
+	    android:textStyle="bold"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:textSize="20sp"
@@ -37,7 +37,7 @@
 	
 	<TextView android:id="@+id/tempsMoteur"
 	    android:text="@string/moteur"
-	    android:textStyle="bold|italic"
+	    android:textStyle="bold"
 	    android:textSize="20sp"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"

@@ -6,7 +6,7 @@
 
     <TextView android:id="@+id/total"
         android:text="@string/total"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -14,9 +14,19 @@
         android:layout_marginLeft="0dp">
     </TextView>
 
+
+    <TextView android:id="@+id/nbDate"
+        android:text="@string/date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="50dp">
+    </TextView>
+
     <TextView android:id="@+id/nbVol"
         android:text="@string/vol"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
@@ -26,7 +36,7 @@
 
 	<TextView android:id="@+id/totalVol"
 	    android:text="@string/vol"
-	    android:textStyle="bold|italic"
+	    android:textStyle="bold"
 		android:layout_width="wrap_content" 
 		android:layout_height="wrap_content"
 		android:textSize="20sp"

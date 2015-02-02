@@ -4,6 +4,7 @@ package com.flightbook.activity;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Locale;
 
 import com.flightbook.R;
@@ -35,7 +36,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private ArrayList<Vol> vols;
 	private int selectItim = -1;
 	private VolsAdapter adapter;
-	private TextView totalVol, nbVol;
+	private TextView totalVol, nbVol, nbDate;
     private ImageButton butChartTime,butChartNb, viewChartRepVol, viewChartRepNbVol ;
     private TtsProviderFactory ttsProviderImpl;
 
@@ -56,6 +57,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         listView.addFooterView(footer);
         totalVol = (TextView) footer.findViewById(R.id.totalVol);
         nbVol = (TextView) footer.findViewById(R.id.nbVol);
+        nbDate = (TextView) footer.findViewById(R.id.nbDate);
 
         butChartTime = (ImageButton) findViewById(R.id.viewChartTime);
         butChartTime.setOnClickListener(new View.OnClickListener() {
@@ -96,8 +98,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         dbVol.close();
 
         // Mise à jour du footer
-        totalVol.setText(getTotalVol());
-        nbVol.setText(getNbVol());
+        majFooter();
         	
     	// Creation et initialisation de l'Adapter pour les vols
         adapter = new VolsAdapter(this, vols);
@@ -112,6 +113,12 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(
         				this, R.anim.list_layout_controller);
         listView.setLayoutAnimation(controller);
+    }
+
+    private void majFooter() {
+        totalVol.setText(getTotalVol());
+        nbVol.setText(getNbVol());
+        nbDate.setText(getNbDate());
     }
 
     /**
@@ -142,6 +149,24 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         int total = 0;
         if (vols!=null) {
             total = vols.size();
+        }
+        return String.valueOf(total);
+    }
+
+    /**
+     * Total nombre de date
+     * @return
+     */
+    private String getNbDate() {
+        int total = 0;
+        Date cDate = null;
+        if (vols!=null) {
+            for (Vol vol:vols) {
+                if (cDate==null || vol.getDateVol().compareTo(cDate)>0) {
+                    total++;
+                    cDate = vol.getDateVol();
+                }
+            }
         }
         return String.valueOf(total);
     }
@@ -184,8 +209,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         vols.addAll(dbVol.getVolsByMachine(vol.getAeronef()));
         dbVol.close();
         adapter.notifyDataSetChanged();
-        totalVol.setText(getTotalVol());
-        nbVol.setText(getNbVol());
+        majFooter();
     }
 
     @Override
@@ -203,8 +227,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         vols.addAll(dbVol.getVolsByDate(sdf.format(vol.getDateVol())));
         dbVol.close();
         adapter.notifyDataSetChanged();
-        totalVol.setText(getTotalVol());
-        nbVol.setText(getNbVol());
+        majFooter();
     }
 
 
@@ -249,8 +272,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 			dbVol.close();
 	        vols.remove(selectItim);
 	        adapter.notifyDataSetChanged();
-	        totalVol.setText(getTotalVol());
-            nbVol.setText(getNbVol());
+            majFooter();
 		}
 	}
 
@@ -268,8 +290,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             vols.addAll(dbVol.getVols());
         dbVol.close();
         adapter.notifyDataSetChanged();
-        totalVol.setText(getTotalVol());
-        nbVol.setText(getNbVol());
+        majFooter();
     }
 
     /**
