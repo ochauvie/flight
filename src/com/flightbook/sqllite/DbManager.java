@@ -48,6 +48,8 @@ public class DbManager extends SQLiteOpenHelper {
 	public static final int NUM_COL_FIRST_FLIGHT = 6;
 	public static final String COL_COMMENT = "COMMENT";
 	public static final int NUM_COL_COMMENT = 7;
+    public static final String COL_DEFAULT = "IS_DEFAULT";
+    public static final int NUM_COL_SITE_DEFAULT = 3;
 
     public static final int NUM_COL_SITE_COMMENT = 2;
 	
@@ -130,7 +132,8 @@ public class DbManager extends SQLiteOpenHelper {
     private static final String CREATE_TABLE_SITES = "CREATE TABLE " + TABLE_SITES + " ("
             + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + COL_NAME + " TEXT NOT NULL, "
-            + COL_COMMENT + " TEXT);";
+            + COL_COMMENT + " TEXT,"
+            + COL_DEFAULT + " INTEGER);";
 
 
     public DbManager(Context context, String name, CursorFactory factory, int version) {
@@ -171,6 +174,11 @@ public class DbManager extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE " + CREATE_TABLE_SWITCH + ";");
         db.execSQL("DROP TABLE " + CREATE_TABLE_SITES + ";");
         */
+
+
+        db.execSQL("ALTER TABLE " + TABLE_SITES + " ADD COLUMN " + COL_DEFAULT + " INTEGER;");
+
+
 	}
 	
 			

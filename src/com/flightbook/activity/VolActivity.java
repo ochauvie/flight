@@ -12,6 +12,7 @@ import com.flightbook.model.Aeronef;
 import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
+import com.flightbook.sqllite.DbSite;
 import com.flightbook.sqllite.DbVol;
 
 import android.location.Location;
@@ -46,6 +47,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	
 	private MyDialogInterface myInterface;
 	private DbVol dbVol = new DbVol(this);
+    private DbSite dbSite = new DbSite(this);
 	private RelativeLayout relativeLayout;
 	private ImageButton saveButton, deleteButton;
 	private EditText aeronef, minVol, minMot, secMot, note, lieu, flightDate;
@@ -285,10 +287,21 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         minVol.setText(null);
         minMot.setText(null);
         secMot.setText(null);
-        
+
+        String toSay = "";
+
+        // Try to find default site
+        dbSite.open();
+        Site defaultSite = dbSite.getDefaultSite();
+        if (defaultSite!=null) {
+            lieu.setText(defaultSite.getName());
+            toSay = toSay + " "  + defaultSite.getName();
+        }
+        dbSite.close();
+
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
-            String toSay = "";
+
         	String sAeronef = bundle.getString(Aeronef.NAME);
         	typeAeronef = bundle.getString(Aeronef.TYPE);
         	if (sAeronef!=null) {
@@ -320,10 +333,10 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
             if (sNote!=null && !"".equals(sNote)) {
                 note.setText(sNote);
             }
+        }
 
-            if (!"".equals(toSay)) {
-                ttsProviderImpl.say(toSay);
-            }
+        if (!"".equals(toSay)) {
+            ttsProviderImpl.say(toSay);
         }
     }
     

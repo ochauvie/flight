@@ -78,7 +78,7 @@ public class DbRadio {
 	}
 	
 	public ArrayList<Radio> getRadios(){
-		Cursor c = bdd.query(DbManager.TABLE_RADIO, new String[] {DbManager.COL_ID, 
+		Cursor c = bdd.query(DbManager.TABLE_RADIO, new String[] {DbManager.COL_ID,
 																 DbManager.COL_NAME}, 
 							null, null, null, null, null);
 		return cursorToRadios(c);

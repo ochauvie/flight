@@ -59,6 +59,7 @@
     <string name="title_activity_site">Site</string>
     <string name="title_activity_addSite">Site</string>
     <string name="site_save">Site saved</string>
+    <string name="site_default">Value by default</string>
 	
 	<string name="title_activity_vols">Records</string>
 

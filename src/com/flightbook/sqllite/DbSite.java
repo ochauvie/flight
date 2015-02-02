@@ -50,7 +50,7 @@ public class DbSite {
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, site.getName());
 		values.put(DbManager.COL_COMMENT, site.getComment());
-
+        values.put(DbManager.COL_DEFAULT, site.getIsDefault());
 		return bdd.insert(DbManager.TABLE_SITES, null, values);
 	}
 
@@ -65,6 +65,7 @@ public class DbSite {
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, site.getName());
 		values.put(DbManager.COL_COMMENT, site.getComment());
+        values.put(DbManager.COL_DEFAULT, site.getIsDefault());
 		return bdd.update(DbManager.TABLE_SITES, values, where, whereArgs);
 	}
 
@@ -84,13 +85,32 @@ public class DbSite {
 	public ArrayList<Site> getSites(){
 		Cursor c = bdd.query(DbManager.TABLE_SITES, new String[] {DbManager.COL_ID,
 																 DbManager.COL_NAME,
-																 DbManager.COL_COMMENT},
+																 DbManager.COL_COMMENT,
+                                                                 DbManager.COL_DEFAULT},
 							null, null, null, null, null);
 		return cursorToSites(c);
 	}
 
 
-	/**
+    public Site getDefaultSite(){
+        String where = DbManager.COL_DEFAULT + "=?";
+        String[] whereArgs = new String[] {String.valueOf(1)};
+        Cursor c = bdd.query(DbManager.TABLE_SITES, new String[] {DbManager.COL_ID,
+                        DbManager.COL_NAME,
+                        DbManager.COL_COMMENT,
+                        DbManager.COL_DEFAULT},
+                where, whereArgs, null, null, null);
+        if (c.getCount() == 0) {
+            return null;
+        }
+        c.moveToNext();
+        Site site = cursorToSite(c);
+        c.close();
+        return site;
+    }
+
+
+    /**
 	 * Get {@link com.flightbook.model.Site} by id
 	 * @return the {@link com.flightbook.model.Site}
 	 */
@@ -99,7 +119,8 @@ public class DbSite {
 		String[] whereArgs = new String[] {String.valueOf(id)};
 		Cursor c = bdd.query(DbManager.TABLE_SITES, new String[] {DbManager.COL_ID,
 																 DbManager.COL_NAME,
-																 DbManager.COL_COMMENT},
+																 DbManager.COL_COMMENT,
+                                                                 DbManager.COL_DEFAULT},
 								where, whereArgs, null, null, null);
 		if (c.getCount() == 0) {
 			return null;
@@ -141,7 +162,7 @@ public class DbSite {
 		site.setId(c.getInt(DbManager.NUM_COL_ID));
 		site.setName(c.getString(DbManager.NUM_COL_NAME));
 		site.setComment(c.getString(DbManager.NUM_COL_SITE_COMMENT));
-		
+        site.setIsDefault(c.getInt(DbManager.NUM_COL_SITE_DEFAULT));
  		return site;
 	}
 	

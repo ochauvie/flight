@@ -12,6 +12,7 @@ public class Site {
 	private int id;
 	private String name;
 	private String comment;
+    private int isDefault;
 	
 	/**
 	 * Getter id
@@ -61,7 +62,13 @@ public class Site {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
 
+    public int getIsDefault() {
+        return isDefault;
+    }
+
+    public void setIsDefault(int isDefault) {
+        this.isDefault = isDefault;
+    }
 	
 }

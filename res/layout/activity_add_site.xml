@@ -51,14 +51,24 @@
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
 	        android:inputType="text" />
-		
+
+
+        <CheckBox
+            android:id="@+id/site_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:layout_below="@+id/editTextComment"
+            android:text="@string/site_default" />
+
 
 		<TextView
 	        android:id="@+id/textViewLog"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textViewComment"
+	        android:layout_below="@+id/site_default"
 	        android:layout_marginLeft="16dp"
 	        android:layout_marginTop="17dp" 
 	        android:text="@string/log" />

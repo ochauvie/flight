@@ -8,9 +8,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.flightbook.R;
@@ -20,6 +22,7 @@ import com.flightbook.sqllite.DbSite;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 
 @TargetApi(14)
 public class AddSiteActivity extends Activity {
@@ -30,6 +33,7 @@ public class AddSiteActivity extends Activity {
 	private EditText name, comment;
 	private TextView log;
 	private ImageButton save, close;
+    private CheckBox siteDefault;
 
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class AddSiteActivity extends Activity {
 	        
 	        name = (EditText) findViewById(R.id.editTextName);
 	        comment = (EditText) findViewById(R.id.editTextComment);
+            siteDefault = (CheckBox) findViewById(R.id.site_default);
 	        
 
 	        // Get site in parameter
@@ -73,13 +78,28 @@ public class AddSiteActivity extends Activity {
 	    	        		} 
 		        			site.setName(edName.toString());
 		        			site.setComment(comment.getText().toString());
+                            if (siteDefault.isChecked()) {
+                                site.setIsDefault(1);
+                            } else {
+                                site.setIsDefault(0);
+                            }
 
 		        			dbSite.open();
-		        			if (site.getId()!=0) {
-		        				dbSite.updateSite(site);
-		        			} else {
-		        				dbSite.insertSite(site);
-		        			}
+                                if (site.getId()!=0) {
+                                    dbSite.updateSite(site);
+                                } else {
+                                    dbSite.insertSite(site);
+                                }
+                                if (site.getIsDefault()==1) {
+                                    ArrayList<Site> oldSites = dbSite.getSites();
+                                    for (Site oldSite:oldSites) {
+                                        if (oldSite.getIsDefault()==1 && !oldSite.getName().equals(site.getName()))
+                                        {
+                                            oldSite.setIsDefault(0);
+                                            dbSite.updateSite(oldSite);
+                                        }
+                                    }
+                                }
 		        			dbSite.close();
 		        			
 		        			log.setText(R.string.site_save);
@@ -108,7 +128,11 @@ public class AddSiteActivity extends Activity {
 	        		dbSite.close();
 	        		if (site!=null) {
 	        			name.setText(site.getName());
-	        	        comment .setText(site.getComment());
+	        	        comment.setText(site.getComment());
+                        siteDefault.setChecked(false);
+                        if (site.getIsDefault()==1) {
+                            siteDefault.setChecked(true);
+                        }
 	        		}
 	        	}
 	        }

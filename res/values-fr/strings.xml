@@ -60,6 +60,8 @@
     <string name="title_activity_site">Lieu</string>
     <string name="title_activity_addSite">Lieu</string>
     <string name="site_save">Lieu sauvegardé</string>
+    <string name="site_default">Selectionné par défault</string>
+
 	
 	<string name="title_activity_vols">Liste des enregistrements</string>
 

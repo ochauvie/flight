@@ -1,6 +1,7 @@
 package com.flightbook.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,6 +96,10 @@ public class SitesAdapter extends BaseAdapter{
 		//(3) : Renseignement des valeurs
 		tv_name.setText(sites.get(position).getName());
 
+        // Site par défault en rouge
+        if (1==sites.get(position).getIsDefault()) {
+            tv_name.setTextColor(Color.RED);
+        }
 
 		// On memorise la position  dans le composant textview
 		tv_name.setTag(position);

@@ -13,6 +13,7 @@ public final class InitSites {
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, "HOBBY CLUB");
 		values.put(DbManager.COL_COMMENT, "Belfontaine");
+        values.put(DbManager.COL_DEFAULT, 1);
 		db.insert(DbManager.TABLE_SITES, null, values);
 
         values = new ContentValues();
