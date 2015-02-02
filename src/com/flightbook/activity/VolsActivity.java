@@ -118,7 +118,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     private void majFooter() {
         totalVol.setText(getTotalVol());
         nbVol.setText(getNbVol());
-        nbDate.setText(getNbDate());
+        nbDate.setText(getNbDate() + " " + getString(R.string.day));
     }
 
     /**
