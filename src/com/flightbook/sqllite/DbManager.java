@@ -176,7 +176,7 @@ public class DbManager extends SQLiteOpenHelper {
         */
 
 
-        db.execSQL("ALTER TABLE " + TABLE_SITES + " ADD COLUMN " + COL_DEFAULT + " INTEGER;");
+       // db.execSQL("ALTER TABLE " + TABLE_SITES + " ADD COLUMN " + COL_DEFAULT + " INTEGER;");
 
 
 	}

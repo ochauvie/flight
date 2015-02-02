@@ -55,9 +55,15 @@ public class VolsAdapter extends BaseAdapter {
 	    }
 	}
 
-    private void sendListenerToFilter(Vol item, int position) {
+    private void sendListenerToFilterByMachine(Vol item, int position) {
         for(int i = mListListener.size()-1; i >= 0; i--) {
             mListListener.get(i).onClickName(item, position);
+        }
+    }
+
+    private void sendListenerToFilterByDate(Vol item, int position) {
+        for(int i = mListListener.size()-1; i >= 0; i--) {
+            mListListener.get(i).onClickDate(item, position);
         }
     }
 
@@ -120,7 +126,8 @@ public class VolsAdapter extends BaseAdapter {
 
 		  
 		//On memorise la position du vol dans le composant textview
-		  tv_name.setTag(position);
+          tv_date.setTag(position);
+          tv_name.setTag(position);
           tv_vol.setTag(position);
 		  bDelete.setTag(position);
 		  
@@ -157,8 +164,20 @@ public class VolsAdapter extends BaseAdapter {
                    Integer position = (Integer)v.getTag();
 
                    //On previent les listeners qu'il y a eu un clic
-                   sendListenerToFilter(vols.get(position), position);
+                   sendListenerToFilterByMachine(vols.get(position), position);
                 }
+        });
+
+        tv_date.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Lorsque l'on clique sur nom, on recupere la position
+                Integer position = (Integer)v.getTag();
+
+                //On previent les listeners qu'il y a eu un clic
+                sendListenerToFilterByDate(vols.get(position), position);
+            }
         });
 		  
 		  

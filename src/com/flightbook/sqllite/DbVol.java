@@ -111,6 +111,33 @@ public class DbVol {
                 where, whereArgs, null, null, orderBy);
         return cursorToVols(c);
     }
+
+    /**
+     * Get {@link Vol} list
+     * @return the list for one flight date
+     */
+    public ArrayList<Vol> getVolsByDate(String date){
+        String orderBy = DbManager.COL_NAME;
+
+        String where = null;
+        String[] whereArgs = null;
+        if (date!=null && !"".equals(date)) {
+            where = DbManager.COL_DATE + "=?";
+            whereArgs = new String[] {date};
+        }
+
+        Cursor c = bdd.query(DbManager.TABLE_VOLS, new String[] {DbManager.COL_ID,
+                        DbManager.COL_NAME,
+                        DbManager.COL_TYPE,
+                        DbManager.COL_MIN_VOL,
+                        DbManager.COL_MIN_MOTEUR,
+                        DbManager.COL_SEC_MOTEUR,
+                        DbManager.COL_DATE,
+                        DbManager.COL_NOTE,
+                        DbManager.COL_LIEU},
+                where, whereArgs, null, null, orderBy);
+        return cursorToVols(c);
+    }
 	
 	/**
 	 * Delete all {@link Vol}
