@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.flightbook"
+    package="com.carnetvol"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -27,7 +27,7 @@
 
         
         <activity
-            android:name="com.flightbook.activity.SplashActivity"
+            android:name="com.carnetvol.activity.SplashActivity"
             android:label="@string/app_name_maj"> 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,76 +40,76 @@
     		</intent-filter>
         </activity>
         <activity
-            android:name="com.flightbook.activity.VolActivity"
+            android:name="com.carnetvol.activity.VolActivity"
             android:label="@string/title_activity_vol" 
             android:icon="@drawable/vol">
         </activity>
         <activity
-            android:name=".activity.FlightBookActivity"
+            android:name="com.carnetvol.activity.FlightBookActivity"
             android:label="@string/title_activity_flightbook" >
         </activity>
         <activity
-            android:name="com.flightbook.activity.VolsActivity"
+            android:name="com.carnetvol.activity.VolsActivity"
             android:label="@string/title_activity_vols" 
             android:icon="@drawable/recorder">
         </activity>
         <activity
-            android:name="com.flightbook.activity.HangarActivity"
+            android:name="com.carnetvol.activity.HangarActivity"
             android:label="@string/title_activity_hangar"
             android:icon="@drawable/hangar">
         </activity>
         <activity
-            android:name="com.flightbook.activity.AddAeronefActivity"
+            android:name="com.carnetvol.activity.AddAeronefActivity"
             android:label="@string/title_activity_addAeronef"
             android:icon="@drawable/hangar">
         </activity>
         <activity
-            android:name="com.flightbook.activity.SiteActivity"
+            android:name="com.carnetvol.activity.SiteActivity"
             android:label="@string/title_activity_site"
             android:icon="@drawable/index">
         </activity>
         <activity
-            android:name="com.flightbook.activity.AddSiteActivity"
+            android:name="com.carnetvol.activity.AddSiteActivity"
             android:label="@string/title_activity_addSite"
             android:icon="@drawable/index">
         </activity>
         <activity
-            android:name="com.flightbook.activity.MeteoActivity"
+            android:name="com.carnetvol.activity.MeteoActivity"
             android:label="@string/title_activity_meteo"
             android:icon="@drawable/meteo">
         </activity>
         <activity
-            android:name="com.flightbook.activity.RadiosActivity"
+            android:name="com.carnetvol.activity.RadiosActivity"
             android:label="@string/title_activity_radios"
             android:icon="@drawable/ff9">
         </activity>
         <activity
-            android:name="com.flightbook.activity.RadioActivity"
+            android:name="com.carnetvol.activity.RadioActivity"
             android:label="@string/title_activity_radio"
             android:icon="@drawable/ff9">
         </activity>
         <activity
-            android:name="com.flightbook.activity.AddSwitchPotarActivity"
+            android:name="com.carnetvol.activity.AddSwitchPotarActivity"
             android:label="@string/title_activity_switchpotar"
             android:icon="@drawable/inter">
         </activity>
         <activity
-            android:name="com.flightbook.activity.CarteActivity"
+            android:name="com.carnetvol.activity.CarteActivity"
             android:label="@string/title_activity_carte"
             android:icon="@drawable/carte">
         </activity>
         <activity
-            android:name="com.flightbook.activity.ChecklistsActivity"
+            android:name="com.carnetvol.activity.ChecklistsActivity"
             android:label="@string/title_activity_checklist"
             android:icon="@drawable/checklist">
         </activity>
         <activity
-            android:name="com.flightbook.activity.ChecklistActivity"
+            android:name="com.carnetvol.activity.ChecklistActivity"
             android:label="@string/title_activity_checklist"
             android:icon="@drawable/checklist">
         </activity>
         <activity
-            android:name="com.flightbook.activity.UpdateChecklistActivity"
+            android:name="com.carnetvol.activity.UpdateChecklistActivity"
             android:label="@string/title_activity_checklist"
             android:icon="@drawable/checklist">
         </activity>
@@ -118,8 +118,16 @@
             android:label="@string/title_activity_chart_time"
             android:icon="@drawable/chart">
         </activity>
-
-
+        <activity
+            android:name="com.carnetvol.activity.AccusActivity"
+            android:label="@string/title_activity_accu"
+            android:icon="@drawable/index">
+        </activity>
+        <activity
+            android:name="com.carnetvol.activity.AddAccuActivity"
+            android:label="@string/title_activity_addAccu"
+            android:icon="@drawable/index">
+        </activity>
 
 
 

@@ -136,4 +136,11 @@
 	<string name="log">Log</string>
 	
 	<string name="bye">Bye</string>
+
+    <string name="title_activity_accu">Accu</string>
+    <string name="accu_propultion">Accu</string>
+    <string name="selectAccu">Engine accu</string>
+    <string name="title_activity_addAccu">Accu</string>
+    <string name="accu_save">Accu saved</string>
+
 </resources>

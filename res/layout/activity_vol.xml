@@ -157,17 +157,57 @@
 	        android:layout_below="@+id/editTextMinVol"
 	        android:layout_marginLeft="240dp"
 	        android:text="@string/sec" />
-	    
-	     <TextView
+
+
+        <TextView
+            android:id="@+id/textViewTittleAccuPropultion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewMot"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/accu_propultion" />
+
+
+        <EditText
+            android:id="@+id/textViewAccuPropultion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewTittleAccuPropultion"
+            android:layout_alignBottom="@+id/textViewTittleAccuPropultion"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="90dp"
+            android:ems="10"
+            android:inputType="textCapSentences"
+            android:layout_alignRight="@+id/editTextSecMot" />
+
+
+        <ImageButton
+            android:id="@+id/selectAccuPropultion"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/selectAccu"
+            android:background="#00000000"
+            android:src="@drawable/accu"
+            android:layout_alignBottom="@+id/textViewNote"
+            android:layout_toLeftOf="@+id/site"
+            android:layout_alignParentRight="true" />
+
+
+        <TextView
 	        android:id="@+id/textViewNote"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textViewMot"
+	        android:layout_below="@+id/textViewTittleAccuPropultion"
 	        android:layout_marginLeft="16dp"
 	        android:layout_marginTop="17dp"
             android:text="@string/note" />
-	    
+
+
+
+
 	    <EditText
 	        android:id="@+id/editTextNote"
 	        android:layout_width="wrap_content"
@@ -177,7 +217,8 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-            android:inputType="textCapSentences" />
+            android:inputType="textCapSentences"
+            android:layout_alignRight="@+id/editTextSecMot" />
 	    
 	    <TextView
 	        android:id="@+id/textViewLieu"
@@ -198,17 +239,18 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:layout_toLeftOf="@+id/selectAccuPropultion" />
 	    
 	      <ImageButton
 	        android:id="@+id/site"
 	        android:layout_width="44dp"
 	        android:layout_height="44dp"
-	        android:layout_alignTop="@+id/textViewLieu"
-	        android:layout_alignParentRight="true"
-	        android:contentDescription="@string/gps"
+              android:contentDescription="@string/gps"
 	        android:background="#00000000"
-	        android:src="@drawable/index" />
+	        android:src="@drawable/index"
+              android:layout_alignTop="@+id/gps"
+              android:layout_alignRight="@+id/textViewUnitVol" />
 
             <ImageButton
                 android:id="@+id/gps"
@@ -217,18 +259,16 @@
                 android:contentDescription="@string/lieu"
                 android:background="#00000000"
                 android:src="@drawable/gps"
-                android:layout_above="@+id/layout2"
-                android:layout_alignLeft="@+id/site" />
+                android:layout_alignTop="@+id/textViewLieu"
+                android:layout_alignRight="@+id/selectAccuPropultion" />
 	    
 	    <TextView
-	        android:id="@+id/editText1"
+	        android:id="@+id/log"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textViewLieu"
-	        android:layout_marginTop="60dp"
-	        android:layout_marginLeft="16dp"
-	        android:ems="10"/>
+            android:ems="10"
+            android:layout_below="@+id/site"
+            android:layout_alignRight="@+id/selectAccuPropultion" />
 	    
 	    
 	     <LinearLayout
@@ -238,7 +278,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_alignParentRight="true"
 	        android:layout_alignParentBottom="true"
-	        android:layout_below="@+id/editText1">
+	        android:layout_below="@+id/log">
 				     
 		      <ImageButton
 			        android:id="@+id/saveVol"
