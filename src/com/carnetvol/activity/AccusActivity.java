@@ -64,7 +64,9 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         accus = dbAccu.getAccus();
         dbAccu.close();
 
+        View header = getLayoutInflater().inflate(R.layout.activity_header_accus, null);
         listView = getListView();
+        listView.addHeaderView(header);
         
         // Creation et initialisation de l'Adapter pour les accus
         adapter = new AccusAdapter(this, accus);

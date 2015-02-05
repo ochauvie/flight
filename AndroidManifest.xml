@@ -126,7 +126,7 @@
         <activity
             android:name="com.carnetvol.activity.AddAccuActivity"
             android:label="@string/title_activity_addAccu"
-            android:icon="@drawable/accu">
+            android:icon="@drawable/accu_white">
         </activity>
 
 

@@ -151,7 +151,9 @@
     <string name="accu_marque">Marque</string>
     <string name="accu_date_achat">Date d\'achat</string>
     <string name="accu_nb_cycle">Nombre de cycles</string>
-
+    <string name="accu_header_nb_element">Els</string>
+    <string name="accu_header_capacite">mAH</string>
+    <string name="accu_header_tauxDecharge">C</string>
 
 
 

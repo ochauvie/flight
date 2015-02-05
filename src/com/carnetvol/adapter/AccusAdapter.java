@@ -1,7 +1,11 @@
 package com.carnetvol.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.opengl.Visibility;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -90,12 +94,25 @@ public class AccusAdapter extends BaseAdapter{
 		//(2) : Recuperation des TextView de notre layout
 		TextView tv_name = (TextView)layoutItem.findViewById(R.id.nom);
         TextView tv_type = (TextView)layoutItem.findViewById(R.id.type);
+        TextView tv_nbElements = (TextView)layoutItem.findViewById(R.id.nbElements);
+        TextView tv_capacite = (TextView)layoutItem.findViewById(R.id.capacite);
+        TextView tv_tauxDecharge = (TextView)layoutItem.findViewById(R.id.tauxDecharge);
+        TextView tv_marque = (TextView)layoutItem.findViewById(R.id.marque);
+
 		ImageButton bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteAccu);
         ImageButton bUpdate = (ImageButton)layoutItem.findViewById(R.id.updateAccu);
 		        
 		//(3) : Renseignement des valeurs
 		tv_name.setText(accus.get(position).getNom());
         tv_type.setText(accus.get(position).getType().name());
+
+        // Affichage des colonnes suivants l'orientation de la page
+        if (tv_nbElements!=null) {
+            tv_nbElements.setText(String.valueOf(accus.get(position).getNbElements()));
+            tv_capacite.setText(String.valueOf(accus.get(position).getCapacite()));
+            tv_tauxDecharge.setText(String.valueOf(accus.get(position).getTauxDecharge()));
+            tv_marque.setText(accus.get(position).getMarque());
+        }
 
 
 		// On memorise la position  dans le composant textview
