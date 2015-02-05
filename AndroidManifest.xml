@@ -121,12 +121,12 @@
         <activity
             android:name="com.carnetvol.activity.AccusActivity"
             android:label="@string/title_activity_accu"
-            android:icon="@drawable/index">
+            android:icon="@drawable/accu">
         </activity>
         <activity
             android:name="com.carnetvol.activity.AddAccuActivity"
             android:label="@string/title_activity_addAccu"
-            android:icon="@drawable/index">
+            android:icon="@drawable/accu">
         </activity>
 
 

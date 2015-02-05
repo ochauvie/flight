@@ -142,5 +142,14 @@
     <string name="selectAccu">Engine accu</string>
     <string name="title_activity_addAccu">Accu</string>
     <string name="accu_save">Accu saved</string>
+    <string name="accu_nb_element">Number of elements</string>
+    <string name="accu_capacite">Capacity (mAh)</string>
+    <string name="accu_voltage">Voltage (V)</string>
+    <string name="accu_tauxDecharge">Discharge rate (C)</string>
+    <string name="accu_numero">Number</string>
+    <string name="accu_nom">Name</string>
+    <string name="accu_marque">Brand</string>
+    <string name="accu_date_achat">Date of purchase</string>
+    <string name="accu_nb_cycle">Number of cycles</string>
 
 </resources>

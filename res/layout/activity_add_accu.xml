@@ -17,28 +17,186 @@
 	        android:layout_alignParentTop="true"
 	        android:layout_marginLeft="16dp"
 	        android:layout_marginTop="20dp"
-	        android:text="@string/name" />
+	        android:text="@string/accu_nom" />
 		
 		<EditText
 	        android:id="@+id/editTextName"
-	        android:layout_width="180dp"
+            android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:layout_alignBaseline="@+id/textViewAeronef"
-	        android:layout_alignBottom="@+id/textViewAeronef"
-	        android:layout_alignParentLeft="true"
-	        android:layout_marginLeft="90dp"
+	        android:layout_alignBaseline="@+id/textViewName"
+	        android:layout_toRightOf="@+id/textViewName"
 	        android:ems="10"
-	        android:inputType="text" />
-		
+	        android:inputType="textCapWords" />
+
+        <TextView
+            android:id="@+id/textViewType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewName"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/type" />
+
+        <Spinner
+            android:id="@+id/spinnerType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/textViewType"
+            android:layout_alignTop="@+id/textViewType"
+            android:layout_toRightOf="@+id/textViewType"/>
+
+
+        <TextView
+            android:id="@+id/textViewNbElement"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewType"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/accu_nb_element" />
+
+        <EditText
+            android:id="@+id/editTextNbElement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewNbElement"
+            android:layout_alignBaseline="@+id/textViewNbElement"
+            android:inputType="number"/>
 
 
 
-		<TextView
+        <TextView
+            android:id="@+id/textViewCapacite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewNbElement"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/accu_capacite" />
+
+        <EditText
+            android:id="@+id/editTextCapacite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewCapacite"
+            android:layout_alignBaseline="@+id/textViewCapacite"
+            android:inputType="number"/>
+
+        <TextView
+            android:id="@+id/textViewTxDecharge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewCapacite"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/accu_tauxDecharge" />
+
+        <EditText
+            android:id="@+id/editTextTxDecharge"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewTxDecharge"
+            android:layout_alignBaseline="@+id/textViewTxDecharge"
+            android:inputType="number"/>
+
+        <TextView
+            android:id="@+id/textViewMarque"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewTxDecharge"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/accu_marque" />
+
+        <EditText
+            android:id="@+id/editTextMarque"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewMarque"
+            android:layout_alignBaseline="@+id/textViewMarque"
+            android:inputType="textCapWords"/>
+
+
+        <TextView
+            android:id="@+id/textViewNumero"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewMarque"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/accu_numero" />
+
+        <EditText
+            android:id="@+id/editTextNumero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewNumero"
+            android:layout_alignBaseline="@+id/textViewNumero"
+            android:inputType="number"/>
+
+        <TextView
+            android:id="@+id/textViewDateAchat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewNumero"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/accu_date_achat" />
+
+        <EditText
+            android:id="@+id/editTextDateAchat"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewDateAchat"
+            android:layout_alignBaseline="@+id/textViewDateAchat"
+            android:inputType="text"/>
+
+
+        <ImageButton
+            android:id="@+id/selectDate"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/editTextDateAchat"
+            android:layout_alignBaseline="@+id/editTextDateAchat"
+            android:contentDescription="@string/date"
+            android:background="#00000000"
+            android:src="@drawable/calendrier" />
+
+
+        <TextView
+            android:id="@+id/textViewNbCycles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/textViewDateAchat"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="17dp"
+            android:text="@string/accu_nb_cycle" />
+
+        <EditText
+            android:id="@+id/editTextNbCycles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textViewNbCycles"
+            android:layout_alignBaseline="@+id/textViewNbCycles"
+            android:inputType="number"
+            android:layout_alignRight="@+id/editTextDateAchat" />
+
+
+
+        <TextView
 	        android:id="@+id/textViewLog"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textViewName"
+	        android:layout_below="@+id/textViewNbCycles"
 	        android:layout_marginLeft="16dp"
 	        android:layout_marginTop="17dp" 
 	        android:text="@string/log" />
@@ -58,19 +216,20 @@
 		        android:background="#00000000"
 		        android:contentDescription="@string/save"
 		        android:src="@drawable/save" />
-			
 
-			 <ImageButton
-		        android:id="@+id/close"
-		        android:layout_width="96dp"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="30dp"
-		        android:background="#00000000"
-		        android:contentDescription="@string/close"
-		        android:src="@drawable/close" />
-				
-		 </LinearLayout>
-		
-	</RelativeLayout>
+
+         </LinearLayout>
+
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="96dp"
+            android:layout_height="wrap_content"
+            android:background="#00000000"
+            android:contentDescription="@string/close"
+            android:src="@drawable/close"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" />
+
+    </RelativeLayout>
 
 </ScrollView>

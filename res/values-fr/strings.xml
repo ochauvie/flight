@@ -142,7 +142,15 @@
     <string name="selectAccu">Accu propultion</string>
     <string name="title_activity_addAccu">Accu</string>
     <string name="accu_save">Accu sauvegardé</string>
-
+    <string name="accu_nb_element">Nombre d\'éléments</string>
+    <string name="accu_capacite">Capacité (mAh)</string>
+    <string name="accu_voltage">Voltage (V)</string>
+    <string name="accu_tauxDecharge">Taux décharge (C)</string>
+    <string name="accu_numero">Numéro</string>
+    <string name="accu_nom">Nom</string>
+    <string name="accu_marque">Marque</string>
+    <string name="accu_date_achat">Date d\'achat</string>
+    <string name="accu_nb_cycle">Nombre de cycles</string>
 
 
 
