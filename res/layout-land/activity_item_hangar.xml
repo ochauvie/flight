@@ -21,6 +21,24 @@
 		android:layout_marginLeft="180dp">
 	</TextView>
 
+    <TextView android:id="@+id/envergure"
+        android:text="@string/wingSpan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:layout_marginLeft="270dp">
+    </TextView>
+
+    <TextView android:id="@+id/poids"
+        android:text="@string/weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:textSize="15sp"
+        android:layout_marginLeft="360dp">
+    </TextView>
+
 
     <ImageButton
         android:id="@+id/updateAeronef"

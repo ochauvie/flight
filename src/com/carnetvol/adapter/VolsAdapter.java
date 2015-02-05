@@ -24,8 +24,10 @@ public class VolsAdapter extends BaseAdapter {
 	private List<Vol> vols;
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private TextView tv_date, tv_name, tv_vol, tv_moteur;
+	private TextView tv_date, tv_name, tv_vol, tv_moteur, tv_lieu, tv_note;
 	private ImageButton bDelete;
+
+    private boolean isLandscape = false;
 	
 	//Contient la liste des listeners
 	private ArrayList<VolsAdapterListener> mListListener = new ArrayList<VolsAdapterListener>();
@@ -106,8 +108,15 @@ public class VolsAdapter extends BaseAdapter {
 		  tv_name = (TextView)layoutItem.findViewById(R.id.name);
 		  tv_vol = (TextView)layoutItem.findViewById(R.id.tempsVol);
 		  tv_moteur = (TextView)layoutItem.findViewById(R.id.tempsMoteur);
+          tv_lieu = (TextView)layoutItem.findViewById(R.id.lieu);
+          tv_note = (TextView)layoutItem.findViewById(R.id.note);
 		  bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteVol);
-		        
+
+         if (tv_lieu!=null && tv_note!=null) {
+             isLandscape = true;
+         }
+
+
 		  //(3) : Renseignement des valeurs
 		  Vol flight = vols.get(position);
 		  SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
@@ -124,25 +133,34 @@ public class VolsAdapter extends BaseAdapter {
 		  //(4) Changement de la couleur du fond de notre item
 		  tv_name.setTextColor(Aeronef.getColor(flight.getType()));
 
-		  
+
+        // Affichage suivant le format de l'écran
+        if (isLandscape) {
+            tv_lieu.setText(flight.getLieu());
+            tv_note.setText(flight.getNote());
+        }
+
+
 		//On memorise la position du vol dans le composant textview
           tv_date.setTag(position);
           tv_name.setTag(position);
           tv_vol.setTag(position);
 		  bDelete.setTag(position);
 		  
-		  //On ajoute un listener
-           tv_vol.setOnClickListener(new View.OnClickListener() {
-			
-				@Override
-				public void onClick(View v) {
-					//Lorsque l'on clique sur le temps de vol, on recupere la position
-					Integer position = (Integer)v.getTag();
-					
-					//On previent les listeners qu'il y a eu un clic
-					sendListenerToNote(vols.get(position), position);
-				}
-			});
+		  //On ajoute un listener en portrait uniquement
+        if (!isLandscape) {
+            tv_vol.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    //Lorsque l'on clique sur le temps de vol, on recupere la position
+                    Integer position = (Integer) v.getTag();
+
+                    //On previent les listeners qu'il y a eu un clic
+                    sendListenerToNote(vols.get(position), position);
+                }
+            });
+        }
 		  
 		  bDelete.setOnClickListener(new View.OnClickListener() {
 				@Override

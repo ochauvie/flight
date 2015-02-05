@@ -22,6 +22,7 @@
     <string name="selectSite">Lieu</string>
     <string name="minVol">Temps</string>
     <string name="moteur">Moteur</string>
+    <string name="moteurLandscape">Mot.</string>
     <string name="min">min</string>
     <string name="sec">sec</string>
 	<string name="save">Enregistrer</string>

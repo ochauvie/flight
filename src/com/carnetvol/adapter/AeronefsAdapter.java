@@ -21,6 +21,9 @@ public class AeronefsAdapter extends BaseAdapter{
 	private List<Aeronef> aeronefs;
 	private Context mContext;
 	private LayoutInflater mInflater;
+
+    private boolean isLanscape = false;
+
 	//Contient la liste des listeners
 	private ArrayList<AeronefAdapterListener> mListListener = new ArrayList<AeronefAdapterListener>();
 	
@@ -91,11 +94,24 @@ public class AeronefsAdapter extends BaseAdapter{
 		  //(2) : Recuperation des TextView de notre layout
 		  TextView tv_type = (TextView)layoutItem.findViewById(R.id.type);
 		  TextView tv_name = (TextView)layoutItem.findViewById(R.id.name);
+          TextView tv_envergure = (TextView)layoutItem.findViewById(R.id.envergure);
+          TextView tv_poids = (TextView)layoutItem.findViewById(R.id.poids);
+
+          if (tv_envergure!=null && tv_poids!=null) {
+              isLanscape = true;
+          }
+          ImageButton bUpdate = (ImageButton)layoutItem.findViewById(R.id.updateAeronef);
 		  ImageButton bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteAeronef);
 		        
 		  //(3) : Renseignement des valeurs       
-		  tv_type.setText("(" + aeronefs.get(position).getType() + ")");
+		  //tv_type.setText("(" + aeronefs.get(position).getType() + ")");
+          tv_type.setText(aeronefs.get(position).getType());
 		  tv_name.setText(aeronefs.get(position).getName());
+          if (isLanscape) {
+              tv_envergure.setText(String.valueOf(aeronefs.get(position).getWingSpan()) + " m");
+              tv_poids.setText(String.valueOf(aeronefs.get(position).getWeight()) + " kg");
+          }
+
 		  
 		  //(4) Changement de la couleur du fond de notre item
 		  String type = aeronefs.get(position).getType();
@@ -104,6 +120,7 @@ public class AeronefsAdapter extends BaseAdapter{
 		  // On memorise la position de l'aeronef dans le composant textview
 		  tv_name.setTag(position);
 		  tv_type.setTag(position);
+          bUpdate.setTag(position);
 		  bDelete.setTag(position);
 		  
 		  // On ajoute un listener sur name
@@ -120,8 +137,8 @@ public class AeronefsAdapter extends BaseAdapter{
 			        	
 			});
 		  
-		  // On ajoute un listener sur type
-		  tv_type.setOnClickListener(new View.OnClickListener() {
+
+		  bUpdate.setOnClickListener(new View.OnClickListener() {
 			
 				@Override
 				public void onClick(View v) {
@@ -133,7 +150,7 @@ public class AeronefsAdapter extends BaseAdapter{
 				}
 			        	
 			});
-		  
+
 		  
 		  bDelete.setOnClickListener(new View.OnClickListener() {
 				@Override
