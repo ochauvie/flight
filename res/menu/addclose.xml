@@ -2,13 +2,13 @@
  
 
 	<item android:id="@+id/add"
-     android:title="@string/menu_piechartbynb"
+     android:title="@string/add"
      android:icon="@drawable/smalladd"
      android:showAsAction="always"
       />
 
     <item android:id="@+id/close"
-        android:title="@string/menu_barchartbynb"
+        android:title="@string/close"
         android:icon="@drawable/smallclose"
         android:showAsAction="always"
         />
