@@ -96,7 +96,7 @@ public class RadioAdapter extends BaseAdapter{
 		  TextView tv_name = (TextView)layoutItem.findViewById(R.id.name);
 		  	tv_name.setTextColor(Color.RED);
 		  TextView tv_action = (TextView)layoutItem.findViewById(R.id.action);
-		  	tv_action.setTextColor(Color.GREEN);
+		  	tv_action.setTextColor(Color.rgb(31,160,85));
 		  TextView tv_up = (TextView)layoutItem.findViewById(R.id.up);
 		  TextView tv_center = (TextView)layoutItem.findViewById(R.id.center);
 		  TextView tv_down = (TextView)layoutItem.findViewById(R.id.down);
@@ -105,7 +105,7 @@ public class RadioAdapter extends BaseAdapter{
 		  if (position<radio.getSwitchs().size()) {
 			  tv_name.setText(ctx.getString(R.string.inter) + " " + radio.getSwitchs().get(position).getName());
 			  tv_action.setText(radio.getSwitchs().get(position).getAction());
-			  tv_action.setTextColor(Color.GREEN);
+			  tv_action.setTextColor(Color.rgb(31,160,85));
 			  tv_up.setText(ctx.getString(R.string.up) + ": " + radio.getSwitchs().get(position).getUp());
 			  String sCenter = radio.getSwitchs().get(position).getCenter();
 			  if (sCenter==null || "".equals(sCenter)) {
