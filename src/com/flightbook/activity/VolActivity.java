@@ -8,6 +8,7 @@ import java.util.Locale;
 
 import com.flightbook.R;
 import com.flightbook.activity.MyDialogInterface.DialogReturn;
+import com.flightbook.model.Accu;
 import com.flightbook.model.Aeronef;
 import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
@@ -50,16 +51,19 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     private DbSite dbSite = new DbSite(this);
 	private RelativeLayout relativeLayout;
 	private ImageButton saveButton, deleteButton;
-	private EditText aeronef, minVol, minMot, secMot, note, lieu, flightDate;
+	private EditText aeronef, minVol, minMot, secMot, note, lieu, flightDate, accuPropultion;
 	private Double latitude, longitude, altitude;
 	private String lieuGps;
-	private ImageButton selectAeronef, butGps, selectDate, butSite;
+	private ImageButton selectAeronef, butGps, selectDate, butSite, butAccuPropultion;
 	private float downXValue;
-	private TextView editText1;
-	private String typeAeronef;
+	private TextView log;
 	private DatePickerDialog datePickerDialog = null;
-	private TtsProviderFactory ttsProviderImpl; 
-	
+	private TtsProviderFactory ttsProviderImpl;
+
+    private Aeronef currentAeronef = null;
+    private Accu currentAccu = null;
+    private Site currentSite = null;
+
 	private AlphaAnimation alphaAnimation;
 	
 	private LocationManager locationMgr = null;
@@ -108,14 +112,16 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         flightDate.setEnabled(false);
         aeronef = (EditText)  findViewById(R.id.editTextAeronef);
         minVol = (EditText)  findViewById(R.id.editTextMinVol);
-        minVol.requestFocus();
+        //minVol.requestFocus();
         minMot = (EditText)  findViewById(R.id.editTextMinMot);
         secMot = (EditText)  findViewById(R.id.editTextSecMot);
         note = (EditText)  findViewById(R.id.editTextNote);
         lieu = (EditText)  findViewById(R.id.editTextLieu);
-        editText1 = (TextView)  findViewById(R.id.editText1);
-        editText1.setTextColor(Color.RED);
-        
+        log = (TextView)  findViewById(R.id.log);
+        log.setTextColor(Color.RED);
+        accuPropultion =  (EditText)  findViewById(R.id.textViewAccuPropultion);
+        accuPropultion.setEnabled(false);
+
         // Gps
         locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (locationMgr!=null) {
@@ -146,7 +152,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         		if (!"".equals(sAronef) && sAronef!=null) {
 	        		Vol vol = new Vol();
 	        		vol.setAeronef(sAronef);
-	        		vol.setType(typeAeronef);
+                    if (currentAeronef!=null) {
+                        vol.setType(currentAeronef.getType());
+                    }
 	        		try {
 	        			vol.setMinutesVol(Integer.valueOf(minVol.getText().toString()));
 	        		} catch (NumberFormatException e) {
@@ -169,7 +177,10 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 						vol.setDateVol(new Date());
 					}
 	        		vol.setNote(note.getText().toString());
-	        		vol.setLieu(lieu.getText().toString());
+	        		if (currentSite!= null) {
+                        vol.setLieu(currentSite.getName());
+                    }
+                    vol.setAccuPropulsion(currentAccu);
 	        		
 	        		dbVol.open();
 	        			dbVol.insertVol(vol);
@@ -186,12 +197,13 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	            	builder.setTitle(getString(R.string.save_ok));
 	            	String say = getString(R.string.save_ok) + " " + getString(R.string.st_for) + " " + vol.getAeronef();
 	            	ttsProviderImpl.say(say);
-	            	
-	            	String result = getString(R.string.aeronef) + ": \t" + vol.getAeronef() + "\n" 
+
+	            	String result = getString(R.string.aeronef) + ": \t" + vol.getAeronef() + "\n"
 	            			+ getString(R.string.vol) + ": \t\t\t\t" + vol.getMinutesVol() + " " + getString(R.string.min) + "\n"
 	            			+ getString(R.string.moteur) + ": \t\t" + vol.getMinutesMoteur() + ":" + sSecondsMOteur + "\n"
-	            			+ getString(R.string.note) + ": \t\t\t" +  vol.getNote() + "\n" 
-							+ vol.getLieu();
+                            + getString(R.string.accu_propultion) + ": \t\t" + (vol.getAccuPropulsion()!=null?vol.getAccuPropulsion().getNom():"") + "\n"
+	            			+ getString(R.string.note) + ": \t\t\t" +  vol.getNote() + "\n"
+                            + getString(R.string.lieu) + ": \t\t\t"+ (vol.getLieu()!=null?vol.getLieu():"");
 	            	
 	            	builder.setMessage(result);
 	            	builder.setInverseBackgroundForced(true);
@@ -206,8 +218,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	            	alert.show();
 	        		
         		} else {
-        			
-        			editText1.setText(getString(R.string.aeronef_mandatory));
+                    log.setText(getString(R.string.aeronef_mandatory));
         			ttsProviderImpl.say(getString(R.string.aeronef_mandatory));
         		}
         	}
@@ -225,12 +236,19 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         selectAeronef = (ImageButton) findViewById(R.id.selectAeronef);
         selectAeronef.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
-        		Intent myIntent = new Intent(v.getContext(), HangarActivity.class);
-                startActivity(myIntent);
+                startActivity(getIntentWithExtra(v.getContext(), HangarActivity.class));
                 finish();
         	}
         });
 
+        // Find accu
+        butAccuPropultion = (ImageButton) findViewById(R.id.selectAccuPropultion);
+        butAccuPropultion.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                startActivity(getIntentWithExtra(v.getContext(), AccusActivity.class));
+                finish();
+            }
+        });
         
         // Position GPS
         butGps = (ImageButton) findViewById(R.id.gps);
@@ -247,15 +265,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         butSite = (ImageButton) findViewById(R.id.site);
         butSite.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(v.getContext(), SiteActivity.class);
-                myIntent.putExtra(Aeronef.NAME, aeronef.getText().toString());
-                myIntent.putExtra(Aeronef.TYPE, typeAeronef);
-                myIntent.putExtra(Vol.DATE, flightDate.getText().toString());
-                myIntent.putExtra(Vol.MIN_VOL, minVol.getText().toString());
-                myIntent.putExtra(Vol.MIN_MOTEUR, minMot.getText().toString());
-                myIntent.putExtra(Vol.SEC_MOTEUR, secMot.getText().toString());
-                myIntent.putExtra(Vol.NOTE, note.getText().toString());
-                startActivity(myIntent);
+                startActivity(getIntentWithExtra(v.getContext(), SiteActivity.class));
                 finish();
             }
         });
@@ -274,6 +284,8 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         		datePickerDialog.show();
         	}
         });
+
+
     }
     
     /**
@@ -287,32 +299,36 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         minVol.setText(null);
         minMot.setText(null);
         secMot.setText(null);
+        currentAccu = null;
+        accuPropultion.setText(null);
+        currentSite = null;
 
         String toSay = "";
 
         // Try to find default site
         dbSite.open();
-        Site defaultSite = dbSite.getDefaultSite();
-        if (defaultSite!=null) {
-            lieu.setText(defaultSite.getName());
-            toSay = toSay + " "  + defaultSite.getName();
+        currentSite = dbSite.getDefaultSite();
+        if (currentSite!=null) {
+            lieu.setText(currentSite.getName());
+            toSay = toSay + " "  + currentSite.getName();
         }
         dbSite.close();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
 
-        	String sAeronef = bundle.getString(Aeronef.NAME);
-        	typeAeronef = bundle.getString(Aeronef.TYPE);
-        	if (sAeronef!=null) {
-        		aeronef.setText(sAeronef);
-                toSay = sAeronef;
+        	currentAeronef = (Aeronef)bundle.getSerializable(Aeronef.class.getName());
+        	if (currentAeronef!=null) {
+        		aeronef.setText(currentAeronef.getName());
+                toSay = currentAeronef.getName();
         	}
-            String sSite = bundle.getString(Site.NAME);
-            if (sSite!=null) {
-                lieu.setText(sSite);
-                toSay = toSay + " "  + sSite;
+
+            currentSite = (Site)bundle.getSerializable(Site.class.getName());
+            if (currentSite!=null) {
+                lieu.setText(currentSite.getName());
+                toSay = toSay + " "  + currentSite.getName();
             }
+
             String sFlightDate = bundle.getString(Vol.DATE);
             if (sFlightDate!=null) {
                 flightDate.setText(sFlightDate);
@@ -333,6 +349,11 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
             if (sNote!=null && !"".equals(sNote)) {
                 note.setText(sNote);
             }
+
+            currentAccu = (Accu)bundle.getSerializable(Accu.class.getName());
+            if (currentAccu!=null) {
+                accuPropultion.setText(currentAccu.getNom());
+            }
         }
 
         if (!"".equals(toSay)) {
@@ -352,9 +373,28 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         secMot.setText(null);
         note.setText("");
         lieu.setText("");
-        editText1.setText("");
+        currentSite = null;
+        log.setText("");
+        accuPropultion.setText(null);
+        currentAccu = null;
+        currentAeronef = null;
+        aeronef.setText(null);
     }
-    
+
+    private Intent getIntentWithExtra(Context context, Class myClass) {
+        Intent myIntent = new Intent(context, myClass);
+        myIntent.putExtra(Aeronef.class.getName(), currentAeronef);
+        myIntent.putExtra(Accu.class.getName(), currentAccu);
+        myIntent.putExtra(Site.class.getName(), currentSite);
+        myIntent.putExtra(Vol.DATE, flightDate.getText().toString());
+        myIntent.putExtra(Vol.MIN_VOL, minVol.getText().toString());
+        myIntent.putExtra(Vol.MIN_MOTEUR, minMot.getText().toString());
+        myIntent.putExtra(Vol.SEC_MOTEUR, secMot.getText().toString());
+        myIntent.putExtra(Vol.NOTE, note.getText().toString());
+        return myIntent;
+    }
+
+
     @Override
     public void onStop() {
     	super.onStop();

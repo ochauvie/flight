@@ -1,6 +1,7 @@
 package com.flightbook.sqllite;
 
 
+import com.flightbook.sqllite.init.InitAccus;
 import com.flightbook.sqllite.init.InitChecklist;
 import com.flightbook.sqllite.init.InitHangar;
 import com.flightbook.sqllite.init.InitRadio;
@@ -33,6 +34,8 @@ public class DbManager extends SQLiteOpenHelper {
 	public static final int NUM_COL_NOTE = 7;
 	public static final String COL_LIEU = "LIEU";
 	public static final int NUM_COL_LIEU = 8;
+    public static final String COL_ID_ACCU_PROPULSION = "ACCU_PROPULSION";
+    public static final int NUM_COL_ID_ACCU_PROPULSION = 9;
 	
 	public static final String TABLE_AERONEFS = "table_aeronefs";
 	public static final String COL_TYPE = "TYPE";
@@ -52,9 +55,32 @@ public class DbManager extends SQLiteOpenHelper {
     public static final int NUM_COL_SITE_DEFAULT = 3;
 
     public static final int NUM_COL_SITE_COMMENT = 2;
-	
-	
-	private static final String CREATE_TABLE_VOLS = "CREATE TABLE " + TABLE_VOLS + " ("
+
+    public static final String TABLE_ACCUS = "table_accus";
+    public static final String COL_ACCU_TYPE = "TYPE";
+        public static final int NUM_COL_ACCU_TYPE = 1;
+    public static final String COL_ACCU_ELEMENTS = "ELEMENTS";
+        public static final int NUM_COL_ACCU_ELEMENTS = 2;
+    public static final String COL_ACCU_CAPACITE = "CAPACITE";
+        public static final int NUM_COL_ACCU_CAPACITE = 3;
+    public static final String COL_ACCU_TAUX_DECHARGE = "TAUX_DECHARGE";
+        public static final int NUM_COL_ACCU_TAUX_DECHARGE = 4;
+    public static final String COL_ACCU_NUMERO = "NUMERO";
+        public static final int NUM_COL_ACCU_NUMERO = 5;
+    public static final String COL_ACCU_NOM = "NOM";
+        public static final int NUM_COL_ACCU_NOM = 6;
+    public static final String COL_ACCU_MARQUE = "MARQUE";
+        public static final int NUM_COL_ACCU_MARQUE = 7;
+    public static final String COL_ACCU_DATE_ACHAT = "DATE_ACHAT";
+        public static final int NUM_COL_ACCU_DATE_ACHAT = 8;
+    public static final String COL_ACCU_CYCLES = "CYCLES";
+        public static final int NUM_COL_ACCU_CYCLES = 9;
+    public static final String COL_ACCU_VOLTAGE = "VOLTAGE";
+        public static final int NUM_COL_ACCU_VOLTAGE = 10;
+
+
+
+    private static final String CREATE_TABLE_VOLS = "CREATE TABLE " + TABLE_VOLS + " ("
 			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
 			+ COL_NAME + " TEXT NOT NULL, "
 			+ COL_TYPE + " TEXT, "
@@ -63,8 +89,9 @@ public class DbManager extends SQLiteOpenHelper {
 			+ COL_SEC_MOTEUR + " INTEGER, "
 			+ COL_DATE + " TEXT NOT NULL, "
 			+ COL_NOTE + " TEXT, "
-			+ COL_LIEU + " TEXT);";
-	
+			+ COL_LIEU + " TEXT, "
+            + COL_ID_ACCU_PROPULSION + " INTEGER);";
+
 	
 	private static final String CREATE_TABLE_AERONEFS = "CREATE TABLE " + TABLE_AERONEFS + " ("
 			+ COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " 
@@ -136,6 +163,20 @@ public class DbManager extends SQLiteOpenHelper {
             + COL_DEFAULT + " INTEGER);";
 
 
+    private static final String CREATE_TABLE_ACCUS = "CREATE TABLE " + TABLE_ACCUS + " ("
+            + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + COL_ACCU_TYPE + " TEXT NOT NULL, "
+            + COL_ACCU_ELEMENTS + " INTEGER,"
+            + COL_ACCU_CAPACITE + " INTEGER,"
+            + COL_ACCU_TAUX_DECHARGE + " INTEGER,"
+            + COL_ACCU_NUMERO + " INTEGER,"
+            + COL_ACCU_NOM + " TEXT,"
+            + COL_ACCU_MARQUE + " TEXT,"
+            + COL_ACCU_DATE_ACHAT + " TEXT,"
+            + COL_ACCU_CYCLES + " INTEGER,"
+            + COL_ACCU_VOLTAGE + " REAL);";
+
+
     public DbManager(Context context, String name, CursorFactory factory, int version) {
 		super(context, name, factory, version);
 	}
@@ -154,11 +195,14 @@ public class DbManager extends SQLiteOpenHelper {
 		db.execSQL(CREATE_TABLE_CHECKLIST);
 
         db.execSQL(CREATE_TABLE_SITES);
+
+        db.execSQL(CREATE_TABLE_ACCUS);
 		
 		InitHangar.initHangar(db);
 		InitRadio.initRadio(db);
 		InitChecklist.initChecklist(db);
         InitSites.initSites(db);
+        InitAccus.initAccus(db);
 	}
 		
 	
@@ -173,10 +217,14 @@ public class DbManager extends SQLiteOpenHelper {
 		db.execSQL("DROP TABLE " + CREATE_TABLE_POTAR + ";");
 		db.execSQL("DROP TABLE " + CREATE_TABLE_SWITCH + ";");
         db.execSQL("DROP TABLE " + CREATE_TABLE_SITES + ";");
+        db.execSQL("DROP TABLE " + CREATE_TABLE_ACCUS + ";");
         */
 
-
        // db.execSQL("ALTER TABLE " + TABLE_SITES + " ADD COLUMN " + COL_DEFAULT + " INTEGER;");
+
+        //db.execSQL(CREATE_TABLE_ACCUS);
+        //db.execSQL("ALTER TABLE " + TABLE_VOLS + " ADD COLUMN " + COL_ID_ACCU_PROPULSION + " INTEGER;");
+
 
 
 	}

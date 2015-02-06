@@ -1,12 +1,12 @@
-package com.carnetvol.sqllite;
+package com.flightbook.sqllite;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.carnetvol.model.Accu;
-import com.carnetvol.model.TypeAccu;
+import com.flightbook.model.Accu;
+import com.flightbook.model.TypeAccu;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,8 +47,8 @@ public class DbAccu {
 
 
 	/**
-	 * Insert a new {@link com.carnetvol.model.Accu}
-	 * @param accu the {@link com.carnetvol.model.Accu} to insert
+	 * Insert a new {@link com.flightbook.model.Accu}
+	 * @param accu the {@link com.flightbook.model.Accu} to insert
 	 * @return
 	 */
 	public long insertAccu(Accu accu) {
@@ -71,8 +71,8 @@ public class DbAccu {
 	}
 
 	/**
-	 * Update a new {@link com.carnetvol.model.Accu}
-	 * @param accu the {@link com.carnetvol.model.Accu} to insert
+	 * Update a new {@link com.flightbook.model.Accu}
+	 * @param accu the {@link com.flightbook.model.Accu} to insert
 	 * @return
 	 */
 	public long updateAccu(Accu accu) {
@@ -99,8 +99,8 @@ public class DbAccu {
 	}
 
 	/**
-	 * Delete a {@link com.carnetvol.model.Accu}
-	 * @param accu the {@link com.carnetvol.model.Accu} to delete
+	 * Delete a {@link com.flightbook.model.Accu}
+	 * @param accu the {@link com.flightbook.model.Accu} to delete
 	 * @return
 	 */
 	public long deleteAccu(Accu accu) {
@@ -108,8 +108,8 @@ public class DbAccu {
 	}
 
 	/**
-	 * Get the list of {@link com.carnetvol.model.Accu}
-	 * @return the list of {@link com.carnetvol.model.Accu}
+	 * Get the list of {@link com.flightbook.model.Accu}
+	 * @return the list of {@link com.flightbook.model.Accu}
 	 */
 	public ArrayList<Accu> getAccus(){
 		Cursor c = bdd.query(DbManager.TABLE_ACCUS, new String[] {DbManager.COL_ID,
@@ -129,8 +129,8 @@ public class DbAccu {
 	}
 
     /**
-	 * Get {@link com.carnetvol.model.Site} by id
-	 * @return the {@link com.carnetvol.model.Accu}
+	 * Get {@link com.flightbook.model.Site} by id
+	 * @return the {@link com.flightbook.model.Accu}
 	 */
 	public Accu getAccuById(int id) {
 		String where = DbManager.COL_ID + "=?";
@@ -158,9 +158,9 @@ public class DbAccu {
 
 
 	/**
-	 * Transform {@link android.database.Cursor} in list of {@link com.carnetvol.model.Accu}
+	 * Transform {@link android.database.Cursor} in list of {@link com.flightbook.model.Accu}
 	 * @param c{@link Cursor}
-	 * @return the list of {@link com.carnetvol.model.Accu}
+	 * @return the list of {@link com.flightbook.model.Accu}
 	 */
 	private ArrayList<Accu> cursorToAccus(Cursor c){
 		ArrayList<Accu> accus = new ArrayList<Accu>();
@@ -178,9 +178,9 @@ public class DbAccu {
 	}
 
 	/**
-	 * Transform {@link android.database.Cursor} in {@link com.carnetvol.model.Accu}
+	 * Transform {@link android.database.Cursor} in {@link com.flightbook.model.Accu}
 	 * @param c{@link Cursor}
-	 * @return the {@link com.carnetvol.model.Accu}
+	 * @return the {@link com.flightbook.model.Accu}
 	 */
 	private Accu cursorToAccu(Cursor c){
         Accu accu = new Accu();

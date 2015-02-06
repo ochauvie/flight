@@ -143,7 +143,7 @@ public class Chart {
             defaultRenderer.setXLabelsAngle(45);
         }
         defaultRenderer.setXAxisMax(hashVols.size()+1);
-        defaultRenderer.setYAxisMax(maxY + 10*maxY/100);
+        defaultRenderer.setYAxisMax(maxY + 10 * maxY / 100);
         dataSet.addSeries(series.toXYSeries());
 
         // Creating an intent to plot bar chart using dataset and multipleRenderer

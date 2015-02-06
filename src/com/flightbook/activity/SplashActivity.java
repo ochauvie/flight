@@ -10,8 +10,8 @@ import com.flightbook.R;
 import com.flightbook.model.Aeronef;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
+import com.flightbook.sqllite.DbAeronef;
 import com.flightbook.sqllite.DbBackup;
-import com.flightbook.sqllite.DbVol;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -48,7 +48,7 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
     private MyDialogInterface myInterface;
  	private TtsProviderFactory ttsProviderImpl;
 
-    private DbVol dbVol = new DbVol(this);
+    private DbAeronef dbAeronef = new DbAeronef(this);
     private ArrayList<Vol> vols;
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
@@ -154,11 +154,16 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
 		
 		// Start VolActivity if we have a aeronef
 		if (aeronefType!=null && aeronefName!=null) {
-			SplashActivity.this.finish();
-	        Intent volActivity = new Intent(SplashActivity.this, VolActivity.class);
-	        volActivity.putExtra(Aeronef.NAME, aeronefName);
-	    	volActivity.putExtra(Aeronef.TYPE, aeronefType);
-	        SplashActivity.this.startActivity(volActivity);
+
+            dbAeronef.open();
+            Aeronef aeronef = dbAeronef.getAeronefByNameAndType(aeronefName, aeronefType);
+            dbAeronef.close();
+            if (aeronef!=null) {
+                   SplashActivity.this.finish();
+                Intent volActivity = new Intent(SplashActivity.this, VolActivity.class);
+                volActivity.putExtra(Aeronef.class.getName(), aeronef);
+                SplashActivity.this.startActivity(volActivity);
+            }
 		}
 	}
     

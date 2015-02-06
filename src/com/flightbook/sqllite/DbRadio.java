@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.flightbook.model.Potar;
 import com.flightbook.model.Radio;
 import com.flightbook.model.Switch;
+import com.flightbook.sqllite.init.InitAccus;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -78,7 +79,7 @@ public class DbRadio {
 	}
 	
 	public ArrayList<Radio> getRadios(){
-		Cursor c = bdd.query(DbManager.TABLE_RADIO, new String[] {DbManager.COL_ID,
+        Cursor c = bdd.query(DbManager.TABLE_RADIO, new String[] {DbManager.COL_ID,
 																 DbManager.COL_NAME}, 
 							null, null, null, null, null);
 		return cursorToRadios(c);

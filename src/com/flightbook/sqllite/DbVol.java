@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import com.flightbook.model.Accu;
 import com.flightbook.model.Vol;
 
 import android.content.ContentValues;
@@ -17,12 +18,14 @@ public class DbVol {
 	
 	private SQLiteDatabase bdd;
 	private DbManager dbManager;
+    private Context context;
  
 	/**
 	 * On cr�e la BDD et sa table
 	 * @param context {@link Context}
 	 */
 	public DbVol(Context context){
+        this.context = context;
 		dbManager = new DbManager(context, DbManager.NOM_BDD, null, DbManager.VERSION_BDD);
 	}
 
@@ -58,7 +61,10 @@ public class DbVol {
 		values.put(DbManager.COL_SEC_MOTEUR, vol.getSecondsMoteur());
 		values.put(DbManager.COL_NOTE, vol.getNote());
 		values.put(DbManager.COL_LIEU, vol.getLieu());
-		
+        if (vol.getAccuPropulsion()!=null) {
+            values.put(DbManager.COL_ID_ACCU_PROPULSION, vol.getAccuPropulsion().getId());
+        }
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
 		String sDate = sdf.format(vol.getDateVol());
 		values.put(DbManager.COL_DATE, sDate);
@@ -80,7 +86,8 @@ public class DbVol {
 																 DbManager.COL_SEC_MOTEUR, 
 																 DbManager.COL_DATE,
 																 DbManager.COL_NOTE,
-																 DbManager.COL_LIEU}, 
+																 DbManager.COL_LIEU,
+                                                                 DbManager.COL_ID_ACCU_PROPULSION},
 							null, null, null, null, orderBy);
 		return cursorToVols(c);
 	}
@@ -107,7 +114,8 @@ public class DbVol {
                         DbManager.COL_SEC_MOTEUR,
                         DbManager.COL_DATE,
                         DbManager.COL_NOTE,
-                        DbManager.COL_LIEU},
+                        DbManager.COL_LIEU,
+                        DbManager.COL_ID_ACCU_PROPULSION},
                 where, whereArgs, null, null, orderBy);
         return cursorToVols(c);
     }
@@ -134,7 +142,8 @@ public class DbVol {
                         DbManager.COL_SEC_MOTEUR,
                         DbManager.COL_DATE,
                         DbManager.COL_NOTE,
-                        DbManager.COL_LIEU},
+                        DbManager.COL_LIEU,
+                        DbManager.COL_ID_ACCU_PROPULSION},
                 where, whereArgs, null, null, orderBy);
         return cursorToVols(c);
     }
@@ -185,6 +194,18 @@ public class DbVol {
 			vol.setNote(c.getString(DbManager.NUM_COL_NOTE));
 			vol.setLieu(c.getString(DbManager.NUM_COL_LIEU));
 			vol.setDateVol(dVol);
+
+            int idAccuPropultion = c.getInt(DbManager.NUM_COL_ID_ACCU_PROPULSION);
+            if (idAccuPropultion>=0) {
+                DbAccu dbAccu = new DbAccu(context);
+                dbAccu.open();
+                Accu accu = dbAccu.getAccuById(idAccuPropultion);
+                if (accu!=null) {
+                    vol.setAccuPropulsion(accu);
+                }
+                dbAccu.close();
+            }
+
 			vols.add(vol);
 		}
 		c.close();

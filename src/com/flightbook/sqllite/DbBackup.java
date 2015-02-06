@@ -2,6 +2,7 @@ package com.flightbook.sqllite;
 
 import android.content.Context;
 
+import com.flightbook.model.Accu;
 import com.flightbook.model.Aeronef;
 import com.flightbook.model.Checklist;
 import com.flightbook.model.ChecklistItem;
@@ -26,6 +27,7 @@ public class DbBackup {
     private DbRadio dbRadio;
     private DbChecklist dbCheckList;
     private DbSite dbSite;
+    private DbAccu dbAccu;
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
@@ -36,6 +38,7 @@ public class DbBackup {
         dbRadio = new DbRadio(context);
         dbCheckList = new DbChecklist(context);
         dbSite = new DbSite(context);
+        dbAccu = new DbAccu(context);
     }
 
     public void doBackup(String fileName) throws Exception {
@@ -47,6 +50,7 @@ public class DbBackup {
         List<Potar> potars;
         ArrayList<Checklist> checklists;
         ArrayList<Site> sites;
+        ArrayList<Accu> accus;
 
         // Recuperation des areronefs
         dbAeronef.open();
@@ -72,6 +76,11 @@ public class DbBackup {
         dbSite.open();
         sites = dbSite.getSites();
         dbSite.close();
+
+        // Recuperation des accus
+        dbAccu.open();
+        accus = dbAccu.getAccus();
+        dbAccu.close();
 
         // write on SD card file data in the text box
         File myFile = new File(fileName);
@@ -126,7 +135,7 @@ public class DbBackup {
         if (vols != null) {
             myOutWriter.append("ENREGISTREMENTS");
             myOutWriter.append("\n");
-            myOutWriter.append("Type|Date|Nom|Min vol|Min moteur|Sec moteur|Note|Lieu");
+            myOutWriter.append("Type|Date|Nom|Min vol|Min moteur|Sec moteur|Note|Lieu|Accu");
             myOutWriter.append("\n");
             for (int i = 0; i < vols.size(); i++) {
                 Vol vol = vols.get(i);
@@ -143,6 +152,12 @@ public class DbBackup {
                 myOutWriter.append(vol.getNote());
                 myOutWriter.append('|');
                 myOutWriter.append(vol.getLieu());
+                myOutWriter.append('|');
+                if (vol.getAccuPropulsion()!=null) {
+                    myOutWriter.append(vol.getAccuPropulsion().getNom());
+                } else {
+                    myOutWriter.append("");
+                }
                 myOutWriter.append("\n");
             }
         }
@@ -230,8 +245,42 @@ public class DbBackup {
             }
         }
 
+        // Récupération des accus
+        if (accus != null) {
+            myOutWriter.append("ACCUS");
+            myOutWriter.append("\n");
+            myOutWriter.append("Nom|Type|Nb éléments|Capacité|Taux décharge|Voltage|Marque|Numéro|Date achat|Nombre de cycles");
+            myOutWriter.append("\n");
+            for (int i = 0; i < accus.size(); i++) {
+                Accu accu = accus.get(i);
+                myOutWriter.append(accu.getNom());
+                myOutWriter.append('|');
+                myOutWriter.append(accu.getType().name());
+                myOutWriter.append('|');
+                myOutWriter.append(String.valueOf(accu.getNbElements()));
+                myOutWriter.append('|');
+                myOutWriter.append(String.valueOf(accu.getCapacite()));
+                myOutWriter.append('|');
+                myOutWriter.append(String.valueOf(accu.getTauxDecharge()));
+                myOutWriter.append('|');
+                myOutWriter.append(String.valueOf(accu.getVoltage()));
+                myOutWriter.append('|');
+                myOutWriter.append(accu.getMarque());
+                myOutWriter.append('|');
+                myOutWriter.append(String.valueOf(accu.getNumero()));
+                myOutWriter.append('|');
+                if (accu.getDateAchat()!=null) {
+                    myOutWriter.append(sdf.format(accu.getDateAchat()));
+                } else {
+                    myOutWriter.append("");
+                }
+                myOutWriter.append('|');
+                myOutWriter.append(String.valueOf(accu.getNbCycles()));
+                myOutWriter.append("\n");
+            }
+        }
+
         myOutWriter.close();
         fOut.close();
-
     }
 }

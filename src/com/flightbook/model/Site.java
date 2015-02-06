@@ -1,13 +1,9 @@
 package com.flightbook.model;
 
 
-import android.graphics.Color;
+import java.io.Serializable;
 
-public class Site {
-	
-
-	public static final String ID = "siteId";
-	public static final String NAME = "site";
+public class Site implements Serializable {
 
 	private int id;
 	private String name;

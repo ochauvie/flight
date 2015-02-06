@@ -1,7 +1,6 @@
-package com.carnetvol.tools;
+package com.flightbook.tools;
 
 import android.widget.ArrayAdapter;
-import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 
 /**

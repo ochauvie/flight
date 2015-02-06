@@ -6,7 +6,10 @@ import com.flightbook.R;
 import com.flightbook.activity.MyDialogInterface.DialogReturn;
 import com.flightbook.adapter.AeronefsAdapter;
 import com.flightbook.listener.AeronefAdapterListener;
+import com.flightbook.model.Accu;
 import com.flightbook.model.Aeronef;
+import com.flightbook.model.Site;
+import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbAeronef;
 
@@ -32,7 +35,14 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	private MyDialogInterface myInterface;
 	private int selectItim = -1;
 	private TtsProviderFactory ttsProviderImpl;
-	
+
+    private Site currentSite = null;
+    private Accu currentAccu = null;
+    private String sFlightDate = null;
+    private String sMinVol = null;
+    private String sMinMot = null;
+    private String sSecMot = null;
+    private String sNote = null;
 	
 	
     @Override
@@ -84,12 +94,30 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         close.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
+                volActivity.putExtra(Site.class.getName(), currentSite);
+                volActivity.putExtra(Accu.class.getName(), currentAccu);
+                volActivity.putExtra(Vol.DATE, sFlightDate);
+                volActivity.putExtra(Vol.MIN_VOL, sMinVol);
+                volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
+                volActivity.putExtra(Vol.SEC_MOTEUR, sSecMot);
+                volActivity.putExtra(Vol.NOTE, sNote);
             	startActivity(volActivity);
             	finish();
         	}
         });
         
         ttsProviderImpl.say(getString(R.string.selectAeronef));
+
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null) {
+            currentAccu = (Accu)bundle.getSerializable(Accu.class.getName());
+            currentSite = (Site)bundle.getSerializable(Site.class.getName());
+            sFlightDate = bundle.getString(Vol.DATE);
+            sMinVol = bundle.getString(Vol.MIN_VOL);
+            sMinMot = bundle.getString(Vol.MIN_MOTEUR);
+            sSecMot = bundle.getString(Vol.SEC_MOTEUR);
+            sNote = bundle.getString(Vol.NOTE);
+        }
         
     }
     
@@ -98,8 +126,14 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	public void onClickName(Aeronef item, int position) {
     	Aeronef sel = aeronefs.get(position);
     	Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
-    	volActivity.putExtra(Aeronef.NAME, sel.getName());
-    	volActivity.putExtra(Aeronef.TYPE, sel.getType());
+    	volActivity.putExtra(Aeronef.class.getName(), sel);
+        volActivity.putExtra(Site.class.getName(), currentSite);
+        volActivity.putExtra(Accu.class.getName(), currentAccu);
+        volActivity.putExtra(Vol.DATE, sFlightDate);
+        volActivity.putExtra(Vol.MIN_VOL, sMinVol);
+        volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
+        volActivity.putExtra(Vol.SEC_MOTEUR, sSecMot);
+        volActivity.putExtra(Vol.NOTE, sNote);
     	startActivity(volActivity);
     	finish();
 	}
@@ -108,7 +142,7 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	public void onClickType(Aeronef item, int position) {
     	Aeronef sel = aeronefs.get(position);
     	Intent addAeronefActivity = new Intent(getApplicationContext(), AddAeronefActivity.class);
-    	addAeronefActivity.putExtra(Aeronef.ID, sel.getId());
+    	addAeronefActivity.putExtra(Aeronef.class.getName(), sel);
     	startActivity(addAeronefActivity);
     	finish();
 	}

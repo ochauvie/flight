@@ -1,6 +1,6 @@
-package com.carnetvol.listener;
+package com.flightbook.listener;
 
-import com.carnetvol.model.Accu;
+import com.flightbook.model.Accu;
 
 public interface AccuAdapterListener {
 	

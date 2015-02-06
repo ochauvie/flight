@@ -1,6 +1,5 @@
 package com.flightbook.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
 public class Vol {
@@ -14,6 +13,7 @@ public class Vol {
 	private Date dateVol;
 	private String note;
 	private String lieu;
+    private Accu accuPropulsion;
 
     public static final String MIN_VOL = "minutesVol";
     public static final String MIN_MOTEUR = "minutesMoteur";
@@ -149,8 +149,12 @@ public class Vol {
 	public void setSecondsMoteur(int secondsMoteur) {
 		this.secondsMoteur = secondsMoteur;
 	}
-	
-	
-	
-	
+
+    public Accu getAccuPropulsion() {
+        return accuPropulsion;
+    }
+
+    public void setAccuPropulsion(Accu accuPropulsion) {
+        this.accuPropulsion = accuPropulsion;
+    }
 }

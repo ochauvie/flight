@@ -37,6 +37,7 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         dbRadio.open();
         	radios = dbRadio.getRadios();
         dbRadio.close();
+
         
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);

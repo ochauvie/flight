@@ -253,34 +253,30 @@ public class AddAeronefActivity extends Activity {
 	    private void initView() {
 	    	Bundle bundle = getIntent().getExtras();
 	        if (bundle!=null) {
-	        	int aeronefId = bundle.getInt(Aeronef.ID);
-	        	if (aeronefId!=0) {
-	        		dbAeronef.open();
-	        			aeronef = dbAeronef.getAeronefById(aeronefId);
-	        		dbAeronef.close();
-	        		if (aeronef!=null) {
-	        			name.setText(aeronef.getName());
-	        	        wingSpan.setText(String.valueOf(aeronef.getWingSpan()));
-	        	        weight.setText(String.valueOf(aeronef.getWeight()));
-	        	        engine.setText(aeronef.getEngine());
-	        	        firstFlight.setText(aeronef.getFirstFlight());
-	        	        comment .setText(aeronef.getComment());
-	        	        
-	        	        if (Aeronef.T_PLANEUR.equals(aeronef.getType())) {
-	        	        	optPlaneur.setChecked(true);
-	        	        } else if (Aeronef.T_AVION.equals(aeronef.getType())) {
-	        	        	optAvion.setChecked(true);
-	        	        } else if (Aeronef.T_PARAMOTEUR.equals(aeronef.getType())) {
-	        	        	optParamoteur.setChecked(true);
-	        	        } else if (Aeronef.T_HELICO.equals(aeronef.getType())) {
-	        	        	optHelico.setChecked(true);
-	        	        } else if (Aeronef.T_AUTO.equals(aeronef.getType())) {
-	        	        	optAuto.setChecked(true);
-	        	        } else if (Aeronef.T_DIVERS.equals(aeronef.getType())) {
-	        	        	optDivers.setChecked(true);
-	        			}
-	        		}
-	        	}
+                aeronef = (Aeronef)bundle.getSerializable(Aeronef.class.getName());
+                if (aeronef!=null) {
+                    name.setText(aeronef.getName());
+                    wingSpan.setText(String.valueOf(aeronef.getWingSpan()));
+                    weight.setText(String.valueOf(aeronef.getWeight()));
+                    engine.setText(aeronef.getEngine());
+                    firstFlight.setText(aeronef.getFirstFlight());
+                    comment .setText(aeronef.getComment());
+
+                    if (Aeronef.T_PLANEUR.equals(aeronef.getType())) {
+                        optPlaneur.setChecked(true);
+                    } else if (Aeronef.T_AVION.equals(aeronef.getType())) {
+                        optAvion.setChecked(true);
+                    } else if (Aeronef.T_PARAMOTEUR.equals(aeronef.getType())) {
+                        optParamoteur.setChecked(true);
+                    } else if (Aeronef.T_HELICO.equals(aeronef.getType())) {
+                        optHelico.setChecked(true);
+                    } else if (Aeronef.T_AUTO.equals(aeronef.getType())) {
+                        optAuto.setChecked(true);
+                    } else if (Aeronef.T_DIVERS.equals(aeronef.getType())) {
+                        optDivers.setChecked(true);
+                    }
+                }
+
 	        }
 	    }
 

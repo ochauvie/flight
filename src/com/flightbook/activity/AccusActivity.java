@@ -1,4 +1,4 @@
-package com.carnetvol.activity;
+package com.flightbook.activity;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -11,20 +11,19 @@ import android.view.animation.LayoutAnimationController;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
-import com.carnetvol.R;
-import com.carnetvol.activity.MyDialogInterface.DialogReturn;
+import com.flightbook.R;
+import com.flightbook.activity.MyDialogInterface.DialogReturn;
 
 
-import com.carnetvol.adapter.AccusAdapter;
-import com.carnetvol.listener.AccuAdapterListener;
-import com.carnetvol.model.Accu;
-import com.carnetvol.model.Aeronef;
+import com.flightbook.adapter.AccusAdapter;
+import com.flightbook.listener.AccuAdapterListener;
+import com.flightbook.model.Accu;
+import com.flightbook.model.Aeronef;
 
-import com.carnetvol.model.Site;
-import com.carnetvol.model.Vol;
-import com.carnetvol.speech.TtsProviderFactory;
-import com.carnetvol.sqllite.DbAccu;
-import com.carnetvol.sqllite.DbSite;
+import com.flightbook.model.Site;
+import com.flightbook.model.Vol;
+import com.flightbook.speech.TtsProviderFactory;
+import com.flightbook.sqllite.DbAccu;
 
 import java.util.ArrayList;
 

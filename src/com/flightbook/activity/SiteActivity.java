@@ -15,6 +15,7 @@ import com.flightbook.R;
 import com.flightbook.activity.MyDialogInterface.DialogReturn;
 import com.flightbook.adapter.SitesAdapter;
 import com.flightbook.listener.SiteAdapterListener;
+import com.flightbook.model.Accu;
 import com.flightbook.model.Aeronef;
 import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
@@ -34,8 +35,8 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
 	private MyDialogInterface myInterface;
 	private int selectItim = -1;
 	private TtsProviderFactory ttsProviderImpl;
-	private String sAeronefName = null;
-    private String sType = null;
+	private Aeronef currentAeronef = null;
+    private Accu currentAccu = null;
     private String sFlightDate = null;
     private String sMinVol = null;
     private String sMinMot = null;
@@ -91,8 +92,8 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
         close.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
-                volActivity.putExtra(Aeronef.NAME, sAeronefName);
-                volActivity.putExtra(Aeronef.TYPE, sType);
+                volActivity.putExtra(Aeronef.class.getName(), currentAeronef);
+                volActivity.putExtra(Accu.class.getName(), currentAccu);
                 volActivity.putExtra(Vol.DATE, sFlightDate);
                 volActivity.putExtra(Vol.MIN_VOL, sMinVol);
                 volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
@@ -107,8 +108,8 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
-            sAeronefName = bundle.getString(Aeronef.NAME);
-            sType = bundle.getString(Aeronef.TYPE);
+            currentAeronef = (Aeronef)bundle.getSerializable(Aeronef.class.getName());
+            currentAccu = (Accu)bundle.getSerializable(Accu.class.getName());
             sFlightDate = bundle.getString(Vol.DATE);
             sMinVol = bundle.getString(Vol.MIN_VOL);
             sMinMot = bundle.getString(Vol.MIN_MOTEUR);
@@ -123,9 +124,9 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
 	public void onClickName(Site item, int position) {
     	Site sel = sites.get(position);
         Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
-    	volActivity.putExtra(Site.NAME, sel.getName());
-        volActivity.putExtra(Aeronef.NAME, sAeronefName);
-        volActivity.putExtra(Aeronef.TYPE, sType);
+    	volActivity.putExtra(Site.class.getName(), sel);
+        volActivity.putExtra(Aeronef.class.getName(), currentAeronef);
+        volActivity.putExtra(Accu.class.getName(), currentAccu);
         volActivity.putExtra(Vol.DATE, sFlightDate);
         volActivity.putExtra(Vol.MIN_VOL, sMinVol);
         volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
@@ -182,7 +183,7 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     @Override
     public void onClickToUpdate(Site item, int position) {
         Intent addSiteActivity = new Intent(getApplicationContext(), AddSiteActivity.class);
-        addSiteActivity.putExtra(Site.ID, item.getId());
+        addSiteActivity.putExtra(Site.class.getName(), item);
         startActivity(addSiteActivity);
         finish();
     }
@@ -192,7 +193,6 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     public void onBackPressed() {
 		// Nothings
 	}
-
 
 
 }

@@ -1,11 +1,7 @@
-package com.carnetvol.adapter;
+package com.flightbook.adapter;
 
-import android.app.Activity;
 import android.content.Context;
-import android.opengl.Visibility;
-import android.view.Display;
 import android.view.LayoutInflater;
-import android.view.Surface;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,9 +9,9 @@ import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.carnetvol.R;
-import com.carnetvol.listener.AccuAdapterListener;
-import com.carnetvol.model.Accu;
+import com.flightbook.R;
+import com.flightbook.listener.AccuAdapterListener;
+import com.flightbook.model.Accu;
 
 import java.util.ArrayList;
 import java.util.List;

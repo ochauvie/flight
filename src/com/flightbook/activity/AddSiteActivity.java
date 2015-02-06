@@ -12,16 +12,13 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.flightbook.R;
 import com.flightbook.model.Site;
 import com.flightbook.sqllite.DbSite;
 
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.Charset;
+
 import java.util.ArrayList;
 
 @TargetApi(14)
@@ -56,9 +53,9 @@ public class AddSiteActivity extends Activity {
 	        close = (ImageButton) findViewById(R.id.close);
 	        close.setOnClickListener(new View.OnClickListener() {
 	        	public void onClick(View v) {
-	        		Intent hangarActivity = new Intent(getApplicationContext(),SiteActivity.class);
+	        		Intent siteActivity = new Intent(getApplicationContext(),SiteActivity.class);
                     // TODO passer les extra
-	            	startActivity(hangarActivity);
+	            	startActivity(siteActivity);
 	            	 finish();
 	        	}
 	        });
@@ -121,20 +118,16 @@ public class AddSiteActivity extends Activity {
 	    private void initView() {
 	    	Bundle bundle = getIntent().getExtras();
 	        if (bundle!=null) {
-	        	int siteId = bundle.getInt(Site.ID);
-	        	if (siteId!=0) {
-	        		dbSite.open();
-	        			site = dbSite.getSiteById(siteId);
-	        		dbSite.close();
-	        		if (site!=null) {
-	        			name.setText(site.getName());
-	        	        comment.setText(site.getComment());
-                        siteDefault.setChecked(false);
-                        if (site.getIsDefault()==1) {
-                            siteDefault.setChecked(true);
-                        }
-	        		}
-	        	}
+	        	site = (Site)bundle.getSerializable(Site.class.getName());
+                if (site!=null) {
+                    name.setText(site.getName());
+                    comment.setText(site.getComment());
+                    siteDefault.setChecked(false);
+                    if (site.getIsDefault()==1) {
+                        siteDefault.setChecked(true);
+                    }
+                }
+
 	        }
 	    }
 

@@ -1,4 +1,4 @@
-package com.carnetvol.model;
+package com.flightbook.model;
 
 
 

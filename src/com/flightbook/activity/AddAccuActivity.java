@@ -1,4 +1,4 @@
-package com.carnetvol.activity;
+package com.flightbook.activity;
 
 
 import android.annotation.TargetApi;
@@ -17,16 +17,15 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.carnetvol.R;
-import com.carnetvol.model.Accu;
-import com.carnetvol.model.TypeAccu;
-import com.carnetvol.sqllite.DbAccu;
-import com.carnetvol.tools.SpinnerTool;
+import com.flightbook.R;
+import com.flightbook.model.Accu;
+import com.flightbook.model.TypeAccu;
+import com.flightbook.sqllite.DbAccu;
+import com.flightbook.tools.SpinnerTool;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -36,7 +35,7 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
 	private DbAccu dbAccu = new DbAccu(this);
 	private Accu accu = null;
 
-	private EditText nom, nbElement, capacite, tauxDecharge, marque, numero, dateAchat, nbCycle;
+	private EditText nom, nbElement, capacite, tauxDecharge, marque, numero, dateAchat, nbCycle, voltage;
     private Spinner spinnerType;
 	private TextView log;
 	private ImageButton save, close, selectDate;
@@ -64,6 +63,7 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
             dateAchat = (EditText) findViewById(R.id.editTextDateAchat);
             dateAchat.setEnabled(false);
             nbCycle = (EditText) findViewById(R.id.editTextNbCycles);
+            voltage = (EditText) findViewById(R.id.editTextVoltage);
 
 	        // Get accu in parameter
 	        initView();
@@ -100,6 +100,7 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
                             accu.setMarque((marque.getText() != null) ? marque.getText().toString() : null);
                             accu.setNumero(Integer.valueOf(numero.getText().toString()));
                             accu.setNbCycles(Integer.valueOf(nbCycle.getText().toString()));
+                            accu.setVoltage(Float.valueOf(voltage.getText().toString()));
                             try {
                                 accu.setDateAchat(sdf.parse(dateAchat.getText().toString()));
                             } catch (ParseException e) {
@@ -162,12 +163,16 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
                     marque.setText(accu.getMarque());
                     numero.setText(String.valueOf(accu.getNumero()));
                     nbCycle.setText(String.valueOf(accu.getNbCycles()));
+                    voltage.setText(String.valueOf(accu.getVoltage()));
                     if (accu.getDateAchat()!=null) {
                         String sDate = sdf.format(accu.getDateAchat());
                         dateAchat.setText(sDate);
                     }
                 }
-	        }
+
+	        } else {
+                nbCycle.setText("0");
+            }
 	    }
 
 	    RadioButton.OnClickListener myOptionOnClickListener =

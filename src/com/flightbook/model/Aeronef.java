@@ -3,7 +3,9 @@ package com.flightbook.model;
 
 import android.graphics.Color;
 
-public class Aeronef {
+import java.io.Serializable;
+
+public class Aeronef implements Serializable{
 	
 	public static final String T_PLANEUR = "Planeur";
 	public static final String T_AVION = "Avion";
@@ -12,10 +14,7 @@ public class Aeronef {
 	public static final String T_AUTO = "Automobile";
 	public static final String T_DIVERS = "Divers";
 	
-	public static final String ID = "aeronefId";
-	public static final String NAME = "aeronef";
-	public static final String TYPE = "type";
-	
+
 	private int id;
 	private String name;
 	private String type;

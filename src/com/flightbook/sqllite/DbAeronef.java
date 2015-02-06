@@ -128,6 +128,27 @@ public class DbAeronef {
 		return aeronef;
 	}
 
+    public Aeronef getAeronefByNameAndType(String name, String type) {
+        String where = DbManager.COL_NAME + "=? and " + dbManager.COL_TYPE + "=?";
+        String[] whereArgs = new String[] {name, type};
+        Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID,
+                        DbManager.COL_NAME,
+                        DbManager.COL_TYPE,
+                        DbManager.COL_WINGSPAN,
+                        DbManager.COL_WEIGHT,
+                        DbManager.COL_ENGINE,
+                        DbManager.COL_FIRST_FLIGHT,
+                        DbManager.COL_COMMENT},
+                where, whereArgs, null, null, null);
+        if (c.getCount() == 0) {
+            return null;
+        }
+        c.moveToNext();
+        Aeronef aeronef = cursorToAeronef(c);
+        c.close();
+        return aeronef;
+    }
+
 	
 	/**
 	 * Transform {@link Cursor} in list of {@link Aeronef}
