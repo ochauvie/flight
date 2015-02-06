@@ -112,6 +112,7 @@ public class DbAccu {
 	 * @return the list of {@link com.flightbook.model.Accu}
 	 */
 	public ArrayList<Accu> getAccus(){
+        String orderBy = DbManager.COL_ACCU_NOM;
 		Cursor c = bdd.query(DbManager.TABLE_ACCUS, new String[] {DbManager.COL_ID,
                                                             DbManager.COL_ACCU_TYPE,
                                                             DbManager.COL_ACCU_ELEMENTS,
@@ -124,7 +125,7 @@ public class DbAccu {
                                                             DbManager.COL_ACCU_CYCLES,
                                                             DbManager.COL_ACCU_VOLTAGE
                                                             },
-							null, null, null, null, null);
+							null, null, null, null, orderBy);
 		return cursorToAccus(c);
 	}
 

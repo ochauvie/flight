@@ -86,7 +86,9 @@ public class AccusAdapter extends BaseAdapter{
 		} else {
 		    layoutItem = (RelativeLayout) convertView;
 		}
-		  
+
+        Accu currentAccu = accus.get(position);
+
 		//(2) : Recuperation des TextView de notre layout
 		TextView tv_name = (TextView)layoutItem.findViewById(R.id.nom);
         TextView tv_type = (TextView)layoutItem.findViewById(R.id.type);
@@ -99,15 +101,16 @@ public class AccusAdapter extends BaseAdapter{
         ImageButton bUpdate = (ImageButton)layoutItem.findViewById(R.id.updateAccu);
 		        
 		//(3) : Renseignement des valeurs
-		tv_name.setText(accus.get(position).getNom());
-        tv_type.setText(accus.get(position).getType().name());
+		tv_name.setText(currentAccu.getNom());
+        tv_type.setText(currentAccu.getType().name());
+        tv_type.setTextColor(Accu.getColor(currentAccu.getType().name()));
 
         // Affichage des colonnes suivants l'orientation de la page
         if (tv_nbElements!=null) {
-            tv_nbElements.setText(String.valueOf(accus.get(position).getNbElements()));
-            tv_capacite.setText(String.valueOf(accus.get(position).getCapacite()));
-            tv_tauxDecharge.setText(String.valueOf(accus.get(position).getTauxDecharge()));
-            tv_marque.setText(accus.get(position).getMarque());
+            tv_nbElements.setText(String.valueOf(currentAccu.getNbElements()));
+            tv_capacite.setText(String.valueOf(currentAccu.getCapacite()));
+            tv_tauxDecharge.setText(String.valueOf(currentAccu.getTauxDecharge()));
+            tv_marque.setText(currentAccu.getMarque());
         }
 
 

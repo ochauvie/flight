@@ -2,6 +2,8 @@ package com.flightbook.model;
 
 
 
+import android.graphics.Color;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -113,5 +115,23 @@ public class Accu implements Serializable {
 
     public void setVoltage(float voltage) {
         this.voltage = voltage;
+    }
+
+    public static int getColor(String type) {
+        if (TypeAccu.LIPO.name().equals(type)) {
+            return Color.rgb(219, 23, 2);
+        } else if (TypeAccu.LIFE.name().equals(type)) {
+            return Color.rgb(49, 140, 231);
+        } else if (TypeAccu.LIION.name().equals(type)) {
+            return Color.rgb(31, 160, 85);
+        } else if (TypeAccu.NIMH.name().equals(type)) {
+            return Color.rgb(246, 220, 18);
+        } else if (TypeAccu.NICD.name().equals(type)) {
+            return Color.GRAY;
+        } else if (TypeAccu.PB.name().equals(type)) {
+            return Color.rgb(47, 30, 14);
+        } else {
+            return Color.MAGENTA;
+        }
     }
 }
