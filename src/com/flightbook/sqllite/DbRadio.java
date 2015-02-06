@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import com.flightbook.model.Potar;
 import com.flightbook.model.Radio;
 import com.flightbook.model.Switch;
-import com.flightbook.sqllite.init.InitAccus;
 
 import android.content.ContentValues;
 import android.content.Context;

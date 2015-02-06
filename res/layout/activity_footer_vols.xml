@@ -44,46 +44,5 @@
         android:layout_marginLeft="190dp">
 	</TextView>
 
-    <ImageButton
-        android:id="@+id/viewChartTime"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="260dp"
-        android:background="#00000000"
-        android:contentDescription="@string/chart"
-        android:src="@drawable/chart" />
-
-    <ImageButton
-        android:id="@+id/viewChartNb"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="#00000000"
-        android:contentDescription="@string/chart"
-        android:src="@drawable/chart"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/nbVol" />
-
-    <ImageButton
-        android:id="@+id/viewChartRepNbVol"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="#00000000"
-        android:contentDescription="@string/chart"
-        android:src="@drawable/rep"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/viewChartNb" />
-
-    <ImageButton
-        android:id="@+id/viewChartRepVol"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:background="#00000000"
-        android:contentDescription="@string/chart"
-        android:src="@drawable/rep"
-        android:layout_alignParentTop="false"
-        android:layout_alignParentRight="false"
-        android:layout_toRightOf="@+id/viewChartTime" />
-
 
 </RelativeLayout>

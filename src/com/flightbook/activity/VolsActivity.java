@@ -13,17 +13,23 @@ import com.flightbook.adapter.VolsAdapter;
 import com.flightbook.listener.VolsAdapterListener;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
+import com.flightbook.sqllite.DbBackup;
 import com.flightbook.sqllite.DbVol;
 import com.flightbook.tools.Chart;
 
+import android.app.ActionBar;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,7 +43,6 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private int selectItim = -1;
 	private VolsAdapter adapter;
 	private TextView totalVol, nbVol, nbDate;
-    private ImageButton butChartTime,butChartNb, viewChartRepVol, viewChartRepNbVol ;
     private TtsProviderFactory ttsProviderImpl;
 
 
@@ -58,36 +63,6 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         totalVol = (TextView) footer.findViewById(R.id.totalVol);
         nbVol = (TextView) footer.findViewById(R.id.nbVol);
         nbDate = (TextView) footer.findViewById(R.id.nbDate);
-
-        butChartTime = (ImageButton) findViewById(R.id.viewChartTime);
-        butChartTime.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                viewPieChart(Chart.CHART_TIME);
-            }
-        });
-
-        butChartNb = (ImageButton) findViewById(R.id.viewChartNb);
-        butChartNb.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                viewPieChart(Chart.CHART_NB);
-            }
-        });
-
-        viewChartRepVol = (ImageButton) findViewById(R.id.viewChartRepVol);
-        viewChartRepVol.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                viewChartByMachine(Chart.CHART_TIME);
-            }
-        });
-
-
-        viewChartRepNbVol = (ImageButton) findViewById(R.id.viewChartRepNbVol);
-        viewChartRepNbVol.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                viewChartByMachine(Chart.CHART_NB);
-            }
-        });
-
 
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
@@ -321,6 +296,45 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         ttsProviderImpl.say(title);
         startActivity(chart.getIntentChartByMachine());
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.vols, menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        return true;
+    }
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.pieChartByNb:
+                viewPieChart(Chart.CHART_NB);
+                return true;
+            case R.id.barChartByNb:
+                viewChartByMachine(Chart.CHART_NB);
+                return true;
+            case R.id.pieChartByTotal:
+                viewPieChart(Chart.CHART_TIME);
+                return true;
+            case R.id.barChartByTotal:
+                viewChartByMachine(Chart.CHART_TIME);
+                return true;
+            case R.id.send:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                DbBackup dbBackup = new DbBackup(this);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, dbBackup.getStbVols().toString());
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+                return true;
+        }
+        return false;}
 
 
 }
