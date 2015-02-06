@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+
+	<item android:id="@+id/add"
+     android:title="@string/menu_piechartbynb"
+     android:icon="@drawable/smalladd"
+     android:showAsAction="always"
+      />
+
+    <item android:id="@+id/close"
+        android:title="@string/menu_barchartbynb"
+        android:icon="@drawable/smallclose"
+        android:showAsAction="always"
+        />
+
+
+
+</menu>

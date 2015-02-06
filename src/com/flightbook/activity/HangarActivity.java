@@ -13,21 +13,22 @@ import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbAeronef;
 
+import android.app.ActionBar;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.ImageButton;
 import android.widget.ListView;
 
 public class HangarActivity extends ListActivity  implements DialogReturn, AeronefAdapterListener {
 
-	private ImageButton addAeronef;
-	private ImageButton close;
 	private ListView listView;
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Aeronef> aeronefs;
@@ -77,35 +78,7 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(
         				this, R.anim.list_layout_controller);
         listView.setLayoutAnimation(controller);
-        
-        
-        // Open view add aeronef
-        addAeronef = (ImageButton) findViewById(R.id.addAeronef);
-        addAeronef.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Intent myIntent = new Intent(v.getContext(), AddAeronefActivity.class);
-                startActivityForResult(myIntent, 0);
-                finish();
-        	}
-        });
-        
-        // Close view aeronef selection
-        close = (ImageButton) findViewById(R.id.close);
-        close.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
-                volActivity.putExtra(Site.class.getName(), currentSite);
-                volActivity.putExtra(Accu.class.getName(), currentAccu);
-                volActivity.putExtra(Vol.DATE, sFlightDate);
-                volActivity.putExtra(Vol.MIN_VOL, sMinVol);
-                volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
-                volActivity.putExtra(Vol.SEC_MOTEUR, sSecMot);
-                volActivity.putExtra(Vol.NOTE, sNote);
-            	startActivity(volActivity);
-            	finish();
-        	}
-        });
-        
+
         ttsProviderImpl.say(getString(R.string.selectAeronef));
 
         Bundle bundle = getIntent().getExtras();
@@ -193,5 +166,43 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
     public void onBackPressed() {
 		// Nothings
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.addclose, menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        return true;
+    }
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                Intent myIntent = new Intent(getApplicationContext(), AddAeronefActivity.class);
+                startActivityForResult(myIntent, 0);
+                finish();
+                return true;
+            case R.id.close:
+                Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
+                volActivity.putExtra(Site.class.getName(), currentSite);
+                volActivity.putExtra(Accu.class.getName(), currentAccu);
+                volActivity.putExtra(Vol.DATE, sFlightDate);
+                volActivity.putExtra(Vol.MIN_VOL, sMinVol);
+                volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
+                volActivity.putExtra(Vol.SEC_MOTEUR, sSecMot);
+                volActivity.putExtra(Vol.NOTE, sNote);
+                startActivity(volActivity);
+                finish();
+                return true;
+
+        }
+        return false;
+    }
 
 }

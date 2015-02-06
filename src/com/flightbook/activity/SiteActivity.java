@@ -1,10 +1,15 @@
 package com.flightbook.activity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -26,8 +31,6 @@ import java.util.ArrayList;
 
 public class SiteActivity extends ListActivity  implements DialogReturn, SiteAdapterListener {
 
-	private ImageButton addSite;
-	private ImageButton close;
 	private ListView listView;
 	private DbSite dbSite = new DbSite(this);
 	private ArrayList<Site> sites;
@@ -75,35 +78,7 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(
         				this, R.anim.list_layout_controller);
         listView.setLayoutAnimation(controller);
-        
-        
-        // Open view add site
-        addSite = (ImageButton) findViewById(R.id.addSite);
-        addSite.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Intent myIntent = new Intent(v.getContext(), AddSiteActivity.class);
-                startActivityForResult(myIntent, 0);
-                finish();
-        	}
-        });
-        
-        // Close view site selection
-        close = (ImageButton) findViewById(R.id.close);
-        close.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
-                volActivity.putExtra(Aeronef.class.getName(), currentAeronef);
-                volActivity.putExtra(Accu.class.getName(), currentAccu);
-                volActivity.putExtra(Vol.DATE, sFlightDate);
-                volActivity.putExtra(Vol.MIN_VOL, sMinVol);
-                volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
-                volActivity.putExtra(Vol.SEC_MOTEUR, sSecMot);
-                volActivity.putExtra(Vol.NOTE, sNote);
-                startActivity(volActivity);
-            	finish();
-        	}
-        });
-        
+
         ttsProviderImpl.say(getString(R.string.selectSite));
 
         Bundle bundle = getIntent().getExtras();
@@ -193,6 +168,44 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     public void onBackPressed() {
 		// Nothings
 	}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.addclose, menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        return true;
+    }
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                Intent myIntent = new Intent(getApplicationContext(), AddSiteActivity.class);
+                startActivityForResult(myIntent, 0);
+                finish();
+                return true;
+            case R.id.close:
+                Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
+                volActivity.putExtra(Aeronef.class.getName(), currentAeronef);
+                volActivity.putExtra(Accu.class.getName(), currentAccu);
+                volActivity.putExtra(Vol.DATE, sFlightDate);
+                volActivity.putExtra(Vol.MIN_VOL, sMinVol);
+                volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
+                volActivity.putExtra(Vol.SEC_MOTEUR, sSecMot);
+                volActivity.putExtra(Vol.NOTE, sNote);
+                startActivity(volActivity);
+                finish();
+                return true;
+
+        }
+        return false;
+    }
 
 
 }

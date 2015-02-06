@@ -1,10 +1,15 @@
 package com.flightbook.activity;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
@@ -29,8 +34,6 @@ import java.util.ArrayList;
 
 public class AccusActivity extends ListActivity  implements DialogReturn, AccuAdapterListener {
 
-	private ImageButton addAccu;
-	private ImageButton close;
 	private ListView listView;
 	private DbAccu dbAccu = new DbAccu(this);
 	private ArrayList<Accu> accus;
@@ -81,35 +84,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         LayoutAnimationController controller = AnimationUtils.loadLayoutAnimation(
         				this, R.anim.list_layout_controller);
         listView.setLayoutAnimation(controller);
-        
-        
-        // Open view add accu
-        addAccu = (ImageButton) findViewById(R.id.addAccu);
-        addAccu.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Intent myIntent = new Intent(v.getContext(), AddAccuActivity.class);
-                startActivityForResult(myIntent, 0);
-                finish();
-        	}
-        });
-        
-        // Close view site selection
-        close = (ImageButton) findViewById(R.id.close);
-        close.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
-                volActivity.putExtra(Aeronef.class.getName(), currentAeronef);
-                volActivity.putExtra(Site.class.getName(), currentSite);
-                volActivity.putExtra(Vol.DATE, sFlightDate);
-                volActivity.putExtra(Vol.MIN_VOL, sMinVol);
-                volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
-                volActivity.putExtra(Vol.SEC_MOTEUR, sSecMot);
-                volActivity.putExtra(Vol.NOTE, sNote);
-                startActivity(volActivity);
-            	finish();
-        	}
-        });
-        
+
         ttsProviderImpl.say(getString(R.string.selectAccu));
 
         Bundle bundle = getIntent().getExtras();
@@ -200,6 +175,43 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
 		// Nothings
 	}
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.addclose, menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        return true;
+    }
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                Intent myIntent = new Intent(getApplicationContext(), AddAccuActivity.class);
+                startActivityForResult(myIntent, 0);
+                finish();
+                return true;
+            case R.id.close:
+                Intent volActivity = new Intent(getApplicationContext(),VolActivity.class);
+                volActivity.putExtra(Aeronef.class.getName(), currentAeronef);
+                volActivity.putExtra(Site.class.getName(), currentSite);
+                volActivity.putExtra(Vol.DATE, sFlightDate);
+                volActivity.putExtra(Vol.MIN_VOL, sMinVol);
+                volActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
+                volActivity.putExtra(Vol.SEC_MOTEUR, sSecMot);
+                volActivity.putExtra(Vol.NOTE, sNote);
+                startActivity(volActivity);
+                finish();
+                return true;
+
+        }
+        return false;
+    }
 
 
 }
