@@ -103,11 +103,13 @@ public class AddAeronefActivity extends Activity {
 	        
 	        // NFC writer
 	        ctx=this;
-	        adapter = NfcAdapter.getDefaultAdapter(this);
+            adapter = NfcAdapter.getDefaultAdapter(this);  // adapter is null if no NFC
 			pendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
 			IntentFilter tagDetected = new IntentFilter(NfcAdapter.ACTION_TAG_DISCOVERED);
-			tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
-			writeTagFilters = new IntentFilter[] { tagDetected };
+			if (adapter!=null) {
+                tagDetected.addCategory(Intent.CATEGORY_DEFAULT);
+                writeTagFilters = new IntentFilter[]{tagDetected};
+            }
 	        
 	        rg1 = (RadioGroup) findViewById(R.id.radioGroup1);
 	    	rg2 = (RadioGroup) findViewById(R.id.radioGroup2);
@@ -247,6 +249,10 @@ public class AddAeronefActivity extends Activity {
 		        	}
 	        	}
 	        });
+            // Not visible if no nfc on device
+            if (adapter==null) {
+                nfc.setVisibility(View.GONE);
+            }
 	        
 	    }
 	    
@@ -313,12 +319,16 @@ public class AddAeronefActivity extends Activity {
 	    
 	    private void WriteModeOn(){
 			writeMode = true;
-			adapter.enableForegroundDispatch(this, pendingIntent, writeTagFilters, null);
+            if (adapter!=null) {
+                adapter.enableForegroundDispatch(this, pendingIntent, writeTagFilters, null);
+            }
 		}
 
 		private void WriteModeOff(){
 			writeMode = false;
-			adapter.disableForegroundDispatch(this);
+            if (adapter!=null) {
+                adapter.disableForegroundDispatch(this);
+            }
 		}
 		
 		private int write(String name, String type, Tag tag) throws IOException, FormatException {
