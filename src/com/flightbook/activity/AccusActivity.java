@@ -28,6 +28,7 @@ import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbAccu;
+import com.flightbook.sqllite.DbBackup;
 
 import java.util.ArrayList;
 
@@ -177,7 +178,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.addclose, menu);
+        inflater.inflate(R.menu.addshareclose, menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -207,7 +208,14 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
                 startActivity(volActivity);
                 finish();
                 return true;
-
+            case R.id.send:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                DbBackup dbBackup = new DbBackup(this);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, dbBackup.getStbAccus().toString());
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
+                return true;
         }
         return false;
     }

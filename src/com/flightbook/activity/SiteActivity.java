@@ -23,6 +23,7 @@ import com.flightbook.model.Aeronef;
 import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
+import com.flightbook.sqllite.DbBackup;
 import com.flightbook.sqllite.DbSite;
 
 import java.util.ArrayList;
@@ -170,7 +171,7 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.addclose, menu);
+        inflater.inflate(R.menu.addshareclose, menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -199,6 +200,14 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
                 volActivity.putExtra(Vol.NOTE, sNote);
                 startActivity(volActivity);
                 finish();
+                return true;
+            case R.id.send:
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                DbBackup dbBackup = new DbBackup(this);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, dbBackup.getStbSites().toString());
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
                 return true;
 
         }
