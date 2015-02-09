@@ -121,7 +121,7 @@
         <activity
             android:name="com.flightbook.activity.AccusActivity"
             android:label="@string/title_activity_accu"
-            android:icon="@drawable/accu">
+            android:icon="@drawable/accu_white">
         </activity>
         <activity
             android:name="com.flightbook.activity.AddAccuActivity"
