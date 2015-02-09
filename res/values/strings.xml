@@ -163,4 +163,6 @@
     <string name="menu_piechartbytotal">Flight time by type</string>
     <string name="menu_barchartbytotal">Flight time by machine</string>
 
+    <string name="widget_nb_flight">flights</string>
+
 </resources>

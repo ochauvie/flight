@@ -15,7 +15,10 @@ import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbSite;
 import com.flightbook.sqllite.DbVol;
+import com.flightbook.widget.FlightWidgetProvider;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -221,6 +224,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
                     log.setText(getString(R.string.aeronef_mandatory));
         			ttsProviderImpl.say(getString(R.string.aeronef_mandatory));
         		}
+
+
+                updateMyWidgets();
         	}
         });        
 
@@ -530,5 +536,14 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 		flightDate.setText(day + "/" + month + "/" + y);
 		datePickerDialog.hide();
 	}
+
+
+    private void updateMyWidgets() {
+        Intent intent = new Intent(this, FlightWidgetProvider.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), FlightWidgetProvider.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent);
+    }
 	
 }

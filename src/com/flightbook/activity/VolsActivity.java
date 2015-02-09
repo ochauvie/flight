@@ -16,8 +16,11 @@ import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbBackup;
 import com.flightbook.sqllite.DbVol;
 import com.flightbook.tools.Chart;
+import com.flightbook.widget.FlightWidgetProvider;
 
 import android.app.ActionBar;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -248,6 +251,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	        vols.remove(selectItim);
 	        adapter.notifyDataSetChanged();
             majFooter();
+            updateMyWidgets();
 		}
 	}
 
@@ -336,5 +340,12 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         }
         return false;}
 
+    private void updateMyWidgets() {
+        Intent intent = new Intent(this, FlightWidgetProvider.class);
+        intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), FlightWidgetProvider.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
+        sendBroadcast(intent);
+    }
 
 }
