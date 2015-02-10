@@ -5,9 +5,13 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.RemoteViews;
 
 import com.flightbook.R;
+import com.flightbook.activity.HangarActivity;
+import com.flightbook.activity.SplashActivity;
 import com.flightbook.model.Vol;
 import com.flightbook.sqllite.DbVol;
 
@@ -32,34 +36,26 @@ public class FlightWidgetProvider extends AppWidgetProvider {
         for(int i=0; i<appWidgetIds.length; i++){
             int appWidgetId = appWidgetIds[i];
 
-        /*
-            // Create an Intent to launch ExampleActivity
-            Intent intent = new Intent(context, ExampleActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, 0);
-         */
+            // Create an Intent to launch application
+            Intent intent = new Intent(context, SplashActivity.class);
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-            // Get the layout for the App Widget and attach an on-click listener
-            // to the button
+            // Get the layout for the App Widget
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.activity_widget);
-
-            views.setTextViewText(R.id.nbVol, getNbVol());
-            views.setTextViewText(R.id.totalVol, getTotalVol());
-
+            views.setTextViewText(R.id.widgetText, getWidgetText());
+            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
 
             // Tell the AppWidgetManager to perform an update on the current app widget
             appWidgetManager.updateAppWidget(appWidgetId, views);
-
-
         }
     }
 
-    /**
-     * Total heures de vol
-     * @return
-     */
-    private String getTotalVol() {
+
+    private String getWidgetText() {
         int total = 0;
+        int nbVols = 0;
         if (vols!=null) {
+            nbVols = vols.size();
             for (Vol vol:vols) {
                 total = total + vol.getMinutesVol();
             }
@@ -70,20 +66,7 @@ public class FlightWidgetProvider extends AppWidgetProvider {
         if (min<10) {
             sMin = "0" + sMin;
         }
-        return String.valueOf(heu + "h" + sMin);
-    }
-
-    /**
-     * Total nombre de vol
-     * @return
-     */
-    private String getNbVol() {
-        int total = 0;
-        if (vols!=null) {
-            total = vols.size();
-        }
-
-        return String.valueOf(total + " vols");
+        return String.valueOf(heu + "h" + sMin + " " + nbVols + " vols");
     }
 
 
