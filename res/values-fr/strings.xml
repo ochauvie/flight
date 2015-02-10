@@ -162,9 +162,11 @@
     <string name="menu_barchartbynb">Nombre de vol par machine</string>
     <string name="menu_piechartbytotal">Temps de vol par type</string>
     <string name="menu_barchartbytotal">Temps de vol par machine</string>
-    <string name="menu_importVols">Importer des enregistrements</string>
 
+    <string name="menu_importVols">Importer des enregistrements</string>
     <string name="menu_import_ok">Import du fichier réussi</string>
+    <string name="menu_import">Importer des données</string>
+
 
 
 

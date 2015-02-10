@@ -296,7 +296,7 @@ public class DbBackup {
         if (aeronefs != null) {
             stb.append("MACHINES");
             stb.append("\n");
-            stb.append("Type|Moteur|Note|Date premier vol|Masse|Envergure");
+            stb.append("Type|Nom|Moteur|Note|Date premier vol|Masse|Envergure");
             stb.append("\n");
             for (int i = 0; i < aeronefs.size(); i++) {
                 Aeronef aeronef = aeronefs.get(i);

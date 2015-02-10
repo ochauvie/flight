@@ -162,9 +162,10 @@
     <string name="menu_barchartbynb">Number of flignt by machine</string>
     <string name="menu_piechartbytotal">Flight time by type</string>
     <string name="menu_barchartbytotal">Flight time by machine</string>
-    <string name="menu_importVols">Import flights</string>
 
-    <string name="menu_import_ok">Import succesfull</string>
+    <string name="menu_importVols">Import flights</string>
+    <string name="menu_import_ok">Import ok</string>
+    <string name="menu_import">Import data</string>
 
     <string name="widget_nb_flight">flights</string>
 

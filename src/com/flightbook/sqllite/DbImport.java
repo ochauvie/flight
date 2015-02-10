@@ -3,6 +3,7 @@ package com.flightbook.sqllite;
 import android.content.Context;
 
 import com.flightbook.model.Accu;
+import com.flightbook.model.Aeronef;
 import com.flightbook.model.Vol;
 
 import java.io.BufferedReader;
@@ -28,6 +29,9 @@ public class DbImport {
 
     private static final String HEADER1_VOLS = "ENREGISTREMENTS";
     private static final String HEADER2_VOLS = "Type|Date|Nom|Min vol|Min moteur|Sec moteur|Note|Lieu|Accu";
+
+    private static final String HEADER1_AERONEF = "MACHINES";
+    private static final String HEADER2_AERONEF = "Type|Nom|Moteur|Note|Date premier vol|Masse|Envergure";
 
     public DbImport(Context context) {
         dbAeronef = new DbAeronef(context);
@@ -108,6 +112,74 @@ public class DbImport {
             dbVol.insertVol(vol);
         }
         dbVol.close();
+
+        return null;
+    }
+
+    public String importAeronefs(File file) {
+        ArrayList<Aeronef> aeronefs = new ArrayList<Aeronef>();
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String line;
+            int nbLine = 0;
+            while ((line = br.readLine()) != null) {
+                nbLine++;
+                if (nbLine == 1) {
+                    if (!HEADER1_AERONEF.equals(line)) {
+                        return "Le fichier n'est pas une liste de machines";
+                    }
+                } else if (nbLine == 2) {
+                    if (!HEADER2_AERONEF.equals(line)) {
+                        return "Le fichier n'est pas une liste de machines";
+                    }
+                } else {
+                    String[] elements = line.split("\\|");
+                    Aeronef aeronef = new Aeronef();
+                    aeronef.setType(elements[0]);
+                    aeronef.setName(elements[1]);
+                    if (elements.length>=3) {
+                        aeronef.setEngine(elements[2]);
+                    }
+                    if (elements.length>=4) {
+                        aeronef.setComment(elements[3]);
+                    }
+                    if (elements.length>=5) {
+                        aeronef.setFirstFlight(elements[4]);
+                    }
+                    if (elements.length>=6) {
+                        try {
+                            aeronef.setWeight(Float.valueOf((elements[5])));
+                        } catch (NumberFormatException fne) {
+                            aeronef.setWeight(0);
+                        }
+                    } else {
+                        aeronef.setWeight(0);
+                    }
+                    if (elements.length>=7) {
+                        try {
+                            aeronef.setWingSpan(Float.valueOf(elements[6]));
+                        } catch (NumberFormatException fne) {
+                            aeronef.setWingSpan(0);
+                        }
+                    } else {
+                        aeronef.setWingSpan(0);
+                    }
+
+                    aeronefs.add(aeronef);
+                }
+            }
+            br.close();
+        } catch (FileNotFoundException fnfE) {
+            return "Emplacement du fichier incorrecte";
+        } catch (IOException ioE) {
+            return "Fichier incorrecte";
+        }
+
+        dbAeronef.open();
+        for (Aeronef aeronef:aeronefs) {
+            dbAeronef.insertAeronef(aeronef);
+        }
+        dbAeronef.close();
 
         return null;
     }

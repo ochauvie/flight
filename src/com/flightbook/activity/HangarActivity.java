@@ -1,5 +1,6 @@
 package com.flightbook.activity;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.flightbook.R;
@@ -13,6 +14,8 @@ import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbAeronef;
 import com.flightbook.sqllite.DbBackup;
+import com.flightbook.sqllite.DbImport;
+import com.flightbook.tools.SimpleFileDialog;
 
 import android.app.ActionBar;
 import android.os.Build;
@@ -27,6 +30,7 @@ import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
+import android.widget.Toast;
 
 public class HangarActivity extends ListActivity  implements DialogReturn, AeronefAdapterListener {
 
@@ -171,7 +175,7 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.addshareclose, menu);
+        inflater.inflate(R.menu.addshareimportclose, menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -209,9 +213,49 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 return true;
+            case R.id.importData:
+                importHangar();
+                return true;
 
         }
         return false;
+    }
+
+    private void importHangar() {
+        SimpleFileDialog FileOpenDialog = new SimpleFileDialog(this, "FileOpen",
+                new SimpleFileDialog.SimpleFileDialogListener() {
+                    @Override public void onChosenDir(String chosenDir) {
+                        // The code in this function will be executed when the dialog OK button is pushed
+                        File file = new File(chosenDir);
+                        // Initiate the upload
+                        DbImport dbImport = new DbImport(HangarActivity.this);
+                        String result = dbImport.importAeronefs(file);
+                        if (result!=null) {
+                            Toast.makeText(HangarActivity.this, result, Toast.LENGTH_LONG).show();
+                        } else {
+                            // Update the list
+                            refreshList();
+                            Toast.makeText(HangarActivity.this, getString(R.string.menu_import_ok), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        FileOpenDialog.Default_File_Name = "";
+        FileOpenDialog.chooseFile_or_Dir();
+    }
+
+
+    private void refreshList() {
+        if (aeronefs!=null) {
+            for (int i=aeronefs.size()-1; i>=0; i--) {
+                aeronefs.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        dbAeronef.open();
+        aeronefs.addAll(dbAeronef.getAeronefs());
+        dbAeronef.close();
+        adapter.notifyDataSetChanged();
     }
 
 }

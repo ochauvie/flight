@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+
+	<item android:id="@+id/add"
+     android:title="@string/add"
+     android:icon="@drawable/smalladd"
+     android:showAsAction="always"
+      />
+
+    <item android:id="@+id/send"
+        android:title="@string/menu_send"
+        android:icon="@drawable/send"
+        android:showAsAction="always"
+        />
+
+    <item android:id="@+id/importData"
+        android:title="@string/menu_import"
+        android:icon="@drawable/import_data"
+        android:showAsAction="always"
+        />
+
+    <item android:id="@+id/close"
+        android:title="@string/close"
+        android:icon="@drawable/smallclose"
+        android:showAsAction="always"
+        />
+
+
+
+</menu>
