@@ -31,6 +31,9 @@ public class DbBackup {
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
+    private static final String HEADER1_VOLS = "ENREGISTREMENTS";
+    private static final String HEADER2_VOLS = "Type|Date|Nom|Min vol|Min moteur|Sec moteur|Note|Lieu|Accu";
+
     public DbBackup(Context context) {
         dbAeronef = new DbAeronef(context);
         dbVol = new DbVol(context);
@@ -60,17 +63,23 @@ public class DbBackup {
 
 
     public StringBuffer getStbVols() {
-        StringBuffer stbVols = new StringBuffer();
+        return getStbVols(null);
+    }
 
+    public StringBuffer getStbVols(ArrayList<Vol> listVols) {
+        StringBuffer stbVols = new StringBuffer();
+        ArrayList<Vol> vols = listVols;
         // Recuperation des vols
-        dbVol.open();
-        ArrayList<Vol> vols = dbVol.getVols();
-        dbVol.close();
+        if (vols==null) {
+            dbVol.open();
+            vols = dbVol.getVols();
+            dbVol.close();
+        }
 
         if (vols != null) {
-            stbVols.append("ENREGISTREMENTS");
+            stbVols.append(HEADER1_VOLS);
             stbVols.append("\n");
-            stbVols.append("Type|Date|Nom|Min vol|Min moteur|Sec moteur|Note|Lieu|Accu");
+            stbVols.append(HEADER2_VOLS);
             stbVols.append("\n");
             for (int i = 0; i < vols.size(); i++) {
                 Vol vol = vols.get(i);
@@ -82,7 +91,9 @@ public class DbBackup {
                 stbVols.append('|');
                 stbVols.append(String.valueOf(vol.getMinutesVol()));
                 stbVols.append('|');
-                stbVols.append(String.valueOf(vol.getMinutesMoteur())).append(":").append(String.valueOf(vol.getSecondsMoteur()));
+                stbVols.append(String.valueOf(vol.getMinutesMoteur()));
+                stbVols.append('|');
+                stbVols.append(String.valueOf(vol.getSecondsMoteur()));
                 stbVols.append('|');
                 stbVols.append(vol.getNote());
                 stbVols.append('|');
@@ -93,6 +104,7 @@ public class DbBackup {
                 } else {
                     stbVols.append("");
                 }
+                stbVols.append('|');
                 stbVols.append("\n");
             }
         }
@@ -112,7 +124,7 @@ public class DbBackup {
         if (sites != null) {
             stbSites.append("SITES");
             stbSites.append("\n");
-            stbSites.append("Nom|Note");
+            stbSites.append("Nom|Note|");
             stbSites.append("\n");
             for (int i = 0; i < sites.size(); i++) {
                 Site site = sites.get(i);
@@ -307,4 +319,6 @@ public class DbBackup {
         stb.append("\n");
         return stb;
     }
+
+
 }

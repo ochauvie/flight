@@ -19,6 +19,7 @@
         android:showAsAction="always"
         />
 
+
     <item android:id="@+id/pieChartByTotal"
         android:title="@string/menu_piechartbytotal"
         android:icon="@drawable/chart"

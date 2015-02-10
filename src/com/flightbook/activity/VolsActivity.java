@@ -2,6 +2,7 @@ package com.flightbook.activity;
 
 
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -14,8 +15,10 @@ import com.flightbook.listener.VolsAdapterListener;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbBackup;
+import com.flightbook.sqllite.DbImport;
 import com.flightbook.sqllite.DbVol;
 import com.flightbook.tools.Chart;
+import com.flightbook.tools.SimpleFileDialog;
 import com.flightbook.widget.FlightWidgetProvider;
 
 import android.app.ActionBar;
@@ -33,8 +36,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {
@@ -46,7 +51,10 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private int selectItim = -1;
 	private VolsAdapter adapter;
 	private TextView totalVol, nbVol, nbDate;
+    private ImageButton bImportVols;
     private TtsProviderFactory ttsProviderImpl;
+
+    private static final int FILE_SELECT_CODE = 0;
 
 
     @Override
@@ -66,6 +74,14 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         totalVol = (TextView) footer.findViewById(R.id.totalVol);
         nbVol = (TextView) footer.findViewById(R.id.nbVol);
         nbDate = (TextView) footer.findViewById(R.id.nbDate);
+
+        bImportVols = (ImageButton) footer.findViewById(R.id.importVols);
+        bImportVols.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                importVols();
+            }
+        });
+
 
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
@@ -259,6 +275,10 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     @Override
     // Action sur le click du header: suppression du filtre sur la liste
     public void onClick(View v) {
+        reloadAllFlight();
+    }
+
+    private void reloadAllFlight() {
         if (vols!=null) {
             for (int i=vols.size()-1; i>=0; i--) {
                 vols.remove(i);
@@ -266,7 +286,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         }
         adapter.notifyDataSetChanged();
         dbVol.open();
-            vols.addAll(dbVol.getVols());
+        vols.addAll(dbVol.getVols());
         dbVol.close();
         adapter.notifyDataSetChanged();
         majFooter();
@@ -333,13 +353,16 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 DbBackup dbBackup = new DbBackup(this);
-                sendIntent.putExtra(Intent.EXTRA_TEXT, dbBackup.getStbVols().toString());
+                sendIntent.putExtra(Intent.EXTRA_TEXT, dbBackup.getStbVols(vols).toString());
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 return true;
         }
         return false;}
 
+    /**
+     * Update widget
+     */
     private void updateMyWidgets() {
         Intent intent = new Intent(this, FlightWidgetProvider.class);
         intent.setAction("android.appwidget.action.APPWIDGET_UPDATE");
@@ -347,5 +370,37 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
         sendBroadcast(intent);
     }
+
+
+    /**
+     * Import flights from file
+     */
+    private void importVols() {
+        SimpleFileDialog FileOpenDialog = new SimpleFileDialog(this, "FileOpen",
+                new SimpleFileDialog.SimpleFileDialogListener() {
+                    @Override public void onChosenDir(String chosenDir) {
+                        // The code in this function will be executed when the dialog OK button is pushed
+                        File file = new File(chosenDir);
+                        // Initiate the upload
+                        DbImport dbImport = new DbImport(VolsActivity.this);
+                        String result = dbImport.importVols(file);
+                        if (result!=null) {
+                            Toast.makeText(VolsActivity.this, result, Toast.LENGTH_LONG).show();
+                        } else {
+                            // Update the list
+                            reloadAllFlight();
+                            // Update widget
+                            updateMyWidgets();
+                            Toast.makeText(VolsActivity.this, getString(R.string.menu_import_ok), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+                FileOpenDialog.Default_File_Name = "";
+                FileOpenDialog.chooseFile_or_Dir();
+    }
+
+
+
 
 }

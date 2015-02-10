@@ -5,12 +5,9 @@ import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
-import android.widget.ImageButton;
 import android.widget.RemoteViews;
 
 import com.flightbook.R;
-import com.flightbook.activity.HangarActivity;
 import com.flightbook.activity.SplashActivity;
 import com.flightbook.model.Vol;
 import com.flightbook.sqllite.DbVol;
