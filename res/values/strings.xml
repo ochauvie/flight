@@ -27,7 +27,6 @@
     <string name="sec">sec</string>
 	<string name="save">Save</string>
 	<string name="deleteVol">Reset</string>
-	<string name="viewVol">Flights</string>
 	<string name="note">Note</string>
 	<string name="date">Date</string>
 	<string name="vol">Flight</string>
@@ -156,16 +155,21 @@
     <string name="accu_header_capacite">mAH</string>
     <string name="accu_header_tauxDecharge">C</string>
 
-
+    <string name="menu">Menu</string>
     <string name="menu_send">Send</string>
+    <string name="menu_export_db">Exporter les données</string>
     <string name="menu_piechartbynb">Number of flight by type</string>
     <string name="menu_barchartbynb">Number of flignt by machine</string>
     <string name="menu_piechartbytotal">Flight time by type</string>
     <string name="menu_barchartbytotal">Flight time by machine</string>
 
+    <string name="menu_chart">Charts</string>
     <string name="menu_importVols">Import flights</string>
     <string name="menu_import_ok">Import ok</string>
     <string name="menu_import">Import data</string>
+
+    <string name="filter_start_date">End date</string>
+    <string name="filter_end_date">Start date</string>
 
     <string name="widget_nb_flight">flights</string>
 

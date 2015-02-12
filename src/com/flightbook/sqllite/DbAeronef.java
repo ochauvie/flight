@@ -129,7 +129,7 @@ public class DbAeronef {
 	}
 
     public Aeronef getAeronefByNameAndType(String name, String type) {
-        String where = DbManager.COL_NAME + "=? and " + dbManager.COL_TYPE + "=?";
+        String where = DbManager.COL_NAME + "=? and " + DbManager.COL_TYPE + "=?";
         String[] whereArgs = new String[] {name, type};
         Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID,
                         DbManager.COL_NAME,

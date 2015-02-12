@@ -1,29 +1,61 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
- 
 
-	<item android:id="@+id/meteo" 
-     android:title="@string/metar"
-     android:icon="@drawable/meteo_icon" 
-     android:showAsAction="always"/>
-	
-	<item android:id="@+id/radio" 
-     android:title="@string/radio"
-     android:icon="@drawable/ff9_icon"
-     android:showAsAction="always"/>
-	
-	<item android:id="@+id/carte" 
-     android:title="@string/carte"
-     android:icon="@drawable/carte_icon"
-     android:showAsAction="always"/>
+    <item android:id="@+id/save"
+        android:title="@string/save"
+        android:icon="@drawable/smallsave"
+        android:showAsAction="always"/>
 
-	<item android:id="@+id/vols" 
-     android:title="@string/viewVol"
-     android:icon="@drawable/recorder_icon"
-     android:showAsAction="always"/>
-	
-	<item android:id="@+id/checklists" 
-     android:title="@string/checklist"
-     android:icon="@drawable/checklist_icon"
-     android:showAsAction="always"/>
-	
+    <item android:id="@+id/reset"
+        android:title="@string/reset"
+        android:icon="@drawable/smallreset"
+        android:showAsAction="always"/>
+
+    <item android:id="@+id/selectImg"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="@string/menu"
+        android:showAsAction="always">
+
+        <menu>
+            <item android:id="@+id/meteo"
+                android:title="@string/metar"
+                android:icon="@drawable/meteo_icon"
+                />
+
+            <item android:id="@+id/radio"
+                android:title="@string/title_activity_radios"
+                android:icon="@drawable/ff9_icon"
+                />
+
+            <item android:id="@+id/carte"
+                android:title="@string/carte"
+                android:icon="@drawable/carte_icon"
+                />
+
+            <item android:id="@+id/vols"
+                android:title="@string/title_activity_vols"
+                android:icon="@drawable/recorder_icon"
+                />
+
+            <item android:id="@+id/checklists"
+                android:title="@string/checklist"
+                android:icon="@drawable/checklist_icon"
+                />
+
+            <item android:id="@+id/backup"
+                android:title="@string/menu_export_db"
+                android:icon="@drawable/smallbackup"
+                />
+        </menu>
+
+    </item>
+
+
+    <item android:id="@+id/close"
+        android:title="@string/close"
+        android:icon="@drawable/smallexit"
+        android:showAsAction="always"/>
+
+
+
+
 </menu>

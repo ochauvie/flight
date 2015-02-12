@@ -36,13 +36,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {
+public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {//}, ActionBar.OnNavigationListener{
 
 
     private MyDialogInterface myInterface;
@@ -51,7 +50,6 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private int selectItim = -1;
 	private VolsAdapter adapter;
 	private TextView totalVol, nbVol, nbDate;
-    private ImageButton bImportVols;
     private TtsProviderFactory ttsProviderImpl;
 
     private static final int FILE_SELECT_CODE = 0;
@@ -63,7 +61,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         setContentView(R.layout.activity_vols);
 
         ttsProviderImpl = TtsProviderFactory.getInstance();
-        
+
+
         View header = getLayoutInflater().inflate(R.layout.activity_header_vols, null);
             // Ajout d'un listener sur la selection du header pour supprimer le filtre sur la liste)
             header.setOnClickListener(this);
@@ -74,14 +73,6 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         totalVol = (TextView) footer.findViewById(R.id.totalVol);
         nbVol = (TextView) footer.findViewById(R.id.nbVol);
         nbDate = (TextView) footer.findViewById(R.id.nbDate);
-
-        bImportVols = (ImageButton) footer.findViewById(R.id.importVols);
-        bImportVols.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                importVols();
-            }
-        });
-
 
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
@@ -242,14 +233,14 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(true);
+    		myInterface.getListener().onDialogCompleted(true, null);
     	    dialog.dismiss();
     	  }
     	});
     	builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(false);
+    		myInterface.getListener().onDialogCompleted(false, null);
     		dialog.dismiss();
     	  }
     	});
@@ -258,7 +249,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	}
 	
 	@Override
-	public void onDialogCompleted(boolean answer) {
+	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
 			Vol flight = vols.get(selectItim);
 			dbVol.open();
@@ -321,6 +312,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         startActivity(chart.getIntentChartByMachine());
     }
 
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -332,10 +324,11 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         return true;
     }
 
+
     /**
      * Call when menu item is selected
      */
-    public boolean onOptionsItemSelected(MenuItem item) {
+        public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.pieChartByNb:
                 viewPieChart(Chart.CHART_NB);
@@ -357,8 +350,12 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 return true;
+            case R.id.importVols:
+                importVols();
+                return true;
         }
         return false;}
+
 
     /**
      * Update widget
@@ -401,6 +398,9 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     }
 
 
-
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
 
 }

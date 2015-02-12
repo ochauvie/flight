@@ -9,10 +9,12 @@ import com.flightbook.listener.RadiosAdapterListener;
 import com.flightbook.model.Radio;
 import com.flightbook.sqllite.DbRadio;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -33,7 +35,12 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radios);
-        
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         dbRadio.open();
         	radios = dbRadio.getRadios();
         dbRadio.close();
@@ -102,14 +109,14 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
     	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(true);
+    		myInterface.getListener().onDialogCompleted(true, null);
     	    dialog.dismiss();
     	  }
     	});
     	builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(false);
+    		myInterface.getListener().onDialogCompleted(false, null);
     		dialog.dismiss();
     	  }
     	});
@@ -120,7 +127,7 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 	}
 
 	@Override
-	public void onDialogCompleted(boolean answer) {
+	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
 			dbRadio.open();
 				dbRadio.deleteRadio(radios.get(selectItim));
@@ -130,5 +137,9 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 		}
 	}
 
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
     
 }

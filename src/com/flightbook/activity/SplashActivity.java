@@ -2,23 +2,16 @@ package com.flightbook.activity;
 
 
 import java.io.UnsupportedEncodingException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Locale;
 
 import com.flightbook.R;
 import com.flightbook.model.Aeronef;
-import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbAeronef;
-import com.flightbook.sqllite.DbBackup;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.nfc.NdefMessage;
@@ -26,16 +19,15 @@ import android.nfc.NdefRecord;
 import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Parcelable;
 import android.os.Vibrator;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
+
 
 
 @TargetApi(10)
-public class SplashActivity extends Activity implements MyDialogInterface.DialogReturn {
+public class SplashActivity extends Activity {
 
     private Tag mytag;
     private NfcAdapter adapter;
@@ -43,14 +35,10 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
 	private IntentFilter writeTagFilters[];
 	private boolean writeMode;
  	private ImageView imgStart;
-    private ImageView imgWelcome;
-
-    private MyDialogInterface myInterface;
  	private TtsProviderFactory ttsProviderImpl;
 
     private DbAeronef dbAeronef = new DbAeronef(this);
-    private ArrayList<Vol> vols;
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+
 
 	@Override
     protected void onCreate(Bundle savedInstanceState)
@@ -58,8 +46,6 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        myInterface = new MyDialogInterface();
-        myInterface.setListener(this);
 
         // Init Speech
         ttsProviderImpl = TtsProviderFactory.getInstance();
@@ -84,18 +70,7 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
 			}
 		});
 
-
-        imgWelcome = (ImageView) findViewById(R.id.imgWelcome);
-        imgWelcome.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick(View v) {
-                backupDb();
-            }
-        });
-		
-		processIntent(getIntent());
-		
+        processIntent(getIntent());
     }
 	
     @Override
@@ -151,7 +126,9 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
 				}
 			}
 		}
-		
+
+        Intent volActivity = new Intent(SplashActivity.this, VolActivity.class);
+
 		// Start VolActivity if we have a aeronef
 		if (aeronefType!=null && aeronefName!=null) {
 
@@ -159,12 +136,13 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
             Aeronef aeronef = dbAeronef.getAeronefByNameAndType(aeronefName, aeronefType);
             dbAeronef.close();
             if (aeronef!=null) {
-                   SplashActivity.this.finish();
-                Intent volActivity = new Intent(SplashActivity.this, VolActivity.class);
                 volActivity.putExtra(Aeronef.class.getName(), aeronef);
-                SplashActivity.this.startActivity(volActivity);
             }
 		}
+
+        SplashActivity.this.finish();
+        SplashActivity.this.startActivity(volActivity);
+
 	}
     
     @Override
@@ -187,46 +165,8 @@ public class SplashActivity extends Activity implements MyDialogInterface.Dialog
 		}
 	}
 
-    private void backupDb() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setIcon(R.drawable.backup);
-        builder.setTitle("Data base backup");
-        builder.setInverseBackgroundForced(true);
-        builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                myInterface.getListener().onDialogCompleted(true);
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                myInterface.getListener().onDialogCompleted(false);
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
 
-    @Override
-    // Backup database
-    public void onDialogCompleted(boolean answer) {
-        if (answer) {
-            DbBackup dbBackup = new DbBackup(this);
-            try {
-                String fileName = Environment.getExternalStorageDirectory().getPath() + "/CarnetVolBackup.txt";
-                dbBackup.doBackup(fileName);
-                Toast.makeText(getBaseContext(),
-                        "Done writing SD " + fileName,
-                        Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                Toast.makeText(getBaseContext(), e.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
+
+
 
 }

@@ -1,11 +1,9 @@
 package com.flightbook.activity;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -124,14 +122,14 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(true);
+    		myInterface.getListener().onDialogCompleted(true, null);
     	    dialog.dismiss();
     	  }
     	});
     	builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(false);
+    		myInterface.getListener().onDialogCompleted(false, null);
     		dialog.dismiss();
     	  }
     	});
@@ -142,7 +140,7 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
 	}
 	
 	@Override
-	public void onDialogCompleted(boolean answer) {
+	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
 			dbSite.open();
 	        dbSite.deleteSite(sites.get(selectItim));
@@ -172,10 +170,6 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.addshareclose, menu);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-            ActionBar actionBar = getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
         return true;
     }
 

@@ -10,18 +10,20 @@ import com.flightbook.model.Switch;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbRadio;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageButton;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 public class RadioActivity extends ListActivity implements DialogReturn, SwitchPotarAdapterListener{
 
-	private ImageButton addSwitchPotar;
-	private Radio radio;
+		private Radio radio;
 	private DbRadio dbRadio = new DbRadio(this);
 	private RadioAdapter adapter;	
 	private MyDialogInterface myInterface;
@@ -60,18 +62,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         
         //Initialisation de la liste avec les donnees
         setListAdapter(adapter);
-        
-        // Close view
-        addSwitchPotar = (ImageButton) findViewById(R.id.addSwitchPotar);
-        addSwitchPotar.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		Intent addSwitchPotarActivity = new Intent(getApplicationContext(), AddSwitchPotarActivity.class);
-        		addSwitchPotarActivity.putExtra(Radio.RADIO_ID, radio.getId());
-            	startActivity(addSwitchPotarActivity);
-            	finish();
-        	}
-        });
-        
+
     }
 
 
@@ -99,14 +90,14 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 	    	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
 	    	  @Override
 	    	  public void onClick(DialogInterface dialog, int which) {
-	    		myInterface.getListener().onDialogCompleted(true);
+	    		myInterface.getListener().onDialogCompleted(true, null);
 	    	    dialog.dismiss();
 	    	  }
 	    	});
 	    	builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
 	    	  @Override
 	    	  public void onClick(DialogInterface dialog, int which) {
-	    		myInterface.getListener().onDialogCompleted(false);
+	    		myInterface.getListener().onDialogCompleted(false, null);
 	    		dialog.dismiss();
 	    	  }
 	    	});
@@ -116,7 +107,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 	}
 
 	@Override
-	public void onDialogCompleted(boolean answer) {
+	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && itemId!=-1) {
 			dbRadio.open();
 				if ("Inter".equals(typeItem)) {
@@ -132,5 +123,36 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         	finish();
 		}
 	}
-    
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.addclose, menu);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+        return true;
+    }
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.add:
+                Intent addSwitchPotarActivity = new Intent(getApplicationContext(), AddSwitchPotarActivity.class);
+                addSwitchPotarActivity.putExtra(Radio.RADIO_ID, radio.getId());
+                startActivity(addSwitchPotarActivity);
+                finish();
+                return true;
+            case R.id.close:
+                this.finish();
+                return true;
+        }
+        return false;
+    }
+
+
 }

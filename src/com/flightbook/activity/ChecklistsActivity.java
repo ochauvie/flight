@@ -12,6 +12,8 @@ import com.flightbook.model.Checklist;
 import com.flightbook.model.ChecklistItem;
 import com.flightbook.sqllite.DbChecklist;
 
+import android.app.ActionBar;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -41,7 +43,12 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklists);
-        
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
         ListView listView = getListView();
         newCkeckListName =  (EditText)  findViewById(R.id.editTextNewChecklist);
         
@@ -110,14 +117,14 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
     	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(true);
+    		myInterface.getListener().onDialogCompleted(true, null);
     	    dialog.dismiss();
     	  }
     	});
     	builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(false);
+    		myInterface.getListener().onDialogCompleted(false, null);
     		dialog.dismiss();
     	  }
     	});
@@ -126,7 +133,7 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
 	}
 	
 	@Override
-	public void onDialogCompleted(boolean answer) {
+	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
 			Checklist checklist = checklists.get(selectItim);
 			dbChecklist.open();
@@ -145,6 +152,11 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
     	startActivity(updateChecklistActivity);
 		
 	}
+
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
 
 
 }

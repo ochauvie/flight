@@ -7,7 +7,7 @@
     <string name="title_activity_flightbook">Flight Book</string>
     <string name="startChronometre1">Chronometre is started</string>
     <string name="stopChronometre1">Stop</string>
-    <string name="reset">Reset</string>
+    <string name="reset">Effacer</string>
     <string name="close">Fermer</string>
     <string name="add">Ajout</string>
     <string name="update">Modifier</string>
@@ -27,7 +27,6 @@
     <string name="sec">sec</string>
 	<string name="save">Enregistrer</string>
 	<string name="deleteVol">Reset</string>
-	<string name="viewVol">Vols</string>
 	<string name="note">Note</string>
 	<string name="date">Date</string>
 	<string name="vol">Vol</string>
@@ -65,7 +64,7 @@
     <string name="site_default">Selectionné par défault</string>
 
 	
-	<string name="title_activity_vols">Liste des enregistrements</string>
+	<string name="title_activity_vols">Liste des vols</string>
 
     <string name="title_activity_chart_time">Cumul en minutes</string>
     <string name="title_activity_chart_nb">Nombre d\'utilisation</string>
@@ -157,17 +156,21 @@
     <string name="accu_header_tauxDecharge">C</string>
 
 
+    <string name="menu">Menu</string>
     <string name="menu_send">Partager</string>
+    <string name="menu_export_db">Exporter les données</string>
     <string name="menu_piechartbynb">Nombre de vol par type</string>
     <string name="menu_barchartbynb">Nombre de vol par machine</string>
     <string name="menu_piechartbytotal">Temps de vol par type</string>
     <string name="menu_barchartbytotal">Temps de vol par machine</string>
 
-    <string name="menu_importVols">Importer des enregistrements</string>
+    <string name="menu_chart">Graphiques</string>
+    <string name="menu_importVols">Importer</string>
     <string name="menu_import_ok">Import du fichier réussi</string>
     <string name="menu_import">Importer des données</string>
 
-
+    <string name="filter_start_date">Date de début</string>
+    <string name="filter_end_date">Date de fin</string>
 
 
     <string name="widget_nb_flight">vols</string>

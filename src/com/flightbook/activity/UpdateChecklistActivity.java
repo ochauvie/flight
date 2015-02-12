@@ -124,14 +124,14 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
     	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(true);
+    		myInterface.getListener().onDialogCompleted(true, null);
     	    dialog.dismiss();
     	  }
     	});
     	builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
     	  @Override
     	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(false);
+    		myInterface.getListener().onDialogCompleted(false, null);
     		dialog.dismiss();
     	  }
     	});
@@ -140,7 +140,7 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
 	}
 	
 	@Override
-	public void onDialogCompleted(boolean answer) {
+	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
 			ChecklistItem item = checklist.getItems().get(selectItim);
 			dbChecklist.open();

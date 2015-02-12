@@ -5,7 +5,7 @@ public class MyDialogInterface {
 	DialogReturn dialogReturn;
 
     public interface DialogReturn {
-        void onDialogCompleted(boolean answer);
+        void onDialogCompleted(boolean answer, String type);
     }
 
     public void setListener(DialogReturn dialogReturn) {

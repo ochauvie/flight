@@ -13,6 +13,7 @@ import com.flightbook.model.Aeronef;
 import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
+import com.flightbook.sqllite.DbBackup;
 import com.flightbook.sqllite.DbSite;
 import com.flightbook.sqllite.DbVol;
 import com.flightbook.widget.FlightWidgetProvider;
@@ -22,9 +23,7 @@ import android.content.ComponentName;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -33,6 +32,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -45,15 +45,18 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class VolActivity extends Activity implements DialogReturn, OnTouchListener, OnDateSetListener {
-	
+
+    private static final String DIALOG_BACKUP = "BACKUP";
+    private static final String DIALOG_EXIT = "EXIT";
+
 	private MyDialogInterface myInterface;
 	private DbVol dbVol = new DbVol(this);
     private DbSite dbSite = new DbSite(this);
 	private RelativeLayout relativeLayout;
-	private ImageButton saveButton, deleteButton;
 	private EditText aeronef, minVol, minMot, secMot, note, lieu, flightDate, accuPropultion;
 	private Double latitude, longitude, altitude;
 	private String lieuGps;
@@ -147,97 +150,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         // Init aeronef selection by HangarActivity or SplashActivity (Nfc tag)
         initPage();
         
-        // Save flight
-        saveButton = (ImageButton) findViewById(R.id.saveVol);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		String sAronef = aeronef.getText().toString();
-        		if (!"".equals(sAronef) && sAronef!=null) {
-	        		Vol vol = new Vol();
-	        		vol.setAeronef(sAronef);
-                    if (currentAeronef!=null) {
-                        vol.setType(currentAeronef.getType());
-                    }
-	        		try {
-	        			vol.setMinutesVol(Integer.valueOf(minVol.getText().toString()));
-	        		} catch (NumberFormatException e) {
-	        			vol.setMinutesVol(0);
-	        		}
-	        		try {
-	        			vol.setMinutesMoteur(Integer.valueOf(minMot.getText().toString()));
-	        		} catch (NumberFormatException e) {
-	        			vol.setMinutesMoteur(0);
-	        		}
-	        		try {
-	        			vol.setSecondsMoteur(Integer.valueOf(secMot.getText().toString()));
-	        		} catch (NumberFormatException e) {
-	        			vol.setSecondsMoteur(0);
-	        		}
-	        		try {
-	        			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-	        			vol.setDateVol(sdf.parse(flightDate.getText().toString()));
-					} catch (ParseException e) {
-						vol.setDateVol(new Date());
-					}
-	        		vol.setNote(note.getText().toString());
-	        		if (currentSite!= null) {
-                        vol.setLieu(currentSite.getName());
-                    }
-                    vol.setAccuPropulsion(currentAccu);
-	        		
-	        		dbVol.open();
-	        			dbVol.insertVol(vol);
-	        		dbVol.close();
-	        		
-	        		resetPage();
-	        		
-	        		String sSecondsMOteur = String.valueOf(vol.getSecondsMoteur());
-	        		if (vol.getSecondsMoteur()<10) {sSecondsMOteur="0"+sSecondsMOteur;}
-	        		
-	        		AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
-	            	builder.setCancelable(true);
-	            	builder.setIcon(R.drawable.recorder); 
-	            	builder.setTitle(getString(R.string.save_ok));
-	            	String say = getString(R.string.save_ok) + " " + getString(R.string.st_for) + " " + vol.getAeronef();
-	            	ttsProviderImpl.say(say);
 
-	            	String result = getString(R.string.aeronef) + ": \t" + vol.getAeronef() + "\n"
-	            			+ getString(R.string.vol) + ": \t\t\t\t" + vol.getMinutesVol() + " " + getString(R.string.min) + "\n"
-	            			+ getString(R.string.moteur) + ": \t\t" + vol.getMinutesMoteur() + ":" + sSecondsMOteur + "\n"
-                            + getString(R.string.accu_propultion) + ": \t\t" + (vol.getAccuPropulsion()!=null?vol.getAccuPropulsion().getNom():"") + "\n"
-	            			+ getString(R.string.note) + ": \t\t\t" +  vol.getNote() + "\n"
-                            + getString(R.string.lieu) + ": \t\t\t"+ (vol.getLieu()!=null?vol.getLieu():"");
-	            	
-	            	builder.setMessage(result);
-	            	builder.setInverseBackgroundForced(true);
-	            	builder.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
-	            	  @Override
-	            	  public void onClick(DialogInterface dialog, int which) {
-	            		dialog.dismiss();
-	            	  }
-	            	});
-	            	
-	            	AlertDialog alert = builder.create();
-	            	alert.show();
-	        		
-        		} else {
-                    log.setText(getString(R.string.aeronef_mandatory));
-        			ttsProviderImpl.say(getString(R.string.aeronef_mandatory));
-        		}
-
-
-                updateMyWidgets();
-        	}
-        });        
-
-        // Reset screen
-        deleteButton = (ImageButton) findViewById(R.id.deleteVol);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		resetPage();
-        	}
-        });        
-        
         // Find aeronef
         selectAeronef = (ImageButton) findViewById(R.id.selectAeronef);
         selectAeronef.setOnClickListener(new View.OnClickListener() {
@@ -412,10 +325,6 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
-    		ActionBar actionBar = getActionBar();
-    		actionBar.setDisplayHomeAsUpEnabled(true);
-    	}
         return true;
     }
 
@@ -455,6 +364,18 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         	 Intent checklistsActivity = new Intent(VolActivity.this, ChecklistsActivity.class);
              startActivityForResult(checklistsActivity, 0);
              return true;
+         case R.id.backup:
+             backupDb();
+             return true;
+         case R.id.save:
+             saveFlight();
+             return true;
+         case R.id.reset:
+             resetPage();
+             return true;
+           case R.id.close:
+               exitApp();
+               return true;
        }
        return false;}
     
@@ -491,39 +412,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         // If you return false, these actions will not be recorded
         return true;
 	}
-	
-	@Override
-    public void onBackPressed() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    	builder.setCancelable(true);
-    	builder.setIcon(R.drawable.fermeture);
-    	builder.setTitle(R.string.close);
-    	builder.setInverseBackgroundForced(true);
-    	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
-    	  @Override
-    	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(true);
-    	    dialog.dismiss();
-    	  }
-    	});
-    	builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
-    	  @Override
-    	  public void onClick(DialogInterface dialog, int which) {
-    		myInterface.getListener().onDialogCompleted(false);
-    		dialog.dismiss();
-    	  }
-    	});
-    	AlertDialog alert = builder.create();
-    	alert.show();
-    }
 
-	@Override
-	public void onDialogCompleted(boolean answer) {
-		if (answer) {
-			ttsProviderImpl.say(getString(R.string.bye));
-			finish();
-		}
-	}
+
+
 
 	@Override
 	public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
@@ -545,5 +436,161 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS,ids);
         sendBroadcast(intent);
     }
-	
+
+    private void saveFlight() {
+        String sAronef = aeronef.getText().toString();
+        if (!"".equals(sAronef) && sAronef!=null) {
+            Vol vol = new Vol();
+            vol.setAeronef(sAronef);
+            if (currentAeronef!=null) {
+                vol.setType(currentAeronef.getType());
+            }
+            try {
+                vol.setMinutesVol(Integer.valueOf(minVol.getText().toString()));
+            } catch (NumberFormatException e) {
+                vol.setMinutesVol(0);
+            }
+            try {
+                vol.setMinutesMoteur(Integer.valueOf(minMot.getText().toString()));
+            } catch (NumberFormatException e) {
+                vol.setMinutesMoteur(0);
+            }
+            try {
+                vol.setSecondsMoteur(Integer.valueOf(secMot.getText().toString()));
+            } catch (NumberFormatException e) {
+                vol.setSecondsMoteur(0);
+            }
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+                vol.setDateVol(sdf.parse(flightDate.getText().toString()));
+            } catch (ParseException e) {
+                vol.setDateVol(new Date());
+            }
+            vol.setNote(note.getText().toString());
+            if (currentSite!= null) {
+                vol.setLieu(currentSite.getName());
+            }
+            vol.setAccuPropulsion(currentAccu);
+
+            dbVol.open();
+            dbVol.insertVol(vol);
+            dbVol.close();
+
+            resetPage();
+
+            String sSecondsMOteur = String.valueOf(vol.getSecondsMoteur());
+            if (vol.getSecondsMoteur()<10) {sSecondsMOteur="0"+sSecondsMOteur;}
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(VolActivity.this);
+            builder.setCancelable(true);
+            builder.setIcon(R.drawable.recorder);
+            builder.setTitle(getString(R.string.save_ok));
+            String say = getString(R.string.save_ok) + " " + getString(R.string.st_for) + " " + vol.getAeronef();
+            ttsProviderImpl.say(say);
+
+            String result = getString(R.string.aeronef) + ": \t" + vol.getAeronef() + "\n"
+                    + getString(R.string.vol) + ": \t\t\t\t" + vol.getMinutesVol() + " " + getString(R.string.min) + "\n"
+                    + getString(R.string.moteur) + ": \t\t" + vol.getMinutesMoteur() + ":" + sSecondsMOteur + "\n"
+                    + getString(R.string.accu_propultion) + ": \t\t" + (vol.getAccuPropulsion()!=null?vol.getAccuPropulsion().getNom():"") + "\n"
+                    + getString(R.string.note) + ": \t\t\t" +  vol.getNote() + "\n"
+                    + getString(R.string.lieu) + ": \t\t\t"+ (vol.getLieu()!=null?vol.getLieu():"");
+
+            builder.setMessage(result);
+            builder.setInverseBackgroundForced(true);
+            builder.setPositiveButton(R.string.close, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
+        } else {
+            log.setText(getString(R.string.aeronef_mandatory));
+            ttsProviderImpl.say(getString(R.string.aeronef_mandatory));
+        }
+
+
+        updateMyWidgets();
+    }
+
+
+    private void backupDb() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setIcon(R.drawable.backup);
+        builder.setTitle("Data base backup");
+        builder.setInverseBackgroundForced(true);
+        builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myInterface.getListener().onDialogCompleted(true, DIALOG_BACKUP);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myInterface.getListener().onDialogCompleted(false, DIALOG_BACKUP);
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onDialogCompleted(boolean answer, String type) {
+        if (DIALOG_EXIT.equals(type)) {
+            if (answer) {
+                ttsProviderImpl.say(getString(R.string.bye));
+                finish();
+            }
+
+        } else if (answer) {
+            DbBackup dbBackup = new DbBackup(this);
+            try {
+                String fileName = Environment.getExternalStorageDirectory().getPath() + "/CarnetVolBackup.txt";
+                dbBackup.doBackup(fileName);
+                Toast.makeText(getBaseContext(),
+                        "Done writing SD " + fileName,
+                        Toast.LENGTH_LONG).show();
+            } catch (Exception e) {
+                Toast.makeText(getBaseContext(), e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    public void exitApp() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(true);
+        builder.setIcon(R.drawable.fermeture);
+        builder.setTitle(R.string.close);
+        builder.setInverseBackgroundForced(true);
+        builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myInterface.getListener().onDialogCompleted(true, DIALOG_EXIT);
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                myInterface.getListener().onDialogCompleted(false, DIALOG_EXIT);
+                dialog.dismiss();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
+
 }

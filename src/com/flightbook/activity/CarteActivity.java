@@ -2,7 +2,9 @@ package com.flightbook.activity;
 
 import java.util.List;
 
+import android.app.ActionBar;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.maps.GeoPoint;
@@ -30,7 +32,12 @@ public class CarteActivity extends MapActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_carte);
-	    
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
 	    // Init position
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
@@ -62,5 +69,10 @@ public class CarteActivity extends MapActivity {
 	
 	   
 	}
+
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
 
 }

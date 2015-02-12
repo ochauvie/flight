@@ -3,6 +3,8 @@ package com.flightbook.activity;
 import com.flightbook.R;
 import com.flightbook.speech.TtsProviderFactory;
 
+import android.app.ActionBar;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -41,6 +43,11 @@ public class MeteoActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_meteo);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         ttsProviderImpl = TtsProviderFactory.getInstance();
 
@@ -109,5 +116,10 @@ public class MeteoActivity extends Activity {
         });
 			
 	}
+
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
 	
 }
