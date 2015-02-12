@@ -159,8 +159,8 @@
     <string name="menu">Menu</string>
     <string name="menu_send">Partager</string>
     <string name="menu_export_db">Exporter les données</string>
-    <string name="menu_piechartbynb">Nombre de vol par type</string>
-    <string name="menu_barchartbynb">Nombre de vol par machine</string>
+    <string name="menu_piechartbynb">Nombre de vols par type</string>
+    <string name="menu_barchartbynb">Nombre de vols par machine</string>
     <string name="menu_piechartbytotal">Temps de vol par type</string>
     <string name="menu_barchartbytotal">Temps de vol par machine</string>
 
