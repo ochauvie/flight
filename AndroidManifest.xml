@@ -157,7 +157,12 @@
         <activity
             android:name="org.achartengine.GraphicalActivity"
             android:label="@string/title_activity_chart_time"
-            android:icon="@drawable/chart">
+            android:icon="@drawable/chart"
+            android:parentActivityName="com.flightbook.activity.VolsActivity" >
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.flightbook.activity.VolsActivity" />
         </activity>
         <activity
             android:name="com.flightbook.activity.AccusActivity"
