@@ -80,7 +80,8 @@
 	<string name="opt_paramoteur">Paramotor</string>
 	<string name="opt_helico">Helicopter</string>
 	<string name="opt_auto">Car</string>
-	<string name="opt_divers">Others</string>
+	<string name="opt_divers">Other</string>
+    <string name="opt_inconnu">Unknown</string>
 	
 	<string name="title_activity_drive">Synchronization Google Drive</string>
 	

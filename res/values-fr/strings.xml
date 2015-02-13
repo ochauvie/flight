@@ -81,6 +81,7 @@
 	<string name="opt_helico">Helicoptère</string>
 	<string name="opt_auto">Automobile</string>
 	<string name="opt_divers">Divers</string>
+    <string name="opt_inconnu">Inconnu</string>
 	
 	<string name="title_activity_drive">Synchronisation Google Drive</string>
 	

@@ -7,7 +7,9 @@ import com.flightbook.R;
 import com.flightbook.listener.AeronefAdapterListener;
 import com.flightbook.model.Aeronef;
 
+import android.app.Application;
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +92,7 @@ public class AeronefsAdapter extends BaseAdapter{
 		  } else {
 		  	layoutItem = (RelativeLayout) convertView;
 		  }
-		  
+
 		  //(2) : Recuperation des TextView de notre layout
 		  TextView tv_type = (TextView)layoutItem.findViewById(R.id.type);
 		  TextView tv_name = (TextView)layoutItem.findViewById(R.id.name);
@@ -104,8 +106,8 @@ public class AeronefsAdapter extends BaseAdapter{
 		  ImageButton bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteAeronef);
 		        
 		  //(3) : Renseignement des valeurs       
-		  //tv_type.setText("(" + aeronefs.get(position).getType() + ")");
-          tv_type.setText(aeronefs.get(position).getType());
+          //tv_type.setText(aeronefs.get(position).getType());
+          tv_type.setText(getStringAeronefType(aeronefs.get(position).getType()));
 		  tv_name.setText(aeronefs.get(position).getName());
           if (isLanscape) {
               tv_envergure.setText(String.valueOf(aeronefs.get(position).getWingSpan()) + " m");
@@ -168,5 +170,23 @@ public class AeronefsAdapter extends BaseAdapter{
 		  //On retourne l'item cree.
 		  return layoutItem;
 	}
+
+    private String getStringAeronefType(String type) {
+        String result = mContext.getString(R.string.opt_inconnu);
+        if (Aeronef.T_PLANEUR.equals(type)) {
+            result = mContext.getString(R.string.opt_planeur);
+        } else if (Aeronef.T_AVION.equals(type)) {
+            result = mContext.getString(R.string.opt_avion);
+        } else if (Aeronef.T_HELICO.equals(type)) {
+            result = mContext.getString(R.string.opt_helico);
+        } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
+            result = mContext.getString(R.string.opt_paramoteur);
+        } else if (Aeronef.T_AUTO.equals(type)) {
+            result = mContext.getString(R.string.opt_auto);
+        } else if (Aeronef.T_DIVERS.equals(type)) {
+            result = mContext.getString(R.string.opt_divers);
+        }
+        return result;
+    }
 
 }
