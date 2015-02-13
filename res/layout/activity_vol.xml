@@ -192,7 +192,8 @@
             android:src="@drawable/accu"
             android:layout_alignBottom="@+id/textViewNote"
             android:layout_toLeftOf="@+id/site"
-            android:layout_alignParentRight="true" />
+            android:layout_alignParentRight="true"
+            android:baselineAlignBottom="false" />
 
 
         <TextView

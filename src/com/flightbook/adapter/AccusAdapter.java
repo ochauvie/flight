@@ -43,6 +43,12 @@ public class AccusAdapter extends BaseAdapter{
 	    }
 	}
 
+    private void sendListenerType(Accu item, int position) {
+        for(int i = mListListener.size()-1; i >= 0; i--) {
+            mListListener.get(i).onClickType(item, position);
+        }
+    }
+
     private void sendListenerToUpdate(Accu item, int position) {
         for(int i = mListListener.size()-1; i >= 0; i--) {
             mListListener.get(i).onClickToUpdate(item, position);
@@ -54,6 +60,12 @@ public class AccusAdapter extends BaseAdapter{
 	    	mListListener.get(i).onClickToDelete(item, position);
 	    }
 	}
+
+    private void sendListenerNbElements(Accu item, int position) {
+        for(int i = mListListener.size()-1; i >= 0; i--) {
+            mListListener.get(i).onClickNbElements(item, position);
+        }
+    }
 	
 	@Override
 	public int getCount() {
@@ -104,10 +116,10 @@ public class AccusAdapter extends BaseAdapter{
 		tv_name.setText(currentAccu.getNom());
         tv_type.setText(currentAccu.getType().name());
         tv_type.setTextColor(Accu.getColor(currentAccu.getType().name()));
+        tv_nbElements.setText(String.valueOf(currentAccu.getNbElements()));
 
         // Affichage des colonnes suivants l'orientation de la page
-        if (tv_nbElements!=null) {
-            tv_nbElements.setText(String.valueOf(currentAccu.getNbElements()));
+        if (tv_capacite!=null) {
             tv_capacite.setText(String.valueOf(currentAccu.getCapacite()));
             tv_tauxDecharge.setText(String.valueOf(currentAccu.getTauxDecharge()));
             tv_marque.setText(currentAccu.getMarque());
@@ -117,6 +129,7 @@ public class AccusAdapter extends BaseAdapter{
 		// On memorise la position  dans le composant textview
 		tv_name.setTag(position);
         tv_type.setTag(position);
+        tv_nbElements.setTag(position);
 		bDelete.setTag(position);
         bUpdate.setTag(position);
 		  
@@ -133,7 +146,33 @@ public class AccusAdapter extends BaseAdapter{
 				}
 			        	
 			});
-		  
+
+
+        tv_type.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Lorsque l'on clique sur le type, on recupere la position de l'accu"
+                Integer position = (Integer)v.getTag();
+
+                //On previent les listeners qu'il y a eu un clic sur le TextView
+                sendListenerType(accus.get(position), position);
+            }
+
+        });
+
+        tv_nbElements.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Lorsque l'on clique sur le nb d'élément, on recupere la position de l'accu"
+                Integer position = (Integer)v.getTag();
+
+                //On previent les listeners qu'il y a eu un clic sur le TextView
+                sendListenerNbElements(accus.get(position), position);
+            }
+
+        });
 
 		  bDelete.setOnClickListener(new View.OnClickListener() {
 				@Override

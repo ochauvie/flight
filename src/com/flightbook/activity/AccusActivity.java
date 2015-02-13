@@ -4,15 +4,16 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.flightbook.R;
 import com.flightbook.activity.MyDialogInterface.DialogReturn;
@@ -31,7 +32,7 @@ import com.flightbook.sqllite.DbBackup;
 
 import java.util.ArrayList;
 
-public class AccusActivity extends ListActivity  implements DialogReturn, AccuAdapterListener {
+public class AccusActivity extends ListActivity  implements DialogReturn, AccuAdapterListener, View.OnClickListener {
 
 
 	private DbAccu dbAccu = new DbAccu(this);
@@ -48,6 +49,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
     private String sMinMot = null;
     private String sSecMot = null;
     private String sNote = null;
+    private TextView type, nbElements;
 
 
 
@@ -57,7 +59,12 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         setContentView(R.layout.activity_accus);
         
         ttsProviderImpl = TtsProviderFactory.getInstance();
-        
+
+        View header = findViewById(R.id.header_layout);
+        header.setOnClickListener(this);
+        type = (TextView) header.findViewById(R.id.type);
+        nbElements = (TextView) header.findViewById(R.id.nbElements);
+
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
 
@@ -65,10 +72,8 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         accus = dbAccu.getAccus();
         dbAccu.close();
 
-        View header = getLayoutInflater().inflate(R.layout.activity_header_accus, null);
         ListView listView = getListView();
-        listView.addHeaderView(header);
-        
+
         // Creation et initialisation de l'Adapter pour les accus
         adapter = new AccusAdapter(this, accus);
             
@@ -116,10 +121,44 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         startActivity(volActivity);
     	finish();
 	}
-    
 
-    
-	@Override
+    @Override
+    public void onClickType(Accu item, int position) {
+        Accu sel = accus.get(position);
+        selectItim = position;
+        if (accus!=null) {
+            for (int i=accus.size()-1; i>=0; i--) {
+                accus.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        dbAccu.open();
+        accus.addAll(dbAccu.getAccuByType(sel.getType()));
+        dbAccu.close();
+        type.setTextColor(Color.rgb(219, 23, 2));
+        nbElements.setTextColor(Color.BLACK);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClickNbElements(Accu item, int position) {
+        Accu sel = accus.get(position);
+        selectItim = position;
+        if (accus!=null) {
+            for (int i=accus.size()-1; i>=0; i--) {
+                accus.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        dbAccu.open();
+        accus.addAll(dbAccu.getAccuByNbElements(sel.getNbElements()));
+        dbAccu.close();
+        nbElements.setTextColor(Color.rgb(219, 23, 2));
+        type.setTextColor(Color.BLACK);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
 	public void onClickToDelete(Accu item, int position) {
 		Accu sel = accus.get(position);
 		selectItim = position;
@@ -219,4 +258,20 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
     }
 
 
+    @Override
+    // Action sur le click du header: suppression du filtre sur la liste
+    public void onClick(View v) {
+        if (accus!=null) {
+            for (int i=accus.size()-1; i>=0; i--) {
+                accus.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        dbAccu.open();
+        accus.addAll(dbAccu.getAccus());
+        dbAccu.close();
+        adapter.notifyDataSetChanged();
+        type.setTextColor(Color.BLACK);
+        nbElements.setTextColor(Color.BLACK);
+    }
 }

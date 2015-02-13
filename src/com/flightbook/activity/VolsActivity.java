@@ -25,6 +25,7 @@ import android.app.ActionBar;
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.AlertDialog;
@@ -41,7 +42,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {//}, ActionBar.OnNavigationListener{
+public class VolsActivity extends ListActivity implements DialogReturn, VolsAdapterListener, View.OnClickListener {
 
 
     private MyDialogInterface myInterface;
@@ -49,7 +50,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private ArrayList<Vol> vols;
 	private int selectItim = -1;
 	private VolsAdapter adapter;
-	private TextView totalVol, nbVol, nbDate;
+	private TextView totalVol, nbVol, nbDate, name, date;
     private TtsProviderFactory ttsProviderImpl;
 
     private static final int FILE_SELECT_CODE = 0;
@@ -62,14 +63,14 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 
         ttsProviderImpl = TtsProviderFactory.getInstance();
 
-
-        View header = getLayoutInflater().inflate(R.layout.activity_header_vols, null);
-            // Ajout d'un listener sur la selection du header pour supprimer le filtre sur la liste)
-            header.setOnClickListener(this);
-        View footer = getLayoutInflater().inflate(R.layout.activity_footer_vols, null);
         ListView listView = getListView();
-        listView.addHeaderView(header);
-        listView.addFooterView(footer);
+
+        View header = findViewById( R.id.header_layout );
+        header.setOnClickListener(this);
+        name = (TextView) header.findViewById(R.id.name);
+        date = (TextView) header.findViewById(R.id.date);
+
+        View footer = findViewById( R.id.footer_layout );
         totalVol = (TextView) footer.findViewById(R.id.totalVol);
         nbVol = (TextView) footer.findViewById(R.id.nbVol);
         nbDate = (TextView) footer.findViewById(R.id.nbDate);
@@ -193,6 +194,12 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         dbVol.open();
         vols.addAll(dbVol.getVolsByMachine(vol.getAeronef()));
         dbVol.close();
+        if (vol.getAeronef()!=null) {
+            name.setTextColor(Color.rgb(219, 23, 2));
+        } else {
+            name.setTextColor(Color.BLACK);
+        }
+        date.setTextColor(Color.BLACK);
         adapter.notifyDataSetChanged();
         majFooter();
     }
@@ -211,6 +218,12 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
         vols.addAll(dbVol.getVolsByDate(sdf.format(vol.getDateVol())));
         dbVol.close();
+        if (vol.getDateVol()!=null) {
+            date.setTextColor(Color.rgb(219, 23, 2));
+        } else {
+            date.setTextColor(Color.BLACK);
+        }
+        name.setTextColor(Color.BLACK);
         adapter.notifyDataSetChanged();
         majFooter();
     }
@@ -280,6 +293,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         vols.addAll(dbVol.getVols());
         dbVol.close();
         adapter.notifyDataSetChanged();
+        name.setTextColor(Color.BLACK);
+        date.setTextColor(Color.BLACK);
         majFooter();
     }
 

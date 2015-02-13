@@ -15,7 +15,7 @@
     
     <string name="save_ok">Enregistrement effectué</string>
     
-    <string name="title_activity_vol">Vol</string>
+    <string name="title_activity_vol">Saisie d\'un vol</string>
     <string name="aeronef">Machine</string>
     <string name="type">Type</string>
     <string name="selectAeronef">Hangar</string>

@@ -181,8 +181,52 @@ public class DbAccu {
         return accu;
     }
 
+    public ArrayList<Accu> getAccuByType(TypeAccu type) {
+        String where = null;
+        String[] whereArgs = null;
+        if (type!=null) {
+            where = DbManager.COL_ACCU_TYPE + "=?";
+            whereArgs = new String[] {type.name()};
+        }
+        String orderBy = DbManager.COL_ACCU_NOM;
+        Cursor c = bdd.query(DbManager.TABLE_ACCUS, new String[] {DbManager.COL_ID,
+                        DbManager.COL_ACCU_TYPE,
+                        DbManager.COL_ACCU_ELEMENTS,
+                        DbManager.COL_ACCU_CAPACITE,
+                        DbManager.COL_ACCU_TAUX_DECHARGE,
+                        DbManager.COL_ACCU_NUMERO,
+                        DbManager.COL_ACCU_NOM,
+                        DbManager.COL_ACCU_MARQUE,
+                        DbManager.COL_ACCU_DATE_ACHAT,
+                        DbManager.COL_ACCU_CYCLES,
+                        DbManager.COL_ACCU_VOLTAGE
+                },
+                where, whereArgs, null, null, orderBy);
+        return cursorToAccus(c);
+    }
 
-	/**
+    public ArrayList<Accu> getAccuByNbElements(int nbElements) {
+        String where = DbManager.COL_ACCU_ELEMENTS + "=?";
+        String[] whereArgs = new String[] {String.valueOf(nbElements)};
+        String orderBy = DbManager.COL_ACCU_NOM;
+        Cursor c = bdd.query(DbManager.TABLE_ACCUS, new String[] {DbManager.COL_ID,
+                        DbManager.COL_ACCU_TYPE,
+                        DbManager.COL_ACCU_ELEMENTS,
+                        DbManager.COL_ACCU_CAPACITE,
+                        DbManager.COL_ACCU_TAUX_DECHARGE,
+                        DbManager.COL_ACCU_NUMERO,
+                        DbManager.COL_ACCU_NOM,
+                        DbManager.COL_ACCU_MARQUE,
+                        DbManager.COL_ACCU_DATE_ACHAT,
+                        DbManager.COL_ACCU_CYCLES,
+                        DbManager.COL_ACCU_VOLTAGE
+                },
+                where, whereArgs, null, null, orderBy);
+        return cursorToAccus(c);
+    }
+
+
+    /**
 	 * Transform {@link android.database.Cursor} in list of {@link com.flightbook.model.Accu}
 	 * @param c{@link Cursor}
 	 * @return the list of {@link com.flightbook.model.Accu}

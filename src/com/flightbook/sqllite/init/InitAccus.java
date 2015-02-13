@@ -174,7 +174,7 @@ public final class InitAccus {
         values.put(DbManager.COL_ACCU_MARQUE, "Pro Tronik");
         values.put(DbManager.COL_ACCU_NOM, "3S-1300-1");
         values.put(DbManager.COL_ACCU_TYPE, "LIPO");
-        values.put(DbManager.COL_ACCU_ELEMENTS, 5);
+        values.put(DbManager.COL_ACCU_ELEMENTS, 3);
         values.put(DbManager.COL_ACCU_CAPACITE, 1300);
         values.put(DbManager.COL_ACCU_VOLTAGE, 11.1);
         values.put(DbManager.COL_ACCU_TAUX_DECHARGE, 35);
@@ -186,7 +186,7 @@ public final class InitAccus {
         values.put(DbManager.COL_ACCU_MARQUE, "Pro Tronik");
         values.put(DbManager.COL_ACCU_NOM, "3S-1300-2");
         values.put(DbManager.COL_ACCU_TYPE, "LIPO");
-        values.put(DbManager.COL_ACCU_ELEMENTS, 5);
+        values.put(DbManager.COL_ACCU_ELEMENTS, 3);
         values.put(DbManager.COL_ACCU_CAPACITE, 1300);
         values.put(DbManager.COL_ACCU_VOLTAGE, 11.1);
         values.put(DbManager.COL_ACCU_TAUX_DECHARGE, 35);
