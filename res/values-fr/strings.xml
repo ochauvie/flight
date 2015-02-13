@@ -91,7 +91,12 @@
 	<string name="defaultOaci">LFPG</string>
 	<string name="download">Chargement</string>
 	<string name="wainting">Recherche en cours</string>
-	
+    <string name="internet_ko">Une connexion internet est nécessaire</string>
+    <string name="meteo_cunimb_say">météo avec cunimb pour</string>
+    <string name="meteo_add_say">météo avec aviation weather pour</string>
+    <string name="meteo_allmetar_say">météo avec metsat pour</string>
+
+
 	<string name="title_activity_radios">Programmes radio</string>
 	<string name="title_activity_radio">Programme radio</string>
 	<string name="title_activity_switchpotar">Ajout inter - potentiomètre</string>

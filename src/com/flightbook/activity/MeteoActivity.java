@@ -4,6 +4,9 @@ import com.flightbook.R;
 import com.flightbook.speech.TtsProviderFactory;
 
 import android.app.ActionBar;
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
@@ -13,27 +16,23 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 
 public class MeteoActivity extends Activity {
 	
-	private ImageButton mButtonCunimb;
-    private ImageButton mButtonADDS;
-    private ImageButton mButtonAllMetarSat;
+	private ImageButton mButtonCunimb, mButtonADDS, mButtonAllMetarSat;
 	private WebView webView;
 	private EditText editTextOaci;
 	private ProgressDialog mProgress;
     private TtsProviderFactory ttsProviderImpl;
 
-    private String meteoCunimbSay = "météo avec cunimb pour ";
     private String meteoCunimbUrlStart = "http://cunimb.net/decodemet.php?station=";
     private String meteoCunimbUrlEnd = "";
 
-    private String meteoADDSay = "météo avec aviation weather pour ";
     private String meteoADDSUrlStart = "http://www.aviationweather.gov/adds/metars/?station_ids=";
     private String meteoADDSUrlEnd = "&std_trans=translated&chk_metars=on&hoursStr=most+recent+only&submitmet=Submit";
 
-    private String meteoAllMetarSay = "météo avec metsat pour ";
     private String meteoAllMetarSatUrlStart = "http://fr.allmetsat.com/metar-taf/france.php?icao=";
     private String meteoAllMetarSatUrlEnd = "";
 
@@ -54,27 +53,37 @@ public class MeteoActivity extends Activity {
 		editTextOaci = (EditText) findViewById(R.id.editTextOaci);
 		editTextOaci.setText(R.string.defaultOaci);
 
-		
 		// Progress dialog
-        mProgress = ProgressDialog.show(this, getString(R.string.download), getString(R.string.wainting));
+        if (isNetworkAvailable()) {
+            mProgress = ProgressDialog.show(this, getString(R.string.download), getString(R.string.wainting));
+        }
 
         // Add a WebViewClient for WebView, which actually handles loading data from web
 		webView = (WebView) findViewById(R.id.webview);
-            ttsProviderImpl.say(meteoADDSay + editTextOaci.getText().toString());
-		webView.loadUrl(meteoADDSUrlStart + editTextOaci.getText().toString() + meteoADDSUrlEnd);
+            ttsProviderImpl.say(getString(R.string.meteo_add_say) + " "+ editTextOaci.getText().toString());
+        if (isNetworkAvailable()) {
+            webView.loadUrl(meteoADDSUrlStart + editTextOaci.getText().toString() + meteoADDSUrlEnd);
+        } else {
+            Toast.makeText(getBaseContext(), getString(R.string.internet_ko), Toast.LENGTH_LONG).show();
+        }
 
-		
 		webView.setWebViewClient(new WebViewClient() {
             // load url
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+                if (isNetworkAvailable()) {
+                    view.loadUrl(url);
+                } else {
+                    Toast.makeText(getBaseContext(), getString(R.string.internet_ko), Toast.LENGTH_LONG).show();
+                }
                 return true;
             }
  
             // when finish loading page
             public void onPageFinished(WebView view, String url) {
-                if(mProgress.isShowing()) {
-                    mProgress.dismiss();
+                if (mProgress!=null) {
+                    if (mProgress.isShowing()) {
+                        mProgress.dismiss();
+                    }
                 }
             }
         });
@@ -85,8 +94,12 @@ public class MeteoActivity extends Activity {
         		String oaci = editTextOaci.getText().toString();
         		if (oaci!=null && !"".equals(oaci)) {
         			String url = meteoCunimbUrlStart + oaci.toUpperCase() + meteoCunimbUrlEnd;
-                    ttsProviderImpl.say(meteoCunimbSay + oaci.toUpperCase());
-        			webView.loadUrl(url);
+                    ttsProviderImpl.say(getString(R.string.meteo_cunimb_say) + " " + oaci.toUpperCase());
+                    if (isNetworkAvailable()) {
+                        webView.loadUrl(url);
+                    } else {
+                        Toast.makeText(getBaseContext(), getString(R.string.internet_ko), Toast.LENGTH_LONG).show();
+                    }
         		}
         	}
         });
@@ -97,8 +110,12 @@ public class MeteoActivity extends Activity {
                 String oaci = editTextOaci.getText().toString();
                 if (oaci!=null && !"".equals(oaci)) {
                     String url = meteoADDSUrlStart + oaci.toUpperCase() + meteoADDSUrlEnd;
-                    ttsProviderImpl.say(meteoADDSay + oaci.toUpperCase());
-                    webView.loadUrl(url);
+                    ttsProviderImpl.say(getString(R.string.meteo_add_say) + " " + oaci.toUpperCase());
+                    if (isNetworkAvailable()) {
+                        webView.loadUrl(url);
+                    } else {
+                        Toast.makeText(getBaseContext(), getString(R.string.internet_ko), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -109,8 +126,12 @@ public class MeteoActivity extends Activity {
                 String oaci = editTextOaci.getText().toString();
                 if (oaci!=null && !"".equals(oaci)) {
                     String url = meteoAllMetarSatUrlStart + oaci.toUpperCase() + meteoAllMetarSatUrlEnd;
-                    ttsProviderImpl.say(meteoAllMetarSay + oaci.toUpperCase());
-                    webView.loadUrl(url);
+                    ttsProviderImpl.say(getString(R.string.meteo_allmetar_say) + " " + oaci.toUpperCase());
+                    if (isNetworkAvailable()) {
+                        webView.loadUrl(url);
+                    } else {
+                        Toast.makeText(getBaseContext(), getString(R.string.internet_ko), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
         });
@@ -120,6 +141,13 @@ public class MeteoActivity extends Activity {
     @Override
     public void onBackPressed() {
         // Nothings
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 	
 }

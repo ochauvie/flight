@@ -1,11 +1,11 @@
 <resources>
 
-    <string name="app_name">Flight log book</string>
-    <string name="app_name_maj">FLIGHT LOG BOOK</string>
+    <string name="app_name">Book flight</string>
+    <string name="app_name_maj">BOOK FLIGHT</string>
     <string name="menu_settings">Settings</string>
     
-    <string name="title_activity_flightbook">Flight Book</string>
-    <string name="startChronometre1">Chronometre is started</string>
+    <string name="title_activity_flightbook">Book flight</string>
+    <string name="startChronometre1">Chronometer is started</string>
     <string name="stopChronometre1">Stop</string>
     <string name="reset">Reset</string>
     <string name="close">Close</string>
@@ -29,7 +29,7 @@
 	<string name="deleteVol">Reset</string>
 	<string name="note">Note</string>
 	<string name="date">Date</string>
-	<string name="vol">Flight</string>
+	<string name="vol">Time</string>
 	<string name="lieu">Place</string>
 	<string name="gps">Gps</string>
     <string name="lat">Lat</string>
@@ -87,10 +87,14 @@
 	<string name="title_activity_meteo">Metar</string>
 	<string name="metar">Metar</string>
 	<string name="meteo">Weather</string>
-	<string name="oaci">Code OACI</string>
+	<string name="oaci">OACI code</string>
 	<string name="defaultOaci">LFPG</string>
 	<string name="download">Download</string>
 	<string name="wainting">Searching</string>
+    <string name="internet_ko">Internet connection is required</string>
+    <string name="meteo_cunimb_say">Metar by cunimb for</string>
+    <string name="meteo_add_say">Metar by aviation weather for</string>
+    <string name="meteo_allmetar_say">Metar by metsat for</string>
 	
 	<string name="title_activity_radios">Radio programs</string>
 	<string name="title_activity_radio">Radio program</string>
@@ -104,7 +108,7 @@
 	<string name="down">DOWN</string>
 	<string name="center">CENTER</string>
 	<string name="inter">Switch</string>
-	<string name="potar">Potar</string>
+	<string name="potar">Potentiometer</string>
 	 
 	<string name="nfc">Nfc</string>
 	<string name="nfc_tag_detected">Tag detected</string>
@@ -137,11 +141,11 @@
 	
 	<string name="bye">Bye</string>
 
-    <string name="title_activity_accu">Accu</string>
-    <string name="accu_propultion">Accu</string>
-    <string name="selectAccu">Engine accu</string>
-    <string name="title_activity_addAccu">Accu</string>
-    <string name="accu_save">Accu saved</string>
+    <string name="title_activity_accu">Battery</string>
+    <string name="accu_propultion">Battery</string>
+    <string name="selectAccu">Engine battery</string>
+    <string name="title_activity_addAccu">Battery</string>
+    <string name="accu_save">Battery saved</string>
     <string name="accu_nb_element">Number of elements</string>
     <string name="accu_capacite">Capacity (mAh)</string>
     <string name="accu_voltage">Voltage (V)</string>
@@ -157,9 +161,9 @@
 
     <string name="menu">Menu</string>
     <string name="menu_send">Send</string>
-    <string name="menu_export_db">Exporter les données</string>
-    <string name="menu_piechartbynb">Number of flight by type</string>
-    <string name="menu_barchartbynb">Number of flignt by machine</string>
+    <string name="menu_export_db">Export data</string>
+    <string name="menu_piechartbynb">Number of flights by type</string>
+    <string name="menu_barchartbynb">Number of flights by machine</string>
     <string name="menu_piechartbytotal">Flight time by type</string>
     <string name="menu_barchartbytotal">Flight time by machine</string>
 
