@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
@@ -96,6 +97,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
             sNote = bundle.getString(Vol.NOTE);
         }
 
+
     }
     
     
@@ -176,7 +178,9 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.addshareclose, menu);
+        inflater.inflate(R.menu.addshareimportclose, menu);
+        MenuItem item = menu.findItem(R.id.importData);
+        item.setVisible(false);
         return true;
     }
 

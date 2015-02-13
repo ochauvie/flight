@@ -169,7 +169,9 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.addshareclose, menu);
+        inflater.inflate(R.menu.addshareimportclose, menu);
+        MenuItem item = menu.findItem(R.id.importData);
+        item.setVisible(false);
         return true;
     }
 

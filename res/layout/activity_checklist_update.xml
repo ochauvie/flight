@@ -62,20 +62,12 @@
     
      <ListView
         android:id="@android:id/list"
-        android:layout_height="320dp"
+        android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_below="@+id/layoutNew">
     </ListView>
     
-    <ImageButton
-		 android:id="@+id/butSave"
-		 android:layout_width="56dp"
-		 android:layout_height="56dp"
-		 android:layout_below="@android:id/list"
-		 android:layout_marginLeft="15dp"
-		 android:background="#00000000"
-		 android:contentDescription="@string/save"
-		 android:src="@drawable/save" />
+
     
 </RelativeLayout>

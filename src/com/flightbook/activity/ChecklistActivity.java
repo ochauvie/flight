@@ -8,7 +8,9 @@ import com.flightbook.model.Checklist;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbChecklist;
 
+import android.app.ActionBar;
 import android.app.ListActivity;
+import android.os.Build;
 import android.os.Bundle;
 
 public class ChecklistActivity extends ListActivity {
@@ -24,6 +26,11 @@ public class ChecklistActivity extends ListActivity {
         setContentView(R.layout.activity_checklist);
         
         ttsProviderImpl = TtsProviderFactory.getInstance();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         
         // Get checklist to edit
         Bundle bundle = getIntent().getExtras();
@@ -50,6 +57,9 @@ public class ChecklistActivity extends ListActivity {
         
     }
 
-
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
     
 }

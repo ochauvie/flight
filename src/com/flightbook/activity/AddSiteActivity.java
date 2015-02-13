@@ -7,10 +7,13 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -29,8 +32,7 @@ public class AddSiteActivity extends Activity {
 
 	private EditText name, comment;
 	private TextView log;
-	private ImageButton save, close;
-    private CheckBox siteDefault;
+	private CheckBox siteDefault;
 
 	    @Override
 	    public void onCreate(Bundle savedInstanceState) {
@@ -44,76 +46,13 @@ public class AddSiteActivity extends Activity {
 	        name = (EditText) findViewById(R.id.editTextName);
 	        comment = (EditText) findViewById(R.id.editTextComment);
             siteDefault = (CheckBox) findViewById(R.id.site_default);
-	        
 
 	        // Get site in parameter
 	        initView();
-	        
-	        // Close view
-	        close = (ImageButton) findViewById(R.id.close);
-	        close.setOnClickListener(new View.OnClickListener() {
-	        	public void onClick(View v) {
-	        		Intent siteActivity = new Intent(getApplicationContext(),SiteActivity.class);
-                    // TODO passer les extra
-	            	startActivity(siteActivity);
-	            	 finish();
-	        	}
-	        });
-	       
-	        // Save view
-	        save = (ImageButton) findViewById(R.id.save);
-	        save.setOnClickListener(new View.OnClickListener() {
-	        	public void onClick(View v) {
-	        		
-	        		Editable edName = name.getText();
-	        		if (edName==null || "".equals(edName.toString())) {
-	        			log.setText(R.string.name_mandatory);
-	        		} else {
-	        			try {
-	        				if (site==null) {
-	        					site = new Site();
-	    	        		} 
-		        			site.setName(edName.toString());
-		        			site.setComment(comment.getText().toString());
-                            if (siteDefault.isChecked()) {
-                                site.setIsDefault(1);
-                            } else {
-                                site.setIsDefault(0);
-                            }
 
-		        			dbSite.open();
-                                if (site.getId()!=0) {
-                                    dbSite.updateSite(site);
-                                } else {
-                                    dbSite.insertSite(site);
-                                }
-                                if (site.getIsDefault()==1) {
-                                    ArrayList<Site> oldSites = dbSite.getSites();
-                                    for (Site oldSite:oldSites) {
-                                        if (oldSite.getIsDefault()==1 && !oldSite.getName().equals(site.getName()))
-                                        {
-                                            oldSite.setIsDefault(0);
-                                            dbSite.updateSite(oldSite);
-                                        }
-                                    }
-                                }
-		        			dbSite.close();
-		        			
-		        			log.setText(R.string.site_save);
-		        			
-		        			Intent siteActivity = new Intent(getApplicationContext(),SiteActivity.class);
-			            	startActivity(siteActivity);
-                            // TODO  passer les extra
-			            	finish();
-	        			} catch (NumberFormatException nfe) {
-	        				log.setText(R.string.number_format_ko);
-	        			}
-	        		}
-	        	}
-	        });
-
-	        
-	    }
+            // Hide keyboard
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        }
 	    
 	    private void initView() {
 	    	Bundle bundle = getIntent().getExtras();
@@ -143,4 +82,76 @@ public class AddSiteActivity extends Activity {
 	    public void onBackPressed() {
 			// Nothings
 		}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.saveclose, menu);
+        return true;
+    }
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save:
+                onSave();
+                return true;
+            case R.id.close:
+                Intent siteActivity = new Intent(getApplicationContext(),SiteActivity.class);
+                // TODO passer les extra
+                startActivity(siteActivity);
+                finish();
+                return true;
+        }
+        return false;
+    }
+
+    private void onSave() {
+        Editable edName = name.getText();
+        if (edName==null || "".equals(edName.toString())) {
+            log.setText(R.string.name_mandatory);
+        } else {
+            try {
+                if (site==null) {
+                    site = new Site();
+                }
+                site.setName(edName.toString());
+                site.setComment(comment.getText().toString());
+                if (siteDefault.isChecked()) {
+                    site.setIsDefault(1);
+                } else {
+                    site.setIsDefault(0);
+                }
+
+                dbSite.open();
+                if (site.getId()!=0) {
+                    dbSite.updateSite(site);
+                } else {
+                    dbSite.insertSite(site);
+                }
+                if (site.getIsDefault()==1) {
+                    ArrayList<Site> oldSites = dbSite.getSites();
+                    for (Site oldSite:oldSites) {
+                        if (oldSite.getIsDefault()==1 && !oldSite.getName().equals(site.getName()))
+                        {
+                            oldSite.setIsDefault(0);
+                            dbSite.updateSite(oldSite);
+                        }
+                    }
+                }
+                dbSite.close();
+
+                log.setText(R.string.site_save);
+
+                Intent siteActivity = new Intent(getApplicationContext(),SiteActivity.class);
+                startActivity(siteActivity);
+                // TODO  passer les extra
+                finish();
+            } catch (NumberFormatException nfe) {
+                log.setText(R.string.number_format_ko);
+            }
+        }
+    }
 }

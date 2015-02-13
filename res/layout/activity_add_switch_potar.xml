@@ -150,33 +150,7 @@
 		        android:layout_marginTop="17dp" 
 		        android:text="@string/log" />
 			
-		 <LinearLayout
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/textViewLog"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginTop="90dp">
-				    
-			<ImageButton
-		        android:id="@+id/save"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="5dp"
-		        android:background="#00000000"
-		        android:contentDescription="@string/save"
-		        android:src="@drawable/save" />
-			
-			 <ImageButton
-		        android:id="@+id/close"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_marginLeft="150dp"
-		        android:background="#00000000"
-		        android:contentDescription="@string/close"
-		        android:src="@drawable/close" />
-				
-		 </LinearLayout>	
+
 				
 	</RelativeLayout>
 

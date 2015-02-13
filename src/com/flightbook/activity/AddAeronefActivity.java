@@ -24,9 +24,12 @@ import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -42,7 +45,6 @@ public class AddAeronefActivity extends Activity {
 	private EditText name, wingSpan, weight, engine, firstFlight, comment;
 	private TextView log;
 	private RadioButton optPlaneur, optAvion, optParamoteur, optHelico, optAuto, optDivers;
-	private ImageButton save, close, nfc;
 	private RadioGroup rg1, rg2 ,rg3;
 	    
 	private Context ctx;
@@ -51,7 +53,8 @@ public class AddAeronefActivity extends Activity {
     private PendingIntent pendingIntent;
 	private IntentFilter writeTagFilters[];
 	private boolean writeMode;
-	
+    private Menu menu = null;
+
 		// Listener to synchronize radio groups 
 		private OnCheckedChangeListener listener1 = new OnCheckedChangeListener() {
 	        @Override
@@ -144,117 +147,18 @@ public class AddAeronefActivity extends Activity {
 	    
 	        // Get aeronef in parameter
 	        initView();
-	        
-	        // Close view
-	        close = (ImageButton) findViewById(R.id.close);
-	        close.setOnClickListener(new View.OnClickListener() {
-	        	public void onClick(View v) {
-	        		Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
-	            	startActivity(hangarActivity);
-	            	finish();
-	        	}
-	        });
-	       
-	        // Save view
-	        save = (ImageButton) findViewById(R.id.save);
-	        save.setOnClickListener(new View.OnClickListener() {
-	        	public void onClick(View v) {
-	        		
-	        		Editable edName = name.getText();
-	        		if (edName==null || "".equals(edName.toString())) {
-	        			log.setText(R.string.name_mandatory);
-	        		} else if (!optPlaneur.isChecked() && !optAvion.isChecked() &&
-	        				!optParamoteur.isChecked() && !optHelico.isChecked() &&
-	        				!optAuto.isChecked() && !optDivers.isChecked()) {
-	        			log.setText(R.string.type_mandatory);
-	        		} else {
-	        			try {
-	        				if (aeronef==null) {
-	        					aeronef = new Aeronef();	
-	    	        		} 
-		        			aeronef.setName(edName.toString());
-		        			aeronef.setWingSpan(Float.valueOf(wingSpan.getText().toString()));
-		        			aeronef.setWeight(Float.valueOf(weight.getText().toString()));
-		        			aeronef.setEngine(engine.getText().toString());
-		        			aeronef.setFirstFlight(firstFlight.getText().toString());
-		        			aeronef.setComment(comment.getText().toString());
-		        			
-		        			if (optPlaneur.isChecked()) {
-		        				aeronef.setType(Aeronef.T_PLANEUR);
-		        			} else if (optAvion.isChecked()) {
-		        				aeronef.setType(Aeronef.T_AVION);
-		        			} else if (optParamoteur.isChecked()) {
-		        				aeronef.setType(Aeronef.T_PARAMOTEUR);
-		        			} else if (optHelico.isChecked()) {
-		        				aeronef.setType(Aeronef.T_HELICO);
-		        			} else if (optAuto.isChecked()) {
-		        				aeronef.setType(Aeronef.T_AUTO);
-		        			} else if (optDivers.isChecked()) {
-		        				aeronef.setType(Aeronef.T_DIVERS);
-		        			}
-		        			
-		        			dbAeronef.open();
-		        			if (aeronef.getId()!=0) {
-		        				dbAeronef.updateAeronef(aeronef);
-		        			} else {
-		        				dbAeronef.insertAeronef(aeronef);
-		        			}
-		        			dbAeronef.close();
-		        			
-		        			log.setText(R.string.aeronef_save);
-		        			
-		        			Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
-			            	startActivity(hangarActivity);
-			            	finish();
-	        			} catch (NumberFormatException nfe) {
-	        				log.setText(R.string.number_format_ko);
-	        			}
-	        		}
-	        	}
-	        });
-	        
-	        // NFC write
-	        nfc = (ImageButton) findViewById(R.id.nfc);
-	        if (aeronef==null) {
-	        	nfc.setClickable(false);
-	        }
-	        nfc.setOnClickListener(new View.OnClickListener() {
-	        	public void onClick(View v) {
-        			
-	        		if (aeronef!=null) {
-		        		String aerName = aeronef.getName();
-	        			String aerType = aeronef.getType();
-	        			if (aerName!= null && aerType!= null) {
-	        				if(mytag==null){
-								Toast.makeText(ctx, R.string.nfc_approch_tag, Toast.LENGTH_LONG ).show();
-							} else {
-								try {
-									int result = write(aerName, aerType, mytag);
-									if (result!=0) {
-										Toast.makeText(ctx, R.string.nfc_write_ko_format, Toast.LENGTH_LONG ).show();
-									} else {
-										Toast.makeText(ctx, R.string.nfc_write_ok, Toast.LENGTH_LONG ).show();
-									}
-								} catch (IOException e) {
-									Toast.makeText(ctx, R.string.nfc_write_ko, Toast.LENGTH_LONG ).show();
-									//e.printStackTrace();
-								} catch (FormatException e) {
-									Toast.makeText(ctx, R.string.nfc_write_ko , Toast.LENGTH_LONG ).show();
-									//e.printStackTrace();
-								}
-							}
-	        			}
-	        		} else {
-		        		Toast.makeText(ctx, R.string.nfc_save_before, Toast.LENGTH_LONG ).show();
-		        	}
-	        	}
-	        });
-            // Not visible if no nfc on device
-            if (adapter==null) {
-                nfc.setVisibility(View.GONE);
+
+	        // Not visible if no nfc on device
+            if (adapter==null && this.menu!=null) {
+                MenuItem item = this.menu.findItem(R.id.nfc);
+                item.setVisible(false);
             }
-	        
-	    }
+
+            // Hide keyboard
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+
+        }
 	    
 	    private void initView() {
 	    	Bundle bundle = getIntent().getExtras();
@@ -377,4 +281,120 @@ public class AddAeronefActivity extends Activity {
 	    public void onBackPressed() {
 			// Nothings
 		}
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.savenfcclose, menu);
+        this.menu = menu;
+
+        // Si pas de NFC sur le device ou si l'aeronef n'est pas encore enregistré, pas de tag
+        if (adapter==null || aeronef==null) {
+            MenuItem item = this.menu.findItem(R.id.nfc);
+            item.setVisible(false);
+        }
+        return true;
+    }
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save:
+                onSave();
+                return true;
+            case R.id.close:
+                Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
+                startActivity(hangarActivity);
+                finish();
+                return true;
+            case R.id.nfc:
+                onNfc();
+                return true;
+        }
+        return false;
+    }
+
+    private void onSave() {
+        Editable edName = name.getText();
+        if (edName==null || "".equals(edName.toString())) {
+            log.setText(R.string.name_mandatory);
+        } else if (!optPlaneur.isChecked() && !optAvion.isChecked() &&
+                !optParamoteur.isChecked() && !optHelico.isChecked() &&
+                !optAuto.isChecked() && !optDivers.isChecked()) {
+            log.setText(R.string.type_mandatory);
+        } else {
+            try {
+                if (aeronef==null) {
+                    aeronef = new Aeronef();
+                }
+                aeronef.setName(edName.toString());
+                aeronef.setWingSpan(Float.valueOf(wingSpan.getText().toString()));
+                aeronef.setWeight(Float.valueOf(weight.getText().toString()));
+                aeronef.setEngine(engine.getText().toString());
+                aeronef.setFirstFlight(firstFlight.getText().toString());
+                aeronef.setComment(comment.getText().toString());
+
+                if (optPlaneur.isChecked()) {
+                    aeronef.setType(Aeronef.T_PLANEUR);
+                } else if (optAvion.isChecked()) {
+                    aeronef.setType(Aeronef.T_AVION);
+                } else if (optParamoteur.isChecked()) {
+                    aeronef.setType(Aeronef.T_PARAMOTEUR);
+                } else if (optHelico.isChecked()) {
+                    aeronef.setType(Aeronef.T_HELICO);
+                } else if (optAuto.isChecked()) {
+                    aeronef.setType(Aeronef.T_AUTO);
+                } else if (optDivers.isChecked()) {
+                    aeronef.setType(Aeronef.T_DIVERS);
+                }
+
+                dbAeronef.open();
+                if (aeronef.getId()!=0) {
+                    dbAeronef.updateAeronef(aeronef);
+                } else {
+                    dbAeronef.insertAeronef(aeronef);
+                }
+                dbAeronef.close();
+
+                log.setText(R.string.aeronef_save);
+
+                Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
+                startActivity(hangarActivity);
+                finish();
+            } catch (NumberFormatException nfe) {
+                log.setText(R.string.number_format_ko);
+            }
+        }
+    }
+
+    private void onNfc() {
+        if (aeronef!=null) {
+            String aerName = aeronef.getName();
+            String aerType = aeronef.getType();
+            if (aerName!= null && aerType!= null) {
+                if(mytag==null){
+                    Toast.makeText(ctx, R.string.nfc_approch_tag, Toast.LENGTH_LONG ).show();
+                } else {
+                    try {
+                        int result = write(aerName, aerType, mytag);
+                        if (result!=0) {
+                            Toast.makeText(ctx, R.string.nfc_write_ko_format, Toast.LENGTH_LONG ).show();
+                        } else {
+                            Toast.makeText(ctx, R.string.nfc_write_ok, Toast.LENGTH_LONG ).show();
+                        }
+                    } catch (IOException e) {
+                        Toast.makeText(ctx, R.string.nfc_write_ko, Toast.LENGTH_LONG ).show();
+                        //e.printStackTrace();
+                    } catch (FormatException e) {
+                        Toast.makeText(ctx, R.string.nfc_write_ko , Toast.LENGTH_LONG ).show();
+                        //e.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            Toast.makeText(ctx, R.string.nfc_save_before, Toast.LENGTH_LONG ).show();
+        }
+    }
 }

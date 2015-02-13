@@ -102,7 +102,12 @@
         <activity
             android:name="com.flightbook.activity.RadioActivity"
             android:label="@string/title_activity_radio"
-            android:icon="@drawable/ff9">
+            android:icon="@drawable/ff9"
+            android:parentActivityName="com.flightbook.activity.RadiosActivity" >
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.flightbook.activity.RadiosActivity" />
         </activity>
         <activity
             android:name="com.flightbook.activity.AddSwitchPotarActivity"
@@ -132,12 +137,22 @@
         <activity
             android:name="com.flightbook.activity.ChecklistActivity"
             android:label="@string/title_activity_checklist"
-            android:icon="@drawable/checklist">
+            android:icon="@drawable/checklist"
+            android:parentActivityName="com.flightbook.activity.ChecklistsActivity" >
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.flightbook.activity.ChecklistsActivity" />
         </activity>
         <activity
             android:name="com.flightbook.activity.UpdateChecklistActivity"
             android:label="@string/title_activity_checklist"
-            android:icon="@drawable/checklist">
+            android:icon="@drawable/checklist"
+            android:parentActivityName="com.flightbook.activity.ChecklistsActivity" >
+            <!-- Parent activity meta-data to support API level 7+ -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.flightbook.activity.ChecklistsActivity" />
         </activity>
         <activity
             android:name="org.achartengine.GraphicalActivity"

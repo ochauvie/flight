@@ -39,6 +39,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -175,8 +176,11 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         	public void onClick(View v) {
         		if (lieuGps==null || "".equals(lieuGps)) {
         			ttsProviderImpl.say(getString(R.string.position_ko));
-        		}
-        		lieu.setText(lieuGps);
+                    Toast.makeText(getBaseContext(),getString(R.string.position_ko), Toast.LENGTH_LONG).show();
+        		} else {
+                    lieu.setText(lieuGps);
+                }
+
         	}
         });
 
@@ -204,6 +208,8 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         	}
         });
 
+        // Hide keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
     }
     
@@ -336,12 +342,12 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
           case R.id.meteo:
               ttsProviderImpl.say(getString(R.string.meteo));
         	  Intent myIntent = new Intent(VolActivity.this, MeteoActivity.class);
-             startActivityForResult(myIntent, 0);
-             return true;
+              startActivityForResult(myIntent, 0);
+              return true;
           case R.id.radio:
         	  ttsProviderImpl.say(getString(R.string.radio));
         	  Intent radiosActivity = new Intent(VolActivity.this, RadiosActivity.class);
-          		startActivity(radiosActivity);
+          	  startActivity(radiosActivity);
               return true;
           case R.id.carte:
         	  ttsProviderImpl.say(getString(R.string.carte));
@@ -352,6 +358,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
           		  startActivity(carteActivity);  
         	  } else {
         		  ttsProviderImpl.say(getString(R.string.position_ko));
+                  Toast.makeText(getBaseContext(),getString(R.string.position_ko), Toast.LENGTH_LONG).show();
         	  }
               return true;
          case R.id.vols:

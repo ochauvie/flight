@@ -35,7 +35,13 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_radio);
-        
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+
+
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
@@ -129,6 +135,8 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.addclose, menu);
+        MenuItem item = menu.findItem(R.id.close);
+        item.setVisible(false);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
             actionBar.setDisplayHomeAsUpEnabled(true);
@@ -147,12 +155,14 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
                 startActivity(addSwitchPotarActivity);
                 finish();
                 return true;
-            case R.id.close:
-                this.finish();
-                return true;
+
         }
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
 
 }

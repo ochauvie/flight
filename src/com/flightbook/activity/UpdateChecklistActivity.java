@@ -10,13 +10,18 @@ import com.flightbook.model.Checklist;
 import com.flightbook.model.ChecklistItem;
 import com.flightbook.sqllite.DbChecklist;
 
+import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,7 +35,7 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
 	private int selectItim = -1;
 	private MyDialogInterface myInterface;
 	private EditText itemNewOrder, itemNewAction;
-	private ImageButton butNew, butSave;
+	private ImageButton butNew;
 	private Context ctx;
 	
     @Override
@@ -39,6 +44,11 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
         setContentView(R.layout.activity_checklist_update);
     
         ctx = this;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
         
         // Get checklist to edit
         Bundle bundle = getIntent().getExtras();
@@ -95,16 +105,6 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
         	}
         });
         
-        butSave = (ImageButton)  findViewById(R.id.butSave);
-        butSave.setOnClickListener(new View.OnClickListener() {
-        	public void onClick(View v) {
-        		dbChecklist.open();
-        			dbChecklist.updateChecklist(checklist);
-        		dbChecklist.close();
-        		Toast.makeText(ctx, R.string.checklist_update_ok, Toast.LENGTH_LONG ).show();
-        	}
-        });
-        
     }
     
     private void initPage() {
@@ -150,5 +150,33 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
 	        adapter.notifyDataSetChanged();
 		}
 	}
-    
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.saveclose, menu);
+        MenuItem item = menu.findItem(R.id.close);
+        item.setVisible(false);
+        return true;
+    }
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save:
+                dbChecklist.open();
+                dbChecklist.updateChecklist(checklist);
+                dbChecklist.close();
+                Toast.makeText(ctx, R.string.checklist_update_ok, Toast.LENGTH_LONG ).show();
+                return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
 }

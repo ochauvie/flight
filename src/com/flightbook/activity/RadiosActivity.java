@@ -17,6 +17,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -45,19 +46,13 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         	radios = dbRadio.getRadios();
         dbRadio.close();
 
-        
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
         // Creation et initialisation de l'Adapter pour les aeronefs
         adapter = new RadiosAdapter(this, radios);
-            
-        // Ecoute des evenements sur votre liste
         adapter.addListener(this);
-        
-        // R�cup�ration du composant ListView
-        //ListView list = (ListView)findViewById(R.id.ListViewHangar);
-            
+
         //Initialisation de la liste avec les donnees
         setListAdapter(adapter);
         
@@ -85,7 +80,9 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         		}
         	}
         });
-        
+
+        // Hide keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
     }
 
 
