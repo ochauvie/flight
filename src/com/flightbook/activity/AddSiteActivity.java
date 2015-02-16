@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flightbook.R;
 import com.flightbook.model.Site;
@@ -31,7 +32,6 @@ public class AddSiteActivity extends Activity {
 	private Site site = null;
 
 	private EditText name, comment;
-	private TextView log;
 	private CheckBox siteDefault;
 
 	    @Override
@@ -39,10 +39,6 @@ public class AddSiteActivity extends Activity {
 	        super.onCreate(savedInstanceState);
 	        setContentView(R.layout.activity_add_site);
 
-	        log = (TextView) findViewById(R.id.textViewLog);
-	        log.setText("");
-	        log.setTextColor(Color.RED);
-	        
 	        name = (EditText) findViewById(R.id.editTextName);
 	        comment = (EditText) findViewById(R.id.editTextComment);
             siteDefault = (CheckBox) findViewById(R.id.site_default);
@@ -111,7 +107,7 @@ public class AddSiteActivity extends Activity {
     private void onSave() {
         Editable edName = name.getText();
         if (edName==null || "".equals(edName.toString())) {
-            log.setText(R.string.name_mandatory);
+            Toast.makeText(getBaseContext(), getString(R.string.name_mandatory), Toast.LENGTH_LONG).show();
         } else {
             try {
                 if (site==null) {
@@ -143,14 +139,14 @@ public class AddSiteActivity extends Activity {
                 }
                 dbSite.close();
 
-                log.setText(R.string.site_save);
+                Toast.makeText(getBaseContext(), getString(R.string.site_save), Toast.LENGTH_LONG).show();
 
                 Intent siteActivity = new Intent(getApplicationContext(),SiteActivity.class);
                 startActivity(siteActivity);
                 // TODO  passer les extra
                 finish();
             } catch (NumberFormatException nfe) {
-                log.setText(R.string.number_format_ko);
+                Toast.makeText(getBaseContext(), getString(R.string.number_format_ko), Toast.LENGTH_LONG).show();
             }
         }
     }

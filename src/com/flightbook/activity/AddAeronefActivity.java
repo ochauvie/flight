@@ -43,7 +43,6 @@ public class AddAeronefActivity extends Activity {
 	private Aeronef aeronef = null;
 
 	private EditText name, wingSpan, weight, engine, firstFlight, comment;
-	private TextView log;
 	private RadioButton optPlaneur, optAvion, optParamoteur, optHelico, optAuto, optDivers;
 	private RadioGroup rg1, rg2 ,rg3;
 	    
@@ -120,10 +119,6 @@ public class AddAeronefActivity extends Activity {
 	        rg1.setOnCheckedChangeListener(listener1);
 	        rg2.setOnCheckedChangeListener(listener2);
 	        rg3.setOnCheckedChangeListener(listener3);
-	        
-	        log = (TextView) findViewById(R.id.textViewLog);
-	        log.setText("");
-	        log.setTextColor(Color.RED);
 	        
 	        name = (EditText) findViewById(R.id.editTextAeronef);
 	        wingSpan = (EditText) findViewById(R.id.editTextWingSpan);
@@ -319,11 +314,11 @@ public class AddAeronefActivity extends Activity {
     private void onSave() {
         Editable edName = name.getText();
         if (edName==null || "".equals(edName.toString())) {
-            log.setText(R.string.name_mandatory);
+            Toast.makeText(getBaseContext(), getString(R.string.name_mandatory), Toast.LENGTH_LONG).show();
         } else if (!optPlaneur.isChecked() && !optAvion.isChecked() &&
                 !optParamoteur.isChecked() && !optHelico.isChecked() &&
                 !optAuto.isChecked() && !optDivers.isChecked()) {
-            log.setText(R.string.type_mandatory);
+            Toast.makeText(getBaseContext(), getString(R.string.type_mandatory), Toast.LENGTH_LONG).show();
         } else {
             try {
                 if (aeronef==null) {
@@ -358,13 +353,13 @@ public class AddAeronefActivity extends Activity {
                 }
                 dbAeronef.close();
 
-                log.setText(R.string.aeronef_save);
+                Toast.makeText(getBaseContext(), getString(R.string.aeronef_save), Toast.LENGTH_LONG).show();
 
                 Intent hangarActivity = new Intent(getApplicationContext(),HangarActivity.class);
                 startActivity(hangarActivity);
                 finish();
             } catch (NumberFormatException nfe) {
-                log.setText(R.string.number_format_ko);
+                Toast.makeText(getBaseContext(), getString(R.string.number_format_ko), Toast.LENGTH_LONG).show();
             }
         }
     }

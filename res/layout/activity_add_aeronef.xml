@@ -224,18 +224,7 @@
 		        android:layout_marginLeft="30dp"
 		        android:text="@string/opt_divers" />
 		</RadioGroup>
-		
-		<TextView
-	        android:id="@+id/textViewLog"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_below="@+id/radioGroup3"
-	        android:layout_marginLeft="16dp"
-	        android:layout_marginTop="17dp" 
-	        android:text="@string/log" />
 
-		
 	</RelativeLayout>
 
 </ScrollView>

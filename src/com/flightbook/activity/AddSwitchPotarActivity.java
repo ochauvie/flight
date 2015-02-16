@@ -9,7 +9,6 @@ import com.flightbook.sqllite.DbRadio;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.Menu;
@@ -19,7 +18,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
+import android.widget.Toast;
 
 public class AddSwitchPotarActivity extends Activity {
 
@@ -27,7 +26,6 @@ public class AddSwitchPotarActivity extends Activity {
 	private int radioId;
 
 	private EditText name, action, up, center, down;
-	private TextView log;
 	private RadioButton optSwitch, optPotar;
 
 	
@@ -35,10 +33,6 @@ public class AddSwitchPotarActivity extends Activity {
 	    public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_add_switch_potar);
-
-            log = (TextView) findViewById(R.id.textViewLog);
-            log.setText("");
-            log.setTextColor(Color.RED);
 
             name = (EditText) findViewById(R.id.editName);
             action = (EditText) findViewById(R.id.editAction);
@@ -96,9 +90,9 @@ public class AddSwitchPotarActivity extends Activity {
     private void onSave() {
         Editable edName = name.getText();
         if (edName==null || "".equals(edName.toString())) {
-            log.setText(getString(R.string.name_mandatory));
+            Toast.makeText(getBaseContext(), getString(R.string.name_mandatory), Toast.LENGTH_LONG).show();
         } else if (!optSwitch.isChecked() && !optPotar.isChecked() ) {
-            log.setText(getString(R.string.inter_potar_mandatory));
+            Toast.makeText(getBaseContext(), getString(R.string.inter_potar_mandatory), Toast.LENGTH_LONG).show();
         } else {
 
             if (optSwitch.isChecked()) {
@@ -124,7 +118,7 @@ public class AddSwitchPotarActivity extends Activity {
                 dbRadio.close();
             }
 
-            log.setText(getString(R.string.save_ok));
+            Toast.makeText(getBaseContext(), getString(R.string.save_ok), Toast.LENGTH_LONG).show();
 
             Intent radioActivity = new Intent(getApplicationContext(), RadioActivity.class);
             radioActivity.putExtra(Radio.RADIO_ID, radioId);

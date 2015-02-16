@@ -20,6 +20,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flightbook.R;
 import com.flightbook.model.Accu;
@@ -41,7 +42,6 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
 
     private EditText nom, nbElement, capacite, tauxDecharge, marque, numero, dateAchat, nbCycle, voltage;
     private Spinner spinnerType;
-    private TextView log;
     private ImageButton selectDate;
     private DatePickerDialog datePickerDialog = null;
 
@@ -51,10 +51,6 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_accu);
-
-        log = (TextView) findViewById(R.id.textViewLog);
-        log.setText("");
-        log.setTextColor(Color.RED);
 
         nom = (EditText) findViewById(R.id.editTextName);
         spinnerType = (Spinner) findViewById(R.id.spinnerType);
@@ -192,7 +188,7 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
     private void onSave() {
         Editable edName = nom.getText();
         if (edName == null || "".equals(edName.toString())) {
-            log.setText(R.string.name_mandatory);
+            Toast.makeText(getBaseContext(), getString(R.string.name_mandatory), Toast.LENGTH_LONG).show();
         } else {
             try {
                 if (accu == null) {
@@ -220,14 +216,14 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
                 }
                 dbAccu.close();
 
-                log.setText(R.string.accu_save);
+                Toast.makeText(getBaseContext(), getString(R.string.accu_save), Toast.LENGTH_LONG).show();
 
                 Intent accusActivity = new Intent(getApplicationContext(), AccusActivity.class);
                 startActivity(accusActivity);
                 // TODO  passer les extra
                 finish();
             } catch (NumberFormatException nfe) {
-                log.setText(R.string.number_format_ko);
+                Toast.makeText(getBaseContext(), getString(R.string.number_format_ko), Toast.LENGTH_LONG).show();
             }
         }
     }

@@ -228,7 +228,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/textViewNote"
 	        android:layout_marginLeft="16dp"
-	        android:layout_marginTop="17dp"
+	        android:layout_marginTop="37dp"
 	        android:text="@string/lieu" />
 	    
 	    <EditText
@@ -240,7 +240,7 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_marginLeft="90dp"
 	        android:ems="10"
-            android:minLines="4"
+            android:minLines="3"
             android:inputType="textMultiLine"
             android:layout_alignRight="@+id/textViewSecMot" />
 	    
@@ -251,9 +251,9 @@
               android:contentDescription="@string/gps"
 	        android:background="#00000000"
 	        android:src="@drawable/index"
-              android:layout_below="@+id/textViewLieu"
+              android:layout_below="@+id/editTextNote"
               android:layout_alignParentRight="true"
-              android:layout_marginRight="5dp" />
+              android:layout_marginRight="15dp" />
 
             <ImageButton
                 android:id="@+id/gps"
@@ -264,17 +264,7 @@
                 android:src="@drawable/gps"
                 android:layout_below="@+id/site"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="5dp" />
-	    
-	    <TextView
-	        android:id="@+id/log"
-            android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="100dp"
-            android:layout_below="@+id/textViewLieu"
-            android:layout_alignParentLeft="true" />
-	    
+                android:layout_marginRight="15dp" />
 
 	</RelativeLayout>
 

@@ -31,7 +31,6 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -45,7 +44,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -63,7 +61,6 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 	private String lieuGps;
 	private ImageButton selectAeronef, butGps, selectDate, butSite, butAccuPropultion;
 	private float downXValue;
-	private TextView log;
 	private DatePickerDialog datePickerDialog = null;
 	private TtsProviderFactory ttsProviderImpl;
 
@@ -124,8 +121,6 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         secMot = (EditText)  findViewById(R.id.editTextSecMot);
         note = (EditText)  findViewById(R.id.editTextNote);
         lieu = (EditText)  findViewById(R.id.editTextLieu);
-        log = (TextView)  findViewById(R.id.log);
-        log.setTextColor(Color.RED);
         accuPropultion =  (EditText)  findViewById(R.id.textViewAccuPropultion);
         accuPropultion.setEnabled(false);
 
@@ -299,7 +294,6 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         note.setText("");
         lieu.setText("");
         currentSite = null;
-        log.setText("");
         accuPropultion.setText(null);
         currentAccu = null;
         currentAeronef = null;
@@ -515,7 +509,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
             alert.show();
 
         } else {
-            log.setText(getString(R.string.aeronef_mandatory));
+            Toast.makeText(getBaseContext(), getString(R.string.aeronef_mandatory), Toast.LENGTH_LONG).show();
             ttsProviderImpl.say(getString(R.string.aeronef_mandatory));
         }
 
