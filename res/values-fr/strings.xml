@@ -123,7 +123,7 @@
 	<string name="title_activity_carte">Carte</string>
 	<string name="carte">Carte</string>
 	<string name="position_ko">Position non disponible</string>
-	<string name="production_api_key">0ri1fmvpao2WRhNvGbPaajkp035avJTSW_JwWCw</string>
+	<string name="map_type">Type de carte</string>
 	
 	<string name="title_activity_checklist">Checklist</string>
 	<string name="checklist">Checklist</string>

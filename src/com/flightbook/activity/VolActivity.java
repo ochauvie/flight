@@ -10,6 +10,7 @@ import com.flightbook.R;
 import com.flightbook.activity.MyDialogInterface.DialogReturn;
 import com.flightbook.model.Accu;
 import com.flightbook.model.Aeronef;
+import com.flightbook.model.GpsPosition;
 import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
@@ -91,8 +92,8 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 				longitude = location.getLongitude();
 				altitude = location.getAltitude();
 				lieuGps = getString(R.string.lat) + ": " + latitude + "\n" +
-						  getString(R.string.lon) + ": " + longitude + "\n" +
-						  getString(R.string.alt) + ": " + altitude;
+						  getString(R.string.lon) + ": " + longitude;// + "\n" +
+						  //getString(R.string.alt) + ": " + altitude;
 			}
 		};
 	
@@ -325,6 +326,11 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+
+        // TODO : On masque la carte qui ne parche plus (ancienne version de gmap)
+       // MenuItem item = menu.findItem(R.id.carte);
+        //item.setVisible(false);
+
         return true;
     }
 
@@ -347,9 +353,8 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         	  ttsProviderImpl.say(getString(R.string.carte));
         	  if (latitude!=null && longitude!=null) {
         		  Intent carteActivity = new Intent(VolActivity.this, CarteActivity.class);
-            	  carteActivity.putExtra("latitude", latitude*1000000);
-          		  carteActivity.putExtra("longitude", longitude*1000000);
-          		  startActivity(carteActivity);  
+                  carteActivity.putExtra(GpsPosition.class.getName(), new GpsPosition(latitude, longitude, 0));
+          		  startActivity(carteActivity);
         	  } else {
         		  ttsProviderImpl.say(getString(R.string.position_ko));
                   Toast.makeText(getBaseContext(),getString(R.string.position_ko), Toast.LENGTH_LONG).show();
