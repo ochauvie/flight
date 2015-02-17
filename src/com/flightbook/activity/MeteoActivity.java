@@ -11,6 +11,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -21,11 +24,13 @@ import android.widget.Toast;
 
 public class MeteoActivity extends Activity {
 	
-	private ImageButton mButtonCunimb, mButtonADDS, mButtonAllMetarSat;
+	private ImageButton mButtonFind;
 	private WebView webView;
 	private EditText editTextOaci;
 	private ProgressDialog mProgress;
     private TtsProviderFactory ttsProviderImpl;
+    String currentUrlStart;
+    String currentUrlEnd;
 
     private String meteoCunimbUrlStart = "http://cunimb.net/decodemet.php?station=";
     private String meteoCunimbUrlEnd = "";
@@ -53,6 +58,9 @@ public class MeteoActivity extends Activity {
 		editTextOaci = (EditText) findViewById(R.id.editTextOaci);
 		editTextOaci.setText(R.string.defaultOaci);
 
+        currentUrlStart = meteoADDSUrlStart;
+        currentUrlEnd = meteoADDSUrlEnd;
+
 		// Progress dialog
         if (isNetworkAvailable()) {
             mProgress = ProgressDialog.show(this, getString(R.string.download), getString(R.string.wainting));
@@ -62,7 +70,7 @@ public class MeteoActivity extends Activity {
 		webView = (WebView) findViewById(R.id.webview);
             ttsProviderImpl.say(getString(R.string.meteo_add_say) + " "+ editTextOaci.getText().toString());
         if (isNetworkAvailable()) {
-            webView.loadUrl(meteoADDSUrlStart + editTextOaci.getText().toString() + meteoADDSUrlEnd);
+            webView.loadUrl(currentUrlStart + editTextOaci.getText().toString() + currentUrlEnd);
         } else {
             Toast.makeText(getBaseContext(), getString(R.string.internet_ko), Toast.LENGTH_LONG).show();
         }
@@ -88,12 +96,12 @@ public class MeteoActivity extends Activity {
             }
         });
 
-		mButtonCunimb = (ImageButton) findViewById(R.id.btnLaunchCunimb);
-		mButtonCunimb.setOnClickListener(new View.OnClickListener() {
+        mButtonFind = (ImageButton) findViewById(R.id.btnFind);
+        mButtonFind.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		String oaci = editTextOaci.getText().toString();
         		if (oaci!=null && !"".equals(oaci)) {
-        			String url = meteoCunimbUrlStart + oaci.toUpperCase() + meteoCunimbUrlEnd;
+        			String url = currentUrlStart + oaci.toUpperCase() + currentUrlEnd;
                     ttsProviderImpl.say(getString(R.string.meteo_cunimb_say) + " " + oaci.toUpperCase());
                     if (isNetworkAvailable()) {
                         webView.loadUrl(url);
@@ -104,37 +112,6 @@ public class MeteoActivity extends Activity {
         	}
         });
 
-        mButtonADDS = (ImageButton) findViewById(R.id.btnLaunchADDS);
-        mButtonADDS.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String oaci = editTextOaci.getText().toString();
-                if (oaci!=null && !"".equals(oaci)) {
-                    String url = meteoADDSUrlStart + oaci.toUpperCase() + meteoADDSUrlEnd;
-                    ttsProviderImpl.say(getString(R.string.meteo_add_say) + " " + oaci.toUpperCase());
-                    if (isNetworkAvailable()) {
-                        webView.loadUrl(url);
-                    } else {
-                        Toast.makeText(getBaseContext(), getString(R.string.internet_ko), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        });
-
-        mButtonAllMetarSat = (ImageButton) findViewById(R.id.btnLaunchAllMetarSat);
-        mButtonAllMetarSat.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                String oaci = editTextOaci.getText().toString();
-                if (oaci!=null && !"".equals(oaci)) {
-                    String url = meteoAllMetarSatUrlStart + oaci.toUpperCase() + meteoAllMetarSatUrlEnd;
-                    ttsProviderImpl.say(getString(R.string.meteo_allmetar_say) + " " + oaci.toUpperCase());
-                    if (isNetworkAvailable()) {
-                        webView.loadUrl(url);
-                    } else {
-                        Toast.makeText(getBaseContext(), getString(R.string.internet_ko), Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        });
 			
 	}
 
@@ -149,5 +126,37 @@ public class MeteoActivity extends Activity {
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.meteo, menu);
+        return true;
+    }
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.cunib:
+                currentUrlStart = meteoCunimbUrlStart;
+                currentUrlEnd = meteoCunimbUrlEnd;
+                mButtonFind.callOnClick();
+                return true;
+            case R.id.adds:
+                currentUrlStart = meteoADDSUrlStart;
+                currentUrlEnd = meteoADDSUrlEnd;
+                mButtonFind.callOnClick();
+                return true;
+            case R.id.allmetarsat:
+                currentUrlStart = meteoAllMetarSatUrlStart;
+                currentUrlEnd = meteoAllMetarSatUrlEnd;
+                mButtonFind.callOnClick();
+                return true;
+
+        }
+        return false;}
 	
 }
+

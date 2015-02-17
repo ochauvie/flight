@@ -30,37 +30,15 @@
      </EditText>
     
     <ImageButton
-        android:id="@+id/btnLaunchCunimb"
+        android:id="@+id/btnFind"
         android:layout_width="32dp"
         android:layout_height="32dp"
         android:contentDescription="@string/metar"
         android:background="#00000000"
-        android:src="@drawable/find_cunimb"
+        android:src="@drawable/find"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/editTextOaci" />
 
-    <ImageButton
-        android:id="@+id/btnLaunchADDS"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginLeft="13dp"
-        android:contentDescription="@string/metar"
-        android:background="#00000000"
-        android:src="@drawable/find_adds"
-        android:layout_alignTop="@+id/btnLaunchAllMetarSat"
-        android:layout_toRightOf="@+id/btnLaunchCunimb" />
-
-
-    <ImageButton
-        android:id="@+id/btnLaunchAllMetarSat"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_alignBottom="@+id/textViewOaci"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="290dp"
-        android:contentDescription="@string/metar"
-        android:background="#00000000"
-        android:src="@drawable/find_allmetarsat" />
 
 
     <WebView  xmlns:android="http://schemas.android.com/apk/res/android"

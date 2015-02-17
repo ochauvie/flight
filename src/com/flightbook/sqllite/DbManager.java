@@ -229,5 +229,5 @@ public class DbManager extends SQLiteOpenHelper {
 
 	}
 	
-			
+
 }

@@ -326,11 +326,8 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-
-        // TODO : On masque la carte qui ne parche plus (ancienne version de gmap)
        // MenuItem item = menu.findItem(R.id.carte);
         //item.setVisible(false);
-
         return true;
     }
 
