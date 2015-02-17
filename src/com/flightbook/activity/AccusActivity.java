@@ -14,6 +14,7 @@ import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flightbook.R;
 import com.flightbook.activity.MyDialogInterface.DialogReturn;
@@ -29,7 +30,10 @@ import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbAccu;
 import com.flightbook.sqllite.DbBackup;
+import com.flightbook.sqllite.DbJsonImport;
+import com.flightbook.tools.SimpleFileDialog;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class AccusActivity extends ListActivity  implements DialogReturn, AccuAdapterListener, View.OnClickListener {
@@ -218,8 +222,6 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.addshareimportclose, menu);
-        MenuItem item = menu.findItem(R.id.importData);
-        item.setVisible(false);
         return true;
     }
 
@@ -253,6 +255,9 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 return true;
+            case R.id.importData:
+                importAccus();
+                return true;
         }
         return false;
     }
@@ -273,5 +278,48 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         adapter.notifyDataSetChanged();
         type.setTextColor(Color.BLACK);
         nbElements.setTextColor(Color.BLACK);
+    }
+
+    /**
+     * Import sites from file
+     */
+    private void importAccus() {
+        SimpleFileDialog FileOpenDialog = new SimpleFileDialog(this, "FileOpen",
+                new SimpleFileDialog.SimpleFileDialogListener() {
+                    @Override public void onChosenDir(String chosenDir) {
+                        // The code in this function will be executed when the dialog OK button is pushed
+                        File file = new File(chosenDir);
+                        // Initiate the upload
+                        DbJsonImport dbJsonImport = new DbJsonImport(AccusActivity.this);
+                        String result = dbJsonImport.importAccus(file);
+                        if (result!=null) {
+                            Toast.makeText(AccusActivity.this, result, Toast.LENGTH_LONG).show();
+                        } else {
+                            // Update the list
+                            reloadAllAccu();
+                            Toast.makeText(AccusActivity.this, getString(R.string.menu_import_ok), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        FileOpenDialog.Default_File_Name = "";
+        FileOpenDialog.chooseFile_or_Dir();
+    }
+
+    private void reloadAllAccu() {
+        if (accus!=null) {
+            for (int i=accus.size()-1; i>=0; i--) {
+                accus.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        if (accus!=null) {
+            dbAccu.open();
+            accus.addAll(dbAccu.getAccus());
+            dbAccu.close();
+            adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(AccusActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();
+        }
     }
 }

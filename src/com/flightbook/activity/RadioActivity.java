@@ -76,14 +76,17 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 	public void onClickLayout(Object item, int position) {
 		itemId = -1;
 		String name = null;
+        String action = null;
 		typeItem = null;
 		if (item instanceof Switch) {
 			itemId = ((Switch) item).getId();
 			name = ((Switch) item).getName();
+            action = ((Switch) item).getAction();
 			typeItem = "Inter";
 		} else if (item instanceof Potar) {
 			itemId = ((Potar) item).getId();
 			name = ((Potar) item).getName();
+            action = ((Potar) item).getAction();
 			typeItem = "Potar";
 		}
 		
@@ -91,7 +94,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 			AlertDialog.Builder builder = new AlertDialog.Builder(this);
 	    	builder.setCancelable(true);
 	    	builder.setIcon(R.drawable.delete);
-	    	builder.setTitle(typeItem + "\n" + name);
+	    	builder.setTitle(typeItem + " - " + name + (action!=null?"\n"+action:""));
 	    	builder.setInverseBackgroundForced(true);
 	    	builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
 	    	  @Override

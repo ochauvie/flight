@@ -233,15 +233,14 @@ public class DbAccu {
 	 */
 	private ArrayList<Accu> cursorToAccus(Cursor c){
 		ArrayList<Accu> accus = new ArrayList<Accu>();
-		if (c.getCount() == 0) {
-			return null;
-		}
-		while (c.moveToNext()) {
-            Accu accu = cursorToAccu(c);
-			if (accu!=null) {
-				accus.add(accu);
-			}
-		}
+		if (c.getCount() > 0) {
+            while (c.moveToNext()) {
+                Accu accu = cursorToAccu(c);
+                if (accu != null) {
+                    accus.add(accu);
+                }
+            }
+        }
 		c.close();
  		return accus;
 	}

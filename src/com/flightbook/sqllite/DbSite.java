@@ -139,15 +139,14 @@ public class DbSite {
 	 */
 	private ArrayList<Site> cursorToSites(Cursor c){
 		ArrayList<Site> sites = new ArrayList<Site>();
-		if (c.getCount() == 0) {
-			return null;
-		}
-		while (c.moveToNext()) {
-            Site site = cursorToSite(c);
-			if (site!=null) {
-				sites.add(site);
-			}
-		}
+		if (c.getCount() > 0) {
+            while (c.moveToNext()) {
+                Site site = cursorToSite(c);
+                if (site != null) {
+                    sites.add(site);
+                }
+            }
+        }
 		c.close();
  		return sites;
 	}

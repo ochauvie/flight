@@ -1,11 +1,13 @@
 package com.flightbook.model;
 
 
+import com.flightbook.tools.JsonExclude;
+
 import java.io.Serializable;
 
 public class Site implements Serializable {
 
-	private int id;
+    @JsonExclude private int id;
 	private String name;
 	private String comment;
     private int isDefault;

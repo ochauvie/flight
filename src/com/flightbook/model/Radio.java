@@ -1,5 +1,7 @@
 package com.flightbook.model;
 
+import com.flightbook.tools.JsonExclude;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,8 +9,8 @@ import java.util.List;
 public class Radio  {
 	
 	public static final String RADIO_ID = "radioId";
-	
-	private int id;
+
+    @JsonExclude private int id;
 	private String name;
 	private List<Switch> switchs = new ArrayList<Switch>();
 	private List<Potar> potars = new ArrayList<Potar>();

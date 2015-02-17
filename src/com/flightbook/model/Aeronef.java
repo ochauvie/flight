@@ -3,6 +3,8 @@ package com.flightbook.model;
 
 import android.graphics.Color;
 
+import com.flightbook.tools.JsonExclude;
+
 import java.io.Serializable;
 
 public class Aeronef implements Serializable{
@@ -15,7 +17,7 @@ public class Aeronef implements Serializable{
 	public static final String T_DIVERS = "Divers";
 	
 
-	private int id;
+	@JsonExclude private int id;
 	private String name;
 	private String type;
 	private float wingSpan;

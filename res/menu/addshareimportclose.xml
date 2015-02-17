@@ -7,23 +7,36 @@
      android:showAsAction="always"
       />
 
-    <item android:id="@+id/send"
-        android:title="@string/menu_send"
-        android:icon="@drawable/send"
-
-        />
-
-    <item android:id="@+id/importData"
-        android:title="@string/menu_import"
-        android:icon="@drawable/import_data"
-
-        />
-
     <item android:id="@+id/close"
         android:title="@string/close"
-        android:icon="@drawable/smallclose"
+        android:icon="@drawable/smallexit"
         android:showAsAction="always"
         />
+
+    <item android:id="@+id/selectImg"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="@string/menu"
+        android:showAsAction="always">
+
+        <menu>
+
+            <item android:id="@+id/send"
+            android:title="@string/menu_send"
+            android:icon="@drawable/send"
+
+            />
+
+        <item android:id="@+id/importData"
+            android:title="@string/menu_import"
+            android:icon="@drawable/import_data"
+
+            />
+
+
+        </menu>
+    </item>
+
+
 
 
 

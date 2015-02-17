@@ -89,7 +89,7 @@ public class DbChecklist {
 			values.put(DbManager.COL_NAME, checklist.getName());
 			values.put(DbManager.COL_ACTION, item.getAction());
 			values.put(DbManager.COL_ORDER, item.getOrder());
-			bdd.insert(DbManager.TABLE_CHECKLIST, null, values);	
+			bdd.insert(DbManager.TABLE_CHECKLIST, null, values);
 		}
 	}
 	

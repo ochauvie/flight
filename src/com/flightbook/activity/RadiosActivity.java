@@ -1,5 +1,6 @@
 package com.flightbook.activity;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import com.flightbook.R;
@@ -7,7 +8,9 @@ import com.flightbook.activity.MyDialogInterface.DialogReturn;
 import com.flightbook.adapter.RadiosAdapter;
 import com.flightbook.listener.RadiosAdapterListener;
 import com.flightbook.model.Radio;
+import com.flightbook.sqllite.DbJsonImport;
 import com.flightbook.sqllite.DbRadio;
+import com.flightbook.tools.SimpleFileDialog;
 
 import android.app.ActionBar;
 import android.app.AlertDialog;
@@ -16,10 +19,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class RadiosActivity extends ListActivity implements DialogReturn, RadiosAdapterListener  {
 
@@ -138,5 +145,76 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
     public void onBackPressed() {
         // Nothings
     }
-    
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.addshareimportclose, menu);
+        MenuItem item = menu.findItem(R.id.send);
+        item.setVisible(false);
+        MenuItem item1 = menu.findItem(R.id.add);
+        item1.setVisible(false);
+        MenuItem item2 = menu.findItem(R.id.close);
+        item2.setVisible(false);
+        return true;
+    }
+
+
+    /**
+     * Call when menu item is selected
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.importData:
+                importRadios();
+                return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Import radios from file
+     */
+    private void importRadios() {
+        SimpleFileDialog FileOpenDialog = new SimpleFileDialog(this, "FileOpen",
+                new SimpleFileDialog.SimpleFileDialogListener() {
+                    @Override public void onChosenDir(String chosenDir) {
+                        // The code in this function will be executed when the dialog OK button is pushed
+                        File file = new File(chosenDir);
+                        // Initiate the upload
+                        DbJsonImport dbJsonImport = new DbJsonImport(RadiosActivity.this);
+                        String result = dbJsonImport.importRadios(file);
+                        if (result!=null) {
+                            Toast.makeText(RadiosActivity.this, result, Toast.LENGTH_LONG).show();
+                        } else {
+                            // Update the list
+                            reloadAllRadio();
+                            Toast.makeText(RadiosActivity.this, getString(R.string.menu_import_ok), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        FileOpenDialog.Default_File_Name = "";
+        FileOpenDialog.chooseFile_or_Dir();
+    }
+
+    private void reloadAllRadio() {
+        if (radios!=null) {
+            for (int i=radios.size()-1; i>=0; i--) {
+                radios.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        if (radios!=null) {
+            dbRadio.open();
+            radios.addAll(dbRadio.getRadios());
+            dbRadio.close();
+            adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(RadiosActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();
+        }
+
+
+    }
 }

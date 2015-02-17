@@ -65,7 +65,7 @@ public class AddSwitchPotarActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.addclose, menu);
+        inflater.inflate(R.menu.saveclose, menu);
         return true;
     }
 
@@ -74,7 +74,7 @@ public class AddSwitchPotarActivity extends Activity {
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.add:
+            case R.id.save:
                 onSave();
                 return true;
             case R.id.close:

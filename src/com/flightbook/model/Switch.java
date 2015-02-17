@@ -1,8 +1,10 @@
 package com.flightbook.model;
 
+import com.flightbook.tools.JsonExclude;
+
 public class Switch {
-	
-	private int id;
+
+    @JsonExclude private int id;
 	private String name;
 	private String up;
 	private String down;

@@ -11,6 +11,7 @@ import android.view.MenuItem;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.flightbook.R;
 import com.flightbook.activity.MyDialogInterface.DialogReturn;
@@ -22,8 +23,11 @@ import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbBackup;
+import com.flightbook.sqllite.DbJsonImport;
 import com.flightbook.sqllite.DbSite;
+import com.flightbook.tools.SimpleFileDialog;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class SiteActivity extends ListActivity  implements DialogReturn, SiteAdapterListener {
@@ -170,8 +174,6 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.addshareimportclose, menu);
-        MenuItem item = menu.findItem(R.id.importData);
-        item.setVisible(false);
         return true;
     }
 
@@ -205,10 +207,58 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
                 sendIntent.setType("text/plain");
                 startActivity(sendIntent);
                 return true;
+            case R.id.importData:
+                importSites();
+                return true;
 
         }
         return false;
     }
 
+
+    /**
+     * Import sites from file
+     */
+    private void importSites() {
+        SimpleFileDialog FileOpenDialog = new SimpleFileDialog(this, "FileOpen",
+                new SimpleFileDialog.SimpleFileDialogListener() {
+                    @Override public void onChosenDir(String chosenDir) {
+                        // The code in this function will be executed when the dialog OK button is pushed
+                        File file = new File(chosenDir);
+                        // Initiate the upload
+                        DbJsonImport dbJsonImport = new DbJsonImport(SiteActivity.this);
+                        String result = dbJsonImport.importSites(file);
+                        if (result!=null) {
+                            Toast.makeText(SiteActivity.this, result, Toast.LENGTH_LONG).show();
+                        } else {
+                            // Update the list
+                            reloadAllSite();
+                            Toast.makeText(SiteActivity.this, getString(R.string.menu_import_ok), Toast.LENGTH_LONG).show();
+                        }
+                    }
+                });
+
+        FileOpenDialog.Default_File_Name = "";
+        FileOpenDialog.chooseFile_or_Dir();
+    }
+
+    private void reloadAllSite() {
+        if (sites!=null) {
+            for (int i=sites.size()-1; i>=0; i--) {
+                sites.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        if (sites!=null) {
+            dbSite.open();
+            sites.addAll(dbSite.getSites());
+            dbSite.close();
+            adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(SiteActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();
+        }
+
+
+    }
 
 }

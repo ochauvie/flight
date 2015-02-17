@@ -4,12 +4,14 @@ package com.flightbook.model;
 
 import android.graphics.Color;
 
+import com.flightbook.tools.JsonExclude;
+
 import java.io.Serializable;
 import java.util.Date;
 
 public class Accu implements Serializable {
 
-	private int id;
+    @JsonExclude private int id;
 	private TypeAccu type;
     private int nbElements;
     private int capacite;

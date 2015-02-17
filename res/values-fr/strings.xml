@@ -174,6 +174,7 @@
     <string name="menu_importVols">Importer</string>
     <string name="menu_import_ok">Import du fichier réussi</string>
     <string name="menu_import">Importer des données</string>
+    <string name="import_reload_list">Rafraichissez la page</string>
 
     <string name="filter_start_date">Date de début</string>
     <string name="filter_end_date">Date de fin</string>

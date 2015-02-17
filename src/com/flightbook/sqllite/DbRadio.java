@@ -85,7 +85,7 @@ public class DbRadio {
 	}
 	
 	
-	public long addSwitchToRadio(int radioId, Switch sw) {
+	public long addSwitchToRadio(long radioId, Switch sw) {
 		// Add switch
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, sw.getName());
@@ -117,7 +117,7 @@ public class DbRadio {
 		bdd.delete(DbManager.TABLE_RADIO_SWITCH, DbManager.COL_ID_SWITCH + "=" + switchId, null);
 	}
 	
-	public long addPotarToRadio(int radioId, Potar potar) {
+	public long addPotarToRadio(long radioId, Potar potar) {
 		// Add potar
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, potar.getName());
@@ -151,14 +151,13 @@ public class DbRadio {
 	
 	private ArrayList<Radio> cursorToRadios(Cursor c){
 		ArrayList<Radio> radios = new ArrayList<Radio>();
-		if (c.getCount() == 0) {
-			return null;
-		}
-		while (c.moveToNext()) {
-			Radio radio = cursorToRadio(c);
-			if (radio!=null) {
-				radios.add(radio);
-			}
+		if (c.getCount() > 0) {
+            while (c.moveToNext()) {
+                Radio radio = cursorToRadio(c);
+                if (radio != null) {
+                    radios.add(radio);
+                }
+            }
 		}
 		c.close();
  		return radios;

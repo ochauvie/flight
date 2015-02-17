@@ -1,13 +1,15 @@
 package com.flightbook.model;
 
+import com.flightbook.tools.JsonExclude;
+
 import java.util.ArrayList;
 
 
 public class Checklist {
 
 	public static final String NAME = "checklistName";
-	
-	private int id;
+
+    @JsonExclude private int id;
 	private String name;
 	private ArrayList<ChecklistItem> items = new ArrayList<ChecklistItem>();
 	

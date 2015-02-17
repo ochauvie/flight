@@ -15,7 +15,7 @@ import com.flightbook.listener.VolsAdapterListener;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbBackup;
-import com.flightbook.sqllite.DbImport;
+import com.flightbook.sqllite.DbJsonImport;
 import com.flightbook.sqllite.DbVol;
 import com.flightbook.tools.Chart;
 import com.flightbook.tools.SimpleFileDialog;
@@ -289,10 +289,15 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             }
         }
         adapter.notifyDataSetChanged();
-        dbVol.open();
-        vols.addAll(dbVol.getVols());
-        dbVol.close();
-        adapter.notifyDataSetChanged();
+
+        if (vols!=null) {
+            dbVol.open();
+            vols.addAll(dbVol.getVols());
+            dbVol.close();
+            adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(VolsActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();
+        }
         name.setTextColor(Color.BLACK);
         date.setTextColor(Color.BLACK);
         majFooter();
@@ -394,8 +399,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
                         // The code in this function will be executed when the dialog OK button is pushed
                         File file = new File(chosenDir);
                         // Initiate the upload
-                        DbImport dbImport = new DbImport(VolsActivity.this);
-                        String result = dbImport.importVols(file);
+                        DbJsonImport dbJsonImport = new DbJsonImport(VolsActivity.this);
+                        String result = dbJsonImport.importVols(file);
                         if (result!=null) {
                             Toast.makeText(VolsActivity.this, result, Toast.LENGTH_LONG).show();
                         } else {

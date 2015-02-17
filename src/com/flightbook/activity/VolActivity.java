@@ -14,7 +14,7 @@ import com.flightbook.model.GpsPosition;
 import com.flightbook.model.Site;
 import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
-import com.flightbook.sqllite.DbBackup;
+import com.flightbook.sqllite.DbJsonBackup;
 import com.flightbook.sqllite.DbSite;
 import com.flightbook.sqllite.DbVol;
 import com.flightbook.widget.FlightWidgetProvider;
@@ -556,12 +556,15 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
             }
 
         } else if (answer) {
-            DbBackup dbBackup = new DbBackup(this);
+            //DbBackup dbBackup = new DbBackup(this);
+            DbJsonBackup dbJsonBackup = new DbJsonBackup(this, true, true, true, true, true, true);
             try {
-                String fileName = Environment.getExternalStorageDirectory().getPath() + "/CarnetVolBackup.txt";
-                dbBackup.doBackup(fileName);
+                //String fileName = Environment.getExternalStorageDirectory().getPath() + "/CarnetVolBackup.json";
+                String filePath = Environment.getExternalStorageDirectory().getPath() + "/";
+                //dbBackup.doBackup(fileName);
+                dbJsonBackup.doBackup(filePath);
                 Toast.makeText(getBaseContext(),
-                        "Done writing SD " + fileName,
+                        "Done writing SD " + filePath,
                         Toast.LENGTH_LONG).show();
             } catch (Exception e) {
                 Toast.makeText(getBaseContext(), e.getMessage(),

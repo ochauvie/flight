@@ -173,41 +173,40 @@ public class DbVol {
 	 */
 	private ArrayList<Vol> cursorToVols(Cursor c){
 		ArrayList<Vol> vols = new ArrayList<Vol>();
-		if (c.getCount() == 0) {
-			return null;
-		}
-		while (c.moveToNext()) {
-			Vol vol = new Vol();
-			vol.setId(c.getInt(DbManager.NUM_COL_ID));
-			vol.setAeronef(c.getString(DbManager.NUM_COL_NAME));
-			vol.setType(c.getString(DbManager.NUM_COL_TYPE));
-			vol.setMinutesVol(c.getInt(DbManager.NUM_COL_MIN_VOL));
-			vol.setMinutesMoteur(c.getInt(DbManager.NUM_COL_MIN_MOTEUR));
-			vol.setSecondsMoteur(c.getInt(DbManager.NUM_COL_SEC_MOTEUR));
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
-			Date dVol= new Date();
-			try {
-				dVol = sdf.parse(c.getString(DbManager.NUM_COL_DATE));
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			vol.setNote(c.getString(DbManager.NUM_COL_NOTE));
-			vol.setLieu(c.getString(DbManager.NUM_COL_LIEU));
-			vol.setDateVol(dVol);
-
-            int idAccuPropultion = c.getInt(DbManager.NUM_COL_ID_ACCU_PROPULSION);
-            if (idAccuPropultion>=0) {
-                DbAccu dbAccu = new DbAccu(context);
-                dbAccu.open();
-                Accu accu = dbAccu.getAccuById(idAccuPropultion);
-                if (accu!=null) {
-                    vol.setAccuPropulsion(accu);
+		if (c.getCount() > 0) {
+            while (c.moveToNext()) {
+                Vol vol = new Vol();
+                vol.setId(c.getInt(DbManager.NUM_COL_ID));
+                vol.setAeronef(c.getString(DbManager.NUM_COL_NAME));
+                vol.setType(c.getString(DbManager.NUM_COL_TYPE));
+                vol.setMinutesVol(c.getInt(DbManager.NUM_COL_MIN_VOL));
+                vol.setMinutesMoteur(c.getInt(DbManager.NUM_COL_MIN_MOTEUR));
+                vol.setSecondsMoteur(c.getInt(DbManager.NUM_COL_SEC_MOTEUR));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
+                Date dVol = new Date();
+                try {
+                    dVol = sdf.parse(c.getString(DbManager.NUM_COL_DATE));
+                } catch (ParseException e) {
+                    e.printStackTrace();
                 }
-                dbAccu.close();
-            }
+                vol.setNote(c.getString(DbManager.NUM_COL_NOTE));
+                vol.setLieu(c.getString(DbManager.NUM_COL_LIEU));
+                vol.setDateVol(dVol);
 
-			vols.add(vol);
-		}
+                int idAccuPropultion = c.getInt(DbManager.NUM_COL_ID_ACCU_PROPULSION);
+                if (idAccuPropultion >= 0) {
+                    DbAccu dbAccu = new DbAccu(context);
+                    dbAccu.open();
+                    Accu accu = dbAccu.getAccuById(idAccuPropultion);
+                    if (accu != null) {
+                        vol.setAccuPropulsion(accu);
+                    }
+                    dbAccu.close();
+                }
+
+                vols.add(vol);
+            }
+        }
 		c.close();
  		return vols;
 	}

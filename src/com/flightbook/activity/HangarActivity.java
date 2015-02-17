@@ -14,7 +14,7 @@ import com.flightbook.model.Vol;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbAeronef;
 import com.flightbook.sqllite.DbBackup;
-import com.flightbook.sqllite.DbImport;
+import com.flightbook.sqllite.DbJsonImport;
 import com.flightbook.tools.SimpleFileDialog;
 
 import android.os.Bundle;
@@ -222,8 +222,8 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
                         // The code in this function will be executed when the dialog OK button is pushed
                         File file = new File(chosenDir);
                         // Initiate the upload
-                        DbImport dbImport = new DbImport(HangarActivity.this);
-                        String result = dbImport.importAeronefs(file);
+                        DbJsonImport dbJsonImport = new DbJsonImport(HangarActivity.this);
+                        String result = dbJsonImport.importAeronefs(file);
                         if (result!=null) {
                             Toast.makeText(HangarActivity.this, result, Toast.LENGTH_LONG).show();
                         } else {
@@ -246,10 +246,15 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
             }
         }
         adapter.notifyDataSetChanged();
-        dbAeronef.open();
-        aeronefs.addAll(dbAeronef.getAeronefs());
-        dbAeronef.close();
-        adapter.notifyDataSetChanged();
+        if (aeronefs!=null) {
+            dbAeronef.open();
+            aeronefs.addAll(dbAeronef.getAeronefs());
+            dbAeronef.close();
+            adapter.notifyDataSetChanged();
+        } else {
+            Toast.makeText(HangarActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();
+        }
+
     }
 
 }

@@ -157,14 +157,13 @@ public class DbAeronef {
 	 */
 	private ArrayList<Aeronef> cursorToAeronefs(Cursor c){
 		ArrayList<Aeronef> aeronefs = new ArrayList<Aeronef>();
-		if (c.getCount() == 0) {
-			return null;
-		}
-		while (c.moveToNext()) {
-			Aeronef aeronef = cursorToAeronef(c);
-			if (aeronef!=null) {
-				aeronefs.add(aeronef);
-			}
+		if (c.getCount() > 0) {
+            while (c.moveToNext()) {
+                Aeronef aeronef = cursorToAeronef(c);
+                if (aeronef != null) {
+                    aeronefs.add(aeronef);
+                }
+            }
 		}
 		c.close();
  		return aeronefs;

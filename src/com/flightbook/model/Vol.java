@@ -1,10 +1,12 @@
 package com.flightbook.model;
 
+import com.flightbook.tools.JsonExclude;
+
 import java.util.Date;
 
 public class Vol {
 
-	private int id;
+    @JsonExclude private int id;
 	private String aeronef;
 	private String type;
 	private int minutesVol;
@@ -13,7 +15,7 @@ public class Vol {
 	private Date dateVol;
 	private String note;
 	private String lieu;
-    private Accu accuPropulsion;
+    @JsonExclude private Accu accuPropulsion;
 
     public static final String MIN_VOL = "minutesVol";
     public static final String MIN_MOTEUR = "minutesMoteur";
