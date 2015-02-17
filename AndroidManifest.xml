@@ -187,6 +187,11 @@
             android:label="@string/title_activity_addAccu"
             android:icon="@drawable/accu_white">
         </activity>
+        <activity
+            android:name="com.flightbook.activity.ExportActivity"
+            android:label="@string/menu_export_db"
+            android:icon="@drawable/backup">
+        </activity>
 
 
         <receiver android:name="com.flightbook.widget.FlightWidgetProvider" >

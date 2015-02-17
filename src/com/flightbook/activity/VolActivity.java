@@ -368,7 +368,8 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
              startActivityForResult(checklistsActivity, 0);
              return true;
          case R.id.backup:
-             backupDb();
+             Intent exportActivity = new Intent(VolActivity.this, ExportActivity.class);
+             startActivityForResult(exportActivity, 0);
              return true;
          case R.id.save:
              saveFlight();
@@ -520,52 +521,12 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     }
 
 
-    private void backupDb() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setCancelable(true);
-        builder.setIcon(R.drawable.backup);
-        builder.setTitle("Data base backup");
-        builder.setInverseBackgroundForced(true);
-        builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                myInterface.getListener().onDialogCompleted(true, DIALOG_BACKUP);
-                dialog.dismiss();
-            }
-        });
-        builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                myInterface.getListener().onDialogCompleted(false, DIALOG_BACKUP);
-                dialog.dismiss();
-            }
-        });
-        AlertDialog alert = builder.create();
-        alert.show();
-    }
-
     @Override
     public void onDialogCompleted(boolean answer, String type) {
         if (DIALOG_EXIT.equals(type)) {
             if (answer) {
                 ttsProviderImpl.say(getString(R.string.bye));
                 finish();
-            }
-
-        } else if (answer) {
-            //DbBackup dbBackup = new DbBackup(this);
-            DbJsonBackup dbJsonBackup = new DbJsonBackup(this, true, true, true, true, true, true);
-            try {
-                //String fileName = Environment.getExternalStorageDirectory().getPath() + "/CarnetVolBackup.json";
-                String filePath = Environment.getExternalStorageDirectory().getPath() + "/";
-                //dbBackup.doBackup(fileName);
-                dbJsonBackup.doBackup(filePath);
-                Toast.makeText(getBaseContext(),
-                        "Done writing SD " + filePath,
-                        Toast.LENGTH_LONG).show();
-            } catch (Exception e) {
-                Toast.makeText(getBaseContext(), e.getMessage(),
-                        Toast.LENGTH_SHORT).show();
             }
         }
     }
