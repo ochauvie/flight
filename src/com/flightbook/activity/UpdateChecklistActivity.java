@@ -30,8 +30,7 @@ import android.widget.Toast;
 public class UpdateChecklistActivity extends ListActivity implements DialogReturn, UpdateChecklistAdapterListener{
 
 	private Checklist checklist;
-	private DbChecklist dbChecklist = new DbChecklist(this);
-	private UpdateChecklistAdapter adapter;	
+	private UpdateChecklistAdapter adapter;
 	private int selectItim = -1;
 	private MyDialogInterface myInterface;
 	private EditText itemNewOrder, itemNewAction;
@@ -54,12 +53,10 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
         	String checklistName = bundle.getString(Checklist.NAME);
-        	dbChecklist.open();
-        		ArrayList<Checklist> l = dbChecklist.getChecklists(checklistName);
+        		ArrayList<Checklist> l = DbChecklist.getChecklists(checklistName);
         		if (l!=null) {
         			checklist = l.get(0);
         		}
-        		dbChecklist.close();
         }
         
         myInterface = new MyDialogInterface();
@@ -94,9 +91,7 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
         			Checklist cp = new Checklist(checklist.getName());
         			ChecklistItem item = new ChecklistItem(edItemNewAction.toString(), Integer.valueOf(edItemNewOrder.toString()));
         			cp.addItem(item);
-        			dbChecklist.open();
-        				dbChecklist.addCheckList(cp);
-    	        	dbChecklist.close();
+        			DbChecklist.addCheckList(cp);
     	        	Intent updateChecklistActivity = new Intent(getApplicationContext(), UpdateChecklistActivity.class);
     	        	updateChecklistActivity.putExtra(Checklist.NAME, checklist.getName());
 	            	startActivity(updateChecklistActivity);
@@ -143,10 +138,8 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
 	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
 			ChecklistItem item = checklist.getItems().get(selectItim);
-			dbChecklist.open();
-				dbChecklist.deleteChecklistItem(item.getId());
-			dbChecklist.close();
-	        checklist.getItems().remove(selectItim);
+			DbChecklist.deleteChecklistItem(item.getId());
+			checklist.getItems().remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}
 	}
@@ -166,9 +159,7 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
-                dbChecklist.open();
-                dbChecklist.updateChecklist(checklist);
-                dbChecklist.close();
+                DbChecklist.updateChecklist(checklist);
                 Toast.makeText(ctx, R.string.checklist_update_ok, Toast.LENGTH_LONG ).show();
                 return true;
         }

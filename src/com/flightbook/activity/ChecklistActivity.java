@@ -16,7 +16,6 @@ import android.os.Bundle;
 public class ChecklistActivity extends ListActivity {
 
 	private Checklist checklist;
-	private DbChecklist dbChecklist = new DbChecklist(this);
 	private ChecklistAdapter adapter;
 	private TtsProviderFactory ttsProviderImpl;
 	
@@ -36,14 +35,12 @@ public class ChecklistActivity extends ListActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
         	String checklistName = bundle.getString(Checklist.NAME);
-        	dbChecklist.open();
-        		ArrayList<Checklist> l = dbChecklist.getChecklists(checklistName);
+        		ArrayList<Checklist> l = DbChecklist.getChecklists(checklistName);
         		if (l!=null) {
         			checklist = l.get(0);
         			String say = getString(R.string.checklist) + " " + getString(R.string.st_for) + " " + checklistName;  
         			ttsProviderImpl.say(say);
         		}
-        		dbChecklist.close();
         }
         
         // View title

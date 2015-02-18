@@ -5,45 +5,18 @@ import java.util.ArrayList;
 import com.flightbook.model.Potar;
 import com.flightbook.model.Radio;
 import com.flightbook.model.Switch;
+import com.flightbook.sqllite.init.DbApplicationContext;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DbRadio {
-	
-	private SQLiteDatabase bdd;
-	private DbManager dbManager;
- 
-	/**
-	 * On cree la BDD et sa table
-	 * @param context {@link Context}
-	 */
-	public DbRadio(Context context){
-		dbManager = new DbManager(context, DbManager.NOM_BDD, null, DbManager.VERSION_BDD);
-	}
 
-	/**
-	 * On ouvre la BDD en ecriture
-	 */
-	public void open(){
-		bdd = dbManager.getWritableDatabase();
-	}
- 
-	/**
-	 * On ferme l'acces a la BDD
-	 */
-	public void close(){
-		bdd.close();
-	}
- 
-	public SQLiteDatabase getBDD(){
-		return bdd;
-	}
+    private static SQLiteDatabase bdd = DbApplicationContext.getInstance().getBdd();
 
 	
-	public Radio getRadioById(int id) {
+	public static Radio getRadioById(int id) {
 		String where = DbManager.COL_ID + "=?";
 		String[] whereArgs = new String[] {String.valueOf(id)};
 		Cursor c = bdd.query(DbManager.TABLE_RADIO, new String[] {DbManager.COL_ID, DbManager.COL_NAME}, 
@@ -58,13 +31,13 @@ public class DbRadio {
 		
 	}
 	
-	public long addRadio(Radio radio) {
+	public static long addRadio(Radio radio) {
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, radio.getName());
 		return bdd.insert(DbManager.TABLE_RADIO, null, values);
 	}
 	
-	public long deleteRadio(Radio radio) {
+	public static long deleteRadio(Radio radio) {
 		for (Switch sw:radio.getSwitchs()) {
 			bdd.delete(DbManager.TABLE_SWITCH, DbManager.COL_ID + "=" + sw.getId(), null);	
 		}
@@ -77,7 +50,7 @@ public class DbRadio {
 		return 0;
 	}
 	
-	public ArrayList<Radio> getRadios(){
+	public static ArrayList<Radio> getRadios(){
         Cursor c = bdd.query(DbManager.TABLE_RADIO, new String[] {DbManager.COL_ID,
 																 DbManager.COL_NAME}, 
 							null, null, null, null, null);
@@ -85,7 +58,7 @@ public class DbRadio {
 	}
 	
 	
-	public long addSwitchToRadio(long radioId, Switch sw) {
+	public static long addSwitchToRadio(long radioId, Switch sw) {
 		// Add switch
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, sw.getName());
@@ -112,12 +85,12 @@ public class DbRadio {
 		return bdd.insert(DbManager.TABLE_RADIO_SWITCH, null, values);
 	}
 	
-	public void deleteSwitch(int switchId) {
+	public static void deleteSwitch(int switchId) {
 		bdd.delete(DbManager.TABLE_SWITCH, DbManager.COL_ID + "=" + switchId, null);	
 		bdd.delete(DbManager.TABLE_RADIO_SWITCH, DbManager.COL_ID_SWITCH + "=" + switchId, null);
 	}
 	
-	public long addPotarToRadio(long radioId, Potar potar) {
+	public static long addPotarToRadio(long radioId, Potar potar) {
 		// Add potar
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, potar.getName());
@@ -144,12 +117,12 @@ public class DbRadio {
 		return bdd.insert(DbManager.TABLE_RADIO_POTAR, null, values);
 	}
 	
-	public void deletePotar(int potarId) {
+	public static void deletePotar(int potarId) {
 		bdd.delete(DbManager.TABLE_POTAR, DbManager.COL_ID + "=" + potarId, null);	
 		bdd.delete(DbManager.TABLE_RADIO_POTAR, DbManager.COL_ID_POTAR + "=" + potarId, null);
 	}
 	
-	private ArrayList<Radio> cursorToRadios(Cursor c){
+	private static ArrayList<Radio> cursorToRadios(Cursor c){
 		ArrayList<Radio> radios = new ArrayList<Radio>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
@@ -163,7 +136,7 @@ public class DbRadio {
  		return radios;
 	}
 	
-	private Radio cursorToRadio(Cursor c){
+	private static Radio cursorToRadio(Cursor c){
 		Radio radio = new Radio();
 		radio.setId(c.getInt(DbManager.NUM_COL_ID));
 		radio.setName(c.getString(DbManager.NUM_COL_NAME));

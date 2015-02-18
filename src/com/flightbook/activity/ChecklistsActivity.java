@@ -41,7 +41,6 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
 	
 	private MyDialogInterface myInterface;
 	
-	private DbChecklist dbChecklist = new DbChecklist(this);
 	private ArrayList<Checklist> checklists;
 	private int selectItim = -1;
 	private ChecklistsAdapter adapter;
@@ -63,10 +62,8 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
-        dbChecklist.open();
-        	checklists = dbChecklist.getChecklists(null);
-        dbChecklist.close();
-        	
+       	checklists = DbChecklist.getChecklists(null);
+
     	// Creation et initialisation de l'Adapter pour les personnes
         adapter = new ChecklistsAdapter(this, checklists);
             
@@ -93,10 +90,8 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
         			Checklist cl = new Checklist(newName);
         			ChecklistItem item = new ChecklistItem(getString(R.string.checklistDefaultItem), 1);
         			cl.addItem(item);
-        			dbChecklist.open();
-        				dbChecklist.addCheckList(cl);
-        			dbChecklist.close();
-        			
+       				DbChecklist.addCheckList(cl);
+
         			Intent checklistsActivity = new Intent(getApplicationContext(), ChecklistsActivity.class);
                 	startActivity(checklistsActivity);
                 	finish();
@@ -147,10 +142,8 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
 	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
 			Checklist checklist = checklists.get(selectItim);
-			dbChecklist.open();
-				dbChecklist.deleteChecklist(checklist);
-			dbChecklist.close();
-	        checklists.remove(selectItim);
+			DbChecklist.deleteChecklist(checklist);
+			checklists.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}
 	}
@@ -230,9 +223,7 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
         }
         adapter.notifyDataSetChanged();
         if (checklists!=null) {
-            dbChecklist.open();
-            checklists.addAll(dbChecklist.getChecklists(null));
-            dbChecklist.close();
+            checklists.addAll(DbChecklist.getChecklists(null));
             adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(ChecklistsActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();

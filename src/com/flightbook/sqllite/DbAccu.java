@@ -1,12 +1,12 @@
 package com.flightbook.sqllite;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.flightbook.model.Accu;
 import com.flightbook.model.TypeAccu;
+import com.flightbook.sqllite.init.DbApplicationContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,42 +16,13 @@ import java.util.Locale;
 
 public class DbAccu {
 
-	private SQLiteDatabase bdd;
-	private DbManager dbManager;
-
-	/**
-	 * On cree la BDD et sa table
-	 * @param context {@link android.content.Context}
-	 */
-	public DbAccu(Context context){
-		dbManager = new DbManager(context, DbManager.NOM_BDD, null, DbManager.VERSION_BDD);
-	}
-
-	/**
-	 * On ouvre la BDD en ecriture
-	 */
-	public void open(){
-		bdd = dbManager.getWritableDatabase();
-	}
-
-	/**
-	 * On ferme l'acces a la BDD
-	 */
-	public void close(){
-		bdd.close();
-	}
-
-	public SQLiteDatabase getBDD(){
-		return bdd;
-	}
-
-
+    private static SQLiteDatabase bdd = DbApplicationContext.getInstance().getBdd();
 	/**
 	 * Insert a new {@link com.flightbook.model.Accu}
 	 * @param accu the {@link com.flightbook.model.Accu} to insert
 	 * @return
 	 */
-	public long insertAccu(Accu accu) {
+	public static long insertAccu(Accu accu) {
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_ACCU_CAPACITE, accu.getCapacite());
         values.put(DbManager.COL_ACCU_CYCLES, accu.getNbCycles());
@@ -75,7 +46,7 @@ public class DbAccu {
 	 * @param accu the {@link com.flightbook.model.Accu} to insert
 	 * @return
 	 */
-	public long updateAccu(Accu accu) {
+	public static long updateAccu(Accu accu) {
 		String where = DbManager.COL_ID + "=?";
 		String[] whereArgs = new String[] {String.valueOf(accu.getId())};
 		ContentValues values = new ContentValues();
@@ -103,7 +74,7 @@ public class DbAccu {
 	 * @param accu the {@link com.flightbook.model.Accu} to delete
 	 * @return
 	 */
-	public long deleteAccu(Accu accu) {
+	public static long deleteAccu(Accu accu) {
 		return bdd.delete(DbManager.TABLE_ACCUS, DbManager.COL_ID + "=" + accu.getId(), null);
 	}
 
@@ -111,7 +82,7 @@ public class DbAccu {
 	 * Get the list of {@link com.flightbook.model.Accu}
 	 * @return the list of {@link com.flightbook.model.Accu}
 	 */
-	public ArrayList<Accu> getAccus(){
+	public static ArrayList<Accu> getAccus(){
         String orderBy = DbManager.COL_ACCU_NOM;
 		Cursor c = bdd.query(DbManager.TABLE_ACCUS, new String[] {DbManager.COL_ID,
                                                             DbManager.COL_ACCU_TYPE,
@@ -133,7 +104,7 @@ public class DbAccu {
 	 * Get {@link com.flightbook.model.Site} by id
 	 * @return the {@link com.flightbook.model.Accu}
 	 */
-	public Accu getAccuById(int id) {
+	public static Accu getAccuById(int id) {
 		String where = DbManager.COL_ID + "=?";
 		String[] whereArgs = new String[] {String.valueOf(id)};
 		Cursor c = bdd.query(DbManager.TABLE_ACCUS, new String[] {DbManager.COL_ID,
@@ -157,7 +128,7 @@ public class DbAccu {
 		return accu;
 	}
 
-    public Accu getAccuByName(String name) {
+    public static Accu getAccuByName(String name) {
         String where = DbManager.COL_ACCU_NOM + "=?";
         String[] whereArgs = new String[] {name};
         Cursor c = bdd.query(DbManager.TABLE_ACCUS, new String[] {DbManager.COL_ID,
@@ -181,7 +152,7 @@ public class DbAccu {
         return accu;
     }
 
-    public ArrayList<Accu> getAccuByType(TypeAccu type) {
+    public static ArrayList<Accu> getAccuByType(TypeAccu type) {
         String where = null;
         String[] whereArgs = null;
         if (type!=null) {
@@ -205,7 +176,7 @@ public class DbAccu {
         return cursorToAccus(c);
     }
 
-    public ArrayList<Accu> getAccuByNbElements(int nbElements) {
+    public static ArrayList<Accu> getAccuByNbElements(int nbElements) {
         String where = DbManager.COL_ACCU_ELEMENTS + "=?";
         String[] whereArgs = new String[] {String.valueOf(nbElements)};
         String orderBy = DbManager.COL_ACCU_NOM;
@@ -231,7 +202,7 @@ public class DbAccu {
 	 * @param c{@link Cursor}
 	 * @return the list of {@link com.flightbook.model.Accu}
 	 */
-	private ArrayList<Accu> cursorToAccus(Cursor c){
+	private static ArrayList<Accu> cursorToAccus(Cursor c){
 		ArrayList<Accu> accus = new ArrayList<Accu>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
@@ -250,7 +221,7 @@ public class DbAccu {
 	 * @param c{@link Cursor}
 	 * @return the {@link com.flightbook.model.Accu}
 	 */
-	private Accu cursorToAccu(Cursor c){
+	private static Accu cursorToAccu(Cursor c){
         Accu accu = new Accu();
         accu.setId(c.getInt(DbManager.NUM_COL_ID));
         accu.setCapacite(c.getInt(DbManager.NUM_COL_ACCU_CAPACITE));

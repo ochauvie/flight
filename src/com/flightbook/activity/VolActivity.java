@@ -52,8 +52,6 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     private static final String DIALOG_EXIT = "EXIT";
 
 	private MyDialogInterface myInterface;
-	private DbVol dbVol = new DbVol(this);
-    private DbSite dbSite = new DbSite(this);
 	private RelativeLayout relativeLayout;
 	private EditText aeronef, minVol, minMot, secMot, note, lieu, flightDate, accuPropultion;
 	private Double latitude, longitude, altitude;
@@ -225,13 +223,11 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         String toSay = "";
 
         // Try to find default site
-        dbSite.open();
-        currentSite = dbSite.getDefaultSite();
+        currentSite = DbSite.getDefaultSite();
         if (currentSite!=null) {
             lieu.setText(currentSite.getName());
             toSay = toSay + " "  + currentSite.getName();
         }
-        dbSite.close();
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
@@ -474,9 +470,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
             }
             vol.setAccuPropulsion(currentAccu);
 
-            dbVol.open();
-            dbVol.insertVol(vol);
-            dbVol.close();
+            DbVol.insertVol(vol);
 
             resetPage();
 

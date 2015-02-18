@@ -19,22 +19,10 @@ import java.util.ArrayList;
 
 public class DbJsonBackup {
 
-    private DbAeronef dbAeronef;
-    private DbVol dbVol;
-    private DbRadio dbRadio;
-    private DbChecklist dbCheckList;
-    private DbSite dbSite;
-    private DbAccu dbAccu;
     private boolean addAeronefs, addVols, addRadios, addChecklists, addSites, addAccus;
     private Gson gson;
 
     public DbJsonBackup(Context context, boolean addAeronefs, boolean addVols, boolean addRadios, boolean addChecklists, boolean addSites, boolean addAccus) {
-        dbAeronef = new DbAeronef(context);
-        dbVol = new DbVol(context);
-        dbRadio = new DbRadio(context);
-        dbCheckList = new DbChecklist(context);
-        dbSite = new DbSite(context);
-        dbAccu = new DbAccu(context);
         this.addAeronefs = addAeronefs;
         this.addVols = addVols;
         this.addRadios = addRadios;
@@ -78,9 +66,7 @@ public class DbJsonBackup {
         OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
 
         // Recuperation des areronefs
-        dbAeronef.open();
-        ArrayList<Aeronef> aeronefs = dbAeronef.getAeronefs();
-        dbAeronef.close();
+        ArrayList<Aeronef> aeronefs = DbAeronef.getAeronefs();
 
         String json = gson.toJson(aeronefs);
 
@@ -97,9 +83,7 @@ public class DbJsonBackup {
         FileOutputStream fOut = new FileOutputStream(myFile);
         OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
 
-        dbVol.open();
-        ArrayList<Vol> vols = dbVol.getVols();
-        dbVol.close();
+        ArrayList<Vol> vols = DbVol.getVols();
 
         myOutWriter.append(gson.toJson(vols));
 
@@ -113,9 +97,7 @@ public class DbJsonBackup {
         FileOutputStream fOut = new FileOutputStream(myFile);
         OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
 
-        dbSite.open();
-        ArrayList<Site> sites = dbSite.getSites();
-        dbSite.close();
+        ArrayList<Site> sites = DbSite.getSites();
 
         myOutWriter.append(gson.toJson(sites));
 
@@ -129,9 +111,7 @@ public class DbJsonBackup {
         FileOutputStream fOut = new FileOutputStream(myFile);
         OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
 
-        dbAccu.open();
-        ArrayList<Accu> accus = dbAccu.getAccus();
-        dbAccu.close();
+        ArrayList<Accu> accus = DbAccu.getAccus();
 
         myOutWriter.append(gson.toJson(accus));
 
@@ -145,9 +125,7 @@ public class DbJsonBackup {
         FileOutputStream fOut = new FileOutputStream(myFile);
         OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
 
-        dbRadio.open();
-        ArrayList<Radio> radios = dbRadio.getRadios();
-        dbRadio.close();
+        ArrayList<Radio> radios = DbRadio.getRadios();
 
         myOutWriter.append(gson.toJson(radios));
 
@@ -161,9 +139,7 @@ public class DbJsonBackup {
         FileOutputStream fOut = new FileOutputStream(myFile);
         OutputStreamWriter myOutWriter = new OutputStreamWriter(fOut);
 
-        dbCheckList.open();
-        ArrayList<Checklist> checklists = dbCheckList.getChecklists(null);
-        dbRadio.close();
+        ArrayList<Checklist> checklists = DbChecklist.getChecklists(null);
 
         myOutWriter.append(gson.toJson(checklists));
 

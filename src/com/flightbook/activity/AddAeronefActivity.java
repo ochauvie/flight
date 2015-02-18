@@ -37,7 +37,6 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 @TargetApi(14)
 public class AddAeronefActivity extends Activity {
 
-	private DbAeronef dbAeronef = new DbAeronef(this);
 	private Aeronef aeronef = null;
 
 	private EditText name, wingSpan, weight, engine, firstFlight, comment;
@@ -342,13 +341,11 @@ public class AddAeronefActivity extends Activity {
                     aeronef.setType(Aeronef.T_DIVERS);
                 }
 
-                dbAeronef.open();
                 if (aeronef.getId()!=0) {
-                    dbAeronef.updateAeronef(aeronef);
+                    DbAeronef.updateAeronef(aeronef);
                 } else {
-                    dbAeronef.insertAeronef(aeronef);
+                    DbAeronef.insertAeronef(aeronef);
                 }
-                dbAeronef.close();
 
                 Toast.makeText(getBaseContext(), getString(R.string.aeronef_save), Toast.LENGTH_LONG).show();
 

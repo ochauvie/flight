@@ -16,16 +16,12 @@ import java.util.ArrayList;
 
 public class FlightWidgetProvider extends AppWidgetProvider {
 
-    private DbVol dbVol;
     private ArrayList<Vol> vols;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
 
-        dbVol = new DbVol(context);
-        dbVol.open();
-            vols = dbVol.getVols();
-        dbVol.close();
+        vols = DbVol.getVols();
 
         for(int i=0; i<appWidgetIds.length; i++){
             int appWidgetId = appWidgetIds[i];

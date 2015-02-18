@@ -33,7 +33,6 @@ import java.util.ArrayList;
 public class SiteActivity extends ListActivity  implements DialogReturn, SiteAdapterListener {
 
 	private ListView listView;
-	private DbSite dbSite = new DbSite(this);
 	private ArrayList<Site> sites;
 	private SitesAdapter adapter;
 	private MyDialogInterface myInterface;
@@ -59,9 +58,7 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
-        dbSite.open();
-        sites = dbSite.getSites();
-        dbSite.close();
+        sites = DbSite.getSites();
 
         listView = getListView();
         
@@ -146,10 +143,8 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
 	@Override
 	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
-			dbSite.open();
-	        dbSite.deleteSite(sites.get(selectItim));
-	        dbSite.close();
-	        
+			DbSite.deleteSite(sites.get(selectItim));
+
 	        sites.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}
@@ -250,9 +245,7 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
         }
         adapter.notifyDataSetChanged();
         if (sites!=null) {
-            dbSite.open();
-            sites.addAll(dbSite.getSites());
-            dbSite.close();
+            sites.addAll(DbSite.getSites());
             adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(SiteActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();

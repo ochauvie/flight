@@ -26,7 +26,6 @@ import java.util.ArrayList;
 @TargetApi(14)
 public class AddSiteActivity extends Activity {
 
-	private DbSite dbSite = new DbSite(this);
 	private Site site = null;
 
 	private EditText name, comment;
@@ -119,23 +118,21 @@ public class AddSiteActivity extends Activity {
                     site.setIsDefault(0);
                 }
 
-                dbSite.open();
                 if (site.getId()!=0) {
-                    dbSite.updateSite(site);
+                    DbSite.updateSite(site);
                 } else {
-                    dbSite.insertSite(site);
+                    DbSite.insertSite(site);
                 }
                 if (site.getIsDefault()==1) {
-                    ArrayList<Site> oldSites = dbSite.getSites();
+                    ArrayList<Site> oldSites = DbSite.getSites();
                     for (Site oldSite:oldSites) {
                         if (oldSite.getIsDefault()==1 && !oldSite.getName().equals(site.getName()))
                         {
                             oldSite.setIsDefault(0);
-                            dbSite.updateSite(oldSite);
+                            DbSite.updateSite(oldSite);
                         }
                     }
                 }
-                dbSite.close();
 
                 Toast.makeText(getBaseContext(), getString(R.string.site_save), Toast.LENGTH_LONG).show();
 

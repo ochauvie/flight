@@ -32,7 +32,6 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 
 	private ImageButton add;
 	private EditText newRadioName;
-	private DbRadio dbRadio = new DbRadio(this);
 	private ArrayList<Radio> radios;
 	private RadiosAdapter adapter;
 	private MyDialogInterface myInterface;
@@ -49,9 +48,7 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        dbRadio.open();
-        	radios = dbRadio.getRadios();
-        dbRadio.close();
+       	radios = DbRadio.getRadios();
 
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
@@ -73,10 +70,8 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         		if (newName!=null && !"".equals(newName)) {
         			Radio r = new Radio();
         			r.setName(newName);
-        			dbRadio.open();
-        				dbRadio.addRadio(r);
-        			dbRadio.close();
-        			
+        			DbRadio.addRadio(r);
+
         			/* On ne connait pas le nouveau id
         			radios.add(r);
         			adapter.notifyDataSetChanged();
@@ -133,10 +128,8 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
 	@Override
 	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
-			dbRadio.open();
-				dbRadio.deleteRadio(radios.get(selectItim));
-			dbRadio.close();
-	        radios.remove(selectItim);
+			DbRadio.deleteRadio(radios.get(selectItim));
+			radios.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}
 	}
@@ -207,9 +200,7 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         }
         adapter.notifyDataSetChanged();
         if (radios!=null) {
-            dbRadio.open();
-            radios.addAll(dbRadio.getRadios());
-            dbRadio.close();
+            radios.addAll(DbRadio.getRadios());
             adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(RadiosActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();

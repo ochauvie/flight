@@ -1,52 +1,24 @@
 package com.flightbook.sqllite;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.flightbook.model.Site;
+import com.flightbook.sqllite.init.DbApplicationContext;
 
 import java.util.ArrayList;
 
 public class DbSite {
 
-	private SQLiteDatabase bdd;
-	private DbManager dbManager;
-
-	/**
-	 * On cree la BDD et sa table
-	 * @param context {@link android.content.Context}
-	 */
-	public DbSite(Context context){
-		dbManager = new DbManager(context, DbManager.NOM_BDD, null, DbManager.VERSION_BDD);
-	}
-
-	/**
-	 * On ouvre la BDD en ecriture
-	 */
-	public void open(){
-		bdd = dbManager.getWritableDatabase();
-	}
-
-	/**
-	 * On ferme l'acces a la BDD
-	 */
-	public void close(){
-		bdd.close();
-	}
-
-	public SQLiteDatabase getBDD(){
-		return bdd;
-	}
-
+    private static SQLiteDatabase bdd = DbApplicationContext.getInstance().getBdd();
 
 	/**
 	 * Insert a new {@link com.flightbook.model.Site}
 	 * @param site the {@link com.flightbook.model.Site} to insert
 	 * @return
 	 */
-	public long insertSite(Site site) {
+	public static long insertSite(Site site) {
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, site.getName());
 		values.put(DbManager.COL_COMMENT, site.getComment());
@@ -59,7 +31,7 @@ public class DbSite {
 	 * @param site the {@link com.flightbook.model.Site} to insert
 	 * @return
 	 */
-	public long updateSite(Site site) {
+	public static long updateSite(Site site) {
 		String where = DbManager.COL_ID + "=?";
 		String[] whereArgs = new String[] {String.valueOf(site.getId())};
 		ContentValues values = new ContentValues();
@@ -74,7 +46,7 @@ public class DbSite {
 	 * @param site the {@link com.flightbook.model.Site} to delete
 	 * @return
 	 */
-	public long deleteSite(Site site) {
+	public static long deleteSite(Site site) {
 		return bdd.delete(DbManager.TABLE_SITES, DbManager.COL_ID + "=" + site.getId(), null);
 	}
 
@@ -82,7 +54,7 @@ public class DbSite {
 	 * Get the list of {@link com.flightbook.model.Site}
 	 * @return the list of {@link com.flightbook.model.Site}
 	 */
-	public ArrayList<Site> getSites(){
+	public static ArrayList<Site> getSites(){
 		Cursor c = bdd.query(DbManager.TABLE_SITES, new String[] {DbManager.COL_ID,
 																 DbManager.COL_NAME,
 																 DbManager.COL_COMMENT,
@@ -92,7 +64,7 @@ public class DbSite {
 	}
 
 
-    public Site getDefaultSite(){
+    public static Site getDefaultSite(){
         String where = DbManager.COL_DEFAULT + "=?";
         String[] whereArgs = new String[] {String.valueOf(1)};
         Cursor c = bdd.query(DbManager.TABLE_SITES, new String[] {DbManager.COL_ID,
@@ -114,7 +86,7 @@ public class DbSite {
 	 * Get {@link com.flightbook.model.Site} by id
 	 * @return the {@link com.flightbook.model.Site}
 	 */
-	public Site getSiteById(int id) {
+	public static Site getSiteById(int id) {
 		String where = DbManager.COL_ID + "=?";
 		String[] whereArgs = new String[] {String.valueOf(id)};
 		Cursor c = bdd.query(DbManager.TABLE_SITES, new String[] {DbManager.COL_ID,
@@ -137,7 +109,7 @@ public class DbSite {
 	 * @param c{@link Cursor}
 	 * @return the list of {@link com.flightbook.model.Site}
 	 */
-	private ArrayList<Site> cursorToSites(Cursor c){
+	private static ArrayList<Site> cursorToSites(Cursor c){
 		ArrayList<Site> sites = new ArrayList<Site>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
@@ -156,7 +128,7 @@ public class DbSite {
 	 * @param c{@link Cursor}
 	 * @return the {@link com.flightbook.model.Site}
 	 */
-	private Site cursorToSite(Cursor c){
+	private static Site cursorToSite(Cursor c){
         Site site = new Site();
 		site.setId(c.getInt(DbManager.NUM_COL_ID));
 		site.setName(c.getString(DbManager.NUM_COL_NAME));

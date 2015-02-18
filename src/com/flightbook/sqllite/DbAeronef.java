@@ -1,49 +1,22 @@
 package com.flightbook.sqllite;
 import java.util.ArrayList;
 import com.flightbook.model.Aeronef;
+import com.flightbook.sqllite.init.DbApplicationContext;
+
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DbAeronef {
-	
-	private SQLiteDatabase bdd;
-	private DbManager dbManager;
- 
-	/**
-	 * On cree la BDD et sa table
-	 * @param context {@link Context}
-	 */
-	public DbAeronef(Context context){
-		dbManager = new DbManager(context, DbManager.NOM_BDD, null, DbManager.VERSION_BDD);
-	}
 
-	/**
-	 * On ouvre la BDD en ecriture
-	 */
-	public void open(){
-		bdd = dbManager.getWritableDatabase();
-	}
+    private static SQLiteDatabase bdd = DbApplicationContext.getInstance().getBdd();
  
-	/**
-	 * On ferme l'acces a la BDD
-	 */
-	public void close(){
-		bdd.close();
-	}
- 
-	public SQLiteDatabase getBDD(){
-		return bdd;
-	}
-	
-	
 	/**
 	 * Insert a new {@link Aeronef}
 	 * @param aeronef the {@link Aeronef} to insert
 	 * @return
 	 */
-	public long insertAeronef(Aeronef aeronef) {
+	public static long insertAeronef(Aeronef aeronef) {
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, aeronef.getName());
 		values.put(DbManager.COL_TYPE, aeronef.getType());
@@ -61,7 +34,7 @@ public class DbAeronef {
 	 * @param aeronef the {@link Aeronef} to insert
 	 * @return
 	 */
-	public long updateAeronef(Aeronef aeronef) {
+	public static long updateAeronef(Aeronef aeronef) {
 		String where = DbManager.COL_ID + "=?";
 		String[] whereArgs = new String[] {String.valueOf(aeronef.getId())};
 		ContentValues values = new ContentValues();
@@ -80,7 +53,7 @@ public class DbAeronef {
 	 * @param aeronef the {@link Aeronef} to delete
 	 * @return
 	 */
-	public long deleteAeronef(Aeronef aeronef) {
+	public static long deleteAeronef(Aeronef aeronef) {
 		return bdd.delete(DbManager.TABLE_AERONEFS, DbManager.COL_ID + "=" + aeronef.getId(), null);
 	}
 	
@@ -88,7 +61,7 @@ public class DbAeronef {
 	 * Get the list of {@link Aeronef}
 	 * @return the list of {@link Aeronef}
 	 */
-	public ArrayList<Aeronef> getAeronefs(){
+	public static ArrayList<Aeronef> getAeronefs(){
 		String orderBy = DbManager.COL_TYPE + " DESC";
 		Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID, 
 																 DbManager.COL_NAME, 
@@ -107,7 +80,7 @@ public class DbAeronef {
 	 * Get {@link Aeronef} by id
 	 * @return the {@link Aeronef}
 	 */
-	public Aeronef getAeronefById(int id) {
+	public static Aeronef getAeronefById(int id) {
 		String where = DbManager.COL_ID + "=?";
 		String[] whereArgs = new String[] {String.valueOf(id)};
 		Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID, 
@@ -128,7 +101,7 @@ public class DbAeronef {
 		return aeronef;
 	}
 
-    public Aeronef getAeronefByNameAndType(String name, String type) {
+    public static Aeronef getAeronefByNameAndType(String name, String type) {
         String where = DbManager.COL_NAME + "=? and " + DbManager.COL_TYPE + "=?";
         String[] whereArgs = new String[] {name, type};
         Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID,
@@ -149,7 +122,7 @@ public class DbAeronef {
         return aeronef;
     }
 
-    public ArrayList<Aeronef>  getAeronefByType(String type) {
+    public static ArrayList<Aeronef>  getAeronefByType(String type) {
         String where =  DbManager.COL_TYPE + "=?";
         String[] whereArgs = new String[] {type};
         Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID,
@@ -170,7 +143,7 @@ public class DbAeronef {
 	 * @param c{@link Cursor}
 	 * @return the list of {@link Aeronef}
 	 */
-	private ArrayList<Aeronef> cursorToAeronefs(Cursor c){
+	private static ArrayList<Aeronef> cursorToAeronefs(Cursor c){
 		ArrayList<Aeronef> aeronefs = new ArrayList<Aeronef>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
@@ -189,7 +162,7 @@ public class DbAeronef {
 	 * @param c{@link Cursor}
 	 * @return the {@link Aeronef}
 	 */
-	private Aeronef cursorToAeronef(Cursor c){
+	private static Aeronef cursorToAeronef(Cursor c){
 		Aeronef aeronef = new Aeronef();
 		aeronef.setId(c.getInt(DbManager.NUM_COL_ID));
 		aeronef.setName(c.getString(DbManager.NUM_COL_NAME));

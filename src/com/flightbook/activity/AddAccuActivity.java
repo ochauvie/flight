@@ -35,7 +35,6 @@ import java.util.Locale;
 @TargetApi(14)
 public class AddAccuActivity extends Activity implements DatePickerDialog.OnDateSetListener {
 
-    private DbAccu dbAccu = new DbAccu(this);
     private Accu accu = null;
 
     private EditText nom, nbElement, capacite, tauxDecharge, marque, numero, dateAchat, nbCycle, voltage;
@@ -206,14 +205,11 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-
-                dbAccu.open();
-                if (accu.getId() != 0) {
-                    dbAccu.updateAccu(accu);
+            if (accu.getId() != 0) {
+                    DbAccu.updateAccu(accu);
                 } else {
-                    dbAccu.insertAccu(accu);
+                    DbAccu.insertAccu(accu);
                 }
-                dbAccu.close();
 
                 Toast.makeText(getBaseContext(), getString(R.string.accu_save), Toast.LENGTH_LONG).show();
 

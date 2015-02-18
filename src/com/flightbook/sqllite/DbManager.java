@@ -183,28 +183,28 @@ public class DbManager extends SQLiteOpenHelper {
 	
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(CREATE_TABLE_VOLS);
-		db.execSQL(CREATE_TABLE_AERONEFS);
-		
-		db.execSQL(CREATE_TABLE_SWITCH);
-		db.execSQL(CREATE_TABLE_POTAR);
-		db.execSQL(CREATE_TABLE_RADIO);
-		db.execSQL(CREATE_TABLE_RADIO_SWITCH);
-		db.execSQL(CREATE_TABLE_RADIO_POTAR);
-		
-		db.execSQL(CREATE_TABLE_CHECKLIST);
+        db.execSQL(CREATE_TABLE_VOLS);
+        db.execSQL(CREATE_TABLE_AERONEFS);
+
+        db.execSQL(CREATE_TABLE_SWITCH);
+        db.execSQL(CREATE_TABLE_POTAR);
+        db.execSQL(CREATE_TABLE_RADIO);
+        db.execSQL(CREATE_TABLE_RADIO_SWITCH);
+        db.execSQL(CREATE_TABLE_RADIO_POTAR);
+
+        db.execSQL(CREATE_TABLE_CHECKLIST);
 
         db.execSQL(CREATE_TABLE_SITES);
 
         db.execSQL(CREATE_TABLE_ACCUS);
-		
-		InitHangar.initHangar(db);
-		InitRadio.initRadio(db);
-		InitChecklist.initChecklist(db);
+
+        InitHangar.initHangar(db);
+        InitRadio.initRadio(db);
+        InitChecklist.initChecklist(db);
         InitSites.initSites(db);
         InitAccus.initAccus(db);
-	}
-		
+
+    }
 	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {

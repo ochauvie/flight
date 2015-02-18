@@ -23,9 +23,8 @@ import android.view.MenuItem;
 
 public class RadioActivity extends ListActivity implements DialogReturn, SwitchPotarAdapterListener{
 
-		private Radio radio;
-	private DbRadio dbRadio = new DbRadio(this);
-	private RadioAdapter adapter;	
+	private Radio radio;
+	private RadioAdapter adapter;
 	private MyDialogInterface myInterface;
 	private int itemId;
 	private String typeItem;
@@ -51,9 +50,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
         	int radioId = bundle.getInt(Radio.RADIO_ID);
-        	dbRadio.open();
-            	radio = dbRadio.getRadioById(radioId);
-            dbRadio.close();
+           	radio = DbRadio.getRadioById(radioId);
         }
         
         // View title
@@ -118,14 +115,12 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 	@Override
 	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && itemId!=-1) {
-			dbRadio.open();
-				if ("Inter".equals(typeItem)) {
-					dbRadio.deleteSwitch(itemId);
-				} else if ("Potar".equals(typeItem)) {
-					dbRadio.deletePotar(itemId);
-				}
-				dbRadio.close();
-	        
+            if ("Inter".equals(typeItem)) {
+                DbRadio.deleteSwitch(itemId);
+            } else if ("Potar".equals(typeItem)) {
+                DbRadio.deletePotar(itemId);
+            }
+
 	        Intent radioActivity = new Intent(getApplicationContext(), RadioActivity.class);
 	        radioActivity.putExtra(Radio.RADIO_ID, radio.getId());
         	startActivity(radioActivity);

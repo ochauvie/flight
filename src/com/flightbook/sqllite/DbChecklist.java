@@ -3,44 +3,18 @@ package com.flightbook.sqllite;
 import java.util.ArrayList;
 import com.flightbook.model.Checklist;
 import com.flightbook.model.ChecklistItem;
+import com.flightbook.sqllite.init.DbApplicationContext;
+
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DbChecklist {
-	
-	private SQLiteDatabase bdd;
-	private DbManager dbManager;
- 
-	/**
-	 * On cree la BDD et sa table
-	 * @param context {@link Context}
-	 */
-	public DbChecklist(Context context){
-		dbManager = new DbManager(context, DbManager.NOM_BDD, null, DbManager.VERSION_BDD);
-	}
 
-	/**
-	 * On ouvre la BDD en ecriture
-	 */
-	public void open(){
-		bdd = dbManager.getWritableDatabase();
-	}
- 
-	/**
-	 * On ferme l'acces a la BDD
-	 */
-	public void close(){
-		bdd.close();
-	}
- 
-	public SQLiteDatabase getBDD(){
-		return bdd;
-	}
+    private static SQLiteDatabase bdd = DbApplicationContext.getInstance().getBdd();
 	
 	
-	public ArrayList<Checklist> getChecklists(String checklistName) {
+	public static ArrayList<Checklist> getChecklists(String checklistName) {
 		ArrayList<Checklist> checklists = new ArrayList<Checklist>(); 
 		
 		String where = null;
@@ -75,15 +49,15 @@ public class DbChecklist {
 		return checklists;
 	}
 	
-	public void deleteChecklist(Checklist checklist) {
+	public static void deleteChecklist(Checklist checklist) {
 		bdd.delete(DbManager.TABLE_CHECKLIST, DbManager.COL_NAME + "='" + checklist.getName() + "'", null);	
 	}
 	
-	public void deleteChecklistItem(int checklistItemId) {
+	public static void deleteChecklistItem(int checklistItemId) {
 		bdd.delete(DbManager.TABLE_CHECKLIST, DbManager.COL_ID + "=" + checklistItemId , null);	
 	}
 	
-	public void addCheckList(Checklist checklist) {
+	public static void addCheckList(Checklist checklist) {
 		for (ChecklistItem item: checklist.getItems()) {
 			ContentValues values = new ContentValues();
 			values.put(DbManager.COL_NAME, checklist.getName());
@@ -93,7 +67,7 @@ public class DbChecklist {
 		}
 	}
 	
-	public void updateChecklist(Checklist checklist) {
+	public static void updateChecklist(Checklist checklist) {
 		String where = DbManager.COL_ID + "=?";
 		for (ChecklistItem item: checklist.getItems()) {
 			String[] whereArgs = new String[] {String.valueOf(item.getId())};

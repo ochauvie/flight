@@ -46,7 +46,6 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 
 
     private MyDialogInterface myInterface;
-	private DbVol dbVol = new DbVol(this);
 	private ArrayList<Vol> vols;
 	private int selectItim = -1;
 	private VolsAdapter adapter;
@@ -79,9 +78,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         myInterface.setListener(this);
 
         // Recuperation de la liste des vols
-        dbVol.open();
-        	vols = dbVol.getVols();
-        dbVol.close();
+        vols = DbVol.getVols();
 
         // Mise à jour du footer
         majFooter();
@@ -191,9 +188,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             }
         }
         adapter.notifyDataSetChanged();
-        dbVol.open();
-        vols.addAll(dbVol.getVolsByMachine(vol.getAeronef()));
-        dbVol.close();
+        vols.addAll(DbVol.getVolsByMachine(vol.getAeronef()));
         if (vol.getAeronef()!=null) {
             name.setTextColor(Color.rgb(219, 23, 2));
         } else {
@@ -214,10 +209,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             }
         }
         adapter.notifyDataSetChanged();
-        dbVol.open();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
-        vols.addAll(dbVol.getVolsByDate(sdf.format(vol.getDateVol())));
-        dbVol.close();
+        vols.addAll(DbVol.getVolsByDate(sdf.format(vol.getDateVol())));
         if (vol.getDateVol()!=null) {
             date.setTextColor(Color.rgb(219, 23, 2));
         } else {
@@ -265,10 +258,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
 			Vol flight = vols.get(selectItim);
-			dbVol.open();
-				dbVol.deleteVol(flight);
-			dbVol.close();
-	        vols.remove(selectItim);
+			DbVol.deleteVol(flight);
+			vols.remove(selectItim);
 	        adapter.notifyDataSetChanged();
             majFooter();
             updateMyWidgets();
@@ -291,9 +282,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         adapter.notifyDataSetChanged();
 
         if (vols!=null) {
-            dbVol.open();
-            vols.addAll(dbVol.getVols());
-            dbVol.close();
+            vols.addAll(DbVol.getVols());
             adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(VolsActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();

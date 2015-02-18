@@ -22,7 +22,6 @@ import android.widget.Toast;
 
 public class AddSwitchPotarActivity extends Activity {
 
-	private DbRadio dbRadio = new DbRadio(this);
 	private int radioId;
 
 	private EditText name, action, up, center, down;
@@ -102,9 +101,7 @@ public class AddSwitchPotarActivity extends Activity {
                 sw.setUp(up.getText().toString());
                 sw.setCenter(center.getText().toString());
                 sw.setDown(down.getText().toString());
-                dbRadio.open();
-                dbRadio.addSwitchToRadio(radioId, sw);
-                dbRadio.close();
+                DbRadio.addSwitchToRadio(radioId, sw);
 
             } else if (optPotar.isChecked()) {
                 Potar potar = new Potar();
@@ -113,9 +110,7 @@ public class AddSwitchPotarActivity extends Activity {
                 potar.setUp(up.getText().toString());
                 potar.setCenter(center.getText().toString());
                 potar.setDown(down.getText().toString());
-                dbRadio.open();
-                dbRadio.addPotarToRadio(radioId, potar);
-                dbRadio.close();
+                DbRadio.addPotarToRadio(radioId, potar);
             }
 
             Toast.makeText(getBaseContext(), getString(R.string.save_ok), Toast.LENGTH_LONG).show();

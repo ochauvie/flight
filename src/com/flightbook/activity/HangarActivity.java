@@ -39,7 +39,6 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 
 	private ListView listView;
     private TextView headerTYpe;
-	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Aeronef> aeronefs;
 	private AeronefsAdapter adapter;
 	private MyDialogInterface myInterface;
@@ -65,10 +64,8 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
-        dbAeronef.open();
-        aeronefs = dbAeronef.getAeronefs();
-        dbAeronef.close();
-        
+        aeronefs = DbAeronef.getAeronefs();
+
         listView = getListView();
 
         View header = findViewById( R.id.header_layout );
@@ -141,9 +138,7 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
             }
         }
         adapter.notifyDataSetChanged();
-        dbAeronef.open();
-        aeronefs.addAll(dbAeronef.getAeronefByType(item.getType()));
-        dbAeronef.close();
+        aeronefs.addAll(DbAeronef.getAeronefByType(item.getType()));
         headerTYpe.setTextColor(Color.rgb(219, 23, 2));
         adapter.notifyDataSetChanged();
     }
@@ -180,10 +175,8 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	@Override
 	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
-			dbAeronef.open();
-	        dbAeronef.deleteAeronef(aeronefs.get(selectItim));
-	        dbAeronef.close();
-	        
+			DbAeronef.deleteAeronef(aeronefs.get(selectItim));
+
 	        aeronefs.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}
@@ -272,9 +265,7 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         }
         adapter.notifyDataSetChanged();
         if (aeronefs!=null) {
-            dbAeronef.open();
-            aeronefs.addAll(dbAeronef.getAeronefs());
-            dbAeronef.close();
+            aeronefs.addAll(DbAeronef.getAeronefs());
             adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(HangarActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();

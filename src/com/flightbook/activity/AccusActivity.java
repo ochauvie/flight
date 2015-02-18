@@ -39,7 +39,6 @@ import java.util.ArrayList;
 public class AccusActivity extends ListActivity  implements DialogReturn, AccuAdapterListener, View.OnClickListener {
 
 
-	private DbAccu dbAccu = new DbAccu(this);
 	private ArrayList<Accu> accus;
 	private AccusAdapter adapter;
 	private MyDialogInterface myInterface;
@@ -72,9 +71,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
 
-        dbAccu.open();
-        accus = dbAccu.getAccus();
-        dbAccu.close();
+        accus = DbAccu.getAccus();
 
         ListView listView = getListView();
 
@@ -136,9 +133,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
             }
         }
         adapter.notifyDataSetChanged();
-        dbAccu.open();
-        accus.addAll(dbAccu.getAccuByType(sel.getType()));
-        dbAccu.close();
+        accus.addAll(DbAccu.getAccuByType(sel.getType()));
         type.setTextColor(Color.rgb(219, 23, 2));
         nbElements.setTextColor(Color.BLACK);
         adapter.notifyDataSetChanged();
@@ -154,9 +149,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
             }
         }
         adapter.notifyDataSetChanged();
-        dbAccu.open();
-        accus.addAll(dbAccu.getAccuByNbElements(sel.getNbElements()));
-        dbAccu.close();
+        accus.addAll(DbAccu.getAccuByNbElements(sel.getNbElements()));
         nbElements.setTextColor(Color.rgb(219, 23, 2));
         type.setTextColor(Color.BLACK);
         adapter.notifyDataSetChanged();
@@ -194,10 +187,8 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
 	@Override
 	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
-			dbAccu.open();
-            dbAccu.deleteAccu(accus.get(selectItim));
-            dbAccu.close();
-	        
+			DbAccu.deleteAccu(accus.get(selectItim));
+
 	        accus.remove(selectItim);
 	        adapter.notifyDataSetChanged();
 		}
@@ -272,9 +263,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
             }
         }
         adapter.notifyDataSetChanged();
-        dbAccu.open();
-        accus.addAll(dbAccu.getAccus());
-        dbAccu.close();
+        accus.addAll(DbAccu.getAccus());
         adapter.notifyDataSetChanged();
         type.setTextColor(Color.BLACK);
         nbElements.setTextColor(Color.BLACK);
@@ -314,9 +303,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         }
         adapter.notifyDataSetChanged();
         if (accus!=null) {
-            dbAccu.open();
-            accus.addAll(dbAccu.getAccus());
-            dbAccu.close();
+            accus.addAll(DbAccu.getAccus());
             adapter.notifyDataSetChanged();
         } else {
             Toast.makeText(AccusActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();

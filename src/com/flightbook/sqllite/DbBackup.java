@@ -22,25 +22,12 @@ import java.util.Locale;
 
 public class DbBackup {
 
-    private DbAeronef dbAeronef;
-    private DbVol dbVol;
-    private DbRadio dbRadio;
-    private DbChecklist dbCheckList;
-    private DbSite dbSite;
-    private DbAccu dbAccu;
-
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
     private static final String HEADER1_VOLS = "ENREGISTREMENTS";
     private static final String HEADER2_VOLS = "Type|Date|Nom|Min vol|Min moteur|Sec moteur|Note|Lieu|Accu";
 
     public DbBackup(Context context) {
-        dbAeronef = new DbAeronef(context);
-        dbVol = new DbVol(context);
-        dbRadio = new DbRadio(context);
-        dbCheckList = new DbChecklist(context);
-        dbSite = new DbSite(context);
-        dbAccu = new DbAccu(context);
     }
 
 
@@ -71,9 +58,7 @@ public class DbBackup {
         ArrayList<Vol> vols = listVols;
         // Recuperation des vols
         if (vols==null) {
-            dbVol.open();
-            vols = dbVol.getVols();
-            dbVol.close();
+            vols = DbVol.getVols();
         }
 
         if (vols != null) {
@@ -117,9 +102,7 @@ public class DbBackup {
         StringBuffer stbSites = new StringBuffer();
 
         // Recuperation des sites
-        dbSite.open();
-        ArrayList<Site> sites = dbSite.getSites();
-        dbSite.close();
+        ArrayList<Site> sites = DbSite.getSites();
 
         if (sites != null) {
             stbSites.append("SITES");
@@ -144,9 +127,7 @@ public class DbBackup {
         List<Potar> potars;
 
         // Recuperation des radios
-        dbRadio.open();
-        ArrayList<Radio> radios = dbRadio.getRadios();
-        dbRadio.close();
+        ArrayList<Radio> radios = DbRadio.getRadios();
 
         // Recuperation des radios
         if (radios != null) {
@@ -207,9 +188,7 @@ public class DbBackup {
     public StringBuffer getStbCheckList() {
         StringBuffer stb = new StringBuffer();
         // Recuperation des check list
-        dbCheckList.open();
-        ArrayList<Checklist> checklists = dbCheckList.getChecklists(null);
-        dbCheckList.close();
+        ArrayList<Checklist> checklists = DbChecklist.getChecklists(null);
 
         // Recuperation des checklist
         if (checklists != null) {
@@ -244,9 +223,7 @@ public class DbBackup {
     public StringBuffer getStbAccus() {
         StringBuffer stb = new StringBuffer();
         // Recuperation des accus
-        dbAccu.open();
-        ArrayList<Accu> accus = dbAccu.getAccus();
-        dbAccu.close();
+        ArrayList<Accu> accus = DbAccu.getAccus();
 
         // Récupération des accus
         if (accus != null) {
@@ -289,9 +266,7 @@ public class DbBackup {
         StringBuffer stb = new StringBuffer();
 
         // Recuperation des areronefs
-        dbAeronef.open();
-        ArrayList<Aeronef> aeronefs = dbAeronef.getAeronefs();
-        dbAeronef.close();
+        ArrayList<Aeronef> aeronefs = DbAeronef.getAeronefs();
 
         if (aeronefs != null) {
             stb.append("MACHINES");

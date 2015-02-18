@@ -7,6 +7,7 @@ import com.flightbook.R;
 import com.flightbook.model.Aeronef;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbAeronef;
+import com.flightbook.sqllite.init.DbApplicationContext;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -37,8 +38,6 @@ public class SplashActivity extends Activity {
  	private ImageView imgStart;
  	private TtsProviderFactory ttsProviderImpl;
 
-    private DbAeronef dbAeronef = new DbAeronef(this);
-
 
 	@Override
     protected void onCreate(Bundle savedInstanceState)
@@ -46,6 +45,9 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        // Init db application context
+        DbApplicationContext.getInstance().init(getApplicationContext());
+        // Init db application context
 
         // Init Speech
         ttsProviderImpl = TtsProviderFactory.getInstance();
@@ -132,9 +134,7 @@ public class SplashActivity extends Activity {
 		// Start VolActivity if we have a aeronef
 		if (aeronefType!=null && aeronefName!=null) {
 
-            dbAeronef.open();
-            Aeronef aeronef = dbAeronef.getAeronefByNameAndType(aeronefName, aeronefType);
-            dbAeronef.close();
+            Aeronef aeronef = DbAeronef.getAeronefByNameAndType(aeronefName, aeronefType);
             if (aeronef!=null) {
                 volActivity.putExtra(Aeronef.class.getName(), aeronef);
             }

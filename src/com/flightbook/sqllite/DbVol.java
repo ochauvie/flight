@@ -8,51 +8,23 @@ import java.util.Locale;
 
 import com.flightbook.model.Accu;
 import com.flightbook.model.Vol;
+import com.flightbook.sqllite.init.DbApplicationContext;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 public class DbVol {
-	
-	private SQLiteDatabase bdd;
-	private DbManager dbManager;
-    private Context context;
- 
-	/**
-	 * On cr�e la BDD et sa table
-	 * @param context {@link Context}
-	 */
-	public DbVol(Context context){
-        this.context = context;
-		dbManager = new DbManager(context, DbManager.NOM_BDD, null, DbManager.VERSION_BDD);
-	}
 
-	/**
-	 * On ouvre la BDD en ecriture
-	 */
-	public void open(){
-		bdd = dbManager.getWritableDatabase();
-	}
- 
-	/**
-	 * On ferme l'acces a la BDD
-	 */
-	public void close(){
-		bdd.close();
-	}
- 
-	public SQLiteDatabase getBDD(){
-		return bdd;
-	}
-	
+    private static SQLiteDatabase bdd = DbApplicationContext.getInstance().getBdd();
+
+
 	/**
 	 * Insert new {@link Vol}
 	 * @param vol the {@link Vol} to insert
 	 * @return
 	 */
-	public long insertVol(Vol vol){
+	public static long insertVol(Vol vol){
 		ContentValues values = new ContentValues();
 		values.put(DbManager.COL_NAME, vol.getAeronef());
 		values.put(DbManager.COL_TYPE, vol.getType());
@@ -68,7 +40,7 @@ public class DbVol {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
 		String sDate = sdf.format(vol.getDateVol());
 		values.put(DbManager.COL_DATE, sDate);
-		
+
 		return bdd.insert(DbManager.TABLE_VOLS, null, values);
 	}
 		
@@ -76,7 +48,7 @@ public class DbVol {
 	 * Get {@link Vol} list 
 	 * @return the list
 	 */
-	public ArrayList<Vol> getVols(){
+	public static ArrayList<Vol> getVols(){
 		String orderBy = DbManager.COL_DATE;
 		Cursor c = bdd.query(DbManager.TABLE_VOLS, new String[] {DbManager.COL_ID, 
 																 DbManager.COL_NAME, 
@@ -96,7 +68,7 @@ public class DbVol {
      * Get {@link Vol} list
      * @return the list for one machine
      */
-    public ArrayList<Vol> getVolsByMachine(String machineName){
+    public static ArrayList<Vol> getVolsByMachine(String machineName){
         String orderBy = DbManager.COL_DATE;
 
         String where = null;
@@ -124,7 +96,7 @@ public class DbVol {
      * Get {@link Vol} list
      * @return the list for one flight date
      */
-    public ArrayList<Vol> getVolsByDate(String date){
+    public static ArrayList<Vol> getVolsByDate(String date){
         String orderBy = DbManager.COL_NAME;
 
         String where = null;
@@ -152,7 +124,7 @@ public class DbVol {
 	 * Delete all {@link Vol}
 	 * @return
 	 */
-	public long deleteVols(){
+	public static long deleteVols(){
 		return bdd.delete(DbManager.TABLE_VOLS, null, null);
 	}
 	
@@ -161,7 +133,7 @@ public class DbVol {
 	 * @param vol the {@link Vol} to delete
 	 * @return
 	 */
-	public long deleteVol(Vol vol){
+	public static long deleteVol(Vol vol){
 		return bdd.delete(DbManager.TABLE_VOLS, DbManager.COL_ID + "=" + vol.getId(), null);
 	}
 	
@@ -171,7 +143,7 @@ public class DbVol {
 	 * @param c{@link Cursor}
 	 * @return the list of {@link Vol}
 	 */
-	private ArrayList<Vol> cursorToVols(Cursor c){
+	private static ArrayList<Vol> cursorToVols(Cursor c){
 		ArrayList<Vol> vols = new ArrayList<Vol>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
@@ -195,13 +167,10 @@ public class DbVol {
 
                 int idAccuPropultion = c.getInt(DbManager.NUM_COL_ID_ACCU_PROPULSION);
                 if (idAccuPropultion >= 0) {
-                    DbAccu dbAccu = new DbAccu(context);
-                    dbAccu.open();
-                    Accu accu = dbAccu.getAccuById(idAccuPropultion);
+                    Accu accu = DbAccu.getAccuById(idAccuPropultion);
                     if (accu != null) {
                         vol.setAccuPropulsion(accu);
                     }
-                    dbAccu.close();
                 }
 
                 vols.add(vol);
