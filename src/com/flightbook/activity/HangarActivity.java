@@ -17,6 +17,7 @@ import com.flightbook.sqllite.DbBackup;
 import com.flightbook.sqllite.DbJsonImport;
 import com.flightbook.tools.SimpleFileDialog;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -25,14 +26,19 @@ import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
-public class HangarActivity extends ListActivity  implements DialogReturn, AeronefAdapterListener {
+import org.w3c.dom.Text;
+
+public class HangarActivity extends ListActivity  implements DialogReturn, AeronefAdapterListener, View.OnClickListener  {
 
 	private ListView listView;
+    private TextView headerTYpe;
 	private DbAeronef dbAeronef = new DbAeronef(this);
 	private ArrayList<Aeronef> aeronefs;
 	private AeronefsAdapter adapter;
@@ -64,6 +70,10 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         dbAeronef.close();
         
         listView = getListView();
+
+        View header = findViewById( R.id.header_layout );
+        header.setOnClickListener(this);
+        headerTYpe = (TextView) header.findViewById(R.id.headerType);
         
         // Creation et initialisation de l'Adapter pour les aeronefs
         adapter = new AeronefsAdapter(this, aeronefs);
@@ -115,13 +125,28 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
 	}
     
     @Override
-	public void onClickType(Aeronef item, int position) {
+	public void onClickUpdate(Aeronef item, int position) {
     	Aeronef sel = aeronefs.get(position);
     	Intent addAeronefActivity = new Intent(getApplicationContext(), AddAeronefActivity.class);
     	addAeronefActivity.putExtra(Aeronef.class.getName(), sel);
     	startActivity(addAeronefActivity);
     	finish();
 	}
+
+    @Override
+    public void onClickType(Aeronef item, int position) {
+        if (aeronefs!=null) {
+            for (int i=aeronefs.size()-1; i>=0; i--) {
+                aeronefs.remove(i);
+            }
+        }
+        adapter.notifyDataSetChanged();
+        dbAeronef.open();
+        aeronefs.addAll(dbAeronef.getAeronefByType(item.getType()));
+        dbAeronef.close();
+        headerTYpe.setTextColor(Color.rgb(219, 23, 2));
+        adapter.notifyDataSetChanged();
+    }
     
 	@Override
 	public void onClickNameToDelete(Aeronef item, int position) {
@@ -254,7 +279,16 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         } else {
             Toast.makeText(HangarActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();
         }
+        headerTYpe.setTextColor(Color.BLACK);
 
     }
+
+    @Override
+    // Action sur le click du header: suppression du filtre sur la liste
+    public void onClick(View v) {
+        refreshList();
+    }
+
+
 
 }

@@ -6,6 +6,13 @@
 	android:scrollbars="vertical" 
 	>
 
+    <include
+        android:id="@+id/header_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        layout="@layout/activity_header_hangar" />
+
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"

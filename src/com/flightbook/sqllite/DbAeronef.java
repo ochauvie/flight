@@ -149,6 +149,21 @@ public class DbAeronef {
         return aeronef;
     }
 
+    public ArrayList<Aeronef>  getAeronefByType(String type) {
+        String where =  DbManager.COL_TYPE + "=?";
+        String[] whereArgs = new String[] {type};
+        Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID,
+                        DbManager.COL_NAME,
+                        DbManager.COL_TYPE,
+                        DbManager.COL_WINGSPAN,
+                        DbManager.COL_WEIGHT,
+                        DbManager.COL_ENGINE,
+                        DbManager.COL_FIRST_FLIGHT,
+                        DbManager.COL_COMMENT},
+                where, whereArgs, null, null, null);
+        return cursorToAeronefs(c);
+    }
+
 	
 	/**
 	 * Transform {@link Cursor} in list of {@link Aeronef}

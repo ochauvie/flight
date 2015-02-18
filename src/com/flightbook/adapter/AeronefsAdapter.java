@@ -51,6 +51,12 @@ public class AeronefsAdapter extends BaseAdapter{
 	    	mListListener.get(i).onClickType(item, position);
 	    }
 	}
+
+    private void sendListenerUpdate(Aeronef item, int position) {
+        for(int i = mListListener.size()-1; i >= 0; i--) {
+            mListListener.get(i).onClickUpdate(item, position);
+        }
+    }
 	
 	
 	private void sendListenerToDelete(Aeronef item, int position) {
@@ -136,6 +142,19 @@ public class AeronefsAdapter extends BaseAdapter{
 				}
 			        	
 			});
+
+            tv_type.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //Lorsque l'on clique sur le nom, on recupere la position de Aeronef"
+                Integer position = (Integer)v.getTag();
+
+                //On previent les listeners qu'il y a eu un clic sur le TextView "tv_type".
+                sendListenerType(aeronefs.get(position), position);
+                }
+
+        });
 		  
 
 		  bUpdate.setOnClickListener(new View.OnClickListener() {
@@ -144,9 +163,7 @@ public class AeronefsAdapter extends BaseAdapter{
 				public void onClick(View v) {
 					//Lorsque l'on clique sur le type, on recupere la position de Aeronef"
 					Integer position = (Integer)v.getTag();
-							
-					//On previent les listeners qu'il y a eu un clic sur le TextView "tv_type".
-					sendListenerType(aeronefs.get(position), position);
+					sendListenerUpdate(aeronefs.get(position), position);
 				}
 			        	
 			});

@@ -1,17 +1,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
  
-
 	<item android:id="@+id/add"
      android:title="@string/add"
      android:icon="@drawable/smalladd"
-     android:showAsAction="always"
-      />
+     android:showAsAction="always"/>
 
-    <item android:id="@+id/close"
-        android:title="@string/close"
-        android:icon="@drawable/smallexit"
-        android:showAsAction="always"
-        />
 
     <item android:id="@+id/selectImg"
         android:icon="@android:drawable/ic_dialog_dialer"
@@ -22,22 +15,19 @@
 
             <item android:id="@+id/send"
             android:title="@string/menu_send"
-            android:icon="@drawable/send"
-
-            />
+            android:icon="@drawable/send"/>
 
         <item android:id="@+id/importData"
             android:title="@string/menu_import"
-            android:icon="@drawable/import_data"
-
-            />
-
+            android:icon="@drawable/import_data"/>
 
         </menu>
     </item>
 
-
-
+    <item android:id="@+id/close"
+        android:title="@string/close"
+        android:icon="@drawable/smallexit"
+        android:showAsAction="always"/>
 
 
 </menu>
