@@ -6,9 +6,6 @@ import android.net.Uri;
 
 import java.net.URISyntaxException;
 
-/**
- * Created by o.chauvie on 10/02/2015.
- */
 public class FileUtils {
 
     public static String getPath(Context context, Uri uri) throws URISyntaxException {

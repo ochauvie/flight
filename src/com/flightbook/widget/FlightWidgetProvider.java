@@ -14,9 +14,6 @@ import com.flightbook.sqllite.DbVol;
 
 import java.util.ArrayList;
 
-/**
- * Created by o.chauvie on 09/02/2015.
- */
 public class FlightWidgetProvider extends AppWidgetProvider {
 
     private DbVol dbVol;

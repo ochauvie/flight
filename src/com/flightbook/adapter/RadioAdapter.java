@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import com.flightbook.R;
 import com.flightbook.listener.SwitchPotarAdapterListener;
-import com.flightbook.model.Potar;
 import com.flightbook.model.Radio;
-import com.flightbook.model.Switch;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -53,9 +51,8 @@ public class RadioAdapter extends BaseAdapter{
 	@Override
 	public int getCount() {
 		if (radio!=null) {
-			int s = radio.getSwitchs().size() + radio.getPotars().size(); 
-			return s;
-		} 
+			return radio.getSwitchs().size() + radio.getPotars().size();
+		}
 		return 0;
 	}
 
@@ -64,11 +61,9 @@ public class RadioAdapter extends BaseAdapter{
 		if (radio!=null) {
 			
 			if (position<radio.getSwitchs().size()) {
-				Switch sw = radio.getSwitchs().get(position);
-				return sw;
+				return radio.getSwitchs().get(position);
 			} else {
-				Potar potar = radio.getPotars().get(position-radio.getSwitchs().size());
-				return potar;
+				return radio.getPotars().get(position-radio.getSwitchs().size());
 			}
 		}
 		return null;

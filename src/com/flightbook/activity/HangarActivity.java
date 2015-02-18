@@ -33,7 +33,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.w3c.dom.Text;
+
 
 public class HangarActivity extends ListActivity  implements DialogReturn, AeronefAdapterListener, View.OnClickListener  {
 

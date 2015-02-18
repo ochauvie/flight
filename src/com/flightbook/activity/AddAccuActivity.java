@@ -204,6 +204,7 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
                 try {
                     accu.setDateAchat(sdf.parse(dateAchat.getText().toString()));
                 } catch (ParseException e) {
+                    e.printStackTrace();
                 }
 
                 dbAccu.open();

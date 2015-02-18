@@ -91,8 +91,8 @@ package com.flightbook.tools;
             {
                 m_sdcardDirectory = new File(m_sdcardDirectory).getCanonicalPath();
             }
-            catch (IOException ioe)
-            {
+            catch (IOException ioe) {
+                ioe.printStackTrace();
             }
         }
 
@@ -227,7 +227,9 @@ package com.flightbook.tools;
                     }
                 }
             }
-            catch (Exception e)	{}
+            catch (Exception e)	{
+                e.printStackTrace();
+            }
 
             Collections.sort(dirs, new Comparator<String>()
             {

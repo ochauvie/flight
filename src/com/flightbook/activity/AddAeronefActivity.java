@@ -249,9 +249,9 @@ public class AddAeronefActivity extends Activity {
 		}
 		
 		private NdefRecord createRecord(String text, String prefix) throws UnsupportedEncodingException {
-			String lang       = prefix;
+
 			byte[] textBytes  = text.getBytes();
-			byte[] langBytes  = lang.getBytes("US-ASCII");
+			byte[] langBytes  = prefix.getBytes("US-ASCII");
 			int    langLength = langBytes.length;
 			int    textLength = textBytes.length;
 			byte[] payload    = new byte[1 + langLength + textLength];
@@ -263,7 +263,6 @@ public class AddAeronefActivity extends Activity {
 			System.arraycopy(langBytes, 0, payload, 1,              langLength);
 			System.arraycopy(textBytes, 0, payload, 1 + langLength, textLength);
 
-			//NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_WELL_KNOWN,  NdefRecord.RTD_TEXT,  new byte[0], payload);
 			String mimeType = "application/com.flightbook";
 			byte[] mimeBytes = mimeType.getBytes(Charset.forName("US-ASCII"));
 			NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,  mimeBytes,  new byte[0], payload);
