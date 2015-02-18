@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.flightbook.model.Site;
-import com.flightbook.sqllite.init.DbApplicationContext;
 
 import java.util.ArrayList;
 

@@ -1,7 +1,6 @@
 package com.flightbook.sqllite;
 import java.util.ArrayList;
 import com.flightbook.model.Aeronef;
-import com.flightbook.sqllite.init.DbApplicationContext;
 
 import android.content.ContentValues;
 import android.database.Cursor;

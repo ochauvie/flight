@@ -3,7 +3,6 @@ package com.flightbook.sqllite;
 import java.util.ArrayList;
 import com.flightbook.model.Checklist;
 import com.flightbook.model.ChecklistItem;
-import com.flightbook.sqllite.init.DbApplicationContext;
 
 import android.content.ContentValues;
 import android.database.Cursor;

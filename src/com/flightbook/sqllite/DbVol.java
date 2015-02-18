@@ -8,7 +8,6 @@ import java.util.Locale;
 
 import com.flightbook.model.Accu;
 import com.flightbook.model.Vol;
-import com.flightbook.sqllite.init.DbApplicationContext;
 
 import android.content.ContentValues;
 import android.database.Cursor;

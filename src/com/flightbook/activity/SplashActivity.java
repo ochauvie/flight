@@ -7,7 +7,7 @@ import com.flightbook.R;
 import com.flightbook.model.Aeronef;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbAeronef;
-import com.flightbook.sqllite.init.DbApplicationContext;
+import com.flightbook.sqllite.DbApplicationContext;
 
 import android.annotation.TargetApi;
 import android.app.Activity;

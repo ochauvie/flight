@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.flightbook.model.Accu;
 import com.flightbook.model.TypeAccu;
-import com.flightbook.sqllite.init.DbApplicationContext;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
