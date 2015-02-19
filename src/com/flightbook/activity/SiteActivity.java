@@ -144,16 +144,9 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
 	public void onDialogCompleted(boolean answer, String type) {
 		if (answer && selectItim!=-1) {
 			DbSite.deleteSite(sites.get(selectItim));
-            Intent siteActivity = new Intent(getApplicationContext(),SiteActivity.class);
-            siteActivity.putExtra(Aeronef.class.getName(), currentAeronef);
-            siteActivity.putExtra(Accu.class.getName(), currentAccu);
-            siteActivity.putExtra(Vol.DATE, sFlightDate);
-            siteActivity.putExtra(Vol.MIN_VOL, sMinVol);
-            siteActivity.putExtra(Vol.MIN_MOTEUR, sMinMot);
-            siteActivity.putExtra(Vol.SEC_MOTEUR, sSecMot);
-            siteActivity.putExtra(Vol.NOTE, sNote);
-            startActivity(siteActivity);
-            finish();
+
+	        sites.remove(selectItim);
+	        adapter.notifyDataSetChanged();
 		}
 	}
 
@@ -257,6 +250,8 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
         } else {
             Toast.makeText(SiteActivity.this, getString(R.string.import_reload_list), Toast.LENGTH_LONG).show();
         }
+
+
     }
 
 }

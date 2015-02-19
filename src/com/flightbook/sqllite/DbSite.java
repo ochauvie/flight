@@ -54,12 +54,11 @@ public class DbSite {
 	 * @return the list of {@link com.flightbook.model.Site}
 	 */
 	public static ArrayList<Site> getSites(){
-        String orderBy = DbManager.COL_NAME;
 		Cursor c = bdd.query(DbManager.TABLE_SITES, new String[] {DbManager.COL_ID,
 																 DbManager.COL_NAME,
 																 DbManager.COL_COMMENT,
                                                                  DbManager.COL_DEFAULT},
-							null, null, null, null, orderBy);
+							null, null, null, null, null);
 		return cursorToSites(c);
 	}
 
