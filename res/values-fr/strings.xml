@@ -82,6 +82,7 @@
 	<string name="opt_auto">Automobile</string>
 	<string name="opt_divers">Divers</string>
     <string name="opt_inconnu">Inconnu</string>
+    <string name="opt_all"></string>
 	
 	<string name="title_activity_drive">Synchronisation Google Drive</string>
 	
@@ -169,7 +170,7 @@
     <string name="menu_barchartbynb">Nombre de vols par machine</string>
     <string name="menu_piechartbytotal">Temps de vol par type</string>
     <string name="menu_barchartbytotal">Temps de vol par machine</string>
-
+    <string name="menu_filter">Filtre</string>
     <string name="menu_chart">Graphiques</string>
     <string name="menu_importVols">Importer</string>
     <string name="menu_import_ok">Import du fichier réussi</string>

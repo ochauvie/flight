@@ -13,6 +13,7 @@ import com.flightbook.activity.MyDialogInterface.DialogReturn;
 import com.flightbook.adapter.VolsAdapter;
 import com.flightbook.listener.VolsAdapterListener;
 import com.flightbook.model.Vol;
+import com.flightbook.model.VolsFilter;
 import com.flightbook.speech.TtsProviderFactory;
 import com.flightbook.sqllite.DbBackup;
 import com.flightbook.sqllite.DbJsonImport;
@@ -51,6 +52,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 	private VolsAdapter adapter;
 	private TextView totalVol, nbVol, nbDate, name, date;
     private TtsProviderFactory ttsProviderImpl;
+    private VolsFilter volsFilter;
+    private View header;
 
     private static final int FILE_SELECT_CODE = 0;
 
@@ -64,7 +67,7 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 
         ListView listView = getListView();
 
-        View header = findViewById( R.id.header_layout );
+        header = findViewById( R.id.header_layout );
         header.setOnClickListener(this);
         name = (TextView) header.findViewById(R.id.name);
         date = (TextView) header.findViewById(R.id.date);
@@ -79,6 +82,9 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
 
         // Recuperation de la liste des vols
         vols = DbVol.getVols();
+
+        // Filtre complex
+        volsFilter = new VolsFilter();
 
         // Mise à jour du footer
         majFooter();
@@ -195,6 +201,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             name.setTextColor(Color.BLACK);
         }
         date.setTextColor(Color.BLACK);
+        header.setBackgroundColor(Color.rgb(183, 183, 183));
+        volsFilter = new VolsFilter();
         adapter.notifyDataSetChanged();
         majFooter();
     }
@@ -217,6 +225,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             date.setTextColor(Color.BLACK);
         }
         name.setTextColor(Color.BLACK);
+        header.setBackgroundColor(Color.rgb(183, 183, 183));
+        volsFilter = new VolsFilter();
         adapter.notifyDataSetChanged();
         majFooter();
     }
@@ -289,6 +299,8 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         }
         name.setTextColor(Color.BLACK);
         date.setTextColor(Color.BLACK);
+        header.setBackgroundColor(Color.rgb(183, 183, 183));
+        volsFilter = new VolsFilter();
         majFooter();
     }
 
@@ -362,6 +374,11 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             case R.id.importVols:
                 importVols();
                 return true;
+            case R.id.filter:
+                Intent filterActivity = new Intent(VolsActivity.this, FilterActivity.class);
+                filterActivity.putExtra(VolsFilter.class.getName(), volsFilter);
+                startActivityForResult(filterActivity, FilterActivity.FILTER_REQUEST_CODE);
+                return true;
         }
         return false;}
 
@@ -410,6 +427,34 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
     @Override
     public void onBackPressed() {
         // Nothings
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Return from filter activity
+        if(requestCode==FilterActivity.FILTER_REQUEST_CODE && data !=null) {
+            Bundle bundle = data.getExtras();
+            if (bundle!=null) {
+                volsFilter = (VolsFilter) bundle.getSerializable(VolsFilter.class.getName());
+
+                if (vols != null) {
+                    for (int i = vols.size() - 1; i >= 0; i--) {
+                        vols.remove(i);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
+                vols.addAll(DbVol.getVolsByFilter(volsFilter));
+                                date.setTextColor(Color.BLACK);
+                name.setTextColor(Color.BLACK);
+                header.setBackgroundColor(Color.rgb(219, 23, 2));
+                adapter.notifyDataSetChanged();
+                majFooter();
+            }
+        }
     }
 
 }

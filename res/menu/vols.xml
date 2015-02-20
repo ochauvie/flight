@@ -30,6 +30,12 @@
         </menu>
     </item>
 
+    <item android:id="@+id/filter"
+        android:title="@string/menu_filter"
+        android:icon="@drawable/filter"
+        android:showAsAction="always"
+        />
+
 
     <item android:id="@+id/selectImg"
         android:icon="@android:drawable/ic_dialog_dialer"

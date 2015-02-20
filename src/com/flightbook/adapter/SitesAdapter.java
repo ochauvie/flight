@@ -92,7 +92,8 @@ public class SitesAdapter extends BaseAdapter{
 		TextView tv_name = (TextView)layoutItem.findViewById(R.id.name);
 		ImageButton bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteSite);
         ImageButton bUpdate = (ImageButton)layoutItem.findViewById(R.id.updateSite);
-		        
+
+
 		//(3) : Renseignement des valeurs
 		tv_name.setText(sites.get(position).getName());
 

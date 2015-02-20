@@ -68,5 +68,9 @@ public class Site implements Serializable {
     public void setIsDefault(int isDefault) {
         this.isDefault = isDefault;
     }
-	
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 }

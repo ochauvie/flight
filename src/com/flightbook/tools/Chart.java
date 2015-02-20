@@ -5,7 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 
-import com.flightbook.model.Aeronef;
+import com.flightbook.R;
+import com.flightbook.model.TypeAeronef;
 import com.flightbook.model.Vol;
 
 import org.achartengine.ChartFactory;
@@ -46,26 +47,132 @@ public class Chart {
      * @return
      */
     public Intent getIntentPieChart() {
-        CategorySeries distributionSeries = getDistributionSeriesForPieChart();
+        CategorySeries distributionSeries = new CategorySeries(" Vols ");
+        double dataPlaneur = 0;
+        double dataAvion = 0;
+        double dataParamoteur = 0;
+        double dataHelico = 0;
+        double dataAuto = 0;
+        double dataDivers = 0;
+        double dataAutre = 0;
+
+        if (vols!=null) {
+            for (Vol vol : vols) {
+                if (vol.getType()!=null) {
+                    TypeAeronef type = TypeAeronef.valueOf(vol.getType());
+                    if (TypeAeronef.PLANEUR.equals(type)) {
+                        if (Chart.CHART_TIME.equals(chartType)) {
+                            dataPlaneur = dataPlaneur + vol.getMinutesVol();
+                        } else {
+                            dataPlaneur++;
+                        }
+                    } else if (TypeAeronef.AVION.equals(type)) {
+                        if (Chart.CHART_TIME.equals(chartType)) {
+                            dataAvion = dataAvion + vol.getMinutesVol();
+                        } else {
+                            dataAvion++;
+                        }
+                    } else if (TypeAeronef.PARAMOTEUR.equals(type)) {
+                        if (Chart.CHART_TIME.equals(chartType)) {
+                            dataParamoteur = dataParamoteur + vol.getMinutesVol();
+                        } else {
+                            dataParamoteur++;
+                        }
+
+                    } else if (TypeAeronef.HELICO.equals(type)) {
+                        if (Chart.CHART_TIME.equals(chartType)) {
+                            dataHelico = dataHelico + vol.getMinutesVol();
+                        } else {
+                            dataHelico++;
+                        }
+                    } else if (TypeAeronef.AUTO.equals(type)) {
+                        if (Chart.CHART_TIME.equals(chartType)) {
+                            dataAuto = dataAuto + vol.getMinutesVol();
+                        } else {
+                            dataAuto++;
+                        }
+                    } else if (TypeAeronef.DIVERS.equals(type)) {
+                        if (Chart.CHART_TIME.equals(chartType)) {
+                            dataDivers = dataDivers + vol.getMinutesVol();
+                        } else {
+                            dataDivers++;
+                        }
+                    } else {
+                        if (Chart.CHART_TIME.equals(chartType)) {
+                            dataAutre = dataAutre + vol.getMinutesVol();
+                        } else {
+                            dataAutre++;
+                        }
+                    }
+                } else {
+                    if (Chart.CHART_TIME.equals(chartType)) {
+                        dataAutre = dataAutre + vol.getMinutesVol();
+                    } else {
+                        dataAutre++;
+                    }
+                }
+            }
+        }
 
         // Instantiating a renderer for the Pie Chart
         DefaultRenderer defaultRenderer  = new DefaultRenderer();
-        for(int i = 0 ;i<distributionSeries.getItemCount();i++){
-            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
-            seriesRenderer.setColor(Aeronef.getColor(distributionSeries.getCategory(i)));
-            seriesRenderer.setDisplayChartValues(true);
-
-            // Adding a renderer for a slice
-            defaultRenderer.addSeriesRenderer(seriesRenderer);
-        }
-
-        defaultRenderer.setChartTitle("Temps (min)");
+        defaultRenderer.setChartTitle(context.getString(R.string.title_activity_chart_time));
         defaultRenderer.setChartTitleTextSize(25);
         defaultRenderer.setZoomButtonsVisible(true);
         defaultRenderer.setShowLabels(false);
         defaultRenderer.setLabelsTextSize(25);
         defaultRenderer.setLegendTextSize(25);
         defaultRenderer.setDisplayValues(true);
+
+        if (dataPlaneur>0) {
+            distributionSeries.add(context.getString(TypeAeronef.PLANEUR.getLabel()), dataPlaneur);
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(TypeAeronef.PLANEUR.getColor());
+            seriesRenderer.setDisplayChartValues(true);
+            defaultRenderer.addSeriesRenderer(seriesRenderer);
+        }
+        if (dataAvion>0) {
+            distributionSeries.add(context.getString(TypeAeronef.AVION.getLabel()), dataAvion);
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(TypeAeronef.AVION.getColor());
+            seriesRenderer.setDisplayChartValues(true);
+            defaultRenderer.addSeriesRenderer(seriesRenderer);
+        }
+        if (dataParamoteur>0) {
+            distributionSeries.add(context.getString(TypeAeronef.PARAMOTEUR.getLabel()), dataParamoteur);
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(TypeAeronef.PARAMOTEUR.getColor());
+            seriesRenderer.setDisplayChartValues(true);
+            defaultRenderer.addSeriesRenderer(seriesRenderer);
+        }
+        if (dataHelico>0) {
+            distributionSeries.add(context.getString(TypeAeronef.HELICO.getLabel()), dataHelico);
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(TypeAeronef.HELICO.getColor());
+            seriesRenderer.setDisplayChartValues(true);
+            defaultRenderer.addSeriesRenderer(seriesRenderer);
+        }
+        if (dataAuto>0) {
+            distributionSeries.add(context.getString(TypeAeronef.AUTO.getLabel()), dataAuto);
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(TypeAeronef.AUTO.getColor());
+            seriesRenderer.setDisplayChartValues(true);
+            defaultRenderer.addSeriesRenderer(seriesRenderer);
+        }
+        if (dataDivers>0) {
+            distributionSeries.add(context.getString(TypeAeronef.DIVERS.getLabel()), dataDivers);
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(TypeAeronef.DIVERS.getColor());
+            seriesRenderer.setDisplayChartValues(true);
+            defaultRenderer.addSeriesRenderer(seriesRenderer);
+        }
+        if (dataAutre>0) {
+            distributionSeries.add(context.getString(R.string.opt_inconnu), dataAutre);
+            SimpleSeriesRenderer seriesRenderer = new SimpleSeriesRenderer();
+            seriesRenderer.setColor(Color.rgb(47, 30, 14));
+            seriesRenderer.setDisplayChartValues(true);
+            defaultRenderer.addSeriesRenderer(seriesRenderer);
+        }
 
         return ChartFactory.getPieChartIntent(context, distributionSeries, defaultRenderer, chartTitle);
     }
@@ -148,91 +255,6 @@ public class Chart {
 
         // Creating an intent to plot bar chart using dataset and multipleRenderer
         return ChartFactory.getBarChartIntent(context, dataSet, defaultRenderer, BarChart.Type.DEFAULT, chartTitle);
-    }
-
-
-    private CategorySeries getDistributionSeriesForPieChart() {
-        CategorySeries distributionSeries = new CategorySeries(" Vols ");
-        double dataPlaneur = 0;
-        double dataAvion = 0;
-        double dataParamoteur = 0;
-        double dataHelico = 0;
-        double dataAuto = 0;
-        double dataDivers = 0;
-        double dataAutre = 0;
-
-        if (vols!=null) {
-            for (Vol vol : vols) {
-                String type = vol.getType();
-                if (Aeronef.T_PLANEUR.equals(type)) {
-                    if (Chart.CHART_TIME.equals(chartType)) {
-                        dataPlaneur = dataPlaneur + vol.getMinutesVol();
-                    } else {
-                        dataPlaneur++;
-                    }
-                } else if (Aeronef.T_AVION.equals(type)) {
-                    if (Chart.CHART_TIME.equals(chartType)) {
-                        dataAvion = dataAvion + vol.getMinutesVol();
-                    } else {
-                        dataAvion++;
-                    }
-                } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
-                    if (Chart.CHART_TIME.equals(chartType)) {
-                        dataParamoteur = dataParamoteur + vol.getMinutesVol();
-                    } else {
-                        dataParamoteur++;
-                    }
-
-                } else if (Aeronef.T_HELICO.equals(type)) {
-                    if (Chart.CHART_TIME.equals(chartType)) {
-                        dataHelico = dataHelico + vol.getMinutesVol();
-                    } else {
-                        dataHelico++;
-                    }
-                } else if (Aeronef.T_AUTO.equals(type)) {
-                    if (Chart.CHART_TIME.equals(chartType)) {
-                        dataAuto = dataAuto + vol.getMinutesVol();
-                    } else {
-                        dataAuto++;
-                    }
-                } else if (Aeronef.T_DIVERS.equals(type)) {
-                    if (Chart.CHART_TIME.equals(chartType)) {
-                        dataDivers = dataDivers + vol.getMinutesVol();
-                    } else {
-                        dataDivers++;
-                    }
-                } else {
-                    if (Chart.CHART_TIME.equals(chartType)) {
-                        dataAutre = dataAutre + vol.getMinutesVol();
-                    } else {
-                        dataAutre++;
-                    }
-                }
-            }
-        }
-
-        if (dataPlaneur>0) {
-            distributionSeries.add(Aeronef.T_PLANEUR, dataPlaneur);
-        }
-        if (dataAvion>0) {
-            distributionSeries.add(Aeronef.T_AVION, dataAvion);
-        }
-        if (dataParamoteur>0) {
-            distributionSeries.add(Aeronef.T_PARAMOTEUR, dataParamoteur);
-        }
-        if (dataHelico>0) {
-            distributionSeries.add(Aeronef.T_HELICO, dataHelico);
-        }
-        if (dataAuto>0) {
-            distributionSeries.add(Aeronef.T_AUTO, dataAuto);
-        }
-        if (dataDivers>0) {
-            distributionSeries.add(Aeronef.T_DIVERS, dataDivers);
-        }
-        if (dataAutre>0) {
-            distributionSeries.add("Inconnu", dataAutre);
-        }
-        return distributionSeries;
     }
 
 

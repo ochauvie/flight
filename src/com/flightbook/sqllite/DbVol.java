@@ -6,8 +6,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
+import com.flightbook.activity.FilterActivity;
 import com.flightbook.model.Accu;
+import com.flightbook.model.TypeAeronef;
 import com.flightbook.model.Vol;
+import com.flightbook.model.VolsFilter;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -16,6 +19,7 @@ import android.database.sqlite.SQLiteDatabase;
 public class DbVol {
 
     private static SQLiteDatabase bdd = DbApplicationContext.getInstance().getBdd();
+    private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
 
 
 	/**
@@ -60,7 +64,7 @@ public class DbVol {
 																 DbManager.COL_LIEU,
                                                                  DbManager.COL_ID_ACCU_PROPULSION},
 							null, null, null, null, orderBy);
-		return cursorToVols(c);
+		return cursorToVols(c, null);
 	}
 
     /**
@@ -88,7 +92,7 @@ public class DbVol {
                         DbManager.COL_LIEU,
                         DbManager.COL_ID_ACCU_PROPULSION},
                 where, whereArgs, null, null, orderBy);
-        return cursorToVols(c);
+        return cursorToVols(c, null);
     }
 
     /**
@@ -116,7 +120,53 @@ public class DbVol {
                         DbManager.COL_LIEU,
                         DbManager.COL_ID_ACCU_PROPULSION},
                 where, whereArgs, null, null, orderBy);
-        return cursorToVols(c);
+        return cursorToVols(c, null);
+    }
+
+    public static ArrayList<Vol> getVolsByFilter(VolsFilter volFilter) {
+        String orderBy = null;
+        String where = null;
+        String whereAeronef = null;
+        String whereSite = null;
+        String whereTypeAeronef = null;
+        String[] whereArgs = null;
+        ArrayList<String> whereArgsList = new ArrayList<String>();
+        if (volFilter!=null) {
+            if (volFilter.getAeronef()!=null && !FilterActivity.EMPTY_CHOISE.equals(volFilter.getAeronef().getName())) {
+                whereAeronef = DbManager.COL_NAME + "=?";
+                whereArgsList.add(volFilter.getAeronef().getName());
+            }
+
+            if (volFilter.getSite()!=null && !FilterActivity.EMPTY_CHOISE.equals(volFilter.getSite().getName())) {
+                whereSite = DbManager.COL_LIEU + "=?";
+                whereArgsList.add(volFilter.getSite().getName());
+            }
+
+            if (volFilter.getTypeAeronef()!=null && !TypeAeronef.ALL.name().equals(volFilter.getTypeAeronef().name())) {
+                whereTypeAeronef = DbManager.COL_TYPE + "=?";
+                whereArgsList.add(volFilter.getTypeAeronef().name());
+            }
+        }
+
+        if (whereArgsList.size()>0) {
+            whereArgs = whereArgsList.toArray(new String[whereArgsList.size()]);
+            where = "1=1 and " + (whereAeronef!=null?whereAeronef:"1=1")
+                    + " and " +  (whereSite!=null?whereSite:"1=1")
+                    + " and " +  (whereTypeAeronef!=null?whereTypeAeronef:"1=1");
+        }
+
+        Cursor c = bdd.query(DbManager.TABLE_VOLS, new String[] {DbManager.COL_ID,
+                        DbManager.COL_NAME,
+                        DbManager.COL_TYPE,
+                        DbManager.COL_MIN_VOL,
+                        DbManager.COL_MIN_MOTEUR,
+                        DbManager.COL_SEC_MOTEUR,
+                        DbManager.COL_DATE,
+                        DbManager.COL_NOTE,
+                        DbManager.COL_LIEU,
+                        DbManager.COL_ID_ACCU_PROPULSION},
+                where, whereArgs, null, null, orderBy);
+        return cursorToVols(c, volFilter);
     }
 	
 	/**
@@ -142,37 +192,47 @@ public class DbVol {
 	 * @param c{@link Cursor}
 	 * @return the list of {@link Vol}
 	 */
-	private static ArrayList<Vol> cursorToVols(Cursor c){
+	private static ArrayList<Vol> cursorToVols(Cursor c, VolsFilter volFilter){
 		ArrayList<Vol> vols = new ArrayList<Vol>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
-                Vol vol = new Vol();
-                vol.setId(c.getInt(DbManager.NUM_COL_ID));
-                vol.setAeronef(c.getString(DbManager.NUM_COL_NAME));
-                vol.setType(c.getString(DbManager.NUM_COL_TYPE));
-                vol.setMinutesVol(c.getInt(DbManager.NUM_COL_MIN_VOL));
-                vol.setMinutesMoteur(c.getInt(DbManager.NUM_COL_MIN_MOTEUR));
-                vol.setSecondsMoteur(c.getInt(DbManager.NUM_COL_SEC_MOTEUR));
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
+                boolean isOk = true;
                 Date dVol = new Date();
                 try {
                     dVol = sdf.parse(c.getString(DbManager.NUM_COL_DATE));
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
-                vol.setNote(c.getString(DbManager.NUM_COL_NOTE));
-                vol.setLieu(c.getString(DbManager.NUM_COL_LIEU));
-                vol.setDateVol(dVol);
-
-                int idAccuPropultion = c.getInt(DbManager.NUM_COL_ID_ACCU_PROPULSION);
-                if (idAccuPropultion >= 0) {
-                    Accu accu = DbAccu.getAccuById(idAccuPropultion);
-                    if (accu != null) {
-                        vol.setAccuPropulsion(accu);
+                if (volFilter!=null) {
+                    if (volFilter.getDateFin()!=null && dVol.after(volFilter.getDateFin())) {
+                        isOk = false;
+                    }
+                    if (volFilter.getDateDebut()!=null && dVol.before(volFilter.getDateDebut())) {
+                        isOk = false;
                     }
                 }
+                if (isOk) {
+                    Vol vol = new Vol();
+                    vol.setId(c.getInt(DbManager.NUM_COL_ID));
+                    vol.setAeronef(c.getString(DbManager.NUM_COL_NAME));
+                    vol.setType(c.getString(DbManager.NUM_COL_TYPE));
+                    vol.setMinutesVol(c.getInt(DbManager.NUM_COL_MIN_VOL));
+                    vol.setMinutesMoteur(c.getInt(DbManager.NUM_COL_MIN_MOTEUR));
+                    vol.setSecondsMoteur(c.getInt(DbManager.NUM_COL_SEC_MOTEUR));
+                    vol.setNote(c.getString(DbManager.NUM_COL_NOTE));
+                    vol.setLieu(c.getString(DbManager.NUM_COL_LIEU));
+                    vol.setDateVol(dVol);
 
-                vols.add(vol);
+                    int idAccuPropultion = c.getInt(DbManager.NUM_COL_ID_ACCU_PROPULSION);
+                    if (idAccuPropultion >= 0) {
+                        Accu accu = DbAccu.getAccuById(idAccuPropultion);
+                        if (accu != null) {
+                            vol.setAccuPropulsion(accu);
+                        }
+                    }
+
+                    vols.add(vol);
+                }
             }
         }
 		c.close();

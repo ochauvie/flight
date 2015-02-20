@@ -64,7 +64,7 @@
 	
 	<string name="title_activity_vols">Records</string>
 
-    <string name="title_activity_chart_time">Time (min)</string>
+    <string name="title_activity_chart_time">Time (mn)</string>
     <string name="title_activity_chart_nb">Number of flight</string>
 
 
@@ -82,6 +82,7 @@
 	<string name="opt_auto">Car</string>
 	<string name="opt_divers">Other</string>
     <string name="opt_inconnu">Unknown</string>
+    <string name="opt_all"></string>
 	
 	<string name="title_activity_drive">Synchronization Google Drive</string>
 	
@@ -167,7 +168,7 @@
     <string name="menu_barchartbynb">Number of flights by machine</string>
     <string name="menu_piechartbytotal">Flight time by type</string>
     <string name="menu_barchartbytotal">Flight time by machine</string>
-
+    <string name="menu_filter">Filter</string>
     <string name="menu_chart">Charts</string>
     <string name="menu_importVols">Import flights</string>
     <string name="menu_import_ok">Import ok</string>

@@ -7,10 +7,11 @@ import java.util.Locale;
 
 import com.flightbook.R;
 import com.flightbook.listener.VolsAdapterListener;
-import com.flightbook.model.Aeronef;
+import com.flightbook.model.TypeAeronef;
 import com.flightbook.model.Vol;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -131,7 +132,13 @@ public class VolsAdapter extends BaseAdapter {
 		  tv_moteur.setText(String.valueOf(flight.getMinutesMoteur()) + ":" + sSecondsMoteur);
 		  
 		  //(4) Changement de la couleur du fond de notre item
-		  tv_name.setTextColor(Aeronef.getColor(flight.getType()));
+        tv_name.setTextColor(Color.rgb(47, 30, 14));
+        if (flight.getType()!=null) {
+            TypeAeronef typeAeronef = TypeAeronef.valueOf(flight.getType());
+            if (typeAeronef != null) {
+                tv_name.setTextColor(typeAeronef.getColor());
+            }
+        }
 
 
         // Affichage suivant le format de l'écran

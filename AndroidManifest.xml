@@ -29,8 +29,6 @@
         android:theme="@style/AppTheme"
         android:uiOptions="splitActionBarWhenNarrow"
         android:allowBackup="true">
-        
-
 
         <meta-data
             android:name="com.google.android.gms.version"
@@ -192,6 +190,11 @@
             android:name="com.flightbook.activity.ExportActivity"
             android:label="@string/menu_export_db"
             android:icon="@drawable/backup">
+        </activity>
+        <activity
+            android:name="com.flightbook.activity.FilterActivity"
+            android:label="@string/menu_filter"
+            android:icon="@drawable/filter">
         </activity>
 
 

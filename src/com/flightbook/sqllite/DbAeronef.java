@@ -121,9 +121,13 @@ public class DbAeronef {
         return aeronef;
     }
 
-    public static ArrayList<Aeronef>  getAeronefByType(String type) {
-        String where =  DbManager.COL_TYPE + "=?";
-        String[] whereArgs = new String[] {type};
+    public static ArrayList<Aeronef> getAeronefByType(String type) {
+        String where =  null;
+        String[] whereArgs = null;
+        if (type!=null && !"".equals(type)) {
+            where = DbManager.COL_TYPE + "=?";
+            whereArgs = new String[]{type};
+        }
         Cursor c = bdd.query(DbManager.TABLE_AERONEFS, new String[] {DbManager.COL_ID,
                         DbManager.COL_NAME,
                         DbManager.COL_TYPE,

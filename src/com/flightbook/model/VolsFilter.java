@@ -1,15 +1,18 @@
 package com.flightbook.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
- * Created by o.chauvie on 11/02/2015.
+ * Filter class for flights list
  */
-public class VolsFilter {
+public class VolsFilter implements Serializable {
 
     private Date dateDebut;
     private Date dateFin;
-    private String typeAeronef;
+    private TypeAeronef typeAeronef;
+    private Aeronef aeronef;
+    private Site site;
 
     public Date getDateDebut() {
         return dateDebut;
@@ -27,13 +30,27 @@ public class VolsFilter {
         this.dateFin = dateFin;
     }
 
-
-
-    public String getTypeAeronef() {
+    public TypeAeronef getTypeAeronef() {
         return typeAeronef;
     }
 
-    public void setTypeAeronef(String typeAeronef) {
+    public void setTypeAeronef(TypeAeronef typeAeronef) {
         this.typeAeronef = typeAeronef;
+    }
+
+    public Aeronef getAeronef() {
+        return aeronef;
+    }
+
+    public void setAeronef(Aeronef aeronef) {
+        this.aeronef = aeronef;
+    }
+
+    public Site getSite() {
+        return site;
+    }
+
+    public void setSite(Site site) {
+        this.site = site;
     }
 }

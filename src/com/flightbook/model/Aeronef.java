@@ -1,21 +1,11 @@
 package com.flightbook.model;
 
 
-import android.graphics.Color;
-
 import com.flightbook.tools.JsonExclude;
 
 import java.io.Serializable;
 
 public class Aeronef implements Serializable{
-	
-	public static final String T_PLANEUR = "Planeur";
-	public static final String T_AVION = "Avion";
-	public static final String T_PARAMOTEUR = "Paramoteur";
-	public static final String T_HELICO = "Helico";
-	public static final String T_AUTO = "Automobile";
-	public static final String T_DIVERS = "Divers";
-	
 
 	@JsonExclude private int id;
 	private String name;
@@ -153,29 +143,11 @@ public class Aeronef implements Serializable{
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
-	
-	/**
-	 * Return the color type
-	 * @param type the type
-	 * @return the color
-	 */
-	public static int getColor(String type) {
-		if (Aeronef.T_PLANEUR.equals(type)) {
-		    return Color.rgb(219,23,2);
-		  } else if (Aeronef.T_AVION.equals(type)) {
-			  return Color.rgb(49,140,231);
-		  } else if (Aeronef.T_HELICO.equals(type)) {
-			  return Color.rgb(31,160,85);
-		  } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
-			  return Color.rgb(246,220,18);
-		  } else if (Aeronef.T_AUTO.equals(type)) {
-			  return Color.GRAY;
-		  } else if (Aeronef.T_DIVERS.equals(type)) {
-			  return Color.rgb(225,206,154);
-		  } else {
-			  return Color.rgb(47,30,14);
-		  }
-	}
+
+    @Override
+    public String toString() {
+        return this.name;
+    }
 	
 	
 }

@@ -7,6 +7,7 @@ import java.nio.charset.Charset;
 
 import com.flightbook.R;
 import com.flightbook.model.Aeronef;
+import com.flightbook.model.TypeAeronef;
 import com.flightbook.sqllite.DbAeronef;
 
 import android.annotation.TargetApi;
@@ -125,17 +126,17 @@ public class AddAeronefActivity extends Activity {
 	        comment = (EditText) findViewById(R.id.editTextComment);
 	        
 	        optPlaneur = (RadioButton) findViewById(R.id.option_planeur);
-                optPlaneur.setTextColor(Aeronef.getColor(Aeronef.T_PLANEUR));
+                optPlaneur.setTextColor(TypeAeronef.PLANEUR.getColor());
 	        optAvion = (RadioButton) findViewById(R.id.option_avion);
-                optAvion.setTextColor(Aeronef.getColor(Aeronef.T_AVION));
+                optAvion.setTextColor(TypeAeronef.AVION.getColor());
 	        optParamoteur = (RadioButton) findViewById(R.id.option_paramoteur);
-                optParamoteur.setTextColor(Aeronef.getColor(Aeronef.T_PARAMOTEUR));
+                optParamoteur.setTextColor(TypeAeronef.PARAMOTEUR.getColor());
 	        optHelico = (RadioButton) findViewById(R.id.option_helico);
-                optHelico.setTextColor(Aeronef.getColor(Aeronef.T_HELICO));
+                optHelico.setTextColor(TypeAeronef.HELICO.getColor());
 	        optAuto = (RadioButton) findViewById(R.id.option_auto);
-                optAuto.setTextColor(Aeronef.getColor(Aeronef.T_AUTO));
+                optAuto.setTextColor(TypeAeronef.AUTO.getColor());
 	        optDivers = (RadioButton) findViewById(R.id.option_divers);
-                optDivers.setTextColor(Aeronef.getColor(Aeronef.T_DIVERS));
+                optDivers.setTextColor(TypeAeronef.DIVERS.getColor());
 	    
 	        // Get aeronef in parameter
 	        initView();
@@ -164,17 +165,17 @@ public class AddAeronefActivity extends Activity {
                     firstFlight.setText(aeronef.getFirstFlight());
                     comment .setText(aeronef.getComment());
 
-                    if (Aeronef.T_PLANEUR.equals(aeronef.getType())) {
+                    if (TypeAeronef.PLANEUR.name().equals(aeronef.getType())) {
                         optPlaneur.setChecked(true);
-                    } else if (Aeronef.T_AVION.equals(aeronef.getType())) {
+                    } else if (TypeAeronef.AVION.name().equals(aeronef.getType())) {
                         optAvion.setChecked(true);
-                    } else if (Aeronef.T_PARAMOTEUR.equals(aeronef.getType())) {
+                    } else if (TypeAeronef.PARAMOTEUR.name().equals(aeronef.getType())) {
                         optParamoteur.setChecked(true);
-                    } else if (Aeronef.T_HELICO.equals(aeronef.getType())) {
+                    } else if (TypeAeronef.HELICO.name().equals(aeronef.getType())) {
                         optHelico.setChecked(true);
-                    } else if (Aeronef.T_AUTO.equals(aeronef.getType())) {
+                    } else if (TypeAeronef.AUTO.name().equals(aeronef.getType())) {
                         optAuto.setChecked(true);
-                    } else if (Aeronef.T_DIVERS.equals(aeronef.getType())) {
+                    } else if (TypeAeronef.DIVERS.name().equals(aeronef.getType())) {
                         optDivers.setChecked(true);
                     }
                 }
@@ -328,17 +329,17 @@ public class AddAeronefActivity extends Activity {
                 aeronef.setComment(comment.getText().toString());
 
                 if (optPlaneur.isChecked()) {
-                    aeronef.setType(Aeronef.T_PLANEUR);
+                    aeronef.setType(TypeAeronef.PLANEUR.name());
                 } else if (optAvion.isChecked()) {
-                    aeronef.setType(Aeronef.T_AVION);
+                    aeronef.setType(TypeAeronef.AVION.name());
                 } else if (optParamoteur.isChecked()) {
-                    aeronef.setType(Aeronef.T_PARAMOTEUR);
+                    aeronef.setType(TypeAeronef.PARAMOTEUR.name());
                 } else if (optHelico.isChecked()) {
-                    aeronef.setType(Aeronef.T_HELICO);
+                    aeronef.setType(TypeAeronef.HELICO.name());
                 } else if (optAuto.isChecked()) {
-                    aeronef.setType(Aeronef.T_AUTO);
+                    aeronef.setType(TypeAeronef.AUTO.name());
                 } else if (optDivers.isChecked()) {
-                    aeronef.setType(Aeronef.T_DIVERS);
+                    aeronef.setType(TypeAeronef.DIVERS.name());
                 }
 
                 if (aeronef.getId()!=0) {

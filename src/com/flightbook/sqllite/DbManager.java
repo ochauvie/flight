@@ -1,12 +1,6 @@
 package com.flightbook.sqllite;
 
 
-import com.flightbook.sqllite.init.InitAccus;
-import com.flightbook.sqllite.init.InitChecklist;
-import com.flightbook.sqllite.init.InitHangar;
-import com.flightbook.sqllite.init.InitRadio;
-import com.flightbook.sqllite.init.InitSites;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
@@ -198,11 +192,13 @@ public class DbManager extends SQLiteOpenHelper {
 
         db.execSQL(CREATE_TABLE_ACCUS);
 
+        /*
         InitHangar.initHangar(db);
         InitRadio.initRadio(db);
         InitChecklist.initChecklist(db);
         InitSites.initSites(db);
         InitAccus.initAccus(db);
+        */
 
     }
 	

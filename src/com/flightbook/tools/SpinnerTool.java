@@ -8,13 +8,15 @@ import android.widget.Spinner;
  */
 public class SpinnerTool {
 
-    public static void SelectSpinnerItemByValue(Spinner spnr, String value)
+    public static void SelectSpinnerItemByValue(Spinner spnr, Object value)
     {
-        ArrayAdapter adapter = (ArrayAdapter) spnr.getAdapter();
-        for (int position = 0; position < adapter.getCount(); position++) {
-            if(((String)adapter.getItem(position)).equals(value)) {
-                spnr.setSelection(position);
-                return;
+        if (value!=null) {
+            ArrayAdapter adapter = (ArrayAdapter) spnr.getAdapter();
+            for (int position = 0; position < adapter.getCount(); position++) {
+                if (( adapter.getItem(position)).toString().equals(value.toString())) {
+                    spnr.setSelection(position);
+                    return;
+                }
             }
         }
     }

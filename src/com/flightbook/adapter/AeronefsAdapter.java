@@ -6,8 +6,10 @@ import java.util.List;
 import com.flightbook.R;
 import com.flightbook.listener.AeronefAdapterListener;
 import com.flightbook.model.Aeronef;
+import com.flightbook.model.TypeAeronef;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,10 +110,19 @@ public class AeronefsAdapter extends BaseAdapter{
           }
           ImageButton bUpdate = (ImageButton)layoutItem.findViewById(R.id.updateAeronef);
 		  ImageButton bDelete = (ImageButton)layoutItem.findViewById(R.id.deleteAeronef);
-		        
+
+        TypeAeronef typeAeronef = TypeAeronef.valueOf(aeronefs.get(position).getType());
+
 		  //(3) : Renseignement des valeurs       
-          //tv_type.setText(aeronefs.get(position).getType());
-          tv_type.setText(getStringAeronefType(aeronefs.get(position).getType()));
+          if (typeAeronef!=null) {
+              tv_type.setText(mContext.getString(typeAeronef.getLabel()));
+          } else {
+              tv_type.setText(mContext.getString(R.string.opt_inconnu));
+          }
+
+
+        String result = mContext.getString(R.string.opt_inconnu);
+
 		  tv_name.setText(aeronefs.get(position).getName());
           if (isLanscape) {
               tv_envergure.setText(String.valueOf(aeronefs.get(position).getWingSpan()) + " m");
@@ -120,9 +131,13 @@ public class AeronefsAdapter extends BaseAdapter{
 
 		  
 		  //(4) Changement de la couleur du fond de notre item
-		  String type = aeronefs.get(position).getType();
-		  tv_name.setTextColor(Aeronef.getColor(type));
-		  
+        if (typeAeronef!=null) {
+            tv_name.setTextColor(typeAeronef.getColor());
+        } else {
+            tv_name.setTextColor(Color.rgb(47, 30, 14));
+        }
+
+
 		  // On memorise la position de l'aeronef dans le composant textview
 		  tv_name.setTag(position);
 		  tv_type.setTag(position);
@@ -186,22 +201,5 @@ public class AeronefsAdapter extends BaseAdapter{
 		  return layoutItem;
 	}
 
-    private String getStringAeronefType(String type) {
-        String result = mContext.getString(R.string.opt_inconnu);
-        if (Aeronef.T_PLANEUR.equals(type)) {
-            result = mContext.getString(R.string.opt_planeur);
-        } else if (Aeronef.T_AVION.equals(type)) {
-            result = mContext.getString(R.string.opt_avion);
-        } else if (Aeronef.T_HELICO.equals(type)) {
-            result = mContext.getString(R.string.opt_helico);
-        } else if (Aeronef.T_PARAMOTEUR.equals(type)) {
-            result = mContext.getString(R.string.opt_paramoteur);
-        } else if (Aeronef.T_AUTO.equals(type)) {
-            result = mContext.getString(R.string.opt_auto);
-        } else if (Aeronef.T_DIVERS.equals(type)) {
-            result = mContext.getString(R.string.opt_divers);
-        }
-        return result;
-    }
 
 }
