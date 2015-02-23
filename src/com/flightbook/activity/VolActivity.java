@@ -371,9 +371,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
          case R.id.reset:
              resetPage();
              return true;
-           case R.id.close:
-               exitApp();
-               return true;
+         case R.id.close:
+              exitApp();
+              return true;
        }
        return false;}
     

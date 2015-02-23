@@ -16,6 +16,18 @@
         android:showAsAction="always">
 
         <menu>
+
+            <item android:id="@+id/vols"
+                android:title="@string/title_activity_vols"
+                android:icon="@drawable/recorder_icon"
+                />
+
+            <!--item android:id="@+id/groubydate"
+                android:title="@string/menu_groubydate"
+                android:icon="@drawable/groubydate"
+                android:showAsAction="always"
+                /-->
+
             <item android:id="@+id/meteo"
                 android:title="@string/metar"
                 android:icon="@drawable/meteo_icon"
@@ -32,11 +44,6 @@
                 android:icon="@drawable/carte_icon"
                 />
 
-
-            <item android:id="@+id/vols"
-                android:title="@string/title_activity_vols"
-                android:icon="@drawable/recorder_icon"
-                />
 
             <item android:id="@+id/checklists"
                 android:title="@string/checklist"

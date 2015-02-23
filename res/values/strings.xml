@@ -169,6 +169,7 @@
     <string name="menu_piechartbytotal">Flight time by type</string>
     <string name="menu_barchartbytotal">Flight time by machine</string>
     <string name="menu_filter">Filter</string>
+    <string name="menu_groubydate">Activity by date</string>
     <string name="menu_chart">Charts</string>
     <string name="menu_importVols">Import flights</string>
     <string name="menu_import_ok">Import ok</string>

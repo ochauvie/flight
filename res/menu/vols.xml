@@ -30,6 +30,7 @@
         </menu>
     </item>
 
+
     <item android:id="@+id/filter"
         android:title="@string/menu_filter"
         android:icon="@drawable/filter"

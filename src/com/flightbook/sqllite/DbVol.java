@@ -21,6 +21,9 @@ public class DbVol {
     private static SQLiteDatabase bdd = DbApplicationContext.getInstance().getBdd();
     private static SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
 
+    private static final String SUM_MIN_VOL = "SUM_MIN_VOL";
+    private static final String SUM_NB_VOL = "SUM_NB_VOL";
+
 
 	/**
 	 * Insert new {@link Vol}
@@ -52,7 +55,7 @@ public class DbVol {
 	 * @return the list
 	 */
 	public static ArrayList<Vol> getVols(){
-		String orderBy = DbManager.COL_DATE;
+		String orderBy = DbManager.COL_DATE + " DESC";
 		Cursor c = bdd.query(DbManager.TABLE_VOLS, new String[] {DbManager.COL_ID, 
 																 DbManager.COL_NAME, 
 																 DbManager.COL_TYPE,
@@ -72,7 +75,7 @@ public class DbVol {
      * @return the list for one machine
      */
     public static ArrayList<Vol> getVolsByMachine(String machineName){
-        String orderBy = DbManager.COL_DATE;
+        String orderBy = DbManager.COL_DATE + " DESC";
 
         String where = null;
         String[] whereArgs = null;
@@ -124,7 +127,7 @@ public class DbVol {
     }
 
     public static ArrayList<Vol> getVolsByFilter(VolsFilter volFilter) {
-        String orderBy = null;
+        String orderBy = DbManager.COL_DATE + " DESC";
         String where = null;
         String whereAeronef = null;
         String whereSite = null;
@@ -185,7 +188,49 @@ public class DbVol {
 	public static long deleteVol(Vol vol){
 		return bdd.delete(DbManager.TABLE_VOLS, DbManager.COL_ID + "=" + vol.getId(), null);
 	}
-	
+
+
+    public static ArrayList<Vol> getVolsByFilterGyDateMAchine(VolsFilter volFilter) {
+        String orderBy = DbManager.COL_DATE + " DESC";
+        String where = null;
+        String whereAeronef = null;
+        String whereSite = null;
+        String whereTypeAeronef = null;
+        String[] whereArgs = null;
+        String groupBy = DbManager.COL_DATE + "," + DbManager.COL_NAME;
+        ArrayList<String> whereArgsList = new ArrayList<String>();
+        if (volFilter!=null) {
+            if (volFilter.getAeronef()!=null && !FilterActivity.EMPTY_CHOISE.equals(volFilter.getAeronef().getName())) {
+                whereAeronef = DbManager.COL_NAME + "=?";
+                whereArgsList.add(volFilter.getAeronef().getName());
+            }
+
+            if (volFilter.getSite()!=null && !FilterActivity.EMPTY_CHOISE.equals(volFilter.getSite().getName())) {
+                whereSite = DbManager.COL_LIEU + "=?";
+                whereArgsList.add(volFilter.getSite().getName());
+            }
+
+            if (volFilter.getTypeAeronef()!=null && !TypeAeronef.ALL.name().equals(volFilter.getTypeAeronef().name())) {
+                whereTypeAeronef = DbManager.COL_TYPE + "=?";
+                whereArgsList.add(volFilter.getTypeAeronef().name());
+            }
+        }
+
+        if (whereArgsList.size()>0) {
+            whereArgs = whereArgsList.toArray(new String[whereArgsList.size()]);
+            where = "1=1 and " + (whereAeronef!=null?whereAeronef:"1=1")
+                    + " and " +  (whereSite!=null?whereSite:"1=1")
+                    + " and " +  (whereTypeAeronef!=null?whereTypeAeronef:"1=1");
+        }
+
+        Cursor c = bdd.query(DbManager.TABLE_VOLS, new String[] {
+                        DbManager.COL_NAME,
+                        "sum(" + DbManager.COL_MIN_VOL + ") AS " + SUM_MIN_VOL,
+                        "sum(" + DbManager.COL_ID + ") AS " + SUM_NB_VOL,
+                        DbManager.COL_DATE},
+                where, whereArgs, groupBy, null, orderBy);
+        return cursorToVolResults(c, volFilter);
+    }
 	
 	/**
 	 * Transform {@link Cursor} in list of {@link Vol}
@@ -238,6 +283,40 @@ public class DbVol {
 		c.close();
  		return vols;
 	}
+
+
+    private static ArrayList<Vol> cursorToVolResults(Cursor c, VolsFilter volFilter){
+        ArrayList<Vol> vols = new ArrayList<Vol>();
+        if (c.getCount() > 0) {
+            while (c.moveToNext()) {
+                boolean isOk = true;
+                Date dVol = new Date();
+                try {
+                    dVol = sdf.parse(c.getString(DbManager.NUM_COL_DATE));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                if (volFilter!=null) {
+                    if (volFilter.getDateFin()!=null && dVol.after(volFilter.getDateFin())) {
+                        isOk = false;
+                    }
+                    if (volFilter.getDateDebut()!=null && dVol.before(volFilter.getDateDebut())) {
+                        isOk = false;
+                    }
+                }
+                if (isOk) {
+                    Vol vol = new Vol();
+                    vol.setAeronef(c.getString(0));
+                    vol.setMinutesVol(c.getInt(1));
+                    //vol.setSumNbsVol(c.getInt(2));
+                    vol.setDateVol(dVol);
+                    vols.add(vol);
+                }
+            }
+        }
+        c.close();
+        return vols;
+    }
 	
 	
 }

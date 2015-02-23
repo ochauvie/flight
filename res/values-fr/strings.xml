@@ -29,7 +29,7 @@
 	<string name="deleteVol">Reset</string>
 	<string name="note">Note</string>
 	<string name="date">Date</string>
-	<string name="vol">Vol</string>
+	<string name="vol">Min.</string>
 	<string name="lieu">Lieu</string>
 	<string name="gps">Gps</string>
 	<string name="lat">Lat</string>
@@ -171,6 +171,7 @@
     <string name="menu_piechartbytotal">Temps de vol par type</string>
     <string name="menu_barchartbytotal">Temps de vol par machine</string>
     <string name="menu_filter">Filtre</string>
+    <string name="menu_groubydate">Activité par date</string>
     <string name="menu_chart">Graphiques</string>
     <string name="menu_importVols">Importer</string>
     <string name="menu_import_ok">Import du fichier réussi</string>
