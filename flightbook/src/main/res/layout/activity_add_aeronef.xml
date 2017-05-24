@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView01"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:id="@+id/item_vols">
+		
+		<TextView
+	        android:id="@+id/textViewAeronef"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="20dp"
+	        android:text="@string/aeronef" />
+		
+		<EditText
+	        android:id="@+id/editTextAeronef"
+	        android:layout_width="180dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewAeronef"
+	        android:layout_alignBottom="@+id/textViewAeronef"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="text" />
+		
+		<TextView
+	        android:id="@+id/textViewWingSpan"
+	         android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textViewAeronef"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/wingSpan" />
+		
+		<EditText
+	        android:id="@+id/editTextWingSpan"
+	        android:layout_width="180dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewWingSpan"
+	        android:layout_alignBottom="@+id/textViewWingSpan"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="numberDecimal" />
+		
+			<TextView
+		        android:id="@+id/textViewMetre"
+		         android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignBaseline="@+id/editTextWingSpan"
+	        	android:layout_alignBottom="@+id/editTextWingSpan"
+	        	android:layout_alignParentLeft="true"
+		        android:layout_marginLeft="280dp"
+		        android:layout_marginTop="17dp"
+		        android:text="@string/metre" />
+		
+		<TextView
+	        android:id="@+id/textViewWeight"
+	         android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textViewWingSpan"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/weight" />
+		
+		<EditText
+	        android:id="@+id/editTextWeight"
+	        android:layout_width="180dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewWeight"
+	        android:layout_alignBottom="@+id/textViewWeight"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="numberDecimal" />
+		
+			<TextView
+		        android:id="@+id/textViewKilo"
+		         android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_alignBaseline="@+id/editTextWeight"
+	        	android:layout_alignBottom="@+id/editTextWeight"
+	        	android:layout_alignParentLeft="true"
+		        android:layout_marginLeft="280dp"
+		        android:layout_marginTop="17dp"
+		        android:text="@string/kilo" />
+		
+		<TextView
+	        android:id="@+id/textViewEngine"
+	         android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textViewWeight"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/moteur" />
+		
+		<EditText
+	        android:id="@+id/editTextEngine"
+	        android:layout_width="180dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewEngine"
+	        android:layout_alignBottom="@+id/textViewEngine"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="text" />
+		
+		<TextView
+	        android:id="@+id/textViewFirstFlight"
+	         android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textViewEngine"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/fistFlight" />
+		
+		<EditText
+	        android:id="@+id/editTextFirstFlight"
+	        android:layout_width="180dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewFirstFlight"
+	        android:layout_alignBottom="@+id/textViewFirstFlight"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="text" />
+		
+		<TextView
+	        android:id="@+id/textViewComment"
+	         android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/textViewFirstFlight"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="17dp"
+	        android:text="@string/note" />
+		
+		<EditText
+	        android:id="@+id/editTextComment"
+	        android:layout_width="180dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/textViewComment"
+	        android:layout_alignBottom="@+id/textViewComment"
+	        android:layout_alignParentLeft="true"
+	        android:layout_marginLeft="90dp"
+	        android:ems="10"
+	        android:inputType="text" />
+		
+		<RadioGroup
+		    android:id="@+id/radioGroup1"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_below="@+id/textViewComment"
+	        android:layout_marginLeft="16dp"
+	        android:layout_marginTop="17dp"
+		    android:orientation="horizontal" >
+	
+		    <RadioButton
+		        android:id="@+id/option_planeur"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/opt_planeur" />
+	
+		    <RadioButton
+		        android:id="@+id/option_avion"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="60dp"
+		        android:text="@string/opt_avion" />
+		</RadioGroup>
+		<RadioGroup
+		    android:id="@+id/radioGroup2"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_below="@+id/radioGroup1"
+	        android:layout_marginLeft="16dp"
+	        android:orientation="horizontal" >
+		
+		    <RadioButton
+		        android:id="@+id/option_paramoteur"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/opt_paramoteur" />
+		    
+		    <RadioButton
+		        android:id="@+id/option_helico"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="30dp"
+		        android:text="@string/opt_helico" />
+		</RadioGroup>
+		<RadioGroup
+		    android:id="@+id/radioGroup3"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_alignParentLeft="true"
+		    android:layout_below="@+id/radioGroup2"
+	        android:layout_marginLeft="16dp"
+	        android:orientation="horizontal" >
+		
+		    <RadioButton
+		        android:id="@+id/option_auto"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="@string/opt_auto" />
+		    
+		    <RadioButton
+		        android:id="@+id/option_divers"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_marginLeft="30dp"
+		        android:text="@string/opt_divers" />
+		</RadioGroup>
+
+	</RelativeLayout>
+
+</ScrollView>

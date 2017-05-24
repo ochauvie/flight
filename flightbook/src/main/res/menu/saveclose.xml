@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+ 
+
+	<item android:id="@+id/save"
+     android:title="@string/save"
+     android:icon="@drawable/smallsave"
+     android:showAsAction="always"
+      />
+
+    <item android:id="@+id/close"
+        android:title="@string/close"
+        android:icon="@drawable/smallexit"
+        android:showAsAction="always"
+        />
+
+
+
+</menu>

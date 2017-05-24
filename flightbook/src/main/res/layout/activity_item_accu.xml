@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	android:id="@+id/LL_Fond">
+	
+	
+	<TextView android:text="@string/accu_propultion" android:id="@+id/nom"
+		android:layout_width="150dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="false"
+		android:textSize="20sp"
+		android:layout_marginLeft="5dp"
+        android:layout_alignParentTop="false">
+	</TextView>
+
+    <TextView android:id="@+id/type"
+        android:text="@string/type"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:textSize="20sp"
+        android:layout_toRightOf="@+id/nom">
+    </TextView>
+
+    <TextView android:id="@+id/nbElements"
+        android:text="@string/accu_nb_element"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:textSize="20sp"
+        android:layout_toRightOf="@+id/type">
+    </TextView>
+
+
+
+    <ImageButton
+        android:id="@+id/updateAccu"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="false"
+                android:background="#00000000"
+        android:contentDescription="@string/update"
+        android:src="@drawable/update"
+        android:layout_toLeftOf="@+id/deleteAccu" />
+
+
+    <ImageButton
+        android:id="@+id/deleteAccu"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_alignParentLeft="false"
+
+        android:background="#00000000"
+        android:contentDescription="@string/delete"
+        android:src="@drawable/delete"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="false" />
+	
+	
+</RelativeLayout>

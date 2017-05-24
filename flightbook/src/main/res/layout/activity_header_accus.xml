@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" android:layout_height="wrap_content"
+	android:id="@+id/header_accus"
+    android:background="#ffb7b7b7">
+	
+	
+	<TextView android:text="@string/accu_nom" android:id="@+id/nom"
+		android:layout_width="150dp"
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="false"
+		android:textSize="20sp"
+        android:textStyle="bold"
+		android:layout_marginLeft="5dp"
+        android:layout_alignParentTop="false">
+	</TextView>
+
+    <TextView android:id="@+id/type"
+        android:text="@string/type"
+        android:layout_width="70dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/nom">
+    </TextView>
+
+    <TextView android:id="@+id/nbElements"
+        android:text="@string/accu_header_nb_element"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="false"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_toRightOf="@+id/type">
+    </TextView>
+
+	
+</RelativeLayout>

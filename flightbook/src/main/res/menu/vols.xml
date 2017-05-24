@@ -1,0 +1,60 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:id="@+id/chart"
+        android:icon="@drawable/rep"
+        android:title="@string/menu_chart"
+        android:showAsAction="always">
+
+        <menu>
+            <item android:id="@+id/pieChartByNb"
+                android:title="@string/menu_piechartbynb"
+                android:icon="@drawable/piechart"
+                />
+
+
+            <item android:id="@+id/barChartByNb"
+                android:title="@string/menu_barchartbynb"
+                android:icon="@drawable/barchart"
+                />
+
+            <item android:id="@+id/pieChartByTotal"
+                android:title="@string/menu_piechartbytotal"
+                android:icon="@drawable/chart"
+                />
+
+            <item android:id="@+id/barChartByTotal"
+                android:title="@string/menu_barchartbytotal"
+                android:icon="@drawable/rep"
+                />
+        </menu>
+    </item>
+
+
+    <item android:id="@+id/filter"
+        android:title="@string/menu_filter"
+        android:icon="@drawable/filter"
+        android:showAsAction="always"
+        />
+
+
+    <item android:id="@+id/selectImg"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="@string/menu"
+        android:showAsAction="always">
+
+        <menu>
+
+            <item android:id="@+id/send"
+                android:title="@string/menu_send"
+                android:icon="@drawable/send"
+             />
+
+            <item android:id="@+id/importVols"
+                android:title="@string/menu_import"
+                android:icon="@drawable/import_data"
+             />
+
+        </menu>
+    </item>
+</menu>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="wrap_content" 
+	android:layout_height="wrap_content"
+	android:id="@+id/header_vols"
+    android:background="#ffb7b7b7">
+	
+	
+	<TextView android:id="@+id/date" 
+	    android:text="@string/date" 
+	    android:textSize="20sp"
+	    android:textStyle="bold"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+        android:layout_marginLeft="5dp">
+	</TextView>
+	
+	<TextView android:id="@+id/name"
+	    android:text="@string/aeronef"
+	    android:textStyle="bold"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:textSize="20sp"
+		android:layout_alignParentLeft="true"
+        android:layout_marginLeft="60dp">
+	</TextView>
+	
+	<TextView android:id="@+id/tempsVol"
+	    android:text="@string/vol"
+	    android:textStyle="bold"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:textSize="20sp"
+		android:layout_alignParentLeft="true"
+        android:layout_marginLeft="190dp">
+	</TextView>
+	
+	<TextView android:id="@+id/tempsMoteur"
+	    android:text="@string/moteur"
+	    android:textStyle="bold"
+	    android:textSize="20sp"
+		android:layout_width="wrap_content" 
+		android:layout_height="wrap_content"
+		android:layout_alignParentLeft="true"
+        android:layout_marginLeft="240dp">
+	</TextView>
+	
+	
+	
+</RelativeLayout>
