@@ -111,7 +111,7 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
             // Add circles
             addCircles();
 
-            //Move the camera instantly to hamburg with a zoom of 15.
+            //Move the camera instantly to position with a zoom of 15.
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 15));
 
             // Zoom in, animating the camera.
@@ -119,12 +119,11 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
         }
     }
 
-/*
-    @Override
-    public void onBackPressed() {
-        // Nothings
-    }
-*/
+
+//    @Override
+//    public void onBackPressed() {
+//        // Nothings
+//    }
 
 
     private void addCircles() {

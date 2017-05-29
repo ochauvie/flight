@@ -25,7 +25,8 @@
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_toRightOf="@+id/img"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:maxLines="5">
     </TextView>
 
 
