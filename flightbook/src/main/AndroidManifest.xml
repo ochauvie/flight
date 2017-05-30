@@ -29,9 +29,8 @@
             android:value="@integer/google_play_services_version" />
 
         <meta-data
-            android:name="com.google.android.maps.v2.API_KEY"
-            android:value="AIzaSyAU3TXbvSURT5DbJWGbkOKzXZdUgBciJu8"/>
-
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCfOhoxzPSgKguJpN0rA5Uan0w4opGhdug"/>
 
         <activity
             android:name="com.och.flightbook.activity.SplashActivity"
