@@ -36,6 +36,10 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_carte);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ActionBar actionBar = getActionBar();
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
 
         // Init position
         Bundle bundle = getIntent().getExtras();
@@ -120,10 +124,10 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
     }
 
 
-//    @Override
-//    public void onBackPressed() {
-//        // Nothings
-//    }
+    @Override
+    public void onBackPressed() {
+        // Nothings
+    }
 
 
     private void addCircles() {
@@ -164,19 +168,22 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
         switch(item.getItemId()){
             case R.id.normal_map:
                 mapType = GoogleMap.MAP_TYPE_NORMAL;
+                mMap.setMapType(mapType);
                 break;
             case R.id.satellite_map:
                 mapType = GoogleMap.MAP_TYPE_SATELLITE;
+                mMap.setMapType(mapType);
                 break;
             case R.id.terrain_map:
                 mapType = GoogleMap.MAP_TYPE_TERRAIN;
+                mMap.setMapType(mapType);
                 break;
             case R.id.hybrid_map:
                 mapType = GoogleMap.MAP_TYPE_HYBRID;
+                mMap.setMapType(mapType);
                 break;
         }
-        mMap.setMapType(mapType);
-        return true;
+        return false;
     }
 
 

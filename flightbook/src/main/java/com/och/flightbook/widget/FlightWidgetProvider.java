@@ -56,7 +56,7 @@ public class FlightWidgetProvider extends AppWidgetProvider {
         if (min<10) {
             sMin = "0" + sMin;
         }
-        return String.valueOf(heu + "h" + sMin + "\n" + nbVols + " vols");
+        return String.valueOf(heu + " h " + sMin + "\n" + nbVols + " vols");
     }
 
 
