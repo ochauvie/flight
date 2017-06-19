@@ -13,10 +13,11 @@ android {
     buildToolsVersion '23.0.2'
     defaultConfig {
         applicationId "com.och.flightbook"
-        minSdkVersion 16
-        targetSdkVersion 16
+        minSdkVersion 23
+        targetSdkVersion 23
         versionCode 6
         versionName "1"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -27,6 +28,8 @@ android {
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
         targetCompatibility JavaVersion.VERSION_1_7
+    }
+    productFlavors {
     }
 }
 repositories {
