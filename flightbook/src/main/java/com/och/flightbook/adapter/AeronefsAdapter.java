@@ -120,9 +120,6 @@ public class AeronefsAdapter extends BaseAdapter{
               tv_type.setText(mContext.getString(R.string.opt_inconnu));
           }
 
-
-        String result = mContext.getString(R.string.opt_inconnu);
-
 		  tv_name.setText(aeronefs.get(position).getName());
           if (isLanscape) {
               tv_envergure.setText(String.valueOf(aeronefs.get(position).getWingSpan()) + " m");
@@ -136,7 +133,6 @@ public class AeronefsAdapter extends BaseAdapter{
         } else {
             tv_name.setTextColor(Color.rgb(47, 30, 14));
         }
-
 
 		  // On memorise la position de l'aeronef dans le composant textview
 		  tv_name.setTag(position);

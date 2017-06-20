@@ -144,7 +144,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         }
         
 		// Add these two lines
-        relativeLayout.setOnTouchListener((OnTouchListener) this); 
+        relativeLayout.setOnTouchListener(this);
         
         // Init aeronef selection by HangarActivity or SplashActivity (Nfc tag)
         initPage();

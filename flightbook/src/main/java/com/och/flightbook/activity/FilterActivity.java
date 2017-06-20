@@ -28,6 +28,7 @@ import com.och.flightbook.tools.SpinnerTool;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -125,9 +126,7 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
 
     private void loadSpinnerType() {
         List<TypeAeronef> list = new ArrayList<>();
-        for (TypeAeronef typeAeronef : TypeAeronef.values()) {
-            list.add(typeAeronef);
-        }
+        Collections.addAll(list, TypeAeronef.values());
         ArrayAdapter<TypeAeronef> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(dataAdapter);

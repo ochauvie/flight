@@ -344,7 +344,9 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
         inflater.inflate(R.menu.vols, menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
         return true;
     }

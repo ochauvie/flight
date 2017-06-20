@@ -5,7 +5,7 @@ import com.och.flightbook.model.ChecklistItem;
 
 public interface ChecklistAdapterListener {
 	
-	public void onClickItem(ChecklistItem item, int position);
+	void onClickItem(ChecklistItem item, int position);
 	
 
 }

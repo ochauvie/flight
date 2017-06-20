@@ -15,8 +15,8 @@ android {
         applicationId "com.och.flightbook"
         minSdkVersion 23
         targetSdkVersion 23
-        versionCode 6
-        versionName "1"
+        versionCode 7
+        versionName "2"
         multiDexEnabled true
     }
     buildTypes {

@@ -4,14 +4,14 @@ import com.och.flightbook.model.Accu;
 
 public interface AccuAdapterListener {
 	
-	public void onClickName(Accu item, int position);
+	void onClickName(Accu item, int position);
 
-    public void onClickType(Accu item, int position);
+    void onClickType(Accu item, int position);
 
-    public void onClickNbElements(Accu item, int position);
+    void onClickNbElements(Accu item, int position);
 
-	public void onClickToDelete(Accu item, int position);
+	void onClickToDelete(Accu item, int position);
 
-    public void onClickToUpdate(Accu item, int position);
+    void onClickToUpdate(Accu item, int position);
 
 }

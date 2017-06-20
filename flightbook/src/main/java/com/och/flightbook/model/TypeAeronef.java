@@ -17,7 +17,7 @@ public enum TypeAeronef {
     private final int label;
     private final int color;
 
-    private TypeAeronef(int label, int color) {
+    TypeAeronef(int label, int color) {
         this.label = label;
         this.color = color;
     }

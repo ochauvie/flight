@@ -5,6 +5,6 @@ import com.och.flightbook.model.ChecklistItem;
 
 public interface UpdateChecklistAdapterListener {
 	
-	public void onClickToDelete(ChecklistItem item, int position);
+	void onClickToDelete(ChecklistItem item, int position);
 
 }

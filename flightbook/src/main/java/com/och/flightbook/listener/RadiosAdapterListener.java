@@ -5,8 +5,8 @@ import com.och.flightbook.model.Radio;
 
 public interface RadiosAdapterListener {
 	
-	public void onClickName(Radio item, int position);
+	void onClickName(Radio item, int position);
 	
-	public void onClickToDelete(Radio item, int position);
+	void onClickToDelete(Radio item, int position);
 
 }

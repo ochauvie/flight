@@ -38,7 +38,9 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
 
         // Init position
@@ -158,7 +160,9 @@ public class CarteActivity extends FragmentActivity implements OnMapReadyCallbac
         getMenuInflater().inflate(R.menu.map_style_menu, menu);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
-            actionBar.setDisplayHomeAsUpEnabled(true);
+            if (actionBar != null) {
+                actionBar.setDisplayHomeAsUpEnabled(true);
+            }
         }
         return true;
     }

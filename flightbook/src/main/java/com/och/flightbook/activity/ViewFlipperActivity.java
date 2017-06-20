@@ -28,11 +28,8 @@ public class ViewFlipperActivity extends Activity implements OnTouchListener {
 		myFlipperAnimation = new MyFlipperAnimation();
 		
         LinearLayout layMain = (LinearLayout) findViewById(R.id.layout_main);
-        layMain.setOnTouchListener((OnTouchListener) this);
-        
-        
+        layMain.setOnTouchListener(this);
 
-		
 	}
 
 	@Override

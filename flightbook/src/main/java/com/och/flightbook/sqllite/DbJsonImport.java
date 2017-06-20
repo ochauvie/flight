@@ -46,7 +46,7 @@ public class DbJsonImport {
                 try
                 {
                     System.out.println(json.getAsString());
-                    return sdf.parse(((JsonPrimitive) json).getAsString());
+                    return sdf.parse((json).getAsString());
                 }
                 catch (ParseException e)
                 {
