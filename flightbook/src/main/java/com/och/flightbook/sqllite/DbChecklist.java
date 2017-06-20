@@ -14,7 +14,7 @@ public class DbChecklist {
 	
 	
 	public static ArrayList<Checklist> getChecklists(String checklistName) {
-		ArrayList<Checklist> checklists = new ArrayList<Checklist>(); 
+		ArrayList<Checklist> checklists = new ArrayList<>();
 		
 		String where = null;
 		String[] whereArgs = null;

@@ -3,9 +3,6 @@ package com.och.flightbook.tools;
 import com.google.gson.ExclusionStrategy;
 import com.google.gson.FieldAttributes;
 
-/**
- * Created by o.chauvie on 17/02/2015.
- */
 public class MyExclusionStrategy implements ExclusionStrategy {
     private final Class<?> typeToSkip;
 

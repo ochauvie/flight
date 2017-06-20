@@ -204,7 +204,7 @@ public class DbAccu {
 	 * @return the list of {@link com.och.flightbook.model.Accu}
 	 */
 	private static ArrayList<Accu> cursorToAccus(Cursor c){
-		ArrayList<Accu> accus = new ArrayList<Accu>();
+		ArrayList<Accu> accus = new ArrayList<>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
                 Accu accu = cursorToAccu(c);

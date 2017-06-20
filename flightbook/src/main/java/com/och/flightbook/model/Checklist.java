@@ -11,7 +11,7 @@ public class Checklist {
 
     @JsonExclude private int id;
 	private String name;
-	private ArrayList<ChecklistItem> items = new ArrayList<ChecklistItem>();
+	private ArrayList<ChecklistItem> items = new ArrayList<>();
 	
 	public Checklist(String name) {
 		super();

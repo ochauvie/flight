@@ -10,7 +10,7 @@ android {
         }
     }
     compileSdkVersion 23
-    buildToolsVersion '23.0.2'
+    buildToolsVersion '25.0.1'
     defaultConfig {
         applicationId "com.och.flightbook"
         minSdkVersion 23

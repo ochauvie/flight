@@ -22,7 +22,7 @@ public class RadioAdapter extends BaseAdapter{
 	private Context mContext;
 	private LayoutInflater mInflater;
 	private LinearLayout layout2;
-	private ArrayList<SwitchPotarAdapterListener> mListListener = new ArrayList<SwitchPotarAdapterListener>();
+	private ArrayList<SwitchPotarAdapterListener> mListListener = new ArrayList<>();
 	
 	
 	/**

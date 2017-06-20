@@ -124,11 +124,11 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
 
 
     private void loadSpinnerType() {
-        List<TypeAeronef> list = new ArrayList<TypeAeronef>();
+        List<TypeAeronef> list = new ArrayList<>();
         for (TypeAeronef typeAeronef : TypeAeronef.values()) {
             list.add(typeAeronef);
         }
-        ArrayAdapter<TypeAeronef> dataAdapter = new ArrayAdapter<TypeAeronef>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<TypeAeronef> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(dataAdapter);
     }
@@ -138,28 +138,28 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
         if (!((TypeAeronef)spinnerType.getSelectedItem()).name().equals(TypeAeronef.ALL.name())) {
             param = ((TypeAeronef) spinnerType.getSelectedItem()).name();
         }
-        ArrayList<Aeronef> list = new ArrayList<Aeronef>();
+        ArrayList<Aeronef> list = new ArrayList<>();
         Aeronef emptyAeronef = new Aeronef();
         emptyAeronef.setName(EMPTY_CHOISE);
         list.add(emptyAeronef);
         for (Aeronef aeronef:DbAeronef.getAeronefByType(param)) {
             list.add(aeronef);
         }
-        ArrayAdapter<Aeronef> dataAdapter = new ArrayAdapter<Aeronef>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<Aeronef> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerAeronef.setAdapter(dataAdapter);
         SpinnerTool.SelectSpinnerItemByValue(spinnerAeronef, currentVolsFilter.getAeronef());
     }
 
     private void loadSpinnerSite() {
-        ArrayList<Site> list = new ArrayList<Site>();
+        ArrayList<Site> list = new ArrayList<>();
         Site emptySite = new Site();
         emptySite.setName(EMPTY_CHOISE);
         list.add(emptySite);
         for (Site site:DbSite.getSites()) {
             list.add(site);
         }
-        ArrayAdapter<Site> dataAdapter = new ArrayAdapter<Site>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<Site> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerSite.setAdapter(dataAdapter);
     }

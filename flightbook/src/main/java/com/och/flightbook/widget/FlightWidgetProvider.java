@@ -23,8 +23,8 @@ public class FlightWidgetProvider extends AppWidgetProvider {
 
         vols = DbVol.getVols();
 
-        for(int i=0; i<appWidgetIds.length; i++){
-            int appWidgetId = appWidgetIds[i];
+
+        for(int appWidgetId : appWidgetIds){
 
             // Create an Intent to launch application
             Intent intent = new Intent(context, SplashActivity.class);

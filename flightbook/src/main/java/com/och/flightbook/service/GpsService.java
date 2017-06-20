@@ -3,6 +3,7 @@ package com.och.flightbook.service;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -46,12 +47,14 @@ public class GpsService extends Service {
 
 	@Override
 	public void onCreate() {
-		
-		locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-		locationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-				10000, 0, onLocationChange);
-		locationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
-				0, onLocationChange);
+		if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+				|| checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+			locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+			locationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+					10000, 0, onLocationChange);
+			locationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000,
+					0, onLocationChange);
+		}
 		super.onCreate();
 	}
 
@@ -63,6 +66,9 @@ public class GpsService extends Service {
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		locationMgr.removeUpdates(onLocationChange);
+		if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+				|| checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+			locationMgr.removeUpdates(onLocationChange);
+		}
 	}
 }

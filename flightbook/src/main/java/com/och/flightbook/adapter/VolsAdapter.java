@@ -31,7 +31,7 @@ public class VolsAdapter extends BaseAdapter {
     private boolean isLandscape = false;
 	
 	//Contient la liste des listeners
-	private ArrayList<VolsAdapterListener> mListListener = new ArrayList<VolsAdapterListener>();
+	private ArrayList<VolsAdapterListener> mListListener = new ArrayList<>();
 	
 	public VolsAdapter(Context context, List<Vol> volsList) {
 		  mContext = context;

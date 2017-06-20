@@ -12,8 +12,8 @@ public class Radio  {
 
     @JsonExclude private int id;
 	private String name;
-	private List<Switch> switchs = new ArrayList<Switch>();
-	private List<Potar> potars = new ArrayList<Potar>();
+	private List<Switch> switchs = new ArrayList<>();
+	private List<Potar> potars = new ArrayList<>();
 	
 	
 	

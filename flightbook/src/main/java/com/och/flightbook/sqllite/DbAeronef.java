@@ -149,7 +149,7 @@ public class DbAeronef {
 	 * @return the list of {@link Aeronef}
 	 */
 	private static ArrayList<Aeronef> cursorToAeronefs(Cursor c){
-		ArrayList<Aeronef> aeronefs = new ArrayList<Aeronef>();
+		ArrayList<Aeronef> aeronefs = new ArrayList<>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
                 Aeronef aeronef = cursorToAeronef(c);

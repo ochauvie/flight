@@ -130,11 +130,11 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
     }
 
     private void loadSpinnerType() {
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         for (TypeAccu typeAccu : TypeAccu.values()) {
             list.add(typeAccu.name());
         }
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, list);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerType.setAdapter(dataAdapter);
     }

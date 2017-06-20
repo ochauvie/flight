@@ -112,7 +112,7 @@ public class DbSite {
 	 * @return the list of {@link com.och.flightbook.model.Site}
 	 */
 	private static ArrayList<Site> cursorToSites(Cursor c){
-		ArrayList<Site> sites = new ArrayList<Site>();
+		ArrayList<Site> sites = new ArrayList<>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
                 Site site = cursorToSite(c);

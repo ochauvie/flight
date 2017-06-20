@@ -22,7 +22,7 @@ public class RadiosAdapter extends BaseAdapter{
 	private Context mContext;
 	private LayoutInflater mInflater;
 	//Contient la liste des listeners
-	private ArrayList<RadiosAdapterListener> mListListener = new ArrayList<RadiosAdapterListener>();
+	private ArrayList<RadiosAdapterListener> mListListener = new ArrayList<>();
 	
 	public RadiosAdapter(Context context, List<Radio> radiosList) {
 		  mContext = context;

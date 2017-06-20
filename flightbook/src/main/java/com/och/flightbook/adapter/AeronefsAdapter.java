@@ -27,7 +27,7 @@ public class AeronefsAdapter extends BaseAdapter{
     private boolean isLanscape = false;
 
 	//Contient la liste des listeners
-	private ArrayList<AeronefAdapterListener> mListListener = new ArrayList<AeronefAdapterListener>();
+	private ArrayList<AeronefAdapterListener> mListListener = new ArrayList<>();
 	
 	public AeronefsAdapter(Context context, List<Aeronef> aeronefsList) {
 		  mContext = context;

@@ -133,7 +133,7 @@ public class DbVol {
         String whereSite = null;
         String whereTypeAeronef = null;
         String[] whereArgs = null;
-        ArrayList<String> whereArgsList = new ArrayList<String>();
+        ArrayList<String> whereArgsList = new ArrayList<>();
         if (volFilter!=null) {
             if (volFilter.getAeronef()!=null && !FilterActivity.EMPTY_CHOISE.equals(volFilter.getAeronef().getName())) {
                 whereAeronef = DbManager.COL_NAME + "=?";
@@ -198,7 +198,7 @@ public class DbVol {
         String whereTypeAeronef = null;
         String[] whereArgs = null;
         String groupBy = DbManager.COL_DATE + "," + DbManager.COL_NAME;
-        ArrayList<String> whereArgsList = new ArrayList<String>();
+        ArrayList<String> whereArgsList = new ArrayList<>();
         if (volFilter!=null) {
             if (volFilter.getAeronef()!=null && !FilterActivity.EMPTY_CHOISE.equals(volFilter.getAeronef().getName())) {
                 whereAeronef = DbManager.COL_NAME + "=?";
@@ -238,7 +238,7 @@ public class DbVol {
 	 * @return the list of {@link Vol}
 	 */
 	private static ArrayList<Vol> cursorToVols(Cursor c, VolsFilter volFilter){
-		ArrayList<Vol> vols = new ArrayList<Vol>();
+		ArrayList<Vol> vols = new ArrayList<>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
                 boolean isOk = true;
@@ -286,7 +286,7 @@ public class DbVol {
 
 
     private static ArrayList<Vol> cursorToVolResults(Cursor c, VolsFilter volFilter){
-        ArrayList<Vol> vols = new ArrayList<Vol>();
+        ArrayList<Vol> vols = new ArrayList<>();
         if (c.getCount() > 0) {
             while (c.moveToNext()) {
                 boolean isOk = true;

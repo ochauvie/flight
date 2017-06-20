@@ -2,9 +2,6 @@ package com.och.flightbook.model;
 
 import java.io.Serializable;
 
-/**
- * Created by o.chauvie on 16/02/2015.
- */
 public class GpsPosition  implements Serializable  {
 
     private double lat;

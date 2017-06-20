@@ -3,9 +3,6 @@ package com.och.flightbook.tools;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-/**
- * Created by o.chauvie on 05/02/2015.
- */
 public class SpinnerTool {
 
     public static void SelectSpinnerItemByValue(Spinner spnr, Object value)

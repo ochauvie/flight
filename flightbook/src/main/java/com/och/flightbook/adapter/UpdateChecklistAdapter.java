@@ -21,7 +21,7 @@ public class UpdateChecklistAdapter extends BaseAdapter {
 	private List<ChecklistItem> items;
 	private Context mContext;
 	private LayoutInflater mInflater;
-	private ArrayList<UpdateChecklistAdapterListener> mListListener = new ArrayList<UpdateChecklistAdapterListener>();
+	private ArrayList<UpdateChecklistAdapterListener> mListListener = new ArrayList<>();
 	
 	public UpdateChecklistAdapter(Context context, List<ChecklistItem> itemsList) {
 		  mContext = context;

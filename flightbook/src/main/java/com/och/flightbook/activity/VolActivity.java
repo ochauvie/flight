@@ -20,6 +20,7 @@ import com.och.flightbook.widget.FlightWidgetProvider;
 
 import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -125,15 +126,20 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         locationMgr = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         if (locationMgr!=null) {
         	List<String> providers = locationMgr.getAllProviders();
-        	if (providers!=null) {
-        		for (String prov:providers) {
-        			if (LocationManager.NETWORK_PROVIDER.equals(prov)) {
-        				locationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, onLocationChange);			
-        			}
-        			if (LocationManager.GPS_PROVIDER.equals(prov)) {
-        				locationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 100, onLocationChange);
-        			}
-        		}
+
+            if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                    || checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                    if (providers!=null) {
+                        for (String prov : providers) {
+                            if (LocationManager.NETWORK_PROVIDER.equals(prov)) {
+                                locationMgr.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000, 100, onLocationChange);
+                            }
+                            if (LocationManager.GPS_PROVIDER.equals(prov)) {
+                                locationMgr.requestLocationUpdates(LocationManager.GPS_PROVIDER, 10000, 100, onLocationChange);
+                            }
+                        }
+                    }
         	}
         }
         
@@ -314,7 +320,10 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     @Override
     public void onStop() {
     	super.onStop();
-    	locationMgr.removeUpdates(onLocationChange);
+        if (checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                || checkSelfPermission(android.Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            locationMgr.removeUpdates(onLocationChange);
+        }
     }
     
     

@@ -22,7 +22,7 @@ public class AccusAdapter extends BaseAdapter{
 	private Context mContext;
 	private LayoutInflater mInflater;
 	//Contient la liste des listeners
-	private ArrayList<AccuAdapterListener> mListListener = new ArrayList<AccuAdapterListener>();
+	private ArrayList<AccuAdapterListener> mListListener = new ArrayList<>();
 
 	public AccusAdapter(Context context, List<Accu> accusList) {
 		  mContext = context;

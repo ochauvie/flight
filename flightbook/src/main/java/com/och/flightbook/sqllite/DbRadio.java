@@ -125,7 +125,7 @@ public class DbRadio {
 	}
 	
 	private static ArrayList<Radio> cursorToRadios(Cursor c){
-		ArrayList<Radio> radios = new ArrayList<Radio>();
+		ArrayList<Radio> radios = new ArrayList<>();
 		if (c.getCount() > 0) {
             while (c.moveToNext()) {
                 Radio radio = cursorToRadio(c);

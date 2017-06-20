@@ -23,7 +23,7 @@ public class SitesAdapter extends BaseAdapter{
 	private Context mContext;
 	private LayoutInflater mInflater;
 	//Contient la liste des listeners
-	private ArrayList<SiteAdapterListener> mListListener = new ArrayList<SiteAdapterListener>();
+	private ArrayList<SiteAdapterListener> mListListener = new ArrayList<>();
 
 	public SitesAdapter(Context context, List<Site> sitesList) {
 		  mContext = context;

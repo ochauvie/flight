@@ -101,6 +101,7 @@
                 android:background="#00000000"
                 android:id="@+id/imageButtonStartDate"
                 android:src="@drawable/smallcalendrier"
+                android:contentDescription="Calendrier"
                 android:layout_column="2" />
 
             <ImageButton
@@ -111,6 +112,7 @@
                 android:src="@drawable/delete"
                 android:layout_column="3"
                 android:layout_marginLeft="5dp"
+                android:contentDescription="Clear"
                 android:layout_gravity="center" />
         </TableRow>
 
@@ -138,6 +140,7 @@
                 android:background="#00000000"
                 android:id="@+id/imageButtonEndDate"
                 android:src="@drawable/smallcalendrier"
+                android:contentDescription="Calendrier"
                 android:layout_column="2" />
 
             <ImageButton
@@ -146,6 +149,7 @@
                 android:background="#00000000"
                 android:id="@+id/imageButtonClearEndDate"
                 android:src="@drawable/delete"
+                android:contentDescription="Supprimer"
                 android:layout_column="3"
                 android:layout_marginLeft="5dp"
                 android:layout_gravity="center" />
