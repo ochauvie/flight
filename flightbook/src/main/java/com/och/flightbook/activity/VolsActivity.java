@@ -450,7 +450,6 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
                     }
                 }
                 adapter.notifyDataSetChanged();
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd", Locale.FRANCE);
                 vols.addAll(DbVol.getVolsByFilter(volsFilter));
                                 date.setTextColor(Color.BLACK);
                 name.setTextColor(Color.BLACK);

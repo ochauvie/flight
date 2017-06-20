@@ -51,10 +51,6 @@
             android:icon="@drawable/vol">
         </activity>
         <activity
-            android:name="com.och.flightbook.activity.FlightBookActivity"
-            android:label="@string/title_activity_flightbook" >
-        </activity>
-        <activity
             android:name="com.och.flightbook.activity.VolsActivity"
             android:label="@string/title_activity_vols" 
             android:icon="@drawable/recorder"
@@ -198,11 +194,7 @@
             <meta-data android:name="android.appwidget.provider"
                 android:resource="@xml/appwidget_info" />
         </receiver>
-        
-        <!--  service android:name=".service.SpeechService"/-->
-        
-        <!--  service android:name=".service.GpsService"/-->
-        
+
     </application>
 
     

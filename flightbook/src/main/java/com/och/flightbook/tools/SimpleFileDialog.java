@@ -35,6 +35,7 @@ package com.och.flightbook.tools;
     import android.content.DialogInterface;
     import android.content.DialogInterface.OnClickListener;
 //import android.content.DialogInterface.OnKeyListener;
+    import android.graphics.Color;
     import android.os.Environment;
     import android.text.Editable;
     import android.view.Gravity;
@@ -262,7 +263,7 @@ package com.och.flightbook.tools;
 
             //need to make this a variable Save as, Open, Select Directory
             m_titleView1.setGravity(Gravity.CENTER_VERTICAL);
-            m_titleView1.setBackgroundColor(-12303292); // dark gray 	-12303292
+            m_titleView1.setBackgroundColor(Color.DKGRAY);
             m_titleView1.setTextColor( m_context.getResources().getColor(android.R.color.white) );
 
             // Create custom view for AlertDialog title
@@ -323,7 +324,7 @@ package com.och.flightbook.tools;
 
             m_titleView = new TextView(m_context);
             m_titleView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT));
-            m_titleView.setBackgroundColor(-12303292); // dark gray -12303292
+            m_titleView.setBackgroundColor(Color.DKGRAY); // dark gray -12303292
             m_titleView.setTextColor( m_context.getResources().getColor(android.R.color.white) );
             m_titleView.setGravity(Gravity.CENTER_VERTICAL);
             m_titleView.setText(title);
