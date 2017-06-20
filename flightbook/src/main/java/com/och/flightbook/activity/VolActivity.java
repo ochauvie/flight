@@ -167,7 +167,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         butGps.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		if (lieuGps==null || "".equals(lieuGps)) {
-        			ttsProviderImpl.say(getString(R.string.position_ko));
+                    if (ttsProviderImpl != null) {
+        			    ttsProviderImpl.say(getString(R.string.position_ko));
+                     }
                     Toast.makeText(getBaseContext(),getString(R.string.position_ko), Toast.LENGTH_LONG).show();
         		} else {
                     lieu.setText(lieuGps);
@@ -271,7 +273,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
             }
         }
 
-        if (!"".equals(toSay)) {
+        if (!"".equals(toSay) && ttsProviderImpl != null) {
             ttsProviderImpl.say(toSay);
         }
     }
@@ -331,33 +333,45 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     public boolean onOptionsItemSelected(MenuItem item) {
        switch (item.getItemId()) {
           case R.id.meteo:
-              ttsProviderImpl.say(getString(R.string.meteo));
+              if (ttsProviderImpl != null) {
+                  ttsProviderImpl.say(getString(R.string.meteo));
+              }
         	  Intent myIntent = new Intent(VolActivity.this, MeteoActivity.class);
               startActivityForResult(myIntent, 0);
               return true;
           case R.id.radio:
-        	  ttsProviderImpl.say(getString(R.string.radio));
+              if (ttsProviderImpl != null) {
+                  ttsProviderImpl.say(getString(R.string.radio));
+              }
         	  Intent radiosActivity = new Intent(VolActivity.this, RadiosActivity.class);
           	  startActivity(radiosActivity);
               return true;
           case R.id.carte:
-        	  ttsProviderImpl.say(getString(R.string.carte));
+              if (ttsProviderImpl != null) {
+                  ttsProviderImpl.say(getString(R.string.carte));
+              }
         	  if (latitude!=null && longitude!=null) {
         		  Intent carteActivity = new Intent(VolActivity.this, CarteActivity.class);
                   carteActivity.putExtra(GpsPosition.class.getName(), new GpsPosition(latitude, longitude, 0));
           		  startActivity(carteActivity);
         	  } else {
-        		  ttsProviderImpl.say(getString(R.string.position_ko));
+                  if (ttsProviderImpl != null) {
+                      ttsProviderImpl.say(getString(R.string.position_ko));
+                  }
                   Toast.makeText(getBaseContext(),getString(R.string.position_ko), Toast.LENGTH_LONG).show();
         	  }
               return true;
          case R.id.vols:
-        	 ttsProviderImpl.say(getString(R.string.title_activity_vols));
+             if (ttsProviderImpl != null) {
+                 ttsProviderImpl.say(getString(R.string.title_activity_vols));
+             }
         	 Intent volsActivity = new Intent(VolActivity.this, VolsActivity.class);
              startActivityForResult(volsActivity, 0);
              return true;
          case R.id.checklists:
-        	 ttsProviderImpl.say(getString(R.string.checklist));
+             if (ttsProviderImpl != null) {
+                 ttsProviderImpl.say(getString(R.string.checklist));
+             }
         	 Intent checklistsActivity = new Intent(VolActivity.this, ChecklistsActivity.class);
              startActivityForResult(checklistsActivity, 0);
              return true;
@@ -482,7 +496,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
             builder.setIcon(R.drawable.recorder);
             builder.setTitle(getString(R.string.save_ok));
             String say = getString(R.string.save_ok) + " " + getString(R.string.st_for) + " " + vol.getAeronef();
-            ttsProviderImpl.say(say);
+            if (ttsProviderImpl != null) {
+                ttsProviderImpl.say(say);
+            }
 
             String result = getString(R.string.aeronef) + ": \t" + vol.getAeronef() + "\n"
                     + getString(R.string.vol) + ": \t\t\t\t" + vol.getMinutesVol() + " " + getString(R.string.min) + "\n"
@@ -505,7 +521,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
 
         } else {
             Toast.makeText(getBaseContext(), getString(R.string.aeronef_mandatory), Toast.LENGTH_LONG).show();
-            ttsProviderImpl.say(getString(R.string.aeronef_mandatory));
+            if (ttsProviderImpl != null) {
+                ttsProviderImpl.say(getString(R.string.aeronef_mandatory));
+            }
         }
 
 
@@ -517,7 +535,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     public void onDialogCompleted(boolean answer, String type) {
         if (DIALOG_EXIT.equals(type)) {
             if (answer) {
-                ttsProviderImpl.say(getString(R.string.bye));
+                if (ttsProviderImpl != null) {
+                    ttsProviderImpl.say(getString(R.string.bye));
+                }
                 finish();
             }
         }

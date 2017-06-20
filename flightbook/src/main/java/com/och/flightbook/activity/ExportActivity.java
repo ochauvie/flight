@@ -35,7 +35,9 @@ public class ExportActivity extends Activity implements DialogReturn {
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
 
-        ttsProviderImpl.say(getString(R.string.menu_export_db));
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl.say(getString(R.string.menu_export_db));
+        }
 
         // Find aeronef
         btExport = (ImageButton) findViewById(R.id.btExport);

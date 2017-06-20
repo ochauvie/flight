@@ -55,8 +55,10 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         
         // View title
         setTitle(radio.getName());
-        String say = getString(R.string.radio) + " " + getString(R.string.st_for) + " " + radio.getName();  
-        ttsProviderImpl.say(say);
+        String say = getString(R.string.radio) + " " + getString(R.string.st_for) + " " + radio.getName();
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl.say(say);
+        }
         
         // Creation et initialisation de l'Adapter pour les aeronefs
         adapter = new RadioAdapter(this, radio);

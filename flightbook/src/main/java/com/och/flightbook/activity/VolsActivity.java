@@ -314,7 +314,9 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             title = getString(R.string.title_activity_chart_time);
         }
         Chart chart = new Chart(getBaseContext(), vols, chartType, title);
-        ttsProviderImpl.say(title);
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl.say(title);
+        }
         startActivity(chart.getIntentPieChart());
     }
 
@@ -329,7 +331,9 @@ public class VolsActivity extends ListActivity implements DialogReturn, VolsAdap
             title = getString(R.string.title_activity_chart_time);
         }
         Chart chart = new Chart(getBaseContext(), vols, chartType, title);
-        ttsProviderImpl.say(title);
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl.say(title);
+        }
         startActivity(chart.getIntentChartByMachine());
     }
 

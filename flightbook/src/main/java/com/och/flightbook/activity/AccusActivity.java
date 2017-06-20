@@ -60,8 +60,10 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accus);
-        
-        ttsProviderImpl = TtsProviderFactory.getInstance();
+
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl = TtsProviderFactory.getInstance();
+        }
 
         View header = findViewById(R.id.header_layout);
         header.setOnClickListener(this);

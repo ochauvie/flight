@@ -68,7 +68,9 @@ public class MeteoActivity extends Activity {
 
         // Add a WebViewClient for WebView, which actually handles loading data from web
 		webView = (WebView) findViewById(R.id.webview);
-            ttsProviderImpl.say(getString(R.string.meteo_add_say) + " "+ editTextOaci.getText().toString());
+            if (ttsProviderImpl != null) {
+                ttsProviderImpl.say(getString(R.string.meteo_add_say) + " " + editTextOaci.getText().toString());
+            }
         if (isNetworkAvailable()) {
             webView.loadUrl(currentUrlStart + editTextOaci.getText().toString() + currentUrlEnd);
         } else {
@@ -102,7 +104,9 @@ public class MeteoActivity extends Activity {
         		String oaci = editTextOaci.getText().toString();
         		if (oaci!=null && !"".equals(oaci)) {
         			String url = currentUrlStart + oaci.toUpperCase() + currentUrlEnd;
-                    ttsProviderImpl.say(getString(R.string.meteo_cunimb_say) + " " + oaci.toUpperCase());
+                    if (ttsProviderImpl != null) {
+                        ttsProviderImpl.say(getString(R.string.meteo_cunimb_say) + " " + oaci.toUpperCase());
+                    }
                     if (isNetworkAvailable()) {
                         webView.loadUrl(url);
                     } else {

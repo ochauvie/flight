@@ -53,7 +53,9 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
         setContentView(R.layout.activity_filter);
 
         ttsProviderImpl = TtsProviderFactory.getInstance();
-        ttsProviderImpl.say(getString(R.string.menu_filter));
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl.say(getString(R.string.menu_filter));
+        }
 
         spinnerType = (Spinner) findViewById(R.id.spType);
         loadSpinnerType();

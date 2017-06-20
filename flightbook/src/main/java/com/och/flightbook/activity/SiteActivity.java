@@ -77,7 +77,9 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
         				this, R.anim.list_layout_controller);
         listView.setLayoutAnimation(controller);
 
-        ttsProviderImpl.say(getString(R.string.selectSite));
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl.say(getString(R.string.selectSite));
+        }
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {

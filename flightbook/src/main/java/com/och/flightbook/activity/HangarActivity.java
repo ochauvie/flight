@@ -89,7 +89,9 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
         				this, R.anim.list_layout_controller);
         listView.setLayoutAnimation(controller);
 
-        ttsProviderImpl.say(getString(R.string.selectAeronef));
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl.say(getString(R.string.selectAeronef));
+        }
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {

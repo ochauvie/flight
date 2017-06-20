@@ -23,8 +23,10 @@ public class ChecklistActivity extends ListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_checklist);
-        
-        ttsProviderImpl = TtsProviderFactory.getInstance();
+
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl = TtsProviderFactory.getInstance();
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             ActionBar actionBar = getActionBar();
@@ -38,8 +40,10 @@ public class ChecklistActivity extends ListActivity {
         		ArrayList<Checklist> l = DbChecklist.getChecklists(checklistName);
         		if (l!=null) {
         			checklist = l.get(0);
-        			String say = getString(R.string.checklist) + " " + getString(R.string.st_for) + " " + checklistName;  
-        			ttsProviderImpl.say(say);
+        			String say = getString(R.string.checklist) + " " + getString(R.string.st_for) + " " + checklistName;
+                    if (ttsProviderImpl != null) {
+                        ttsProviderImpl.say(say);
+                    }
         		}
         }
         
