@@ -16,7 +16,7 @@ public class ViewFlipperActivity extends Activity implements OnTouchListener {
 	
 	private float downXValue;
 	private MyFlipperAnimation myFlipperAnimation;
-	ViewFlipper viewFlipper;
+	private ViewFlipper viewFlipper;
 	
 	/** Called when the activity is first created. */
 	@Override

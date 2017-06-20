@@ -38,7 +38,7 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
     public static final String EMPTY_CHOISE = " ";
     public static final int FILTER_REQUEST_CODE = 555;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
     private Spinner spinnerType, spinnerAeronef, spinnerSite;
     private EditText editTextStartDate, editTextEndDate;

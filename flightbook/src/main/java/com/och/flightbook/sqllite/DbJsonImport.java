@@ -31,7 +31,7 @@ public class DbJsonImport {
 
     private Gson gson;
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
     public DbJsonImport(Context context) {
         gson = new GsonBuilder().serializeNulls()

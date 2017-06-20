@@ -551,7 +551,7 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
         }
     }
 
-    public void exitApp() {
+    private void exitApp() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(true);
         builder.setIcon(R.drawable.fermeture);

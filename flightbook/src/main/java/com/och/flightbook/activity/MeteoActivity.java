@@ -29,8 +29,8 @@ public class MeteoActivity extends Activity {
 	private EditText editTextOaci;
 	private ProgressDialog mProgress;
     private TtsProviderFactory ttsProviderImpl;
-    String currentUrlStart;
-    String currentUrlEnd;
+    private String currentUrlStart;
+    private String currentUrlEnd;
 
     private String meteoCunimbUrlStart = "http://cunimb.net/decodemet.php?station=";
     private String meteoCunimbUrlEnd = "";

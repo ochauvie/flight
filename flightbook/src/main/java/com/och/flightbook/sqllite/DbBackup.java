@@ -22,7 +22,7 @@ import java.util.Locale;
 
 public class DbBackup {
 
-    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+    private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
     private static final String HEADER1_VOLS = "ENREGISTREMENTS";
     private static final String HEADER2_VOLS = "Type|Date|Nom|Min vol|Min moteur|Sec moteur|Note|Lieu|Accu";
@@ -49,7 +49,7 @@ public class DbBackup {
     }
 
 
-    public StringBuffer getStbVols() {
+    private StringBuffer getStbVols() {
         return getStbVols(null);
     }
 
@@ -121,7 +121,7 @@ public class DbBackup {
         return stbSites;
     }
 
-    public StringBuffer getStbRadios() {
+    private StringBuffer getStbRadios() {
         StringBuffer stb = new StringBuffer();
         List<Switch> switchs;
         List<Potar> potars;
@@ -185,7 +185,7 @@ public class DbBackup {
         return stb;
     }
 
-    public StringBuffer getStbCheckList() {
+    private StringBuffer getStbCheckList() {
         StringBuffer stb = new StringBuffer();
         // Recuperation des check list
         ArrayList<Checklist> checklists = DbChecklist.getChecklists(null);

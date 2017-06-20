@@ -2,7 +2,7 @@ package com.och.flightbook.activity;
 
 public class MyDialogInterface {
 
-	DialogReturn dialogReturn;
+    private DialogReturn dialogReturn;
 
     public interface DialogReturn {
         void onDialogCompleted(boolean answer, String type);
