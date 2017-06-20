@@ -265,8 +265,7 @@ public class AddAeronefActivity extends Activity {
 
 			String mimeType = "application/com.och.flightbook";
 			byte[] mimeBytes = mimeType.getBytes(Charset.forName("US-ASCII"));
-			NdefRecord recordNFC = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,  mimeBytes,  new byte[0], payload);
-			return recordNFC;
+			return new NdefRecord(NdefRecord.TNF_MIME_MEDIA,  mimeBytes,  new byte[0], payload);
 		}
 
 		@Override
