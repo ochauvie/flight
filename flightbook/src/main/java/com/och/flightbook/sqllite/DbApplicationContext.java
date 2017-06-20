@@ -6,7 +6,6 @@ import android.database.sqlite.SQLiteDatabase;
 public class DbApplicationContext {
 
     private Context appContext;
-    private DbManager dbManager;
     private SQLiteDatabase bdd;
 
     private DbApplicationContext(){}
@@ -14,7 +13,7 @@ public class DbApplicationContext {
     public void init(Context context){
         if(appContext == null){
             appContext = context;
-            dbManager = new DbManager(context, DbManager.NOM_BDD, null, DbManager.VERSION_BDD);
+            DbManager dbManager = new DbManager(context, DbManager.NOM_BDD, null, DbManager.VERSION_BDD);
             bdd = dbManager.getWritableDatabase();
 
         }

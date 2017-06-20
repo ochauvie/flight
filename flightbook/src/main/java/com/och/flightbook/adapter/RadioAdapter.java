@@ -19,9 +19,7 @@ import android.widget.TextView;
 public class RadioAdapter extends BaseAdapter{
 
 	private Radio radio;
-	private Context mContext;
 	private LayoutInflater mInflater;
-	private LinearLayout layout2;
 	private ArrayList<SwitchPotarAdapterListener> mListListener = new ArrayList<>();
 	
 	
@@ -41,9 +39,8 @@ public class RadioAdapter extends BaseAdapter{
 	
 	
 	public RadioAdapter(Context context, Radio rad) {
-		  mContext = context;
 		  radio = rad;
-		  mInflater = LayoutInflater.from(mContext);
+		  mInflater = LayoutInflater.from(context);
 		}
 	
 		
@@ -127,7 +124,7 @@ public class RadioAdapter extends BaseAdapter{
 		  
 		  
 		  // On ajoute un listener sur le layout switch / potar
-		  layout2 = (LinearLayout) layoutItem.findViewById(R.id.layout2);
+		  LinearLayout layout2 = (LinearLayout) layoutItem.findViewById(R.id.layout2);
 		  layout2.setTag(position); // On memorise la position dans le composant textview
 		  layout2.setOnClickListener(new View.OnClickListener() {
 		  

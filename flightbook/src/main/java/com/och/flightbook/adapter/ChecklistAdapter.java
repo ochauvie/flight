@@ -19,16 +19,14 @@ import android.widget.Toast;
 public class ChecklistAdapter extends BaseAdapter{
 
 	private List<ChecklistItem> items;
-	private Context mContext;
 	private LayoutInflater mInflater;
 	private ChecklistAdapter adapter;
 	private TtsProviderFactory ttsProviderImpl; 
 	private ViewGroup mParent;
 	
 	public ChecklistAdapter(Context context, List<ChecklistItem> itemsList) {
-		  mContext = context;
 		  items = itemsList;
-		  mInflater = LayoutInflater.from(mContext);
+		  mInflater = LayoutInflater.from(context);
 		  adapter = this;
 		  ttsProviderImpl = TtsProviderFactory.getInstance();
 		}

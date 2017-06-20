@@ -24,12 +24,10 @@ import android.view.MenuItem;
 public class RadioActivity extends ListActivity implements DialogReturn, SwitchPotarAdapterListener{
 
 	private Radio radio;
-	private RadioAdapter adapter;
 	private MyDialogInterface myInterface;
 	private int itemId;
 	private String typeItem;
-	private TtsProviderFactory ttsProviderImpl;
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +43,8 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
 
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
-        
-        ttsProviderImpl = TtsProviderFactory.getInstance();
+
+        TtsProviderFactory ttsProviderImpl = TtsProviderFactory.getInstance();
 
         // Get radio to edit
         Bundle bundle = getIntent().getExtras();
@@ -63,7 +61,7 @@ public class RadioActivity extends ListActivity implements DialogReturn, SwitchP
         }
         
         // Creation et initialisation de l'Adapter pour les aeronefs
-        adapter = new RadioAdapter(this, radio);
+        RadioAdapter adapter = new RadioAdapter(this, radio);
         // Ecoute des evenements sur votre liste
         adapter.addListener(this);
         

@@ -30,7 +30,6 @@ import android.widget.Toast;
 
 public class RadiosActivity extends ListActivity implements DialogReturn, RadiosAdapterListener  {
 
-	private ImageButton add;
 	private EditText newRadioName;
 	private ArrayList<Radio> radios;
 	private RadiosAdapter adapter;
@@ -65,7 +64,7 @@ public class RadiosActivity extends ListActivity implements DialogReturn, Radios
         newRadioName =  (EditText)  findViewById(R.id.editTextNewRadio);
         
         // Open view add 
-        add = (ImageButton) findViewById(R.id.butNew);
+        ImageButton add = (ImageButton) findViewById(R.id.butNew);
         add.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		String newName = newRadioName.getText().toString();

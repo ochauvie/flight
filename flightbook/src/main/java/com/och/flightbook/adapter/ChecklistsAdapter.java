@@ -19,14 +19,12 @@ import android.widget.TextView;
 public class ChecklistsAdapter extends BaseAdapter{
 
 	private List<Checklist> checklists;
-	private Context mContext;
 	private LayoutInflater mInflater;
 	private ArrayList<ChecklistsAdapterListener> mListListener = new ArrayList<>();
 	
 	public ChecklistsAdapter(Context context, List<Checklist> checklistsList) {
-		  mContext = context;
 		  checklists = checklistsList;
-		  mInflater = LayoutInflater.from(mContext);
+		  mInflater = LayoutInflater.from(context);
 		}
 	
 	/**

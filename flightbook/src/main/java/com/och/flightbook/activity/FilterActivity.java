@@ -40,10 +40,8 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
 
     SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 
-    private TtsProviderFactory ttsProviderImpl;
     private Spinner spinnerType, spinnerAeronef, spinnerSite;
     private EditText editTextStartDate, editTextEndDate;
-    private ImageButton btDateStart, btDateEnd, btClearStartDate, btClearEndDate;
     private DatePickerDialog startDatePickerDialog, endDatePickerDialog;
 
     private VolsFilter currentVolsFilter = new VolsFilter();
@@ -53,7 +51,7 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
 
-        ttsProviderImpl = TtsProviderFactory.getInstance();
+        TtsProviderFactory ttsProviderImpl = TtsProviderFactory.getInstance();
         if (ttsProviderImpl != null) {
             ttsProviderImpl.say(getString(R.string.menu_filter));
         }
@@ -69,7 +67,7 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
         loadSpinnerSite();
 
         editTextStartDate = (EditText)  findViewById(R.id.editTextStartDate);
-        btDateStart = (ImageButton) findViewById(R.id.imageButtonStartDate);
+        ImageButton btDateStart = (ImageButton) findViewById(R.id.imageButtonStartDate);
         btDateStart.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String sDate = editTextStartDate.getText().toString();
@@ -87,7 +85,7 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
         });
 
         editTextEndDate = (EditText)  findViewById(R.id.editTextEndDate);
-        btDateEnd = (ImageButton) findViewById(R.id.imageButtonEndDate);
+        ImageButton btDateEnd = (ImageButton) findViewById(R.id.imageButtonEndDate);
         btDateEnd.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String sDate = editTextEndDate.getText().toString();
@@ -105,14 +103,14 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
         });
 
 
-        btClearStartDate = (ImageButton) findViewById(R.id.imageButtonClearStartDate);
+        ImageButton btClearStartDate = (ImageButton) findViewById(R.id.imageButtonClearStartDate);
         btClearStartDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 editTextStartDate.setText("");
             }
         });
 
-        btClearEndDate = (ImageButton) findViewById(R.id.imageButtonClearEndDate);
+        ImageButton btClearEndDate = (ImageButton) findViewById(R.id.imageButtonClearEndDate);
         btClearEndDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 editTextEndDate.setText("");

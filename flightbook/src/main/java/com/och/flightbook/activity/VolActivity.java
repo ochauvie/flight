@@ -53,11 +53,9 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     private static final String DIALOG_EXIT = "EXIT";
 
 	private MyDialogInterface myInterface;
-	private RelativeLayout relativeLayout;
 	private EditText aeronef, minVol, minMot, secMot, note, lieu, flightDate, accuPropultion;
 	private Double latitude, longitude, altitude;
 	private String lieuGps;
-	private ImageButton selectAeronef, butGps, selectDate, butSite, butAccuPropultion;
 	private float downXValue;
 	private DatePickerDialog datePickerDialog = null;
 	private TtsProviderFactory ttsProviderImpl;
@@ -66,8 +64,6 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     private Accu currentAccu = null;
     private Site currentSite = null;
 
-	private AlphaAnimation alphaAnimation;
-	
 	private LocationManager locationMgr = null;
 	private LocationListener onLocationChange = new LocationListener()
 		{
@@ -97,17 +93,20 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        ImageButton selectAeronef, butGps, selectDate, butSite, butAccuPropultion;
+
         setContentView(R.layout.activity_vol);
         
         ttsProviderImpl = TtsProviderFactory.getInstance();
                
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
-        
-        alphaAnimation = new AlphaAnimation(0.0f , 1.0f ) ;
+
+        AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f , 1.0f ) ;
         alphaAnimation.setFillAfter(true);
         alphaAnimation.setDuration(1200);
-        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutVol);
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayoutVol);
         relativeLayout.startAnimation(alphaAnimation);
         
         flightDate = (EditText)  findViewById(R.id.flightDate);

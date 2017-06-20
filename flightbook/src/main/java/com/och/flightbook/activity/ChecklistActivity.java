@@ -16,7 +16,6 @@ import android.os.Bundle;
 public class ChecklistActivity extends ListActivity {
 
 	private Checklist checklist;
-	private ChecklistAdapter adapter;
 	private TtsProviderFactory ttsProviderImpl;
 	
     @Override
@@ -53,7 +52,7 @@ public class ChecklistActivity extends ListActivity {
         setTitle(checklist.getName());
         
         // Creation et initialisation de l'Adapter
-        adapter = new ChecklistAdapter(this, checklist.getItems());
+        ChecklistAdapter adapter = new ChecklistAdapter(this, checklist.getItems());
         
         //Initialisation de la liste avec les donnees
         setListAdapter(adapter);

@@ -37,13 +37,11 @@ import android.widget.Toast;
 
 public class HangarActivity extends ListActivity  implements DialogReturn, AeronefAdapterListener, View.OnClickListener  {
 
-	private ListView listView;
-    private TextView headerTYpe;
+	private TextView headerTYpe;
 	private ArrayList<Aeronef> aeronefs;
 	private AeronefsAdapter adapter;
 	private MyDialogInterface myInterface;
 	private int selectItim = -1;
-	private TtsProviderFactory ttsProviderImpl;
 
     private Site currentSite = null;
     private Accu currentAccu = null;
@@ -58,15 +56,15 @@ public class HangarActivity extends ListActivity  implements DialogReturn, Aeron
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hangar);
-        
-        ttsProviderImpl = TtsProviderFactory.getInstance();
+
+        TtsProviderFactory ttsProviderImpl = TtsProviderFactory.getInstance();
         
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
         aeronefs = DbAeronef.getAeronefs();
 
-        listView = getListView();
+        ListView listView = getListView();
 
         View header = findViewById( R.id.header_layout );
         header.setOnClickListener(this);

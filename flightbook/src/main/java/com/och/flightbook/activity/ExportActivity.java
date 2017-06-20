@@ -21,26 +21,22 @@ import com.och.flightbook.sqllite.DbJsonBackup;
 public class ExportActivity extends Activity implements DialogReturn {
 
     private MyDialogInterface myInterface;
-    private TtsProviderFactory ttsProviderImpl;
-    private ImageButton btExport;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_export);
 
-        ttsProviderImpl = TtsProviderFactory.getInstance();
-
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
 
+        TtsProviderFactory ttsProviderImpl = TtsProviderFactory.getInstance();
         if (ttsProviderImpl != null) {
             ttsProviderImpl.say(getString(R.string.menu_export_db));
         }
 
         // Find aeronef
-        btExport = (ImageButton) findViewById(R.id.btExport);
+        ImageButton btExport = (ImageButton) findViewById(R.id.btExport);
         btExport.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 backupDb();

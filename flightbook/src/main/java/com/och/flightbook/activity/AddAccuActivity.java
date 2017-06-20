@@ -39,7 +39,6 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
 
     private EditText nom, nbElement, capacite, tauxDecharge, marque, numero, dateAchat, nbCycle, voltage;
     private Spinner spinnerType;
-    private ImageButton selectDate;
     private DatePickerDialog datePickerDialog = null;
 
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
@@ -66,7 +65,7 @@ public class AddAccuActivity extends Activity implements DatePickerDialog.OnDate
         initView();
 
         // Flight date
-        selectDate = (ImageButton) findViewById(R.id.selectDate);
+        ImageButton selectDate = (ImageButton) findViewById(R.id.selectDate);
         selectDate.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 String sDate = dateAchat.getText().toString();

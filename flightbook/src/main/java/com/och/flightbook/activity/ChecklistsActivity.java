@@ -36,7 +36,6 @@ import android.widget.Toast;
 
 public class ChecklistsActivity extends ListActivity implements DialogReturn, ChecklistsAdapterListener  {
 
-	private ImageButton add;
 	private EditText newCkeckListName;
 	
 	private MyDialogInterface myInterface;
@@ -84,7 +83,7 @@ public class ChecklistsActivity extends ListActivity implements DialogReturn, Ch
         listView.setLayoutAnimation(controller);
         
         // Open view add 
-        add = (ImageButton) findViewById(R.id.butNew);
+        ImageButton add = (ImageButton) findViewById(R.id.butNew);
         add.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		String newName = newCkeckListName.getText().toString();

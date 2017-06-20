@@ -20,15 +20,12 @@ import java.util.List;
 public class SitesAdapter extends BaseAdapter{
 
 	private List<Site> sites;
-	private Context mContext;
 	private LayoutInflater mInflater;
-	//Contient la liste des listeners
 	private ArrayList<SiteAdapterListener> mListListener = new ArrayList<>();
 
 	public SitesAdapter(Context context, List<Site> sitesList) {
-		  mContext = context;
 		  sites = sitesList;
-		  mInflater = LayoutInflater.from(mContext);
+		  mInflater = LayoutInflater.from(context);
 		}
 	
 	/**

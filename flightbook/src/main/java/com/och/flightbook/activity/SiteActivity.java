@@ -32,12 +32,10 @@ import java.util.ArrayList;
 
 public class SiteActivity extends ListActivity  implements DialogReturn, SiteAdapterListener {
 
-	private ListView listView;
 	private ArrayList<Site> sites;
 	private SitesAdapter adapter;
 	private MyDialogInterface myInterface;
 	private int selectItim = -1;
-	private TtsProviderFactory ttsProviderImpl;
 	private Aeronef currentAeronef = null;
     private Accu currentAccu = null;
     private String sFlightDate = null;
@@ -52,15 +50,15 @@ public class SiteActivity extends ListActivity  implements DialogReturn, SiteAda
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_site);
-        
-        ttsProviderImpl = TtsProviderFactory.getInstance();
+
+        TtsProviderFactory ttsProviderImpl = TtsProviderFactory.getInstance();
         
         myInterface = new MyDialogInterface();
         myInterface.setListener(this);
         
         sites = DbSite.getSites();
 
-        listView = getListView();
+        ListView listView = getListView();
         
         // Creation et initialisation de l'Adapter pour les sites
         adapter = new SitesAdapter(this, sites);

@@ -19,15 +19,12 @@ import android.widget.TextView;
 public class RadiosAdapter extends BaseAdapter{
 
 	private List<Radio> radios;
-	private Context mContext;
 	private LayoutInflater mInflater;
-	//Contient la liste des listeners
 	private ArrayList<RadiosAdapterListener> mListListener = new ArrayList<>();
 	
 	public RadiosAdapter(Context context, List<Radio> radiosList) {
-		  mContext = context;
 		  radios = radiosList;
-		  mInflater = LayoutInflater.from(mContext);
+		  mInflater = LayoutInflater.from(context);
 		}
 	
 	/**

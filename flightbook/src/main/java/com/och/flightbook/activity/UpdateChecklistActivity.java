@@ -34,7 +34,6 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
 	private int selectItim = -1;
 	private MyDialogInterface myInterface;
 	private EditText itemNewOrder, itemNewAction;
-	private ImageButton butNew;
 	private Context ctx;
 	
     @Override
@@ -79,8 +78,8 @@ public class UpdateChecklistActivity extends ListActivity implements DialogRetur
         itemNewOrder = (EditText)  findViewById(R.id.itemNewOrder);
         itemNewAction = (EditText)  findViewById(R.id.itemNewAction);
         initPage();
-        
-        butNew = (ImageButton)  findViewById(R.id.butNew);
+
+		ImageButton butNew = (ImageButton)  findViewById(R.id.butNew);
         butNew.setOnClickListener(new View.OnClickListener() {
         	public void onClick(View v) {
         		Editable edItemNewOrder = itemNewOrder.getText();

@@ -23,10 +23,7 @@ import android.widget.TextView;
 public class VolsAdapter extends BaseAdapter {
 
 	private List<Vol> vols;
-	private Context mContext;
 	private LayoutInflater mInflater;
-	private TextView tv_date, tv_name, tv_vol, tv_moteur, tv_lieu, tv_note;
-	private ImageButton bDelete;
 
     private boolean isLandscape = false;
 	
@@ -34,9 +31,8 @@ public class VolsAdapter extends BaseAdapter {
 	private ArrayList<VolsAdapterListener> mListListener = new ArrayList<>();
 	
 	public VolsAdapter(Context context, List<Vol> volsList) {
-		  mContext = context;
 		  vols = volsList;
-		  mInflater = LayoutInflater.from(mContext);
+		  mInflater = LayoutInflater.from(context);
 		}
 	
 	/**
@@ -96,7 +92,10 @@ public class VolsAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		RelativeLayout layoutItem;
-		  //(1) : Reutilisation des layouts
+		TextView tv_date, tv_name, tv_vol, tv_moteur, tv_lieu, tv_note;
+		ImageButton bDelete;
+
+		//(1) : Reutilisation des layouts
 		  if (convertView == null) {
 		  	//Initialisation de notre item a partir du  layout XML
 		    layoutItem = (RelativeLayout) mInflater.inflate(R.layout.activity_item_vols, parent, false);

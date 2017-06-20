@@ -19,15 +19,12 @@ import java.util.List;
 public class AccusAdapter extends BaseAdapter{
 
 	private List<Accu> accus;
-	private Context mContext;
 	private LayoutInflater mInflater;
-	//Contient la liste des listeners
 	private ArrayList<AccuAdapterListener> mListListener = new ArrayList<>();
 
 	public AccusAdapter(Context context, List<Accu> accusList) {
-		  mContext = context;
 		  accus = accusList;
-		  mInflater = LayoutInflater.from(mContext);
+		  mInflater = LayoutInflater.from(context);
 		}
 	
 	/**
