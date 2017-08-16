@@ -61,9 +61,7 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accus);
 
-        if (ttsProviderImpl != null) {
-            ttsProviderImpl = TtsProviderFactory.getInstance();
-        }
+        ttsProviderImpl = TtsProviderFactory.getInstance();
 
         View header = findViewById(R.id.header_layout);
         header.setOnClickListener(this);
@@ -92,7 +90,9 @@ public class AccusActivity extends ListActivity  implements DialogReturn, AccuAd
         				this, R.anim.list_layout_controller);
         listView.setLayoutAnimation(controller);
 
-        ttsProviderImpl.say(getString(R.string.selectAccu));
+        if (ttsProviderImpl != null) {
+            ttsProviderImpl.say(getString(R.string.selectAccu));
+        }
 
         Bundle bundle = getIntent().getExtras();
         if (bundle!=null) {
