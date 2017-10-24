@@ -50,6 +50,11 @@
                 android:icon="@drawable/checklist_icon"
                 />
 
+            <item android:id="@+id/ffam"
+                android:title="@string/ffam"
+                android:icon="@drawable/ffam"
+                />
+
             <item android:id="@+id/backup"
                 android:title="@string/menu_export_db"
                 android:icon="@drawable/smallbackup"

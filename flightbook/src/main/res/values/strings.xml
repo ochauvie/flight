@@ -183,4 +183,6 @@
 
     <string name="widget_nb_flight">flights</string>
 
+	<string name="ffam">FFAM</string>
+
 </resources>

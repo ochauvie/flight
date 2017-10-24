@@ -24,6 +24,7 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -396,6 +397,16 @@ public class VolActivity extends Activity implements DialogReturn, OnTouchListen
          case R.id.close:
               exitApp();
               return true;
+          case R.id.ffam:
+               if (ttsProviderImpl != null) {
+                   ttsProviderImpl.say(getString(R.string.ffam));
+               }
+              Intent intent = new Intent();
+              intent.setAction(Intent.ACTION_VIEW);
+              intent.addCategory(Intent.CATEGORY_BROWSABLE);
+              intent.setData(Uri.parse("http://www.ffam.asso.fr/"));
+              startActivity(intent);
+               return true;
        }
        return false;}
     
