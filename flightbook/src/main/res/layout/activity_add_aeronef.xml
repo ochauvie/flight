@@ -225,6 +225,16 @@
 		        android:text="@string/opt_divers" />
 		</RadioGroup>
 
+
+		<ImageView android:id="@+id/aeronef_pic"
+			android:contentDescription="Photo"
+			android:layout_width="110dp"
+			android:layout_height="110dp"
+			android:layout_alignParentLeft="true"
+			android:layout_below="@+id/radioGroup3"
+			android:layout_marginLeft="16dp"
+			android:layout_centerHorizontal="true"/>
+
 	</RelativeLayout>
 
 </ScrollView>

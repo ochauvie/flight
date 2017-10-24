@@ -13,6 +13,13 @@
         android:showAsAction="always"
         />
 
+    <item android:id="@+id/pic"
+        android:title="@string/pic"
+        android:icon="@drawable/camera"
+        android:showAsAction="always"
+        />
+
+
     <item android:id="@+id/close"
         android:title="@string/close"
         android:icon="@drawable/smallexit"

@@ -9,13 +9,17 @@ import com.och.flightbook.R;
 import com.och.flightbook.model.Aeronef;
 import com.och.flightbook.model.TypeAeronef;
 import com.och.flightbook.sqllite.DbAeronef;
+import com.och.flightbook.tools.PictureUtils;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -23,6 +27,7 @@ import android.nfc.NfcAdapter;
 import android.nfc.Tag;
 import android.nfc.tech.Ndef;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.Editable;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -30,19 +35,23 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 @TargetApi(14)
-public class AddAeronefActivity extends Activity {
+public class AddAeronefActivity extends Activity implements MyDialogInterface.DialogReturn {
+
+    static final int REQUEST_IMAGE_SELECT = 2;
 
 	private Aeronef aeronef = null;
 
 	private EditText name, wingSpan, weight, engine, firstFlight, comment;
 	private RadioButton optPlaneur, optAvion, optParamoteur, optHelico, optAuto, optDivers;
 	private RadioGroup rg1, rg2 ,rg3;
+    private ImageView imageView;
 	    
 	private Context ctx;
 	private Tag mytag;
@@ -51,6 +60,7 @@ public class AddAeronefActivity extends Activity {
 	private IntentFilter writeTagFilters[];
 	private boolean writeMode;
     private Menu menu = null;
+    private MyDialogInterface myInterface;
 
 		// Listener to synchronize radio groups 
 		private OnCheckedChangeListener listener1 = new OnCheckedChangeListener() {
@@ -124,6 +134,13 @@ public class AddAeronefActivity extends Activity {
 	        engine = (EditText) findViewById(R.id.editTextEngine);
 	        firstFlight = (EditText) findViewById(R.id.editTextFirstFlight);
 	        comment = (EditText) findViewById(R.id.editTextComment);
+            imageView = (ImageView) findViewById(R.id.aeronef_pic);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    onClickImageListener();
+                }
+            });
 	        
 	        optPlaneur = (RadioButton) findViewById(R.id.option_planeur);
                 optPlaneur.setTextColor(TypeAeronef.PLANEUR.getColor());
@@ -137,7 +154,10 @@ public class AddAeronefActivity extends Activity {
                 optAuto.setTextColor(TypeAeronef.AUTO.getColor());
 	        optDivers = (RadioButton) findViewById(R.id.option_divers);
                 optDivers.setTextColor(TypeAeronef.DIVERS.getColor());
-	    
+
+            myInterface = new MyDialogInterface();
+            myInterface.setListener(this);
+
 	        // Get aeronef in parameter
 	        initView();
 
@@ -178,8 +198,10 @@ public class AddAeronefActivity extends Activity {
                     } else if (TypeAeronef.DIVERS.name().equals(aeronef.getType())) {
                         optDivers.setChecked(true);
                     }
+                    if (aeronef.getImage() != null) {
+                        imageView.setImageBitmap(PictureUtils.getImage(aeronef.getImage()));
+                    }
                 }
-
 	        }
 	    }
 
@@ -273,6 +295,19 @@ public class AddAeronefActivity extends Activity {
 			// Nothings
 		}
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_SELECT && resultCode == RESULT_OK) {
+            final Bundle extras = data.getExtras();
+            if (extras != null) {
+                Bitmap imageBitmap = extras.getParcelable("data");
+                imageView.setImageBitmap(imageBitmap);
+            }
+        }
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -302,6 +337,9 @@ public class AddAeronefActivity extends Activity {
                 return true;
             case R.id.nfc:
                 onNfc();
+                return true;
+            case R.id.pic:
+                onPicture();
                 return true;
         }
         return false;
@@ -339,6 +377,12 @@ public class AddAeronefActivity extends Activity {
                     aeronef.setType(TypeAeronef.AUTO.name());
                 } else if (optDivers.isChecked()) {
                     aeronef.setType(TypeAeronef.DIVERS.name());
+                }
+
+                imageView.buildDrawingCache();
+                Bitmap imageBitmap = imageView.getDrawingCache();
+                if (imageBitmap != null) {
+                    aeronef.setImage(PictureUtils.getBitmapAsByteArray(imageBitmap));
                 }
 
                 if (aeronef.getId()!=0) {
@@ -386,4 +430,54 @@ public class AddAeronefActivity extends Activity {
             Toast.makeText(ctx, R.string.nfc_save_before, Toast.LENGTH_LONG ).show();
         }
     }
+
+
+    private void onPicture() {
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.INTERNAL_CONTENT_URI);
+        intent.setType("image/*");
+        intent.putExtra("crop", "true");
+        intent.putExtra("scale", true);
+        intent.putExtra("outputX", 180);
+        intent.putExtra("outputY", 180);
+        intent.putExtra("aspectX", 1);
+        intent.putExtra("aspectY", 1);
+        intent.putExtra("return-data", true);
+        startActivityForResult(intent, REQUEST_IMAGE_SELECT);
+    }
+
+    private void onClickImageListener() {
+        if (aeronef != null && aeronef.getImage() != null) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setCancelable(true);
+            builder.setIcon(R.drawable.delete);
+            builder.setTitle(R.string.image_delete);
+            builder.setInverseBackgroundForced(true);
+            builder.setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    myInterface.getListener().onDialogCompleted(true, "image");
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton(R.string.non, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    myInterface.getListener().onDialogCompleted(false, "image");
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog alert = builder.create();
+            alert.show();
+        }
+    }
+
+    @Override
+    public void onDialogCompleted(boolean answer, String type) {
+        if (answer && aeronef != null && "image".equals(type)) {
+            aeronef.setImage(null);
+            imageView.setImageBitmap(null);
+        }
+    }
+
 }

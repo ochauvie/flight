@@ -15,6 +15,7 @@ public class Aeronef implements Serializable{
 	private String engine;
 	private String firstFlight;
 	private String comment;
+	@JsonExclude private byte[] image;
 	
 	/**
 	 * Getter id
@@ -144,7 +145,15 @@ public class Aeronef implements Serializable{
 		this.comment = comment;
 	}
 
-    @Override
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	@Override
     public String toString() {
         return this.name;
     }

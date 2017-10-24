@@ -83,6 +83,8 @@
 	<string name="opt_divers">Other</string>
     <string name="opt_inconnu">Unknown</string>
     <string name="opt_all"></string>
+	<string name="pic">Photo</string>
+	<string name="image_delete">Delete image ?</string>
 	
 	<string name="title_activity_drive">Synchronization Google Drive</string>
 	

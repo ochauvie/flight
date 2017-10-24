@@ -24,6 +24,7 @@ public class DbAeronef {
 		values.put(DbManager.COL_ENGINE, aeronef.getEngine());
 		values.put(DbManager.COL_FIRST_FLIGHT, aeronef.getFirstFlight());
 		values.put(DbManager.COL_COMMENT, aeronef.getComment());
+		values.put(DbManager.COL_IMAGE, aeronef.getImage());
 		
 		return bdd.insert(DbManager.TABLE_AERONEFS, null, values);
 	}
@@ -44,6 +45,7 @@ public class DbAeronef {
 		values.put(DbManager.COL_ENGINE, aeronef.getEngine());
 		values.put(DbManager.COL_FIRST_FLIGHT, aeronef.getFirstFlight());
 		values.put(DbManager.COL_COMMENT, aeronef.getComment());
+		values.put(DbManager.COL_IMAGE, aeronef.getImage());
 		return bdd.update(DbManager.TABLE_AERONEFS, values, where, whereArgs);	
 	}
 	
@@ -69,7 +71,8 @@ public class DbAeronef {
 																 DbManager.COL_WEIGHT,
 																 DbManager.COL_ENGINE,
 																 DbManager.COL_FIRST_FLIGHT,
-																 DbManager.COL_COMMENT}, 
+																 DbManager.COL_COMMENT,
+																 DbManager.COL_IMAGE},
 							null, null, null, null, orderBy);
 		return cursorToAeronefs(c);
 	}
@@ -89,7 +92,8 @@ public class DbAeronef {
 																 DbManager.COL_WEIGHT,
 																 DbManager.COL_ENGINE,
 																 DbManager.COL_FIRST_FLIGHT,
-																 DbManager.COL_COMMENT}, 
+																 DbManager.COL_COMMENT,
+															 	 DbManager.COL_IMAGE},
 								where, whereArgs, null, null, null);
 		if (c.getCount() == 0) {
 			c.close();
@@ -111,7 +115,8 @@ public class DbAeronef {
                         DbManager.COL_WEIGHT,
                         DbManager.COL_ENGINE,
                         DbManager.COL_FIRST_FLIGHT,
-                        DbManager.COL_COMMENT},
+                        DbManager.COL_COMMENT,
+						DbManager.COL_IMAGE},
                 where, whereArgs, null, null, null);
         if (c.getCount() == 0) {
 			c.close();
@@ -137,7 +142,8 @@ public class DbAeronef {
                         DbManager.COL_WEIGHT,
                         DbManager.COL_ENGINE,
                         DbManager.COL_FIRST_FLIGHT,
-                        DbManager.COL_COMMENT},
+                        DbManager.COL_COMMENT,
+						DbManager.COL_IMAGE},
                 where, whereArgs, null, null, null);
         return cursorToAeronefs(c);
     }
@@ -177,6 +183,7 @@ public class DbAeronef {
 		aeronef.setEngine(c.getString(DbManager.NUM_COL_ENGINE));
 		aeronef.setFirstFlight(c.getString(DbManager.NUM_COL_FIRST_FLIGHT));
 		aeronef.setComment(c.getString(DbManager.NUM_COL_COMMENT));
+		aeronef.setImage(c.getBlob(DbManager.NUM_COL_IMAGE));
 		
  		return aeronef;
 	}

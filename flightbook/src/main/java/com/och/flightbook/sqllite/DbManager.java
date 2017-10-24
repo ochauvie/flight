@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DbManager extends SQLiteOpenHelper {
 
-	public static final int VERSION_BDD = 1;
+	public static final int VERSION_BDD = 2;
 	public static final String NOM_BDD = "vols.db";
 	
 	public static final String TABLE_VOLS = "table_vols";
@@ -45,6 +45,8 @@ public class DbManager extends SQLiteOpenHelper {
 	public static final int NUM_COL_FIRST_FLIGHT = 6;
 	public static final String COL_COMMENT = "COMMENT";
 	public static final int NUM_COL_COMMENT = 7;
+	public static final String COL_IMAGE = "IMAGE";
+	public static final int NUM_COL_IMAGE = 8;
     public static final String COL_DEFAULT = "IS_DEFAULT";
     public static final int NUM_COL_SITE_DEFAULT = 3;
 
@@ -95,7 +97,8 @@ public class DbManager extends SQLiteOpenHelper {
 			+ COL_WEIGHT + " REAL, "
 			+ COL_ENGINE + " TEXT, "
 			+ COL_FIRST_FLIGHT + " TEXT, "
-			+ COL_COMMENT + " TEXT);";
+			+ COL_COMMENT + " TEXT,"
+			+ COL_IMAGE + " BLOB);";
 	
 	public static final String TABLE_SWITCH = "table_switch";
 	public static final String COL_UP = "UP";
@@ -220,6 +223,9 @@ public class DbManager extends SQLiteOpenHelper {
 
         //db.execSQL(CREATE_TABLE_ACCUS);
         //db.execSQL("ALTER TABLE " + TABLE_VOLS + " ADD COLUMN " + COL_ID_ACCU_PROPULSION + " INTEGER;");
+
+		//db.execSQL("ALTER TABLE " + TABLE_AERONEFS + " ADD COLUMN " + COL_IMAGE + " BLOB;");
+
 
 
 
