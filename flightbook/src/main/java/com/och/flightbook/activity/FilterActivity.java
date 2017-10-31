@@ -2,20 +2,25 @@ package com.och.flightbook.activity;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.och.flightbook.R;
 import com.och.flightbook.activity.listener.DateSetListener;
+import com.och.flightbook.adapter.TypeAeronefAdapter;
+import com.och.flightbook.listener.TypeAeronefListener;
 import com.och.flightbook.model.Aeronef;
 import com.och.flightbook.model.Site;
 import com.och.flightbook.model.TypeAeronef;
@@ -28,12 +33,13 @@ import com.och.flightbook.tools.SpinnerTool;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class FilterActivity extends Activity implements AdapterView.OnItemSelectedListener{
+public class FilterActivity extends ListActivity implements AdapterView.OnItemSelectedListener, TypeAeronefListener{
 
     public static final String EMPTY_CHOISE = " ";
     public static final int FILTER_REQUEST_CODE = 555;
@@ -43,6 +49,8 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
     private Spinner spinnerType, spinnerAeronef, spinnerSite;
     private EditText editTextStartDate, editTextEndDate;
     private DatePickerDialog startDatePickerDialog, endDatePickerDialog;
+    private ListView listView;
+    private TypeAeronefAdapter adapter;
 
     private VolsFilter currentVolsFilter = new VolsFilter();
 
@@ -117,10 +125,23 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
             }
         });
 
+        final ImageButton addType = (ImageButton) findViewById(R.id.addType);
+        addType.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+              addType();
+            }
+        });
+
         initPage();
 
-    }
+        listView = getListView();
+        adapter = new TypeAeronefAdapter(this, currentVolsFilter.getTypes());
+        adapter.addListener(this);
+        setListAdapter(adapter);
 
+        // Hide keyboard
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+    }
 
     private void loadSpinnerType() {
         List<TypeAeronef> list = new ArrayList<>();
@@ -215,7 +236,6 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
         return false;
     }
 
-
     private void onSave() {
         currentVolsFilter.setTypeAeronef((TypeAeronef)spinnerType.getSelectedItem());
         currentVolsFilter.setAeronef((Aeronef)spinnerAeronef.getSelectedItem());
@@ -234,5 +254,21 @@ public class FilterActivity extends Activity implements AdapterView.OnItemSelect
         intent.putExtra(VolsFilter.class.getName(), currentVolsFilter);
         setResult(FILTER_REQUEST_CODE,intent);
         finish();
+    }
+
+    private void addType() {
+        TypeAeronef typeAeronef = (TypeAeronef)spinnerType.getSelectedItem();
+        if (typeAeronef != null && !typeAeronef.equals(TypeAeronef.ALL)) {
+            if (!currentVolsFilter.getTypes().contains(typeAeronef)) {
+                currentVolsFilter.getTypes().add(typeAeronef);
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    @Override
+    public void onClickDelete(TypeAeronef item, int position) {
+        currentVolsFilter.getTypes().remove(item);
+        adapter.notifyDataSetChanged();
     }
 }

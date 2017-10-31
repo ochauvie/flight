@@ -145,9 +145,11 @@ public class DbVol {
                 whereArgsList.add(volFilter.getSite().getName());
             }
 
-            if (volFilter.getTypeAeronef()!=null && !TypeAeronef.ALL.name().equals(volFilter.getTypeAeronef().name())) {
-                whereTypeAeronef = DbManager.COL_TYPE + "=?";
-                whereArgsList.add(volFilter.getTypeAeronef().name());
+            if (volFilter.getTypes() == null || volFilter.getTypes().size() == 0) {
+                if (volFilter.getTypeAeronef() != null && !TypeAeronef.ALL.name().equals(volFilter.getTypeAeronef().name())) {
+                    whereTypeAeronef = DbManager.COL_TYPE + "=?";
+                    whereArgsList.add(volFilter.getTypeAeronef().name());
+                }
             }
         }
 
@@ -254,6 +256,11 @@ public class DbVol {
                     }
                     if (volFilter.getDateDebut()!=null && dVol.before(volFilter.getDateDebut())) {
                         isOk = false;
+                    }
+                    if (volFilter.getTypes() != null && volFilter.getTypes().size() > 0) {
+                        if (!volFilter.getTypes().contains(TypeAeronef.valueOf(c.getString(DbManager.NUM_COL_TYPE)))) {
+                            isOk = false;
+                        }
                     }
                 }
                 if (isOk) {

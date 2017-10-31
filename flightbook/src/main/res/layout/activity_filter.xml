@@ -4,78 +4,11 @@
     android:layout_height="match_parent"
     android:id="@+id/layout_filter">
 
-
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:id="@+id/tableLayout">
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/type"
-                android:id="@+id/textView"
-                android:layout_column="0" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spType"
-                android:spinnerMode="dialog"
-                android:layout_column="1" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/aeronef"
-                android:id="@+id/textView2"
-                android:layout_column="0" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spAeronef"
-                android:spinnerMode="dialog"
-                android:layout_column="1" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/title_activity_site"
-                android:id="@+id/textView3"
-                android:layout_column="0" />
-
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spSite"
-                android:spinnerMode="dialog"
-                android:layout_column="1" />
-        </TableRow>
-
-
-    </TableLayout>
-
-    <TableLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/tableLayout"
-        android:layout_alignParentLeft="true">
+        android:id="@+id/tableLayout1">
 
         <TableRow
             android:layout_width="fill_parent"
@@ -155,6 +88,90 @@
                 android:layout_gravity="center" />
         </TableRow>
 
+    </TableLayout>
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tableLayout1"
+        android:id="@+id/tableLayout2">
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/aeronef"
+                android:id="@+id/textView2"
+                android:layout_column="0" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spAeronef"
+                android:spinnerMode="dialog"
+                android:layout_column="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/title_activity_site"
+                android:id="@+id/textView3"
+                android:layout_column="0" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spSite"
+                android:spinnerMode="dialog"
+                android:layout_column="1" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/type"
+                android:id="@+id/textView"
+                android:layout_column="0" />
+
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/spType"
+                android:spinnerMode="dialog"
+                android:layout_column="1" />
+
+            <ImageButton
+                android:id="@+id/addType"
+                android:layout_width="72dp"
+                android:layout_height="wrap_content"
+                android:src="@drawable/smalladd"
+                android:background="#00000000"
+                android:layout_column="2" />
+
+        </TableRow>
 
     </TableLayout>
+
+    <ListView
+        android:id="@android:id/list"
+        android:layout_below="@+id/tableLayout2"
+        android:layout_marginTop="17dp"
+        android:layout_height="350dp"
+        android:layout_width="match_parent"
+        android:layout_alignParentLeft="true">
+    </ListView>
+
 </RelativeLayout>
